@@ -1,6 +1,8 @@
 {
   "mappings": [
-    "/content/abbv:/"
+    "/content/abbv/:/",
+    "/content/abbv/configuration:/.helix/config.json",
+    "/content/abbv/metadata:/metadata.json"
   ],
   "includes": [
     "/content/abbv/"
