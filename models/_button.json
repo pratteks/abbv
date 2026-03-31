@@ -37,6 +37,7 @@
         {
           "component": "select",
           "name": "linkType",
+          "valueType": "string",
           "label": "Type",
           "options": [
             {

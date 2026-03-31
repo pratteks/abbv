@@ -1,0 +1,119 @@
+{
+  "language-field": [
+    {
+      "component": "select",
+      "name": "language",
+      "label": "Language",
+      "options": [
+        {
+          "name": "None",
+          "value": "lang:none"
+        },
+        {
+          "name": "Bulgarian",
+          "value": "lang:bg"
+        },
+        {
+          "name": "Chinese",
+          "value": "lang:zh"
+        },
+        {
+          "name": "Chinese (Taiwan)",
+          "value": "lang:zh-TW"
+        },
+        {
+          "name": "Czech",
+          "value": "lang:cs"
+        },
+        {
+          "name": "Danish",
+          "value": "lang:da"
+        },
+        {
+          "name": "Dutch",
+          "value": "lang:nl"
+        },
+        {
+          "name": "English",
+          "value": "lang:en"
+        },
+        {
+          "name": "Finnish",
+          "value": "lang:fi"
+        },
+        {
+          "name": "French",
+          "value": "lang:fr"
+        },
+        {
+          "name": "German",
+          "value": "lang:de"
+        },
+        {
+          "name": "Greek",
+          "value": "lang:el"
+        },
+        {
+          "name": "Hebrew",
+          "value": "lang:he"
+        },
+        {
+          "name": "Hungarian",
+          "value": "lang:hu"
+        },
+        {
+          "name": "Italian",
+          "value": "lang:it"
+        },
+        {
+          "name": "Japanese",
+          "value": "lang:ja"
+        },
+        {
+          "name": "Korean",
+          "value": "lang:ko"
+        },
+        {
+          "name": "Norwegian",
+          "value": "lang:no"
+        },
+        {
+          "name": "Polish",
+          "value": "lang:pl"
+        },
+        {
+          "name": "Portuguese",
+          "value": "lang:pt"
+        },
+        {
+          "name": "Russian",
+          "value": "lang:ru"
+        },
+        {
+          "name": "Slovak",
+          "value": "lang:sk"
+        },
+        {
+          "name": "Slovenian",
+          "value": "lang:sl"
+        },
+        {
+          "name": "Spanish",
+          "value": "lang:es"
+        },
+        {
+          "name": "Swedish",
+          "value": "lang:sv"
+        },
+        {
+          "name": "Turkish",
+          "value": "lang:tr"
+        },
+        {
+          "name": "Ukrainian",
+          "value": "lang:uk"
+        }
+      ]
+    }
+  ]
+}

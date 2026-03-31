@@ -1,0 +1,218 @@
+:root {
+  /* Brand Base */
+  --color-brand-primary: var(--highlight-dark-background-color);
+  --color-brand-dark: var(--footer-link-color);
+
+  /* Text */
+  --color-text-muted: #555;
+
+  /* Stock Change Tokens */
+  --stock-up: #338700;
+  --stock-down: #cf451c;
+  --stock-neutral: #607d8b;
+
+  /* Background */
+  --stock-bg: var(--background-color);
+  --stock-border: transparent;
+}
+
+/* ---------------------------------------------
+   STOCK TICKER BASE STYLES
+--------------------------------------------- */
+
+.stock-ticker {
+  border-radius: .8rem;
+  background-color: var(--stock-bg);
+  border: .1rem solid var(--stock-border);
+}
+
+.stock-ticker .stock-wrapper {
+  font-family: var(--body-font-family);
+  min-height: 27rem;
+  padding: 2.4rem 3.2rem;
+}
+
+/* HEADER */
+
+.stock-ticker .stock-header {
+  margin-bottom: 2.4rem;
+  display: flex;
+  gap: .8rem;
+  font-weight: var(--font-weight-700);
+  font-family: var(--roboto-bold-font-family);
+}
+
+.stock-ticker .stock-header .symbol {
+  color: var(--color-brand-dark);
+}
+
+.stock-ticker .stock-header .timestamp{
+  color: var(--color-text-muted);
+}
+
+.stock-ticker .stock-header .timestamp,
+.stock-ticker .stock-header .symbol{
+  font-size: 1.2rem;
+  letter-spacing: .04em;
+  line-height: 1.6rem;
+  margin-right: 1.2rem;
+  text-transform: uppercase;
+}
+
+/* PRICE */
+
+.stock-ticker .price {
+  color: var(--color-brand-primary);
+  font-family: var(--heading-font-family);
+  font-size: 5.6rem;
+  font-weight: var(--font-weight-700);
+  letter-spacing: -.02em;
+  line-height: 6.4rem;
+}
+
+.stock-ticker .fraction {
+    color: var(--color-brand-primary);;
+    font-family: var(--heading-font-family-bold);
+    font-size: 2.4rem;
+    font-weight: var(--font-weight-700);
+    line-height: 2.8rem;
+}
+
+/* CHANGE LINE */
+
+.stock-ticker .change {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  color: var(--color-brand-dark);
+  font-family: "Roboto Regular", Helvetica, Arial, sans-serif;
+  font-size: 1.3rem;
+  font-weight: var(--font-weight-400);
+  line-height: 2rem;
+  margin-top: 1.6rem;
+}
+
+/* SOURCE */
+
+.stock-ticker .source {
+  color: var(--color-brand-dark);
+  font-family: "Roboto Regular", Helvetica, Arial, sans-serif;
+  font-size: 1.2rem;
+  font-weight: var(--font-weight-400);
+  letter-spacing: .04em;
+  line-height: 1.6rem;
+  margin-top: 1.6rem;
+  text-transform: uppercase;
+}
+
+/* ---------------------------------------------
+   CHANGE COLORS
+--------------------------------------------- */
+
+.change.green {
+  color: var(--stock-up);
+}
+
+.change.red {
+  color: var(--stock-down);
+}
+
+.change.blue-grey {
+  color: var(--stock-neutral);
+}
+
+/* ---------------------------------------------
+   ICON TRIANGLES (fixed with ::before)
+--------------------------------------------- */
+
+.up-icon::before,
+.down-icon::before,
+.neutral-icon::before {
+  display: inline-block;
+  margin-right: .8rem;
+  content: "";
+}
+
+/* GREEN UP TRIANGLE */
+
+.change.green .up-icon::before {
+  width: 0;
+  height: 0;
+  border-left: .8rem solid transparent;
+  border-right: .8rem solid transparent;
+  border-bottom: 1.2rem solid var(--stock-up);
+}
+
+/* RED DOWN TRIANGLE */
+
+.change.red .down-icon::before {
+  width: 0;
+  height: 0;
+  border-left: .8rem solid transparent;
+  border-right: .8rem solid transparent;
+  border-top: 1.2rem solid var(--stock-down);
+}
+
+/* GREY DOT (neutral) */
+
+.change.blue-grey .neutral-icon::before {
+  content: "•";
+  font-size: 1.6rem;
+}
+
+/* ---------------------------------------------
+   RESPONSIVE
+--------------------------------------------- */
+
+@media (width >= 744px) {
+  .stock-ticker .price {
+    font-size: 6.4rem;
+    line-height: 6.8rem;
+  }
+
+  .stock-ticker .change {
+    font-size: 1.6rem;
+    line-height: 2.2rem;
+  }
+
+  .change.green .up-icon::before {
+    border-left: 1rem solid transparent;
+    border-right: 1rem solid transparent;
+    border-bottom: 1.6rem solid var(--stock-up);
+  }
+
+  .change.red .down-icon::before {
+    border-left: 1rem solid transparent;
+    border-right: 1rem solid transparent;
+    border-top: 1.6rem solid var(--stock-down);
+  }
+
+  .trade-container .fraction {
+    font-size: 3rem;
+    line-height: 3.4rem;
+  }
+}
+
+@media (width >= 1024px) {
+  .stock-ticker .price {
+    font-size: 8rem;
+    line-height: 8.4rem;
+    letter-spacing: -.03em;
+  }
+
+  .stock-ticker .change {
+    font-size: 1.8rem;
+    line-height: 2.4rem;
+  }
+
+  .trade-container .fraction {
+    font-size: 4rem;
+    line-height: 4.4rem;
+  }
+
+  .stock-ticker .stock-header .timestamp,
+  .stock-ticker .stock-header .symbol {
+    font-size: 1.4rem;
+    line-height: 2rem;
+  }
+}

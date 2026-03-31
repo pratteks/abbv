@@ -1,0 +1,61 @@
+/* Breadcrumb Block — standalone section-level block */
+
+.breadcrumb-wrapper {
+  padding: 0;
+}
+
+.breadcrumb {
+  margin-bottom: var(--spacing-32, 3.2rem);
+}
+
+.breadcrumb .breadcrumb-nav ol {
+  display: flex;
+  flex-flow: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 0.8rem;
+  align-items: baseline;
+}
+
+.breadcrumb .breadcrumb-nav ol li {
+  font-family: var(--roboto-bold-font-family, 'Roboto', sans-serif);
+  font-size: var(--font-size-14, 1.4rem);
+  font-weight: var(--font-weight-700, 700);
+  letter-spacing: 0.06em;
+  line-height: var(--line-height-20, 2rem);
+  text-transform: uppercase;
+  color: var(--text-color, #071d49);
+  display: flex;
+  align-items: flex-end;
+}
+
+/* Chevron separator */
+.breadcrumb .breadcrumb-nav ol li:not(:last-child)::after {
+  color: inherit;
+  content: "";
+  font-family: var(--icon-font-family);
+  padding-left: var(--spacing-08);
+  height: var(--icon-height);
+  margin: var(--spacing-00) var(--spacing-05);
+  width: var(--icon-width);
+  padding-top: var(--spacing-02);
+}
+
+.breadcrumb .breadcrumb-nav ol li a {
+  color: var(--text-color, #071d49);
+  font-weight: var(--font-weight-700, 700);
+  font-size: inherit;
+  text-decoration: none;
+}
+
+.breadcrumb .breadcrumb-nav ol li a:hover {
+  text-decoration: none;
+  color: var(--link-hover-color);
+}
+
+/* Current page — muted gray, no link */
+.breadcrumb .breadcrumb-nav ol li[aria-current] {
+  color: var(--bg-666b7a, #666b7a);
+  font-weight: var(--font-weight-700, 700);
+}

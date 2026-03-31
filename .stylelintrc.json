@@ -1,3 +1,41 @@
 {
-  "extends": ["stylelint-config-standard"]
+  "extends": ["stylelint-config-standard"],
+  "plugins": ["stylelint-declaration-strict-value"],
+  "rules": {
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": ["apply", "variants", "responsive", "screen"]
+      }
+    ],
+    "color-no-hex": true,
+    "block-no-empty": true,
+    "max-nesting-depth": 3,
+    "selector-max-id": 0,
+    "selector-max-type": 2,
+    "selector-max-specificity": "0,3,0",
+    "declaration-no-important": true,
+    "scale-unlimited/declaration-strict-value": [
+      ["/color/", "background-color", "border-color", "font-size", "z-index"],
+      {
+        "ignoreValues": ["inherit", "transparent", "currentColor" , "0", "0px", "0em", "0%"],
+        "message": "Use design tokens (var(--token)) instead of hardcoded values"
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["blocks/**/*.css"],
+      "rules": {
+        "color-no-hex": null,
+        "declaration-no-important": null,
+        "no-descending-specificity": null,
+        "property-no-deprecated": null,
+        "scale-unlimited/declaration-strict-value": null,
+        "selector-max-specificity": null,
+        "selector-max-type": null
+      }
+    }
+  ],
+  "ignoreFiles": ["**/node_modules/**", "**/*.min*.css", "styles/**/*.css"]
 }

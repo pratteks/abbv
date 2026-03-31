@@ -1,0 +1,110 @@
+/* Teaser Block - mobile-first two-column layout */
+
+.teaser {
+  max-width: var(--content-max-width);
+  margin: var(--spacing-00) auto var(--spacing-80);
+  padding: var(--spacing-24) var(--spacing-16);
+}
+
+.teaser .teaser-eyebrow {
+  margin-bottom: var(--spacing-16);
+  color: var(--text-color);
+  font-family: var(--roboto-bold-font-family);
+  font-size: var(--font-size-12);
+  font-weight: var(--font-weight-700);
+  letter-spacing: var(--letter-spacing-wide-72);
+  line-height: var(--spacing-16);
+  text-transform: uppercase;
+  margin-left: var(--spacing-35);
+}
+
+.teaser .teaser-content {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  margin-left: var(--spacing-35);
+  margin-right: var(--spacing-35);
+}
+
+.teaser .teaser-left,
+.teaser .teaser-right {
+  min-width: var(--spacing-00);
+}
+
+.teaser .teaser-title {
+  margin: var(--spacing-00);
+  color: var(--text-color);
+  font-family: var(--heading-font-family);
+  font-size: var(--font-size-28);
+  font-weight: var(--font-weight-800);
+  line-height: var(--spacing-32);
+}
+
+.teaser .teaser-description {
+  margin: var(--spacing-00);
+  color: var(--text-color);
+  font-family: var(--body-font-family);
+  font-size: var(--font-size-18);
+  font-weight: var(--font-weight-400);
+  line-height: var(--spacing-22);
+}
+
+.teaser .teaser-right .button-container {
+  margin: var(--spacing-24) var(--spacing-00) var(--spacing-00);
+}
+
+/* tablet styles */
+
+@media (--bp-tablet) {
+  .teaser {
+    padding-inline: var(--spacing-24);
+  }
+
+  .teaser .teaser-eyebrow {
+    margin-bottom: var(--spacing-24);
+  }
+
+  .teaser .teaser-content {
+    gap: var(--spacing-24);
+  }
+
+  .teaser .teaser-title {
+    font-size: var(--font-size-36);
+    line-height: var(--spacing-40);
+  }
+
+  .teaser .teaser-description {
+    font-size: var(--font-size-20);
+    line-height: var(--spacing-26);
+  }
+}
+
+/* desktop styles */
+
+@media (--bp-desktop) {
+  .teaser {
+    padding-inline: var(--spacing-00);
+  }
+
+  .teaser .teaser-content {
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--spacing-24);
+  }
+
+  .teaser .teaser-left {
+    grid-column: 1 / span 6;
+  }
+
+  .teaser .teaser-right {
+    grid-column: 8 / span 5;
+  }
+
+  .teaser .teaser-title {
+    font-size: var(--font-size-56);
+    line-height: var(--spacing-64);
+  }
+
+  .teaser .teaser-description {
+    font-size: var(--font-size-24);
+    line-height: var(--spacing-32);
+  }
+}

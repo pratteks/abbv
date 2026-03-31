@@ -1,0 +1,75 @@
+/* --------Utilities---------- */
+.icon {
+  display: inline-block;
+  height: 24px;
+  width: 24px;
+}
+
+.icon img {
+  height: 100%;
+  width: 100%;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  border: 0;
+}
+
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip-path: none;
+}
+
+.center {
+  text-align: center;
+}
+
+.right {
+  text-align: right;
+}
+
+.left {
+  text-align: left;
+  justify-content: left;
+}
+
+.center .button-container {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hide {
+  display: none;
+}
+
+.desktop-only {
+  display: none;
+}
+
+@media (width >= 1024px) {
+  .desktop-only {
+    display: inherit;
+  }
+}
+
+.mobile-only {
+  display: inherit;
+}
+
+@media (width >= 1024px) {
+  .mobile-only {
+    display: none;
+  }
+}

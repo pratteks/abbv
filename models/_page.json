@@ -4,10 +4,21 @@
       "id": "page-metadata",
       "fields": [
         {
+          "component": "tab",
+          "label": "Basic",
+          "name": "tabBasic"
+        },
+        {
           "component": "text",
           "valueType": "string",
           "name": "jcr:title",
           "label": "Title"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "pageTitle",
+          "label": "pageTitle"
         },
         {
           "component": "text",
@@ -21,6 +32,67 @@
           "name": "keywords",
           "multi": true,
           "label": "Keywords"
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "hideFromNavigation",
+          "label": "Hide from Navigation",
+          "value": false
+        },
+        {
+          "component": "tab",
+          "label": "Card Story",
+          "name": "tabCardStory"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "eyebrowText",
+          "label": "Eyebrow Text / Pre-title"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "cardTitle",
+          "label": "Card Title"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "cardDescription",
+          "label": "Card Description"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "cardImage",
+          "label": "Card Image"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "cardImageAlt",
+          "label": "Card Image Alt Text"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "ctaText",
+          "label": "CTA Text"
+        },
+        {
+          "component": "date",
+          "valueType": "string",
+          "name": "publicationDate",
+          "label": "Publication Date"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "readTime",
+          "label": "Read Time",
+          "description": "e.g. 5 min read"
         }
       ]
     }

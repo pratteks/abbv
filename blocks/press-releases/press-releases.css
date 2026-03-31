@@ -1,0 +1,165 @@
+/* stylelint-disable selector-class-pattern */
+:root {
+  /* ─────────────────────────────────────────────
+     LINE HEIGHT TOKENS
+     ───────────────────────────────────────────── */
+     --line-height-20: 2rem;
+      --line-height-24: 2.4rem;
+    
+
+  /* ─────────────────────────────────────────────
+     COLOR TOKENS
+     ───────────────────────────────────────────── */
+  --press-color-date: #6c7280;
+
+  /* ─────────────────────────────────────────────
+     ARROW / CONTROL TOKENS
+     ───────────────────────────────────────────── */
+  --press-arrow-size: 40px;
+  --press-track-gap: 32px;
+
+  /* ─────────────────────────────────────────────
+     MOTION / ANIMATION
+     ───────────────────────────────────────────── */
+  --press-slide-speed: 0.36s;
+  --press-slide-easing: cubic-bezier(.2, .9, .2, 1);
+}
+
+/* ─────────────────────────────────────────────
+   CAROUSEL WRAPPER
+   ───────────────────────────────────────────── */
+.press-carousel {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 5.6rem;
+  padding-bottom: 5.3rem;
+}
+
+/* ─────────────────────────────────────────────
+   TRACK
+   ───────────────────────────────────────────── */
+.press-carousel-track {
+  display: flex;
+  gap: var(--press-track-gap);
+  transition: transform var(--press-slide-speed) var(--press-slide-easing);
+  align-items: flex-start;
+  min-height: 152px;
+}
+
+/* ─────────────────────────────────────────────
+   CARD WRAPPER
+   ───────────────────────────────────────────── */
+.press-card {
+  flex: 0 0 100%;
+  box-sizing: border-box;
+  border-radius: 12px;
+  border: none;
+  box-shadow: none;
+}
+
+.press-card a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+/* ─────────────────────────────────────────────
+   DATE STYLE
+   ───────────────────────────────────────────── */
+.press-date {
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-700);
+  color: var(--press-color-date);
+  letter-spacing: .06em;
+  margin-bottom: 1.2rem;
+  text-transform: uppercase;
+  line-height: var(--line-height-20);
+  font-family: var(--roboto-bold-font-family);
+}
+
+/* ─────────────────────────────────────────────
+   TITLE STYLE
+   ───────────────────────────────────────────── */
+.press-title {
+  color: var(--text-color);
+  font-family: var(--roboto-regular-font-family);
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-400);
+  line-height: var(--line-height-20);
+}
+
+/* ─────────────────────────────────────────────
+   CONTROLS / ARROWS
+   ───────────────────────────────────────────── */
+.press-carousel-controls {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  justify-content: flex-end;
+  z-index: 10;
+}
+
+.press-arrow {
+  width: var(--press-arrow-size);
+  border-radius: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--text-color);
+  transition: transform .12s ease, color .12s ease;
+  display: flex;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.splide__arrow--prev::after, 
+.splide__arrow--next::after {
+    color: inherit;
+    content: "";
+    /* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
+    font-family: "Abbvie Icon";
+    font-size: var(--font-size-20);
+    transition: color .1s ease;
+}
+
+.splide__arrow--next::after {
+    transform: rotate(180deg);
+}
+
+.press-arrow:hover, 
+.press-arrow:focus {
+  color: var(--strong-heading);
+  background: transparent;
+}
+
+.press-arrow:active {
+  transform: translateY(1px);
+}
+
+.main > .abbvie-container-small p {
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-700);;
+  letter-spacing: .04em;
+  line-height: 1.6rem;
+  text-transform: uppercase;
+}
+
+@media (width >= 744px) {
+    .press-title {
+      font-size: var(--font-size-18);
+      line-height: var(--line-height-24);
+    }
+}
+
+@media (width >= 1024px) {
+    .press-carousel {
+      margin-bottom: 8rem;
+      padding-bottom: 6rem;
+    }
+
+    .press-title {
+      font-size: var(--font-size-20);
+      line-height: var(--line-height-24);
+    }
+}

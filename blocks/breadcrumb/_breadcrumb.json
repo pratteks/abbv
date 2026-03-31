@@ -1,0 +1,90 @@
+{
+  "definitions": [
+    {
+      "title": "Breadcrumb",
+      "id": "breadcrumb",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Breadcrumb",
+              "model": "breadcrumb"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "breadcrumb",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "id",
+          "label": "Id",
+          "value": "",
+          "description": "Provide an ID to enable deep linking to this component instance and for anchor navigation."
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "customClass",
+          "label": "Custom Class",
+          "value": "",
+          "description": "Provide a CSS class to apply custom styling to this component."
+        },
+        {
+          "component": "aem-content",
+          "valueType": "string",
+          "name": "homePagePath",
+          "label": "Home Page Path",
+          "description": "Sets an explicit root (home) page for the breadcrumb. When provided, the breadcrumb begins from this path."
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "homeTitle",
+          "label": "Home Title",
+          "value": "",
+          "description": "Overrides the display label for the home breadcrumb item. If blank, the page title is used."
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "enableBreadcrumb",
+          "label": "Enable Breadcrumb",
+          "value": true,
+          "description": "Toggles rendering of the breadcrumb trail. Uncheck to hide the component output while retaining configuration."
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "enableHiddenItems",
+          "label": "Enable Hidden Items",
+          "value": false,
+          "description": "When enabled, includes pages marked as hidden in navigation within the breadcrumb trail."
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "enableCurrentPage",
+          "label": "Enable Current Page",
+          "value": true,
+          "description": "Controls whether the current page appears as the last item in the breadcrumb."
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "enableRedirectTitle",
+          "label": "Enable Redirect Title",
+          "value": true,
+          "description": "Uses the redirect target page title if the page redirects; otherwise uses the page's own title."
+        }
+      ]
+    }
+  ],
+  "filters": []
+}

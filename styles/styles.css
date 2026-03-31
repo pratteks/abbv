@@ -10,64 +10,497 @@
  * governing permissions and limitations under the License.
  */
 
+/* ========================================================================
+   AbbVie Design Tokens
+   ======================================================================== */
+
 :root {
-  /* colors */
-  --background-color: white;
+  /* PX to REM Conversion */
+  --base-size: 10;
+  --px-to-rem: calc(1rem / var(--base-size));
+  --direction-multiplier: 1;
+
+  /* Colors */
+  --link-color: #035fe6;
+  --link-hover-color: #136ff6;
+  --background-color: #fff;
+  --highlight-background-color: #f1f3ff;
+  --highlight-dark-background-color: #0066f5;
+  --container-border-color: #a6b5e0;
+  --footer-background-color: #fafafa;
+  --footer-border-color: #e1e1e1;
+  --footer-text-color: #071d49;
+  --footer-link-color: #071d49;
+  --footer-seperator-color: #b9b4b4;
+  --text-color: #071d49;
+  --text-label-color: #061e47;
+  --text-color-gray: #808080;
+  --strong-heading: #0066f5;
   --light-color: #f8f8f8;
   --dark-color: #505050;
-  --text-color: #131313;
-  --link-color: #3b63fb;
-  --link-hover-color: #1d3ecf;
+  --overlay-background-color: lightgrey;
+  --color-accent-purple: #8a2ecc;
+  --color-accent-blue: #0066f5;
+  --color-accent-blue-light: #479ff8;
+  --color-accent-green: #338700;
+  --overlay-navy: rgb(7 29 73 / 70%);
+  --overlay-navy-medium: rgb(7 29 73 / 55%);
+  --overlay-navy-light: rgb(7 29 73 / 50%);
 
-  /* fonts */
-  --body-font-family: roboto, roboto-fallback, sans-serif;
-  --heading-font-family: roboto-condensed, roboto-condensed-fallback, sans-serif;
+  /* Background Colors for Style Field Values */
+  --bg-ffffff: #fff;
+  --bg-071d49: #071d49;
+  --bg-a6b5e0: #a6b5e0;
+  --bg-f1f3ff: #f1f3ff;
+  --bg-fafbff: #fafbff;
+  --bg-666b7a: #666b7a;
+  --bg-b9b4b4: #b9b4b4;
+  --bg-f4f4f4: #f4f4f4;
+  --bg-fafafa: #fafafa;
+  --bg-8a2ecc: #8a2ecc;
+  --bg-a86bde: #a86bde;
+  --bg-0066f5: #0066f5;
+  --bg-479ff8: #479ff8;
+  --bg-cf451c: #cf451c;
+  --bg-f7634f: #f7634f;
+  --bg-338700: #338700;
 
-  /* body sizes */
-  --body-font-size-m: 22px;
-  --body-font-size-s: 19px;
-  --body-font-size-xs: 17px;
+  /* Alerts */
+  --error-color: #cf451c;
+  --warning-color: #f2dede;
+  --success-color: #2f9ece;
 
-  /* heading sizes */
-  --heading-font-size-xxl: 55px;
-  --heading-font-size-xl: 44px;
-  --heading-font-size-l: 34px;
-  --heading-font-size-m: 27px;
-  --heading-font-size-s: 24px;
-  --heading-font-size-xs: 22px;
+  /* Fonts */
+  --body-font-family: 'Roboto Regular', helvetica, Arial, sans-serif;
+  --heading-font-family: 'F37 Lineca Book', helvetica, Arial, sans-serif;
+  --heading-font-family-bold: 'F37 Lineca Medium', helvetica, Arial, sans-serif;
+  --icon-font-family: 'Abbvie Icon';
+  --roboto-small-font-family: 'Roboto Small', helvetica, Arial, sans-serif;
+  --roboto-bold-font-family: 'Roboto Bold', helvetica, Arial, sans-serif;
+  --roboto-medium-font-family: 'Roboto Medium', helvetica, Arial, sans-serif;
+  --roboto-light-font-family: 'Roboto Light', Helvetica, Arial, sans-serif;
+  --form-font-family: "Open Sans", sans-serif;
 
-  /* nav height */
-  --nav-height: 64px;
+  /* Body sizes */
+  --body-font-size-m: 1.8rem;
+  --body-font-size-s: 1.6rem;
+  --body-font-size-xs: 1.4rem;
+
+  /* Granular font sizes */
+  --font-size-11: 1.1rem;
+  --font-size-12: 1.2rem;
+  --font-size-13: 1.3rem;
+  --font-size-14: 1.4rem;
+  --font-size-16: 1.6rem;
+  --font-size-18: 1.8rem;
+  --font-size-20: 2rem;
+  --font-size-22: 2.2rem;
+  --font-size-24: 2.4rem;
+  --font-size-26: 2.6rem;
+  --font-size-28: 2.8rem;
+  --font-size-30: 3rem;
+  --font-size-32: 3.2rem;
+  --font-size-33: 3.3rem;
+  --font-size-34: 3.4rem;
+  --font-size-36: 3.6rem;
+  --font-size-38: 3.8rem;
+  --font-size-40: 4rem;
+  --font-size-42: 4.2rem;
+  --font-size-50: 5rem;
+  --font-size-56: 5.6rem;
+  --font-size-64: 6.4rem;
+  --font-size-80: 8rem;
+  --icon-size-08: 8px;
+  --icon-size-010: 10px;
+  --icon-size-02: 2px;
+
+  /* Heading sizes */
+  --heading-font-size-xxl: 6.4rem;
+  --heading-font-size-xl: 5.6rem;
+  --heading-font-size-l: 4.8rem;
+  --heading-font-size-m: 4rem;
+  --heading-font-size-s: 3.2rem;
+  --heading-font-size-xs: 2.4rem;
+
+  /* Nav heights */
+  --nav-height: 88px;
+  --nav-height-mobile: 72px;
+  --breadcrumbs-height: 34px;
+  --header-height: var(--nav-height);
+  --header-height-mobile: var(--nav-height-mobile);
+
+  /* Breakpoints: see styles/tokens.css @custom-media (--bp-tablet, --bp-desktop, --bp-wide). */
+
+  /* Font Weights */
+  --font-weight-300: 300;
+  --font-weight-400: 400;
+  --font-weight-500: 500;
+  --font-weight-600: 600;
+  --font-weight-650: 650;
+  --font-weight-700: 700;
+  --font-weight-800: 800;
+  --font-weight-regular: 400;
+  --font-weight-bold: 700;
+
+  /* Spacing Tokens */
+  --space-token-xxs: calc(8 * var(--px-to-rem));
+  --space-token-xs: calc(16 * var(--px-to-rem));
+  --space-token-s: calc(24 * var(--px-to-rem));
+  --space-token-m: calc(32 * var(--px-to-rem));
+  --space-token-l: calc(40 * var(--px-to-rem));
+  --space-token-xl: calc(56 * var(--px-to-rem));
+  --space-token-xxl: calc(80 * var(--px-to-rem));
+  --space-token-xxxl: calc(104 * var(--px-to-rem));
+
+  /* Generalized Spacing */
+  --spacing-01: 0.1rem;
+  --spacing-02: 0.2rem;
+  --spacing-03: 0.3rem;
+  --spacing-04: 0.4rem;
+  --spacing-05: 0.5rem;
+  --spacing-06: 0.6rem;
+  --spacing-08: 0.8rem;
+  --spacing-10: 1rem;
+  --spacing-13: 1.3rem;
+  --spacing-12: 1.2rem;
+  --spacing-14: 1.4rem;
+  --spacing-15: 1.5rem;
+  --spacing-16: 1.6rem;
+  --spacing-17: 1.7rem;
+  --spacing-18: 1.8rem;
+  --spacing-20: 2rem;
+  --spacing-21: 2.1rem;
+  --spacing-22: 2.2rem;
+  --spacing-24: 2.4rem;
+  --spacing-25: 2.5rem;
+  --spacing-26: 2.6rem;
+  --spacing-27: 2.7rem;
+  --spacing-275: 2.75rem;
+  --spacing-30: 3rem;
+  --spacing-31: 3.1rem;
+  --spacing-32: 3.2rem;
+  --spacing-33: 3.3rem;
+  --spacing-34: 3.4rem;
+  --spacing-35: 3.5rem;
+  --spacing-36: 3.6rem;
+  --spacing-37-5: 3.75rem;
+  --spacing-38: 3.8rem;
+  --spacing-40: 4rem;
+  --spacing-41: 4.1rem;
+  --spacing-42: 4.2rem;
+  --spacing-44: 4.4rem;
+  --spacing-46: 4.6rem;
+  --spacing-48: 4.8rem;
+  --spacing-49: 4.9rem;
+  --spacing-50: 5rem;
+  --spacing-52: 5.2rem;
+  --spacing-55: 5.5rem;
+  --spacing-56: 5.6rem;
+  --spacing-60: 6rem;
+  --spacing-62: 6.2rem;
+  --spacing-64: 6.4rem;
+  --spacing-66: 6.6rem;
+  --spacing-70: 7rem;
+  --spacing-72: 7.2rem;
+  --spacing-74: 7.4rem;
+  --spacing-80: 8rem;
+  --spacing-81: 8.1rem;
+  --spacing-85: 8.5rem;
+  --spacing-86: 8.6rem;
+  --spacing-88: 8.8rem;
+  --spacing-90: 9rem;
+  --spacing-96: 9.6rem;
+  --spacing-100: 10rem;
+  --spacing-108: 10.8rem;
+  --spacing-110: 11rem;
+  --spacing-118: 11.8rem;
+  --spacing-120: 12rem;
+  --spacing-140: 14rem;
+  --spacing-124: 12.4rem;
+  --spacing-168: 16.8rem;
+  --spacing-180: 18rem;
+  --spacing-190: 19rem;
+  --spacing-192: 19.2rem;
+  --spacing-288: 28.8rem;
+  --spacing-300: 30rem;
+  --spacing-312: 31.2rem;
+  --spacing-320: 32rem;
+  --spacing-368: 36.8rem;
+  --spacing-375: 37.5rem;
+  --spacing-400: 40rem;
+  --spacing-420: 42rem;
+  --spacing-480: 48rem;
+  --spacing-500: 50rem;
+  --spacing-585: 58.5rem;
+  --spacing-810: 81rem;
+  --spacing-1000: 100rem;
+  --spacing-1200: 120rem;
+  --spacing-06: 0.6rem;
+  --spacing-08: 0.8rem;
+  --spacing-12: 1.2rem;
+  --spacing-25: 2.5rem;
+  --spacing-26: 2.6rem;
+  --spacing-100: 10rem;
+  --spacing-225: 2.25rem;
+  --spacing-025: 0.25rem;
+  --spacing-055: 0.55rem;
+  --spacing-00: 0;
+  --spacing-00: 0;
+
+  /* negative spacing variables */
+  --spacing-n15: -1.5rem;
+  --spacing-n40: -4rem;
+  --spacing-n20: -2rem;
+  --spacing-n80: -8rem;
+  --spacing-n64: -6.4rem;
+  --spacing-n44: -4.4rem;
+  --spacing-n48: -4.8rem;
+  --spacing-n55: -5.5rem;
+  --spacing-n112: -11.2rem;
+
+  /* Line Heights */
+  --line-height-00: 0;
+  --line-height-16: 1.6rem;
+  --line-height-20: 2rem;
+  --line-height-22: 2.2rem;
+  --line-height-24: 2.4rem;
+  --line-height-26: 2.6rem;
+  --line-height-28: 2.8rem;
+  --line-height-30: 3rem;
+  --line-height-32: 3.2rem;
+  --line-height-34: 3.4rem;
+  --line-height-35: 3.5rem;
+  --line-height-36: 3.6rem;
+  --line-height-40: 4rem;
+  --line-height-44: 4.4rem;
+  --line-height-46: 4.6rem;
+  --line-height-68: 6.8rem;
+  --line-height-84: 8.4rem;
+  --line-height-52: 5.2rem;
+  --line-height-58: 5.8rem;
+  --line-height-64: 6.4rem;
+  --line-height-84: 8.4rem;
+
+  /* Gap */
+  --gap-0: 0;
+  --gap-04: 0.4rem;
+  --gap-10: 1rem;
+  --gap-15: 1.5rem;
+  --gap-18: 1.8rem;
+  --gap-20: 2rem;
+  --gap-24: 2.4rem;
+  --gap-32: 3.2rem;
+  --gap-40: 4rem;
+  --gap-42: 4.2rem;
+
+  /* Letter spacing */
+  --letter-spacing-n03: -.03em;
+  --letter-spacing-n96: -0.96px;
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-wide-04: 0.04em;
+  --letter-spacing-wide-06: 0.06em;
+  --letter-spacing-wide-86: 0.86px;
+  --letter-spacing-wide-72: 0.72px;
+
+  /* Scroll margin */
+  --scroll-margin-heading: 40px;
+
+  /* Icon height */
+  --icon-height-20: 2rem;
+  --icon-width-20: 2rem;
+  --icon-height: 2.4rem;
+  --icon-width: 2.4rem;
+
+  /* Hero */
+  --border-top-radius: 3.2rem;
+  --border-top-radius-medium: 2.4rem;
+  --hero-section-height: 12rem;
+  --hero-overlay-gradient: linear-gradient(to top, rgb(0 0 0 / 90%) 42.91%, transparent);
+  --hero-button-color: #479ff8;
+  --hero-button-hover-color: var(--container-border-color);
+  --hero-image-container-height: 21.6rem;
+  --hero-image-container-height-tall: 25.6rem;
+  --hero-profile-container-height: 12rem;
+  --hero-landing-container-height: 41.8rem;
+
+  /* Line Clamp */
+
+  --line-clamp-2: 2;
+
+  /* grid column start */
+  --grid-column-start-2: 2;
+
+  /* Separator Height */
+  --separator-height-1: .1rem;
+  --separator-height-8: .8rem;
+  --separator-height-16: 1.6rem;
+  --separator-height-24: 2.4rem;
+  --separator-height-32: 3.2rem;
+  --separator-height-48: 4.8rem;
+  --separator-height-64: 6.4rem;
+  --separator-height-80: 8rem;
+  --separator-height-96: 9.6rem;
+  --separator-height-112: 11.2rem;
+  --separator-height-128: 12.8rem;
+  --separator-height-144: 14.4rem;
+
+  /* Border Radius */
+  --border-radius-base: 0.4rem;
+  --border-radius-m: 0.8rem;
+  --border-radius-l: 8rem;
+  --border-radius-00: 0;
+  --border-00: 0;
+
+  /* border */
+  --border-01: 1px;
+  --border-02: 2px;
+
+  /* Border Radius for Styled Sections */
+  --border-top-left-radius: 3.2rem;
+  --border-top-left-radius-40: 4rem;
+  --border-top-left-radius-tablet:6.4rem;
+  --border-top-left-radius-desktop:8rem;
+  --border-top-left-radius-24: 2.4rem;
+
+  /* Opacity */
+  --opacity-00: 0;
+  --opacity-07: 0.7;
+  --opacity-1: 1;
+  --opacity-2: 2;
+
+  /* Section/container widths) */
+  --content-max-width: 133rem;
+  --content-max-width-narrow: 110rem;
+  --content-max-width-medium: 90rem;
+  --content-max-width-faq: 80rem;
+  --content-max-width-wide: 144rem;
+
+  /* accordion */
+  --accordion-icon-width: 0.7rem;
+  --accordion-icon-height: 0.7rem;
+  --accordion-border-02: var(--spacing-02);
+  --accordion-border-01: var(--spacing-01);
+
+  /* text container */
+  --text-container-li-width: var(--spacing-06);
+  --text-container-li-height: var(--spacing-06);
+
+  /* Icons / UI */
+  --icon-size: 2.4rem;
+
+  /* Text transform */
+  --font-uppercase: uppercase;
+  --font-lowercase: lowercase;
+  --font-normal: normal;
+
+  /* Story card */
+  --story-card-text-color: var(--footer-link-color);
+  --story-card-link-color: #0066f5;
+  --story-card-hover-bg: #f1f3ff;
+  
+   /* z-index */
+  --z-index-negative: -1;
+  --z-index-0 : 0;
+  --z-index-1 : 1;
+  --z-index-2 : 2;
+  --z-index-3 : 3;
+  --z-index-4 : 4;
+
+  /* order */
+  --order-0: 0;
+  --order-1: 1;
+  --order-2: 2;
+  --order-n1: -1;
+
+  /* Form */
+  --form-background-color: #fff;
+  --form-text-color: #727272;
+  --form-secondary-text-color: #727272;
+  --form-border-color: #ccc;
+  --form-border-hover-color: #000;
+  --form-background-hover-color: #f3f3f3;
+  --form-primary-color: #7c3098;
+  --form-secondary-color: #80379b;
+  --form-secondary-hover-color: #6d2f85;
+  --form-disabled-color: #5e2b72;
+  --form-dark-color: #071d49;
+  --form-white-color: white;
+  --form-error-color: #eb3c36;
+  --form-error-border-color: rgb(212 43 43);
+  --form-shadow-color: rgb(167 167 167);
+  --form-overlay-bg: rgb(255 255 255 / 90%);
+  --form-divider-color: #eee;
+  --form-light-border-color: #d0d0d0;
+  --form-light-bg-color: #f5f5f5;
+  --form-light-text-color: #666;
+  --form-dark-text-color: #333;
+  --form-darker-text-color: #55565a;
+  --form-medium-text-color: #999;
+  --form-light-divider-color: #f0f0f0;
+  --form-medium-border-color: #ddd;
+  --form-orange-color: #e98300;
+  --form-success-color: #2f9ece;
+  --form-warning-color: #d32f2f;
+  --semi-transparent-color: #071d49b2;
+
+  --letter-spacing-06: .06em;
+  --letter-spacing-neg-03: -.03em;
+  --letter-spacing-neg-02: -.02em;
 }
 
-/* fallback fonts */
-@font-face {
-  font-family: roboto-condensed-fallback;
-  size-adjust: 88.82%;
-  src: local('Arial');
+/* Responsive token adjustments */
+@media (width >= 744px) {
+  :root {
+    --border-top-radius: 6.4rem;
+    --hero-section-height: 26rem;
+    --border-top-radius-medium: 4rem;
+    --hero-image-container-height: 36.8rem;
+    --hero-image-container-height-tall: 41.6rem;
+    --hero-landing-container-height: 57.6rem;
+  }
 }
 
+@media (width >= 1024px) {
+  :root {
+    --border-top-radius: 8rem;
+    --hero-section-height: 28.8rem;
+    --hero-image-container-height: 44.8rem;
+    --hero-image-container-height-tall: 60.8rem;
+    --hero-landing-container-height: 81rem;
+  }
+}
+
+/* Fallback fonts */
 @font-face {
   font-family: roboto-fallback;
-  size-adjust: 99.529%;
+  size-adjust: 100.06%;
+  ascent-override: 95%;
   src: local('Arial');
 }
 
-@media (width >= 900px) {
-  :root {
-    /* body sizes */
-    --body-font-size-m: 18px;
-    --body-font-size-s: 16px;
-    --body-font-size-xs: 14px;
+/* ========================================================================
+   Base Styles
+   ======================================================================== */
 
-    /* heading sizes */
-    --heading-font-size-xxl: 45px;
-    --heading-font-size-xl: 36px;
-    --heading-font-size-l: 28px;
-    --heading-font-size-m: 22px;
-    --heading-font-size-s: 20px;
-    --heading-font-size-xs: 18px;
-  }
+html {
+  -webkit-font-smoothing: antialiased;
+}
+
+body,
+html {
+  font-family: var(--body-font-family);
+  font-size: 62.5%;
+  line-height: 1.5;
+}
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
 }
 
 body {
@@ -75,17 +508,26 @@ body {
   margin: 0;
   background-color: var(--background-color);
   color: var(--text-color);
-  font-family: var(--body-font-family);
-  font-size: var(--body-font-size-m);
-  line-height: 1.6;
 }
 
 body.appear {
   display: block;
 }
 
+img,
+picture {
+  display: block;
+  max-width: 100%;
+}
+
 header {
-  height: var(--nav-height);
+  height: var(--header-height-mobile);
+}
+
+@media (width >= 1024px) {
+  header {
+    height: var(--header-height);
+  } 
 }
 
 header .header,
@@ -98,6 +540,12 @@ footer .footer[data-block-status="loaded"] {
   visibility: visible;
 }
 
+/* Breadcrumbs are now inside the hero block, not the header */
+
+/* ========================================================================
+   Typography
+   ======================================================================== */
+
 h1,
 h2,
 h3,
@@ -106,10 +554,11 @@ h5,
 h6 {
   margin-top: 0.8em;
   margin-bottom: 0.25em;
-  font-family: var(--heading-font-family);
-  font-weight: 600;
+  font-family: var(--heading-font-family-bold);
+  font-weight: 800;
   line-height: 1.25;
   scroll-margin: 40px;
+  color: var(--text-color);
 }
 
 h1 { font-size: var(--heading-font-size-xxl); }
@@ -125,8 +574,48 @@ ol,
 ul,
 pre,
 blockquote {
-  margin-top: 0.8em;
-  margin-bottom: 0.25em;
+  margin: 0;
+  padding: 0;
+}
+
+p,
+a,
+li,
+dd,
+dt {
+  font-size: 1.6rem;
+  line-height: 2rem;
+  margin-bottom: 0;
+}
+
+p {
+  margin-bottom: 3rem;
+}
+
+p:not(.button-container):last-child {
+  margin-bottom: 0;
+}
+
+@media (width >= 744px) {
+  p,
+  a,
+  li,
+  dd,
+  dt {
+    font-size: 1.6rem;
+    line-height: 2.2rem;
+  }
+}
+
+@media (width >= 1024px) {
+  p,
+  a,
+  li,
+  dd,
+  dt {
+    font-size: 1.8rem;
+    line-height: 2.4rem;
+  }
 }
 
 code,
@@ -135,15 +624,11 @@ pre {
 }
 
 pre {
-  padding: 16px;
-  border-radius: 8px;
-  background-color: var(--light-color);
+  padding: 1.6rem;
+  border-radius: .8rem;
+  background-color: var(--highlight-background-color);
   overflow-x: auto;
   white-space: pre;
-}
-
-main > div {
-  margin: 40px 16px;
 }
 
 input,
@@ -153,7 +638,10 @@ button {
   font: inherit;
 }
 
-/* links */
+/* ========================================================================
+   Links
+   ======================================================================== */
+
 a:any-link {
   color: var(--link-color);
   text-decoration: none;
@@ -162,10 +650,12 @@ a:any-link {
 
 a:hover {
   color: var(--link-hover-color);
-  text-decoration: underline;
 }
 
-/* buttons */
+/* ========================================================================
+   Buttons — AbbVie outlined style
+   ======================================================================== */
+
 a.button:any-link,
 button {
   box-sizing: border-box;
@@ -193,7 +683,8 @@ a.button:hover,
 a.button:focus,
 button:hover,
 button:focus {
-  background-color: var(--link-hover-color);
+  background-color: var(--highlight-dark-background-color);
+  color: var(--background-color);
   cursor: pointer;
 }
 
@@ -206,15 +697,23 @@ button:disabled:hover {
 a.button.secondary,
 button.secondary {
   background-color: unset;
-  border: 2px solid currentcolor;
+  border: 1px solid currentcolor;
   color: var(--text-color);
 }
+
+/* ========================================================================
+   Images
+   ======================================================================== */
 
 main img {
   max-width: 100%;
   width: auto;
   height: auto;
 }
+
+/* ========================================================================
+   Icons
+   ======================================================================== */
 
 .icon {
   display: inline-block;
@@ -227,31 +726,2803 @@ main img {
   width: 100%;
 }
 
-/* sections */
-main > .section {
-  margin: 40px 0;
+/* ========================================================================
+   Section Metadata — hidden from display (processed by JS)
+   ======================================================================== */
+
+.section-metadata {
+  display: none;
 }
 
-main > .section > div {
-  max-width: 1200px;
-  margin: auto;
-  padding: 0 24px;
+/* ========================================================================
+   Sections — Layout
+   ======================================================================== */
+
+main > .section {
+  max-width: 133rem;
+  margin-bottom: 8rem;
+  /* margin-left: auto;
+  margin-right: auto; */
 }
 
 main > .section:first-of-type {
   margin-top: 0;
 }
 
-@media (width >= 900px) {
-  main > .section > div {
-    padding: 0 32px;
+main > .section > div {
+  max-width: 100%;
+}
+
+@media (width >= 744px) {
+  main > .section {
+    margin-left: 7rem;
+    margin-right: 7rem;
   }
 }
 
-/* section metadata */
-main .section.light,
-main .section.highlight {
-  background-color: var(--light-color);
+@media (width >= 1024px) {
+  main > .section {
+    margin-left: 5.5rem;
+    margin-right: 5.5rem;
+  }
+}
+
+@media (width >= 1440px) {
+  main > .section {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  main > .section.embed-container:not(.navy) {
+    max-width: var(--content-max-width);
+  }
+
+  main > .section.columns-container:not(.dark):not(.navy):not(.purple):not(.highlight) {
+    max-width: var(--content-max-width);
+    padding-left: var(--spacing-55);
+    padding-right: var(--spacing-55);
+  }
+
+  main > .section.accordion-container:not(.navy) {
+    max-width: var(--content-max-width);
+  }
+}
+
+/* AbbVie signature: rounded top-left corner on styled sections */
+main .section.navy-overlap,
+main .section.navy,
+main .section.purple {
+  border-top-left-radius: var(--spacing-40);
+  overflow: hidden;
+}
+
+/* ========================================================================
+   Section Metadata — Background Styles
+   ======================================================================== */
+
+/* navy-overlap: Light blue/lavender background (hero overlap area) */
+main .section.navy-overlap {
+  background-color: var(--highlight-background-color);
+  max-width: var(--content-max-width-wide);
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0;
+  padding: 4rem 0 8rem;
+}
+
+@media (width >= 744px) {
+  main .section.navy-overlap {
+    /* margin-left: 7rem;
+    margin-right: 7rem; */
+    padding: 5.6rem 0 8rem;
+  }
+}
+
+@media (width >= 1024px) {
+  main .section.navy-overlap {
+    /* margin-left: 5.5rem;
+    margin-right: 5.5rem; */
+    padding: 8rem 0;
+  }
+}
+
+@media (width >= 1440px) {
+  main .section.navy-overlap {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Pretitle label — first paragraph in section following hero overlay */
+main > .section.navy-overlap + .section > .default-content-wrapper > p:first-child {
+  font-family: var(--roboto-bold-font-family);
+  font-size: var(--font-size-12);
+  font-weight: var(--font-weight-700);
+  letter-spacing: var(--letter-spacing-wide-06);
+  line-height: var(--line-height-16);
+  text-transform: uppercase;
+  color: var(--text-color);
+  margin-bottom: var(--spacing-24);
+}
+
+/* =====================================================
+   AbbVie Science intro — two-column teaser layout
+   Section immediately after the hero navy-overlap section
+   ===================================================== */
+
+/* Section container — full-width like the original AEM teaser;
+   horizontal spacing comes from padding only (not stacked with global section margins) */
+main > .section.navy-overlap + .section {
+  max-width: none;
   margin: 0;
-  padding: 40px 0;
+  padding: var(--spacing-40) var(--spacing-35);
+}
+
+/* Grid wrapper — stacked on mobile, 12-col on tablet+ */
+main > .section.navy-overlap + .section > .default-content-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-00);
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+}
+
+/* Title: "At a glance: R&D highlights" — mobile base */
+main > .section.navy-overlap + .section > .default-content-wrapper > p:nth-child(2) {
+  font-family: var(--heading-font-family-bold);
+  font-size: var(--font-size-32);
+  font-weight: var(--font-weight-800);
+  line-height: var(--line-height-36);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--text-color);
+  margin: 0 0 var(--spacing-24);
+}
+
+/* Description — mobile base */
+main > .section.navy-overlap + .section > .default-content-wrapper > p:nth-child(3) {
+  font-family: var(--body-font-family);
+  font-size: var(--font-size-18);
+  font-weight: var(--font-weight-400);
+  line-height: var(--line-height-24);
+  color: var(--text-color);
+  margin: 0;
+}
+
+/* Title accent color — "R&D highlights" in blue via <em> */
+main > .section.navy-overlap + .section > .default-content-wrapper > p:nth-child(2) em {
+  color: var(--highlight-dark-background-color);
+  font-style: normal;
+}
+
+/* Tablet: switch to two-column grid */
+@media (width >= 744px) {
+  main > .section.navy-overlap + .section {
+    padding: var(--spacing-56) var(--spacing-70);
+  }
+
+  main > .section.navy-overlap + .section > .default-content-wrapper {
+    grid-template-columns: repeat(12, 1fr);
+    gap: 0 var(--gap-20);
+  }
+
+  main > .section.navy-overlap + .section > .default-content-wrapper > p:first-child {
+    grid-column: 1 / -1;
+  }
+
+  main > .section.navy-overlap + .section > .default-content-wrapper > p:nth-child(2) {
+    grid-column: 1 / span 6;
+    grid-row: 2;
+    font-size: var(--font-size-40);
+    line-height: var(--line-height-44);
+    letter-spacing: var(--letter-spacing-tight);
+    margin: 0;
+  }
+
+  main > .section.navy-overlap + .section > .default-content-wrapper > p:nth-child(3) {
+    grid-column: 1 / -1;
+    font-size: var(--font-size-20);
+    line-height: var(--line-height-26);
+  }
+}
+
+/* Desktop: full-size typography + side-by-side layout */
+@media (width >= 1024px) {
+  main > .section.navy-overlap + .section {
+    padding: var(--spacing-80) var(--spacing-55);
+  }
+
+  main > .section.navy-overlap + .section > .default-content-wrapper > p:nth-child(2) {
+    grid-row: 2 / span 2;
+    font-size: var(--font-size-56);
+    line-height: var(--line-height-64);
+    letter-spacing: var(--letter-spacing-tight);
+  }
+
+  main > .section.navy-overlap + .section > .default-content-wrapper > p:nth-child(3) {
+    grid-column: 8 / span 5;
+    grid-row: 2;
+    font-size: var(--font-size-24);
+    line-height: var(--line-height-32);
+  }
+}
+
+/* dark: Navy blue background with white text */
+main .section.dark {
+  background-color: var(--bg-071d49);
+  color: var(--background-color);
+  margin: 0 auto;
+  padding: 4rem 3.5rem 8rem;
+  max-width: var(--content-max-width-wide);;
+}
+
+main .section.dark h1,
+main .section.dark h2,
+main .section.dark h3,
+main .section.dark h4,
+main .section.dark h5,
+main .section.dark h6 {
+  color: var(--background-color);
+}
+
+main .section.dark p,
+main .section.dark li,
+main .section.dark a:not(.button) {
+  color: var(--background-color);
+}
+
+main .section.dark a.button:any-link {
+  border: 1px solid var(--background-color);
+  padding: 1.6rem 4rem;
+  color: var(--background-color);
+}
+
+main .section.dark a.button:hover {
+  background-color: var(--background-color);
+  color: var(--bg-071d49);
+}
+
+@media (width >= 744px) {
+  main .section.dark {
+    padding: 5.6rem 7rem 8rem;
+  }
+}
+
+@media (width >= 1024px) {
+  main .section.dark {
+    padding: 8rem 5.5rem;
+  }
+}
+
+/* Stats dashboard — when dark columns section starts with a single image,
+   position it as a background behind the stats content */
+main .section.dark.columns-container {
+  position: relative;
+  overflow: hidden;
+  border-top-left-radius: var(--spacing-80);
+  padding-bottom: 0;
+}
+
+main .section.dark.columns-container > .default-content-wrapper:first-child:has(> p:only-child > img) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  margin: 0;
+  padding: 0;
+  max-width: none;
+}
+
+main .section.dark.columns-container > .default-content-wrapper:first-child:has(> p:only-child > img) p {
+  margin: 0;
+  height: 100%;
+}
+
+main .section.dark.columns-container > .default-content-wrapper:first-child:has(> p:only-child > img) img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+}
+
+main .section.dark.columns-container > .columns-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+@media (width >= 1440px) {
+  main .section.dark > div {
+    max-width: 133rem;
+    margin: 0 auto;
+  }
+}
+
+/* navy: Navy blue background with white text */
+main .section.navy {
+  background-color: var(--bg-071d49);
+  color: var(--background-color);
+  margin: 0 auto;
+  padding: 4rem 3.5rem 8rem;
+  max-width: var(--content-max-width-wide);
+}
+
+main .section.navy h1,
+main .section.navy h2,
+main .section.navy h3,
+main .section.navy h4,
+main .section.navy h5,
+main .section.navy h6 {
+  color: var(--background-color);
+}
+
+main .section.navy p,
+main .section.navy li,
+main .section.navy a:not(.button) {
+  color: var(--background-color);
+}
+
+main .section.navy a.button:any-link {
+  border-color: var(--background-color);
+  color: var(--background-color);
+}
+
+main .section.navy a.button:hover {
+  background-color: var(--background-color);
+  color: var(--bg-071d49);
+}
+
+@media (width >= 744px) {
+  main .section.navy {
+    padding: 5.6rem 7rem 8rem;
+  }
+}
+
+@media (width >= 1024px) {
+  main .section.navy {
+    padding: 8rem 5.5rem;
+  }
+}
+
+@media (width >= 1440px) {
+  main .section.navy > div {
+    max-width: 133rem;
+    margin: 0 auto;
+  }
+}
+
+/* Navy section: Core focus areas — white card with 2-column link grid */
+
+main .section.navy.cards-container > .default-content-wrapper {
+  background-color: var(--background-color);
+  padding: 2rem 4.375rem 3.5rem;
+  border-radius: 0;
+  margin-top: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+main .section.navy.cards-container > .default-content-wrapper h4 {
+  color: var(--bg-071d49);
+  font-family: var(--heading-font-family);
+  font-size: var(--font-size-30, 3rem);
+  font-weight: 650;
+  line-height: 3.4rem;
+  margin-bottom: 0;
+}
+
+/* PRIORITIES label — first p child with strong */
+main .section.navy.cards-container > .default-content-wrapper > p:first-child {
+  font-family: var(--roboto-bold-font-family);
+  font-size: var(--font-size-14, 1.4rem);
+  font-weight: var(--font-weight-700);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide-04);
+  color: var(--text-color);
+  margin-bottom: 0;
+}
+
+/* Description paragraph */
+main .section.navy.cards-container > .default-content-wrapper > p:nth-of-type(2) {
+  color: var(--bg-071d49);
+  margin-bottom: 2rem;
+}
+
+main .section.navy.cards-container > .default-content-wrapper ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+main .section.navy.cards-container > .default-content-wrapper ul li {
+  border: none;
+  padding: 0;
+  margin: 0 0 1.2rem;
+}
+
+main .section.navy.cards-container > .default-content-wrapper ul li a {
+  font-family: var(--body-font-family);
+  font-size: var(--font-size-18, 1.8rem);
+  font-weight: 400;
+  text-decoration: none;
+  color: var(--bg-071d49);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0 1.6rem;
+  border-bottom: 1px solid rgb(185 180 180);
+}
+
+main .section.navy.cards-container > .default-content-wrapper ul li a::after {
+  content: '\e905';
+  font-family: var(--icon-font-family);
+  font-size: var(--font-size-16, 1.6rem);
+  color: var(--bg-071d49);
+  flex-shrink: 0;
+  margin-left: 1.6rem;
+}
+
+@media (width >= 744px) {
+  main .section.navy.cards-container > .default-content-wrapper {
+    padding: 2rem 4.375rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 2rem;
+  }
+
+  main .section.navy.cards-container > .default-content-wrapper > p:first-child,
+  main .section.navy.cards-container > .default-content-wrapper h4,
+  main .section.navy.cards-container > .default-content-wrapper > p:nth-of-type(2) {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (width >= 1024px) {
+  main .section.navy.cards-container > .default-content-wrapper {
+    padding: 2rem 4.375rem 4rem;
+    grid-template-columns: 5fr 3fr 3fr;
+    gap: 0 4rem;
+  }
+
+  main .section.navy.cards-container > .default-content-wrapper > p:first-child,
+  main .section.navy.cards-container > .default-content-wrapper h4,
+  main .section.navy.cards-container > .default-content-wrapper > p:nth-of-type(2) {
+    grid-column: 1;
+  }
+
+  main .section.navy.cards-container > .default-content-wrapper ul:first-of-type {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    align-self: start;
+  }
+
+  main .section.navy.cards-container > .default-content-wrapper ul:last-of-type {
+    grid-column: 3;
+    grid-row: 1 / span 3;
+    align-self: start;
+  }
+}
+
+/* =====================================================
+   Navy section: Gray inner panel — matches live site
+   .cmp-container (bg: #f4f4f4, radius: 64px top-left)
+   wrapping both dashboard cards and priorities
+   ===================================================== */
+
+/* Cards-wrapper — transparent to let section background image show through (matches original) */
+.section.navy.cards-container .cards-wrapper {
+  background-color: transparent;
+  border-top-left-radius: 0;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* =====================================================
+   Navy section: Dashboard cards — 4-column grid
+   matching live site .dashboardcards layout
+   ===================================================== */
+
+/* Hide empty image placeholder divs on text-only cards */
+.section.navy .cards > ul > li > .cards-card-body:first-child {
+  display: none;
+}
+
+/* Remove default border/bg, set white as default card bg */
+.section.navy .cards > ul > li {
+  border: none;
+  background-color: var(--background-color);
+}
+
+/* Cards 1 & 6: lavender background */
+.section.navy .cards > ul > li:nth-child(1),
+.section.navy .cards > ul > li:nth-child(6) {
+  background-color: var(--bg-f1f3ff, #f1f3ff);
+}
+
+/* Card content padding */
+.section.navy .cards .cards-card-body {
+  padding: 2.4rem 3.2rem;
+  flex: 0 0 auto;
+}
+
+/* Eyebrow title: uppercase, bold, 14px */
+.section.navy .cards .cards-card-body p strong {
+  font-family: var(--roboto-bold-font-family);
+  font-size: var(--font-size-14, 1.4rem);
+  font-weight: var(--font-weight-700);
+  line-height: var(--line-height-20, 2rem);
+  text-transform: uppercase;
+  letter-spacing: 0.084rem;
+  color: var(--bg-071d49);
+  display: block;
+  margin-bottom: 3.8rem;
+}
+
+/* Stat number: large blue */
+.section.navy .cards .cards-card-body p:nth-child(2),
+.section.cards-container:has(.cards-wrapper:first-child) .cards .cards-card-body p:nth-child(2) {
+  font-family: var(--heading-font-family);
+  font-size: 6.4rem;
+  font-weight: var(--font-weight-650, 650);
+  line-height: 6.8rem;
+  letter-spacing: -0.128rem;
+  color: var(--bg-0066f5, #0066f5);
+  margin: 0 0 0.8rem;
+}
+
+/* Description: small dark text */
+.section.navy .cards .cards-card-body p:nth-child(3) {
+  font-size: var(--font-size-14, 1.4rem);
+  font-weight: var(--font-weight-400, 400);
+  line-height: var(--line-height-20, 2rem);
+  color: var(--bg-071d49);
+  margin: 0;
+}
+
+/* Image cards: full-height image */
+.section.navy .cards > ul > li:nth-child(3),
+.section.navy .cards > ul > li:nth-child(6) {
+  display: flex;
+  flex-direction: column;
+}
+
+.section.navy .cards > ul > li .cards-card-image {
+  flex: 1;
+  overflow: hidden;
+}
+
+.section.navy .cards > ul > li .cards-card-image img {
+  aspect-ratio: auto;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* Tablet: 2-column layout */
+@media (width >= 744px) {
+  .section.navy .cards > ul {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    gap: var(--spacing-20, 2rem);
+  }
+}
+
+/* Desktop: 4-column grid with stacked pairs */
+@media (width >= 1024px) {
+  .section.navy .cards > ul {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr 1fr;
+    column-gap: var(--spacing-20, 2rem);
+    row-gap: var(--spacing-16);
+  }
+
+  /* Card 1 (Programs): col 1, row 1 */
+  .section.navy .cards > ul > li:nth-child(1) {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  /* Card 2 (Pioneering Progress): col 1, row 2 */
+  .section.navy .cards > ul > li:nth-child(2) {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  /* Card 3 (Cutting-edge facilities): col 2, rows 1-2 */
+  .section.navy .cards > ul > li:nth-child(3) {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+
+  /* Card 4 (PATIENT impact): col 3, row 1 */
+  .section.navy .cards > ul > li:nth-child(4) {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  /* Card 5 (Global Reach): col 3, row 2 */
+  .section.navy .cards > ul > li:nth-child(5) {
+    grid-column: 3;
+    grid-row: 2;
+  }
+
+  /* Card 6 (investment): col 4, rows 1-2 */
+  .section.navy .cards > ul > li:nth-child(6) {
+    grid-column: 4;
+    grid-row: 1 / span 2;
+  }
+}
+
+/* =====================================================
+   Explore Tenacity section — lavender card with
+   heading + description row, then video + quote row
+   ===================================================== */
+
+main .section.explore-tenacity {
+  background-color: var(--bg-f1f3ff, #f1f3ff);
+  border-radius: 1.6rem;
+  max-width: var(--content-max-width-wide, 1330px);
+  margin: 0 auto;
+  padding: 6.4rem 5.5rem;
+}
+
+/* Row 2: quote icon */
+.section.explore-tenacity .columns.video-block > div > div:not(.columns-video-col) > p:first-child::before {
+  content: '\e909';
+  font-family: var(--icon-font-family);
+  font-size: var(--font-size-33);
+  line-height: 1;
+  color: var(--highlight-dark-background-color);
+  display: block;
+  margin-bottom: var(--spacing-24);
+}
+
+/* Row 1: heading + description — override video-block quote styling */
+.section.explore-tenacity .columns.video-block > div:first-child > div:not(.columns-video-col) > p:first-child::before {
+  display: none;
+}
+
+.section.explore-tenacity .columns.video-block > div:first-child > div:not(.columns-video-col) > p:first-child {
+  font-family: var(--body-font-family);
+  font-size: var(--font-size-18);
+  line-height: var(--line-height-24);
+  font-weight: var(--font-weight-400);
+  color: var(--text-color);
+}
+
+/* Row 1: heading styling */
+.section.explore-tenacity .columns h3 {
+  font-family: var(--heading-font-family-bold);
+  font-size: var(--font-size-30);
+  line-height: var(--line-height-34);
+  font-weight: var(--font-weight-800);
+  margin-top: 0;
+}
+
+/* Row 2: attribution — container for name + location */
+.section.explore-tenacity .columns.video-block > div:last-child > div:not(.columns-video-col) > p:last-child {
+  margin-top: var(--spacing-40);
+}
+
+/* Row 2: attribution name — bold "Ambily Abraham, Discovery Research" */
+.section.explore-tenacity .columns.video-block > div:last-child > div:not(.columns-video-col) .attribution-name {
+  display: block;
+  font-family: var(--roboto-bold-font-family);
+  font-size: var(--font-size-18);
+  font-weight: var(--font-weight-700);
+  line-height: var(--line-height-24);
+}
+
+/* Row 2: attribution location — "Worcester, MA" */
+.section.explore-tenacity .columns.video-block > div:last-child > div:not(.columns-video-col) .attribution-location {
+  display: block;
+  font-family: var(--body-font-family);
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-400);
+  line-height: var(--line-height-20);
+}
+
+@media (width >= 1024px) {
+  .section.explore-tenacity .columns h3 {
+    font-size: var(--heading-font-size-l);
+    line-height: var(--line-height-52);
+  }
+
+  /* Row 1: heading column takes 7/12, description takes 4/12 */
+  .section.explore-tenacity .columns .columns-img-grid-col {
+    grid-column: 1 / span 7;
+  }
+
+  .section.explore-tenacity .columns > div:first-child > div:last-child {
+    grid-column: 9 / span 4;
+  }
+
+  /* Row 2: video col needs full 7-span */
+  .section.explore-tenacity .columns .columns-video-col {
+    grid-column: 1 / span 7;
+  }
+
+  /* Row 2: quote column */
+  .section.explore-tenacity .columns.video-block > div:last-child > div:not(.columns-video-col) {
+    grid-column: 9 / span 4;
+  }
+
+  /* Row 2: quote icon height at desktop */
+  .section.explore-tenacity .columns.video-block > div > div:not(.columns-video-col) > p:first-child::before {
+    height: var(--spacing-36);
+  }
+}
+
+/* purple: Purple background with white text */
+main .section.purple {
+  background-color: var(--bg-8a2ecc);
+  color: var(--background-color);
+  margin: 0 auto;
+  padding: 4rem 3.5rem 8rem;
+  max-width: var(--content-max-width-wide);
+}
+
+main .section.purple h1,
+main .section.purple h2,
+main .section.purple h3,
+main .section.purple h4,
+main .section.purple h5,
+main .section.purple h6 {
+  color: var(--background-color);
+}
+
+main .section.purple p,
+main .section.purple li,
+main .section.purple a:not(.button) {
+  color: var(--background-color);
+}
+
+main .section.purple a.button:any-link {
+  border-color: var(--background-color);
+  color: var(--background-color);
+}
+
+main .section.purple a.button:hover {
+  background-color: var(--background-color);
+  color: var(--bg-8a2ecc);
+}
+
+@media (width >= 744px) {
+  main .section.purple {
+    padding: 5.6rem 7rem 8rem;
+  }
+}
+
+@media (width >= 1024px) {
+  main .section.purple {
+    padding: 8rem 5.5rem;
+  }
+}
+
+@media (width >= 1440px) {
+  main .section.purple > div {
+    max-width: 133rem;
+    margin: 0 auto;
+  }
+}
+
+/* light: Light gray background */
+main .section.light {
+  background-color: var(--footer-background-color);
+  margin: 0 auto;
+  padding: var(--spacing-40) var(--spacing-35);
+  max-width: var(--content-max-width-wide);
+}
+
+/* highlight: Light lavender background */
+main .section.highlight {
+  background-color: var(--highlight-background-color);
+  margin: 0 auto;
+  padding: var(--spacing-40) var(--spacing-35) var(--spacing-16) ;
+  max-width: var(--content-max-width-wide);
+  margin-bottom: var(--spacing-80);
+}
+
+@media (width >= 744px) {
+  main .section.light,
+  main .section.highlight {
+    padding: 5.6rem 7rem 1.6rem;
+  }
+}
+
+@media (width >= 1024px) {
+  main .section.light,
+  main .section.highlight {
+    padding: 8rem 5.5rem 5.8rem;
+  }
+}
+
+/* CTA highlight section — h2 matches original 48px */
+main .section.highlight:not([data-background]) > .default-content-wrapper h2 {
+  font-size: var(--heading-font-size-l);
+}
+
+/* ========================================================================
+   Section Width Variants (AEM Container System)
+   Maps original AEM `cmp-container-*` widths to EDS section-metadata styles.
+   Authoring: add "style: <variant>" in section-metadata block.
+   ======================================================================== */
+
+/*
+ * full-width: Content extends full viewport (like cmp-container-full-width)
+ * Inner content breaks out of section padding to fill viewport.
+ */
+main .section.full-width {
+  margin: 0;
+  padding: 0;
+  max-width: none;
+}
+
+main .section.full-width > div {
+  max-width: 133rem;
+  margin: 0 auto;
+  padding: 4rem 3.5rem;
+}
+
+@media (width >= 744px) {
+  main .section.full-width > div {
+    padding: 5.6rem 7rem;
+  }
+}
+
+@media (width >= 1024px) {
+  main .section.full-width > div {
+    padding: 8rem 5.5rem;
+  }
+}
+
+/*
+ * narrow: Narrower content area (~110rem max, like cmp-container-x-large)
+ * Good for focused reading content.
+ */
+main .section.narrow > div {
+  max-width: 110rem;
+  margin: 0 auto;
+}
+
+/*
+ * medium-width: Medium content area (~90rem max, like cmp-container-medium)
+ * Good for centered FAQ, forms, single-column text.
+ */
+main .section.medium-width > div {
+  max-width: 90rem;
+  margin: 0 auto;
+}
+
+/*
+ * centered: Centers all text content inside the section.
+ */
+main .section.centered {
+  text-align: center;
+}
+
+/* ========================================================================
+   Section Border Radius Variants
+   Maps AEM radius modifiers to EDS section-metadata styles.
+   ======================================================================== */
+
+/*
+ * radius-large: 8rem border-top-left-radius (like AEM large-radius → 80px)
+ */
+main .section.radius-large {
+  border-top-left-radius: var(--spacing-80);
+}
+
+/*
+ * radius-medium: 4rem border-top-left-radius (like AEM medium-radius → 40px)
+ */
+main .section.radius-medium {
+  border-top-left-radius: var(--spacing-40);
+}
+
+/*
+ * radius-small: 1.6rem border-top-left-radius (like AEM small-radius → 16px)
+ */
+
+main .section.radius-small{
+  border-top-left-radius: var(--spacing-16);
+}
+
+/*
+ * radius-default: 2rem border-top-left-radius (like AEM default-radius)
+ */
+main .section.radius-default {
+  border-top-left-radius: var(--spacing-20);
+}
+
+/* ========================================================================
+   Section Modifier Variants
+   Maps AEM container modifiers to EDS section-metadata styles.
+   ======================================================================== */
+
+/*
+ * overlap: Section overlaps the previous section (like AEM overlap-predecessor)
+ * Creates the white panel overlapping the hero image effect.
+ */
+main .section.overlap {
+  position: relative;
+  z-index: 1;
+  margin-top: -5rem;
+}
+
+@media (width >= 744px) {
+  main .section.overlap {
+    margin-top: -8rem;
+  }
+}
+
+@media (width >= 1024px) {
+  main .section.overlap {
+    margin-top: -11.2rem;
+  }
+}
+
+/*
+ * no-padding: Removes section padding (like AEM no-padding)
+ */
+main .section.no-padding {
+  padding: 0;
+}
+
+/*
+ * no-margin: Removes section bottom margin (like AEM no-bottom-margin)
+ */
+main .section.no-margin {
+  margin-bottom: 0;
+}
+
+main .section.no-bottom-margin {
+  margin-bottom: var(--spacing-00);
+}
+
+/*
+ * compact: Reduces section vertical padding
+ */
+main .section.compact {
+  padding-top: 2.4rem;
+  padding-bottom: 2.4rem;
+}
+
+@media (width >= 1024px) {
+  main .section.compact {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+}
+
+/* ========================================================================
+   Navy Overlap Section Effect
+   ======================================================================== */
+
+/* Empty navy-overlap section creates visual overlap with hero */
+main .section.navy-overlap:empty {
+  padding: 0;
+  min-height: 0;
+}
+
+/* Navy-overlap without hero block: navy bar + white overlap card effect */
+main .section.navy-overlap:not(.hero-container) {
+  background-color: var(--background-color);
+  position: relative;
+  padding-top: 10rem;
+  padding-bottom: 4rem;
+}
+
+main .section.navy-overlap:not(.hero-container)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 14rem;
+  background-color: var(--bg-071d49);
+  border-top-left-radius: 4rem;
+  z-index: 0;
+}
+
+main .section.navy-overlap:not(.hero-container) > .default-content-wrapper {
+  position: relative;
+  z-index: 1;
+  background-color: var(--background-color);
+  border-top-left-radius: 4rem;
+  padding: 3rem 3rem 1rem;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+}
+
+@media (width >= 744px) {
+  main .section.navy-overlap:not(.hero-container) {
+    padding-top: 12rem;
+  }
+
+  main .section.navy-overlap:not(.hero-container)::before {
+    height: 16rem;
+  }
+
+  main .section.navy-overlap:not(.hero-container) > .default-content-wrapper {
+    padding: 4rem 5rem 1rem;
+  }
+}
+
+@media (width >= 1024px) {
+  main .section.navy-overlap:not(.hero-container) {
+    padding-top: 12rem;
+  }
+
+  main .section.navy-overlap:not(.hero-container)::before {
+    height: 18rem;
+  }
+
+  main .section.navy-overlap:not(.hero-container) > .default-content-wrapper {
+    padding: 4rem 6rem 1rem;
+  }
+}
+
+/* Standalone breadcrumbs (pages without hero block) */
+.section-breadcrumbs {
+  margin-bottom: var(--spacing-32);
+}
+
+.section-breadcrumbs ol {
+  display: flex;
+  flex-flow: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 0.8rem;
+  align-items: baseline;
+}
+
+.section-breadcrumbs ol li {
+  font-family: var(--roboto-bold-font-family);
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-700);
+  letter-spacing: 0.06em;
+  line-height: var(--line-height-20);
+  text-transform: uppercase;
+  color: var(--text-color);
+  display: flex;
+  align-items: flex-end;
+}
+
+.section-breadcrumbs ol li:not(:last-child)::after {
+  content: '\203A';
+  padding-left: 0.8rem;
+  font-size: var(--font-size-30);
+  font-weight: var(--font-weight-700);
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.section-breadcrumbs ol li a {
+  color: var(--text-color);
+  font-weight: var(--font-weight-700);
+  font-size: inherit;
+  text-decoration: none;
+}
+
+.section-breadcrumbs ol li[aria-current] {
+  color: var(--bg-666b7a);
+  font-weight: var(--font-weight-700);
+}
+
+/* ========================================================================
+   Section Background Image (from section-metadata "background" property)
+   Applied via JS: decorateSectionBackgrounds() sets inline background-image.
+   ======================================================================== */
+main .section[data-background] {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Highlight section with background image — stats cards variant */
+main .section.highlight[data-background] {
+  background-color: transparent;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  max-width: var(--content-max-width-wide);
+}
+
+main .section.highlight[data-background] .columns > div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+main .section.highlight[data-background] .columns.block.columns-4-cols > div {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  align-items: unset;
+}
+
+@media (width >= 744px) {
+  main .section.highlight[data-background] .columns.block.columns-4-cols > div {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (width >= 1024px) {
+  main .section.highlight[data-background] .columns.block.columns-4-cols > div {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+main .section.highlight[data-background] .columns > div > div {
+  background-color: var(--background-color);
+  padding: 2.4rem 3.2rem;
+}
+
+main .section.highlight[data-background] .columns h2 {
+  font-size: var(--font-size-14);
+  font-family: var(--roboto-bold-font-family);
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 3.8rem;
+  text-transform: var(--font-uppercase);
+  letter-spacing: var(--letter-spacing-06);
+  line-height: var(--line-height-20);
+}
+
+/* main .section.highlight[data-background] .columns p {
+  
+} */
+
+main .section.highlight[data-background] .columns p strong {
+  color: var(--strong-heading);
+  font-family: var(--heading-font-family);
+  font-weight: var(--font-weight-650);
+  font-size: var(--font-size-56);
+  letter-spacing: var(--letter-spacing-neg-03);
+  line-height: var(--line-height-64);
+}
+
+@media (width >= 744px) {
+  main .section.highlight[data-background] .columns p strong {
+    font-size: var(--font-size-64);
+    letter-spacing: var(--letter-spacing-neg-02);
+    line-height: var(--line-height-68);
+  }
+}
+
+@media (width >= 1024px) {
+  main .section.highlight[data-background] .columns p strong {
+    font-size: var(--font-size-80);
+    letter-spacing: var(--letter-spacing-neg-03);
+    line-height: var(--line-height-84);
+  }
+}
+
+main .section.highlight[data-background] .columns p {
+  font-size: var(--font-size-12);
+  color: var(--text-color);
+  font-weight: var(--font-weight-400);
+  line-height: var(--line-height-16);
+  margin-bottom: var(--spacing-00);
+}
+
+@media (width >= 744px) {
+  main .section.highlight[data-background] .columns p {
+    font-size: var(--font-size-14);
+    line-height: var(--line-height-20);
+    margin-bottom: var(--spacing-00);
+  }
+}
+
+@media (width >= 1024px) {
+  main .section.highlight[data-background] .columns p {
+    font-size: var(--font-size-16);
+    line-height: var(--line-height-20);
+    margin-bottom: var(--spacing-00);
+  }
+}
+
+@media (width < 744px) {
+  main .section.highlight[data-background] .columns > div {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (width >= 744px) {
+  main .section.highlight[data-background] {
+    margin-left: 0rem;
+    margin-right: 0rem;
+    min-height: 36.8rem;
+  }
+}
+
+@media (width >= 1024px) {
+  main .section.highlight[data-background] {
+    margin-left: 0rem;
+    margin-right: 0rem;
+    min-height: 44.8rem;
+  }
+}
+
+@media (width >= 1440px) {
+  main .section.highlight[data-background] {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* ========================================================================
+   Mixed-Content Section Background Overrides
+   When section-metadata groups multiple blocks with different visual
+   treatments, override section bg to white and apply per-wrapper
+   backgrounds to match the original site layout.
+   ======================================================================== */
+
+/* --- Section: hero + columns + cards + quote (originally "dark") --- */
+
+/* Light blue base background; hero wrapper overrides to white */
+main > .section.dark.cards-container {
+  background-color: var(--highlight-background-color);
+  color: var(--text-color);
+}
+
+/* Content-series dark section: light gray (#F4F4F4) matches original AbbVie */
+main > .section.dark.cards-container:not(.hero-container) {
+  background-color: var(--bg-f4f4f4);
+}
+
+/* Content-series card tiles: light blue on gray background */
+main > .section.dark.cards-container:not(.hero-container) .cards > ul > li {
+  background-color: var(--highlight-background-color);
+  border-radius: 0.8rem;
+  overflow: hidden;
+}
+
+main > .section.dark.cards-container:not(.hero-container) .cards .cards-card-body {
+  padding: 0 1.6rem 1.6rem;
+}
+
+main > .section.dark.cards-container :is(h1, h2, h3, h4, h5, h6) {
+  color: var(--text-color);
+}
+
+main > .section.dark.cards-container :is(p, li) {
+  color: var(--text-color);
+}
+
+main > .section.dark.cards-container a:not(.button) {
+  color: var(--text-color);
+}
+
+main > .section.dark.cards-container a.button:any-link {
+  border-color: var(--highlight-dark-background-color);
+  color: var(--highlight-dark-background-color);
+}
+
+main > .section.dark.cards-container a.button:hover {
+  background-color: var(--highlight-dark-background-color);
+  color: var(--background-color);
+}
+
+/* Hero wrapper: full-bleed, transparent so section white bg shows through */
+
+/* Original AEM: large-radius cmp-container-full-width (80px radius) */
+main > .section.dark.cards-container .hero-wrapper {
+  background-color: var(--background-color);
+  margin: -4rem -3.5rem 0;
+  padding: 0;
+  border-top-left-radius: var(--spacing-32);
+  overflow: hidden;
+}
+
+@media (width >= 744px) {
+  main > .section.dark.cards-container .hero-wrapper {
+    margin: -5.6rem -7rem 0;
+    border-top-left-radius: var(--spacing-64);
+  }
+}
+
+@media (width >= 1024px) {
+  main > .section.dark.cards-container .hero-wrapper {
+    margin: -8rem -5.5rem 0;
+    border-top-left-radius: var(--spacing-80);
+  }
+}
+
+/* Quote band: full-width background image with quote overlay */
+main > .section.dark.cards-container .default-content-wrapper:has(+ .quote-wrapper) {
+  position: relative;
+  margin: 4rem -3.5rem 0;
+  padding: 0;
+  line-height: 0;
+  overflow: hidden;
+  border-top-left-radius: var(--spacing-32);
+  max-width: none;
+}
+
+main > .section.dark.cards-container .default-content-wrapper:has(+ .quote-wrapper) img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  aspect-ratio: 2 / 3;
+}
+
+/* Semi-transparent overlay on the background image */
+main > .section.dark.cards-container .default-content-wrapper:has(+ .quote-wrapper)::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgb(7 29 73 / 70%);
+  pointer-events: none;
+}
+
+main > .section.dark.cards-container .quote-wrapper {
+  position: relative;
+  margin: 0 -3.5rem -8rem;
+  padding: 0 3.5rem 4rem;
+  margin-top: -34rem;
+  z-index: 1;
+  max-width: none;
+  background-color: transparent;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main > .section.dark.cards-container .quote-wrapper .quote {
+  background: none;
+}
+
+main > .section.dark.cards-container .quote-wrapper :is(p, em) {
+  color: var(--background-color);
+}
+
+main > .section.dark.cards-container .quote-wrapper blockquote::before {
+  color: var(--background-color);
+}
+
+@media (width >= 744px) {
+  main > .section.dark.cards-container .default-content-wrapper:has(+ .quote-wrapper) {
+    margin: 4rem -7rem 0;
+    border-top-left-radius: var(--spacing-64);
+  }
+
+  main > .section.dark.cards-container .default-content-wrapper:has(+ .quote-wrapper) img {
+    aspect-ratio: 3 / 2;
+  }
+
+  main > .section.dark.cards-container .quote-wrapper {
+    margin: 0 -7rem -8rem;
+    margin-top: -30rem;
+    padding: 0 7rem 5.6rem;
+  }
+}
+
+@media (width >= 1024px) {
+  main > .section.dark.cards-container .default-content-wrapper:has(+ .quote-wrapper) {
+    margin: 4rem -5.5rem 0;
+    border-top-left-radius: var(--spacing-80);
+  }
+
+  main > .section.dark.cards-container .default-content-wrapper:has(+ .quote-wrapper) img {
+    aspect-ratio: 5 / 2;
+  }
+
+  main > .section.dark.cards-container .quote-wrapper {
+    margin: 0 -5.5rem -8rem;
+    margin-top: -36rem;
+    padding: 6rem 5.5rem 8rem;
+    padding-left: 50%;
+  }
+}
+
+/* Columns + Cards area: light blue background matching original */
+main > .section.dark.cards-container .columns-wrapper {
+  background-color: var(--highlight-background-color);
+  margin: 0 -3.5rem;
+  padding: 4rem 3.5rem;
+  max-width: none;
+}
+
+main > .section.dark.cards-container .cards-wrapper {
+  background-color: var(--highlight-background-color);
+  margin: 0 -3.5rem;
+  padding: 2.4rem 3.5rem;
+  max-width: none;
+}
+
+@media (width >= 744px) {
+  main > .section.dark.cards-container .columns-wrapper {
+    margin: 0 -7rem;
+    padding: 4rem 7rem;
+  }
+
+  main > .section.dark.cards-container .cards-wrapper {
+    margin: 0 -7rem;
+    padding: 2.4rem 7rem;
+  }
+}
+
+@media (width >= 1024px) {
+  main > .section.dark.cards-container .columns-wrapper {
+    margin: 0 -5.5rem;
+    padding: 4rem 5.5rem;
+  }
+
+  main > .section.dark.cards-container .cards-wrapper {
+    margin: 0 -5.5rem;
+    padding: 2.4rem 5.5rem;
+  }
+}
+
+/* Cards bottom padding before quote section */
+main > .section.dark.cards-container .cards-wrapper:last-of-type {
+  padding-bottom: 4rem;
+}
+
+/* Cards groups: no separator between card rows */
+main > .section.dark.cards-container .columns-wrapper + .cards-wrapper,
+main > .section.dark.cards-container .cards-wrapper + .cards-wrapper {
+  border-top: none;
+}
+
+/* Video columns: 67-33 ratio matching original AEM col-with-8 + col-with-4 */
+@media (width >= 900px) {
+  main > .section.dark.cards-container .columns > div > div:first-child {
+    flex: 8;
+  }
+
+  main > .section.dark.cards-container .columns > div > div:last-child {
+    flex: 4;
+  }
+}
+
+/* Mobile: text column first, video card second (matching original site) */
+@media (width < 900px) {
+  main > .section.dark.cards-container .columns > div > div:last-child {
+    order: 0;
+  }
+
+  main > .section.dark.cards-container .columns > div > div:first-child {
+    order: 1;
+  }
+}
+
+/* --- Video thumbnail overlay (main "Behind the Science" video) ---
+   Original AEM: image with dark navy overlay, title + watch button
+   centered on the image. */
+
+main > .section.dark.cards-container .columns > div > div:first-child {
+  position: relative;
+  border-radius: 0.8rem;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+main > .section.dark.cards-container .columns > div > div:first-child > p:first-child {
+  margin: 0;
+  line-height: 0;
+}
+
+main > .section.dark.cards-container .columns > div > div:first-child img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+}
+
+/* Dark navy overlay on the video thumbnail */
+main > .section.dark.cards-container .columns > div > div:first-child::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgb(7 29 73 / 50%);
+  pointer-events: none;
+  border-radius: 0.8rem;
+}
+
+/* Video title overlaid on image — centered vertically + horizontally */
+main > .section.dark.cards-container .columns > div > div:first-child > p:nth-child(2) {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -80%);
+  width: 80%;
+  text-align: center;
+  color: var(--background-color);
+  font-family: var(--heading-font-family-bold);
+  font-size: var(--font-size-24);
+  line-height: var(--line-height-32);
+  font-weight: 800;
+  z-index: 1;
+  margin: 0;
+}
+
+/* Watch button overlaid on image — centered below title */
+main > .section.dark.cards-container .columns > div > div:first-child > p:last-child {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 80%);
+  color: var(--background-color);
+  font-family: var(--roboto-bold-font-family);
+  font-size: var(--font-size-14);
+  font-weight: 700;
+  text-transform: var(--font-uppercase);
+  letter-spacing: 0.06em;
+  border: 1px solid var(--background-color);
+  padding: 1.2rem 3.2rem;
+  z-index: 1;
+  cursor: pointer;
+  white-space: nowrap;
+  margin: 0;
+}
+
+/* Play icon before watch text */
+main > .section.dark.cards-container .columns > div > div:first-child > p:last-child::before {
+  content: '\25B6';
+  margin-right: 0.8rem;
+  font-size: var(--font-size-12);
+}
+
+@media (width >= 900px) {
+  main > .section.dark.cards-container .columns > div > div:first-child > p:nth-child(2) {
+    font-size: var(--font-size-30);
+    line-height: var(--line-height-34);
+  }
+}
+
+/* Columns video: playing state — hide overlay, title, button; show iframe */
+main > .section.dark.cards-container .columns > div > div:first-child.playing::after,
+main > .section.dark.cards-container .columns > div > div:first-child.playing > p:not(:first-child) {
+  display: none;
+}
+
+main > .section.dark.cards-container .columns > div > div:first-child.playing .columns-video-player {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 0.8rem;
+}
+
+/* --- Video cards: overlay handled by cards.js + cards.css --- */
+
+/* --- Section: R&D + embed + FAQ + CTA (originally "navy") --- */
+
+/* Override to white base */
+main > .section.navy.embed-container {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+main > .section.navy.embed-container :is(h1, h2, h3, h4, h5, h6) {
+  color: var(--text-color);
+}
+
+main > .section.navy.embed-container :is(p, li) {
+  color: var(--text-color);
+}
+
+main > .section.navy.embed-container a:not(.button) {
+  color: var(--highlight-dark-background-color);
+}
+
+main > .section.navy.embed-container a.button:any-link {
+  border-color: var(--highlight-dark-background-color);
+  color: var(--highlight-dark-background-color);
+}
+
+main > .section.navy.embed-container a.button:hover {
+  background-color: var(--highlight-dark-background-color);
+  color: var(--background-color);
+}
+
+/* Embed: full-bleed navy background with video overlay */
+main > .section.navy.embed-container .embed-wrapper {
+  background-color: var(--bg-071d49);
+  margin: 0 -3.5rem;
+  padding: 0;
+  position: relative;
+  max-width: none;
+}
+
+main > .section.navy.embed-container .embed-wrapper .embed {
+  margin: 0;
+  position: relative;
+  cursor: pointer;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main > .section.navy.embed-container .embed-wrapper .embed img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 0;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+
+main > .section.navy.embed-container .embed-wrapper .embed .embed-placeholder {
+  aspect-ratio: 3 / 4;
+}
+
+/* Dark overlay on discovery video image */
+main > .section.navy.embed-container .embed-wrapper .embed::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgb(7 29 73 / 55%);
+  pointer-events: none;
+}
+
+/* Centered play button on discovery video */
+main > .section.navy.embed-container .embed-wrapper .embed::before {
+  content: '\25B6  Watch 2:33';
+  position: absolute;
+  top: 76%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--background-color);
+  font-family: var(--roboto-bold-font-family);
+  font-size: var(--font-size-12);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: var(--font-uppercase);
+  border: 1px solid var(--background-color);
+  padding: 1.2rem 3.2rem;
+  z-index: 2;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* Title overlay on discovery video */
+main > .section.navy.embed-container .embed-wrapper::before {
+  content: 'The eureka moment behind a scientific discovery';
+  position: absolute;
+  top: 18%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--background-color);
+  font-family: var(--heading-font-family-bold);
+  font-size: var(--font-size-20);
+  line-height: var(--line-height-26);
+  font-weight: 800;
+  text-align: center;
+  max-width: 75%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Description overlay on discovery video */
+main > .section.navy.embed-container .embed-wrapper::after {
+  content: 'Hear from scientists about what it takes to make a breakthrough.';
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--background-color);
+  font-size: var(--font-size-14);
+  line-height: var(--line-height-20);
+  text-align: center;
+  max-width: 80%;
+  z-index: 2;
+  pointer-events: none;
+  display: none;
+}
+
+main > .section.navy.embed-container .embed-wrapper :is(h2, p, a) {
+  color: var(--background-color);
+}
+
+@media (width >= 744px) {
+  main > .section.navy.embed-container .embed-wrapper {
+    margin: 0 -7rem;
+    padding: 0;
+  }
+
+  main > .section.navy.embed-container .embed-wrapper .embed img {
+    aspect-ratio: 16 / 9;
+  }
+
+  main > .section.navy.embed-container .embed-wrapper .embed .embed-placeholder {
+    aspect-ratio: 16 / 9;
+  }
+
+  main > .section.navy.embed-container .embed-wrapper::before {
+    font-size: var(--font-size-30);
+    line-height: var(--line-height-34);
+    max-width: 65%;
+    top: 28%;
+  }
+
+  main > .section.navy.embed-container .embed-wrapper::after {
+    display: block;
+    font-size: var(--font-size-16);
+    line-height: var(--line-height-22);
+    max-width: 60%;
+    top: 52%;
+  }
+
+  main > .section.navy.embed-container .embed-wrapper .embed::before {
+    font-size: var(--font-size-14);
+    padding: 1.6rem 4rem;
+    top: 68%;
+  }
+}
+
+@media (width >= 1024px) {
+  main > .section.navy.embed-container .embed-wrapper {
+    margin: 0 -5.5rem;
+    padding: 0;
+  }
+
+  main > .section.navy.embed-container .embed-wrapper .embed img {
+    aspect-ratio: 16 / 7;
+  }
+
+  main > .section.navy.embed-container .embed-wrapper .embed .embed-placeholder {
+    aspect-ratio: 16 / 7;
+  }
+
+  main > .section.navy.embed-container .embed-wrapper::before {
+    font-size: var(--font-size-40);
+    line-height: var(--line-height-44);
+    max-width: 60%;
+    top: 30%;
+  }
+
+  main > .section.navy.embed-container .embed-wrapper::after {
+    font-size: var(--font-size-18);
+    line-height: var(--line-height-24);
+    max-width: 50%;
+    top: 53%;
+  }
+
+  main > .section.navy.embed-container .embed-wrapper .embed::before {
+    top: 68%;
+  }
+}
+
+/* Embed: hide default play button (CSS overlay provides the button) */
+main > .section.navy.embed-container .embed-placeholder-play {
+  display: none;
+}
+
+/* Embed: hide all overlays when video is loaded */
+main > .section.navy.embed-container .embed-wrapper .embed.embed-is-loaded::before,
+main > .section.navy.embed-container .embed-wrapper .embed.embed-is-loaded::after {
+  display: none;
+}
+
+main > .section.navy.embed-container .embed-wrapper:has(.embed-is-loaded)::before,
+main > .section.navy.embed-container .embed-wrapper:has(.embed-is-loaded)::after {
+  display: none;
+}
+
+/* FAQ heading: full-bleed light gray background */
+/* stylelint-disable-next-line no-descending-specificity */
+main > .section.navy.embed-container > .default-content-wrapper {
+  background-color: var(--bg-fafafa);
+  margin: 0 -3.5rem;
+  padding: 4rem 3.5rem 0;
+  text-align: center;
+  max-width: none;
+}
+
+main > .section.navy.embed-container > .default-content-wrapper h2 {
+  font-size: var(--font-size-30);
+  line-height: var(--line-height-34);
+  margin-bottom: 0;
+  padding-bottom: var(--spacing-16);
+}
+
+/* Accordion: full-bleed light gray background */
+main > .section.navy.embed-container .accordion-wrapper {
+  background-color: var(--bg-fafafa);
+  margin: 0 -3.5rem;
+  padding: 0 3.5rem 4rem;
+  max-width: none;
+  overflow: hidden;
+}
+
+main > .section.navy.embed-container .accordion-wrapper .accordion {
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+@media (width >= 744px) {
+  main > .section.navy.embed-container > .default-content-wrapper {
+    margin: 0 -7rem;
+    padding: 5.6rem 7rem 0;
+  }
+
+  main > .section.navy.embed-container .accordion-wrapper {
+    margin: 0 -7rem;
+    padding: 0 7rem 5.6rem;
+  }
+}
+
+@media (width >= 1024px) {
+  main > .section.navy.embed-container > .default-content-wrapper {
+    margin: 0 -5.5rem;
+    padding: 8rem 5.5rem 0;
+  }
+
+  main > .section.navy.embed-container > .default-content-wrapper h2 {
+    font-size: var(--font-size-40);
+    line-height: var(--line-height-44);
+  }
+
+  main > .section.navy.embed-container .accordion-wrapper {
+    margin: 0 -5.5rem;
+    padding: 0 5.5rem 8rem;
+  }
+}
+
+/* CTA columns: full-bleed blue background */
+
+/* Original AEM: medium-radius cmp-container-full-width (40px radius) */
+main > .section.navy.embed-container .columns-wrapper:last-child {
+  background-color: var(--highlight-dark-background-color);
+  margin: 0 -3.5rem -8rem;
+  padding: 4rem 3.5rem;
+  border-top-left-radius: var(--spacing-20);
+  max-width: none;
+}
+
+main > .section.navy.embed-container .columns-wrapper:last-child :is(h4, p, a) {
+  color: var(--background-color);
+}
+
+main > .section.navy.embed-container .columns-wrapper:last-child a.button:any-link {
+  border-color: var(--background-color);
+  color: var(--background-color);
+}
+
+main > .section.navy.embed-container .columns-wrapper:last-child a.button:hover {
+  background-color: var(--background-color);
+  color: var(--highlight-dark-background-color);
+}
+
+@media (width >= 744px) {
+  main > .section.navy.embed-container .columns-wrapper:last-child {
+    margin: 0 -7rem -8rem;
+    padding: 5.6rem 7rem;
+    border-top-left-radius: var(--spacing-32);
+  }
+}
+
+@media (width >= 1024px) {
+  main > .section.navy.embed-container .columns-wrapper:last-child {
+    margin: 0 -5.5rem -8rem;
+    padding: 8rem 5.5rem;
+    border-top-left-radius: var(--spacing-40);
+  }
+}
+
+/* R&D community section: proper 2-column layout */
+main > .section.navy.embed-container .columns-wrapper:first-child {
+  padding: 4rem 0;
+}
+
+main > .section.navy.embed-container .columns-wrapper:first-child h3 {
+  font-family: var(--heading-font-family-bold);
+  font-size: var(--font-size-30);
+  line-height: var(--line-height-34);
+  color: var(--text-color);
+  margin: 0 0 var(--spacing-24);
+}
+
+/* R&D community left column: add image below heading via pseudo-element */
+main > .section.navy.embed-container .columns-wrapper:first-child .columns > div > div:first-child::after {
+  content: '';
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  margin-top: var(--spacing-24);
+  background: url('https://abbvie.scene7.com/is/image/abbviecorp/explore%20randd%20workers') center / cover no-repeat;
+  border-radius: 0.8rem;
+}
+
+/* R&D community: 42-58 ratio matching original AEM col-with-5 + col-with-7 */
+@media (width >= 900px) {
+  main > .section.navy.embed-container .columns-wrapper:first-child .columns > div > div:first-child {
+    flex: 5;
+  }
+
+  main > .section.navy.embed-container .columns-wrapper:first-child .columns > div > div:last-child {
+    flex: 7;
+  }
+}
+
+/* R&D community links: styled with dividers and arrows */
+main > .section.navy.embed-container .columns-wrapper:first-child ul {
+  list-style: none;
+  padding: 0;
+  margin: var(--spacing-16) 0 0;
+}
+
+main > .section.navy.embed-container .columns-wrapper:first-child ul li {
+  border-bottom: 1px solid var(--container-border-color);
+  padding: var(--spacing-16) 0;
+  margin: 0;
+}
+
+main > .section.navy.embed-container .columns-wrapper:first-child ul li:first-child {
+  border-top: 1px solid var(--container-border-color);
+}
+
+main > .section.navy.embed-container .columns-wrapper:first-child ul li a {
+  font-family: var(--body-font-family);
+  font-size: var(--font-size-18);
+  font-weight: 400;
+  text-decoration: none;
+  text-transform: none;
+  color: var(--text-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+main > .section.navy.embed-container .columns-wrapper:first-child ul li a::after {
+  content: '\2192';
+  font-size: var(--font-size-18);
+  color: var(--text-color);
+  flex-shrink: 0;
+  margin-left: var(--spacing-16);
+}
+
+@media (width >= 1024px) {
+  main > .section.navy.embed-container .columns-wrapper:first-child h3 {
+    font-size: var(--font-size-40);
+    line-height: var(--line-height-44);
+  }
+
+  main > .section.navy.embed-container .columns-wrapper:first-child ul li a {
+    font-size: var(--font-size-20);
+  }
+}
+
+/* CTA heading: F37 Lineca Book, 40px, weight 650 */
+main > .section.navy.embed-container .columns-wrapper:last-child h4 {
+  font-family: var(--heading-font-family);
+  font-weight: 650;
+  font-size: var(--font-size-30);
+  line-height: var(--line-height-34);
+}
+
+@media (width >= 744px) {
+  main > .section.navy.embed-container .columns-wrapper:last-child h4 {
+    font-size: var(--font-size-36);
+    line-height: var(--line-height-44);
+  }
+}
+
+@media (width >= 1024px) {
+  main > .section.navy.embed-container .columns-wrapper:last-child h4 {
+    font-size: var(--font-size-40);
+    line-height: var(--line-height-44);
+  }
+}
+
+/* ========================================================================
+   FAQ section — CTA band ("Where bold science meets real-world results")
+   Original AEM: cmp-container full-width, bg rgb(241,243,255),
+   grid-row 5:1:5 (image | spacer | text+CTA), padding 80px 55px
+   ======================================================================== */
+
+/* Full-bleed light blue background */
+main > .section.accordion-container > .accordion-wrapper ~ .default-content-wrapper {
+  background-color: rgb(241 243 255);
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  padding: 4rem 3.5rem;
+  max-width: none;
+  border-radius: 0;
+}
+
+/* Image: full width of its container */
+main > .section.accordion-container > .accordion-wrapper ~ .default-content-wrapper > p:first-child img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 0;
+  object-fit: cover;
+}
+
+/* H2: F37 Lineca Medium, 48px at desktop */
+main > .section.accordion-container > .accordion-wrapper ~ .default-content-wrapper h2 {
+  font-family: var(--heading-font-family-bold);
+  font-size: var(--font-size-30);
+  font-weight: 800;
+  line-height: var(--line-height-34);
+  color: var(--text-color);
+  text-align: left;
+  letter-spacing: normal;
+  margin-bottom: var(--spacing-16);
+}
+
+/* Description */
+main > .section.accordion-container > .accordion-wrapper ~ .default-content-wrapper > p:nth-child(3) {
+  color: var(--text-color);
+  margin-bottom: var(--spacing-24);
+}
+
+/* CTA button: outlined style (transparent bg, blue border) */
+main > .section.accordion-container > .accordion-wrapper ~ .default-content-wrapper a.button:any-link {
+  background-color: transparent;
+  border: 1px solid rgb(0 102 245);
+  color: rgb(0 102 245);
+  font-family: var(--roboto-bold-font-family);
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-700);
+  text-transform: uppercase;
+  padding: 1.6rem 4rem;
+  border-radius: 0;
+}
+
+main > .section.accordion-container > .accordion-wrapper ~ .default-content-wrapper a.button:hover {
+  background-color: rgb(0 102 245);
+  color: var(--background-color);
+}
+
+@media (width >= 744px) {
+  main > .section.accordion-container > .accordion-wrapper ~ .default-content-wrapper {
+    padding: 5.6rem 7rem;
+  }
+
+  main > .section.accordion-container > .accordion-wrapper ~ .default-content-wrapper h2 {
+    font-size: var(--font-size-40);
+    line-height: var(--line-height-44);
+  }
+}
+
+@media (width >= 1024px) {
+  main > .section.accordion-container > .accordion-wrapper ~ .default-content-wrapper {
+    padding: 8rem max(5.5rem, calc((100vw - 133rem) / 2));
+    display: grid;
+    grid-template-columns: 5fr 5fr;
+    gap: 0 8rem;
+  }
+
+  /* Image in left column, spanning all rows */
+  main > .section.accordion-container > .accordion-wrapper ~ .default-content-wrapper > p:first-child {
+    grid-column: 1;
+    grid-row: 1 / span 3;
+    margin: 0;
+  }
+
+  /* Text elements in right column */
+  main > .section.accordion-container > .accordion-wrapper ~ .default-content-wrapper h2 {
+    grid-column: 2;
+    font-size: var(--heading-font-size-l);
+    line-height: var(--line-height-52);
+  }
+
+  main > .section.accordion-container > .accordion-wrapper ~ .default-content-wrapper > p:nth-child(3) {
+    grid-column: 2;
+  }
+
+  main > .section.accordion-container > .accordion-wrapper ~ .default-content-wrapper > .button-container {
+    grid-column: 2;
+    align-self: start;
+  }
+}
+
+/* ========================================================================
+   Content-Series Pages — Section Spacing
+   Reduces gaps between sections for pages where the hero is in its own
+   section (not combined with columns/cards like the landing page).
+   ======================================================================== */
+
+/* Hero-only section: reduce bottom padding */
+main > .section.navy-overlap.hero-container:not(.columns-container, .cards-container) {
+  padding-bottom: 0;
+}
+
+/* Content-series hero: full-bleed hero wrapper (matches landing page treatment) */
+main > .section.navy-overlap.hero-container:not(.columns-container, .cards-container) .hero-wrapper {
+  margin: -4rem -3.5rem 0;
+  max-width: none;
+  overflow: hidden;
+}
+
+@media (width >= 744px) {
+  main > .section.navy-overlap.hero-container:not(.columns-container, .cards-container) .hero-wrapper {
+    margin: -5.6rem -7rem 0;
+  }
+}
+
+@media (width >= 1024px) {
+  main > .section.navy-overlap.hero-container:not(.columns-container, .cards-container) .hero-wrapper {
+    margin: -8rem -5.5rem 0;
+  }
+}
+
+/* Dark section after hero-only: remove top padding, wrapper padding suffices */
+main > .section.navy-overlap.hero-container:not(.columns-container) + .section.dark {
+  padding-top: 0;
+}
+
+/* Dark section → dive deeper: ensure no gap between full-bleed backgrounds */
+main > .section.dark.cards-container:not(:has(.hero-wrapper)) {
+  margin-bottom: 0;
+}
+
+/* ========================================================================
+   Content-Series Pages — Dive Deeper Section
+   The unstyled columns section after the dark section contains the
+   "Dive deeper into AbbVie science" navigation links.
+   ======================================================================== */
+
+main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) {
+  background-color: var(--background-color);
+  margin: 0;
+  padding: 4rem 3.5rem;
+  max-width: none;
+  border-top-left-radius: 4rem;
+}
+
+@media (width >= 744px) {
+  main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) {
+    padding: 8rem 7rem;
+  }
+}
+
+@media (width >= 1024px) {
+  main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) {
+    padding: 8rem 5.5rem;
+  }
+}
+
+@media (width >= 1440px) {
+  main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) > div {
+    max-width: 133rem;
+    margin: 0 auto;
+  }
+}
+
+/* Dive deeper heading */
+main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) h3 {
+  font-family: var(--heading-font-family-bold);
+  font-size: var(--font-size-30);
+  line-height: var(--line-height-34);
+  color: var(--text-color);
+  margin: 0 0 var(--spacing-24);
+}
+
+@media (width >= 1024px) {
+  main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) h3 {
+    font-size: var(--font-size-40);
+    line-height: var(--line-height-44);
+  }
+}
+
+/* Dive deeper image in left column */
+main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) .columns > div > div:first-child img {
+  /* border-radius: 0.8rem; */
+  margin-top: var(--spacing-24);
+}
+
+/* Dive deeper: 42-58 column ratio */
+@media (width >= 900px) {
+  main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) .columns > div > div:first-child {
+    flex: 5;
+  }
+
+  main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) .columns > div > div:last-child {
+    flex: 7;
+  }
+}
+
+/* Dive deeper links: styled with dividers and arrows */
+main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) ul {
+  list-style: none;
+  padding: 0;
+  margin: var(--spacing-16) 0 0;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) ul li {
+  border-bottom: 1px solid var(--container-border-color);
+  padding: var(--spacing-16) 0;
+  margin: 0;
+}
+
+main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) ul li:first-child {
+  border-top: 1px solid var(--container-border-color);
+}
+
+main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) ul li a {
+  font-family: var(--body-font-family);
+  font-size: var(--font-size-18);
+  font-weight: 400;
+  text-decoration: none;
+  text-transform: none;
+  color: var(--text-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) ul li a::after {
+  content: '\e905';
+  font-family: var(--icon-font-family);
+  font-size: var(--font-size-18);
+  color: var(--text-color);
+  flex-shrink: 0;
+  margin-left: var(--spacing-16);
+}
+
+@media (width >= 1024px) {
+  main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) ul li a {
+    font-size: var(--font-size-20);
+  }
+}
+
+/* ========================================================================
+   Content-Series Pages — CTA Section
+   The navy section with a columns block containing heading + button.
+   Uses the base .navy styles. CTA heading matches landing page style.
+   ======================================================================== */
+
+/* stylelint-disable no-descending-specificity */
+main > .section.navy.columns-container h4,
+main > .section.purple.columns-container h4 {
+  font-family: var(--heading-font-family);
+  font-weight: 650;
+  font-size: var(--font-size-30);
+  line-height: var(--line-height-34);
+}
+
+@media (width >= 744px) {
+  main > .section.navy.columns-container h4,
+  main > .section.purple.columns-container h4 {
+    font-size: var(--font-size-36);
+    line-height: var(--line-height-44);
+  }
+}
+
+@media (width >= 1024px) {
+  main > .section.navy.columns-container h4,
+  main > .section.purple.columns-container h4 {
+    font-size: var(--font-size-40);
+    line-height: var(--line-height-44);
+  }
+}
+/* stylelint-enable no-descending-specificity */
+
+/* ========================================================================
+   Utilities
+   ======================================================================== */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  border: 0;
+}
+
+.hide {
+  display: none !important;
+}
+
+
+.section .large-radius {
+  border-top-left-radius: var(--border-top-left-radius);
+}
+
+@media (width >= 744px) {
+  .section .large-radius {
+    border-top-left-radius: var(--border-top-left-radius-tablet);
+  }
+}
+
+@media (width >= 1024px) {
+  .section .large-radius {
+    border-top-left-radius: var(--border-top-left-radius-desktop);
+  } 
+}
+
+.bg-f4f4f4 {
+  background-color: var(--bg-f4f4f4);
+}
+
+/* ========================================================================
+   Stories Cards Section — "The stories behind our science"
+   Scoped via :has(#the-stories-behind-our-science) to avoid affecting
+   cards on other pages (e.g. our-people)
+   ======================================================================== */
+
+/* Section padding — match default section spacing */
+main > .section.cards-container:has(#the-stories-behind-our-science) {
+  padding: var(--spacing-32) var(--spacing-35);
+}
+
+/* Remove card background and border — live site has transparent cards */
+main > .section.cards-container:has(#the-stories-behind-our-science) .cards > ul > li {
+  background-color: transparent;
+  border: none;
+}
+
+/* Grid gap — live site uses 20px */
+main > .section.cards-container:has(#the-stories-behind-our-science) .cards > ul {
+  gap: var(--spacing-20);
+}
+
+/* Card title — Roboto Bold, 14px, uppercase, letter-spacing 0.56px */
+main > .section.cards-container:has(#the-stories-behind-our-science) .cards .cards-card-body p strong {
+  font-family: var(--roboto-bold-font-family);
+  font-size: var(--font-size-14);
+  line-height: var(--line-height-16);
+  font-weight: var(--font-weight-700);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide-04);
+}
+
+/* Card description — Roboto Regular, 18px, 400 */
+main > .section.cards-container:has(#the-stories-behind-our-science) .cards .cards-card-body > p:not(:first-child):not(:last-child) {
+  font-family: var(--body-font-family);
+  font-size: var(--font-size-18);
+  font-weight: var(--font-weight-400);
+  line-height: var(--line-height-24);
+}
+
+/* CTA link — blue, Roboto Bold, 14px, uppercase, letter-spacing 0.84px */
+main > .section.cards-container:has(#the-stories-behind-our-science) .cards .cards-card-body .button-container .button {
+  color: var(--highlight-dark-background-color);
+  font-size: var(--font-size-14);
+  letter-spacing: var(--letter-spacing-wide-06);
+}
+
+/* Image aspect ratio — live site uses ~5:6 (natural 1331x1600) */
+main > .section.cards-container:has(#the-stories-behind-our-science) .cards > ul > li img {
+  aspect-ratio: 1331 / 1600;
+}
+
+/* Card body padding — match live site spacing */
+main > .section.cards-container:has(#the-stories-behind-our-science) .cards .cards-card-body {
+  padding: var(--spacing-16) 0 var(--spacing-24);
+}
+
+@media (width >= 1024px) {
+  main > .section.cards-container:has(#the-stories-behind-our-science) {
+    padding: var(--spacing-48) var(--spacing-55);
+  }
+
+  /* 4-column grid at desktop — matches live site 4x .grid-row__col-with-3 */
+  main > .section.cards-container:has(#the-stories-behind-our-science) .cards > ul {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (width >= 1440px) {
+  main > .section.cards-container:has(#the-stories-behind-our-science) > div {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+  }
+}
+
+/* =====================================================
+   Priorities / Core focus areas section
+   Part of the dashboard — lab background image with
+   white panel overlay and 3-column layout
+   ===================================================== */
+
+main .section.dark:has(#core-focus-areas) {
+  background-color: var(--bg-f4f4f4, #f4f4f4);
+  background-image: url('https://abbvie.scene7.com/is/image/abbviecorp/abbvie-src-scout?$Hero$');
+  background-size: cover;
+  background-position: center bottom;
+  color: var(--bg-071d49, #071d49);
+  padding: 0 5.5rem 8rem;
+  margin-top: -5rem;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* White panel overlay for priorities content */
+main .section.dark:has(#core-focus-areas) > .default-content-wrapper {
+  background-color: #fff;
+  padding: 5.6rem 7rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+main .section.dark:has(#core-focus-areas) h4 {
+  color: var(--bg-071d49, #071d49);
+  font-family: var(--heading-font-family);
+  font-size: 4rem;
+  font-weight: 650;
+  line-height: 4.4rem;
+  margin-bottom: 0;
+}
+
+/* PRIORITIES eyebrow */
+main .section.dark:has(#core-focus-areas) > .default-content-wrapper > p:first-child {
+  font-family: var(--roboto-bold-font-family);
+  font-size: var(--font-size-14, 1.4rem);
+  font-weight: var(--font-weight-700);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide-04);
+  color: var(--text-color);
+  margin-bottom: 0;
+}
+
+/* Description paragraph */
+main .section.dark:has(#core-focus-areas) p {
+  color: var(--bg-071d49, #071d49);
+  font-size: 1.8rem;
+  line-height: 2.4rem;
+}
+
+/* Link lists */
+main .section.dark:has(#core-focus-areas) ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+main .section.dark:has(#core-focus-areas) ul li {
+  border: none;
+  padding: 0;
+  margin: 0 0 1.2rem;
+}
+
+main .section.dark:has(#core-focus-areas) ul li a {
+  font-family: var(--body-font-family);
+  font-size: 1.8rem;
+  font-weight: 400;
+  text-decoration: none;
+  color: var(--bg-071d49, #071d49);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0 1.6rem;
+  border-bottom: 1px solid rgb(185 180 180);
+}
+
+main .section.dark:has(#core-focus-areas) ul li a::after {
+  content: '\e905';
+  font-family: var(--icon-font-family);
+  font-size: var(--font-size-16, 1.6rem);
+  color: var(--bg-071d49, #071d49);
+  flex-shrink: 0;
+  margin-left: 1.6rem;
+}
+
+/* Desktop: 3-column grid (text left, 2 link columns right) */
+@media (width >= 1024px) {
+  main .section.dark:has(#core-focus-areas) > .default-content-wrapper {
+    display: grid;
+    grid-template-columns: 5fr 3fr 3fr;
+    gap: 0 4rem;
+  }
+
+  main .section.dark:has(#core-focus-areas) > .default-content-wrapper > p:first-child,
+  main .section.dark:has(#core-focus-areas) > .default-content-wrapper > h4,
+  main .section.dark:has(#core-focus-areas) > .default-content-wrapper > p:nth-of-type(2) {
+    grid-column: 1;
+  }
+
+  main .section.dark:has(#core-focus-areas) > .default-content-wrapper > ul:first-of-type {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    align-self: start;
+  }
+
+  main .section.dark:has(#core-focus-areas) > .default-content-wrapper > ul:last-of-type {
+    grid-column: 3;
+    grid-row: 1 / span 3;
+    align-self: start;
+  }
+}
+
+/* =====================================================
+   Science page — Columns section (Explore + Tenacity)
+   Scoped via :has(#explore-our-science)
+   ===================================================== */
+
+/* F1: H3 headings — 26px → 48px to match live site */
+main .section.columns-container:has(#explore-our-science) h3 {
+  font-size: 4.8rem;
+  font-weight: 800;
+  line-height: 5.2rem;
+  letter-spacing: -0.096rem;
+  color: var(--bg-071d49, #071d49);
+}
+
+/* F8: Link list arrows in Explore section */
+main .section.columns-container:has(#explore-our-science) ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+main .section.columns-container:has(#explore-our-science) ul li {
+  margin: 0 0 1.2rem;
+}
+
+main .section.columns-container:has(#explore-our-science) ul li a {
+  font-family: var(--body-font-family);
+  font-size: 1.8rem;
+  font-weight: 400;
+  text-decoration: none;
+  color: var(--bg-071d49, #071d49);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0 1.6rem;
+  border-bottom: 1px solid rgb(185 180 180);
+}
+
+main .section.columns-container:has(#explore-our-science) ul li a::after {
+  content: '\e905';
+  font-family: var(--icon-font-family);
+  font-size: var(--font-size-16, 1.6rem);
+  color: var(--bg-071d49, #071d49);
+  flex-shrink: 0;
+  margin-left: 1.6rem;
+}
+
+/* F5: Quote text — 40px F37 Lineca Book to match original site
+   DOM: .columns > div:nth-child(2) > div:last-child > p:first-child
+   (tenacity is its own section on live AEM with 2 rows, not 3) */
+main .section:has(#the-tenacity-to-take-on-the-toughest-challenges) .columns > div:nth-child(2) > div:last-child > p:first-child {
+  font-family: var(--heading-font-family);
+  font-size: 4rem;
+  font-weight: 650;
+  line-height: 4.4rem;
+  color: var(--bg-071d49, #071d49);
+  font-style: normal;
+  padding-top: 2rem;
+}
+
+/* F12: Blue quote icon above quote text */
+main .section:has(#the-tenacity-to-take-on-the-toughest-challenges) .columns > div:nth-child(2) > div:last-child > p:first-child::before {
+  content: '\e91b';
+  font-family: var(--icon-font-family);
+  font-size: 3.3rem;
+  color: var(--link-color, #0066f5);
+  display: block;
+  margin-bottom: 1.6rem;
+}
+
+/* F13: Quote attribution — bold author name */
+main .section:has(#the-tenacity-to-take-on-the-toughest-challenges) .columns > div:nth-child(2) > div:last-child > p:last-child {
+  font-family: var(--roboto-bold-font-family);
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 2.4rem;
+  color: var(--bg-071d49, #071d49);
+}
+
+/* =====================================================
+   Science page — Stories section
+   Scoped via :has(#the-stories-behind-our-science)
+   ===================================================== */
+
+/* F2: Stories H1 — 32px → 48px to match live site */
+main .section:has(#the-stories-behind-our-science) h1 {
+  font-size: 4.8rem;
+  font-weight: 800;
+  line-height: 5.2rem;
+  letter-spacing: -0.096rem;
+  color: var(--bg-071d49, #071d49);
+}
+
+/* F14: Blue separator below stories heading */
+main .section:has(#the-stories-behind-our-science) .default-content-wrapper {
+  border-bottom: none;
+}
+
+main .section:has(#the-stories-behind-our-science) h1::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 0;
+  margin-top: 1.6rem;
+}
+
+/* F11: Story card CTA links — text links with arrow, not filled buttons */
+main .section:has(#the-stories-behind-our-science) .cards-card-body a.button {
+  font-family: var(--roboto-bold-font-family);
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.084rem;
+  color: var(--link-color, #0066f5);
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+main .section:has(#the-stories-behind-our-science) .cards-card-body a.button::after {
+  content: '\e905';
+  font-family: var(--icon-font-family);
+  font-size: 1.2rem;
+  color: var(--link-color, #0066f5);
+}
+
+/* =====================================================
+   Science page — FAQ / Accordion section
+   Double-scoped: main:has(#core-focus-areas) ensures
+   science page only + :has(#frequently-asked-questions)
+   ===================================================== */
+
+/* F3: FAQ H2 — 32px → 48px to match live site */
+main:has(#core-focus-areas) .section:has(#frequently-asked-questions) h2 {
+  font-size: 4.8rem;
+  font-weight: 800;
+  line-height: 5.2rem;
+  letter-spacing: -0.096rem;
+  color: var(--bg-071d49, #071d49);
+  text-align: center;
+}
+
+/* F4: Accordion item labels — 26px/Roboto Bold/700 to match original */
+main:has(#core-focus-areas) .section:has(#frequently-asked-questions) .accordion-item-label {
+  font-family: var(--roboto-bold-font-family);
+  font-size: 2.6rem;
+  font-weight: 700;
+  line-height: 3.2rem;
+  color: var(--bg-071d49, #071d49);
+}
+
+/* F15: Expand All button — blue, bold */
+main:has(#core-focus-areas) .section:has(#frequently-asked-questions) .accordion-wrapper > div > button {
+  font-family: var(--roboto-bold-font-family);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--link-color, #0066f5);
+}
+
+/* =====================================================
+   Science page — CTA / Highlight section
+   Scoped via :has(#where-bold-science-meets-real-world-results)
+   ===================================================== */
+
+/* F10: CTA button — filled → outlined to match live site */
+main .section.highlight:has(#where-bold-science-meets-real-world-results) a {
+  background: transparent;
+  border: 1px solid var(--link-color, #0066f5);
+  color: var(--link-color, #0066f5);
+  font-family: var(--roboto-bold-font-family);
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.084rem;
+  padding: 1.6rem 4rem;
+  line-height: 2rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 0;
+}
+
+/* =====================================================
+   Science page — Video / Embed section (F6)
+   Scoped via main:has(#core-focus-areas) .embed-container
+   The HTML already contains overlay elements:
+   - .embed-placeholder-overlay with H2, desc paragraph, watch button
+   We only add the gradient overlay via CSS
+   ===================================================== */
+
+/* F6: Video embed — position the embed block as the overlay anchor */
+main:has(#core-focus-areas) .section.embed-container .embed.block {
+  position: relative;
+}
+
+/* F6: Video embed — make placeholder a relative container for overlay */
+main:has(#core-focus-areas) .section.embed-container .embed-placeholder {
+  position: relative;
+  cursor: pointer;
+}
+
+/* F6: Video embed — dark gradient overlay on right half */
+main:has(#core-focus-areas) .section.embed-container .embed-placeholder::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 50%;
+  background: linear-gradient(to right, rgba(7, 29, 73, 0) 0%, rgba(7, 29, 73, 0.85) 30%, rgba(7, 29, 73, 0.95) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* F6: Video embed — overlay container positioning */
+main:has(#core-focus-areas) .section.embed-container .embed-placeholder-overlay {
+  position: absolute;
+  top: 50%;
+  right: 6rem;
+  transform: translateY(-50%);
+  z-index: 2;
+  max-width: 40%;
+  pointer-events: none;
+}
+
+/* F6: Video embed — overlay heading */
+main:has(#core-focus-areas) .section.embed-container .embed-placeholder-title {
+  color: #fff;
+  font-family: var(--heading-font-family);
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 4.4rem;
+  margin: 0 0 1.2rem;
+}
+
+/* F6: Video embed — overlay description */
+main:has(#core-focus-areas) .section.embed-container .embed-placeholder-desc {
+  color: #fff;
+  font-family: var(--body-font-family);
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 2.8rem;
+  margin: 0 0 2rem;
+}
+
+/* F6: Video embed — overlay watch button */
+main:has(#core-focus-areas) .section.embed-container .embed-placeholder-watch {
+  color: #fff;
+  font-family: var(--roboto-bold-font-family);
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.084rem;
+  border: 1px solid #fff;
+  padding: 1.6rem 4rem;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* F6: Video embed — watch button play icon */
+main:has(#core-focus-areas) .section.embed-container .embed-placeholder-watch-icon::before {
+  content: '\25B6';
+  margin-right: 0.8rem;
+}
+
+/* F6: Video embed — full-width image */
+main:has(#core-focus-areas) .section.embed-container .embed-placeholder img {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* =====================================================
+   Science page — Story Cards headings (F7)
+   Scoped via :has(#the-stories-behind-our-science)
+   Styles the <p><strong> heading labels in each card
+   Live site: 14px, Roboto Bold, uppercase, letter-spacing 0.56px
+   ===================================================== */
+
+/* F7: Story card heading — style the <p><strong> category label */
+main .section:has(#the-stories-behind-our-science) .cards-card-body > p:first-child {
+  font-family: var(--roboto-bold-font-family);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: rgb(0, 0, 0);
+  text-transform: uppercase;
+  letter-spacing: 0.056rem;
+  line-height: 1.6rem;
+  margin-bottom: 1.6rem;
 }

@@ -1,0 +1,23 @@
+{
+  "status": "success",
+  "url": "https://www.abbvie.com/science/our-people/our-rd-leaders.html",
+  "path": "science/our-people/our-rd-leaders",
+  "timestamp": "2026-03-19T06:32:46.617Z",
+  "title": "Our R&D Leaders | AbbVie",
+  "template": "leaders-listing",
+  "blocks": [
+    "cards-leader",
+    "cards-leader",
+    "cards-leader",
+    "cards-leader",
+    "cards-leader",
+    "cards-leader",
+    "cards-leader",
+    "cards-leader",
+    "cards-leader",
+    "cards-leader",
+    "cards-leader",
+    "cards-leader",
+    "cards-leader"
+  ]
+}

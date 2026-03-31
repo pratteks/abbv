@@ -1,0 +1,50 @@
+{
+  "definitions": [
+    {
+      "title": "Press Releases",
+      "id": "press-releases",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Press Releases",
+              "model": "press-releases"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "press-releases",
+      "fields": [
+        {
+          "component": "number",
+          "name": "numberOfItems",
+          "label": "Press Releases Number of Items to be Fetched",
+          "valueType": "1",
+          "validation": {
+            "numberMin": 1,
+            "numberMax": 5
+           }
+        }
+      ]
+    }
+  ],
+   "filters": [
+    {
+      "id": "press-releases",
+      "components": [
+        "press-release"
+      ]
+    },
+    {
+      "id": "press-release",
+      "components": [
+        "number"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,153 @@
+{
+  "definitions": [
+    {
+      "title": "Quote",
+      "id": "quote",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Quote",
+              "model": "quote",
+              "quoteType": "basic",
+              "language": "en"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "quote",
+      "fields": [
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "quoteType",
+          "value": "basic",
+          "label": "Quote Type",
+          "required": true,
+          "options": [
+            {
+              "name": "Regular quote",
+              "value": "basic"
+            },
+            {
+              "name": "Quote from CF",
+              "value": "content-fragment"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "classes_theme",
+          "label": "Theme",
+          "options": [
+            { "name": "None", "value": "quote-none" },
+            { "name": "Light Theme", "value": "quote-light" },
+            { "name": "Dark Theme", "value": "quote-dark" }
+          ]
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "quotation",
+          "value": "",
+          "label": "Quote Text",
+          "description": "Provide the quote",
+          "required": true,
+          "condition": {
+            "in": [
+              {
+                "var": "quoteType"
+              },
+              ["basic"]
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "attributionName",
+          "value": "",
+          "label": "Author Name",
+          "description": "Provide the name of the author",
+          "condition": {
+            "in": [
+              {
+                "var": "quoteType"
+              },
+              ["basic"]
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "attributionTitle",
+          "value": "",
+          "label": "Author Title",
+          "description": "Provide the title of the author",
+          "condition": {
+            "in": [
+              {
+                "var": "quoteType"
+              },
+              ["basic"]
+            ]
+          }
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "attributionImage",
+          "label": "Author Image",
+          "description": "Select an image of the author",
+          "multi": false,
+          "condition": {
+            "in": [
+              {
+                "var": "quoteType"
+              },
+              ["basic"]
+            ]
+          }
+        },
+        {
+          "component": "aem-content",
+          "valueType": "string",
+          "name": "quoteFragment",
+          "label": "Content Fragment",
+          "description": "Select a quote from the Content Fragment library",
+          "condition": {
+            "in": [
+              {
+                "var": "quoteType"
+              },
+              ["content-fragment"]
+            ]
+          }
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "backgroundImage",
+          "label": "Background Image",
+          "description": "Select a background image for the quote",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "backgroundImageAlt",
+          "value": "",
+          "label": "Background Image Alt Text",
+          "description": "Provide alt text for the background image"
+        }
+      ]
+    }
+  ],
+  "filters": []
+}

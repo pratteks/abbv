@@ -21,6 +21,23 @@
       "id": "hero",
       "fields": [
         {
+          "component": "multiselect",
+          "name": "classes",
+          "value": "",
+          "label": "Style",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Profile",
+              "value": "profile"
+            },
+            {
+              "name": "Landing",
+              "value": "landing"
+            }
+          ]
+        },
+        {
           "component": "reference",
           "valueType": "string",
           "name": "image",
@@ -39,6 +56,13 @@
           "name": "text",
           "value": "",
           "label": "Text",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "classes_customClass",
+          "value": "",
+          "label": "Custom Class",
           "valueType": "string"
         }
       ]

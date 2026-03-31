@@ -21,6 +21,11 @@
       "id": "columns",
       "fields": [
         {
+          "component": "tab",
+          "label": "Properties",
+          "name": "properties"
+        },
+        {
           "component": "text",
           "valueType": "number",
           "name": "columns",
@@ -33,6 +38,118 @@
           "name": "rows",
           "value": "",
           "label": "Rows"
+        },
+        {
+          "component": "tab",
+          "label": "Styles",
+          "name": "styles"
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "classes_marginBottom",
+          "value": "",
+          "label": "Margin Bottom",
+          "options": [
+            {
+              "name": "None",
+              "value": ""
+            },
+            {
+              "name": "margin-bottom-1",
+              "value": "mb-1"
+            },
+            {
+              "name": "margin-bottom-2",
+              "value": "mb-2"
+            },
+            {
+              "name": "margin-bottom-3",
+              "value": "mb-3"
+            },
+            {
+              "name": "margin-bottom-4",
+              "value": "mb-4"
+            },
+            {
+              "name": "margin-bottom-5",
+              "value": "mb-5"
+            },
+            {
+              "name": "margin-bottom-6",
+              "value": "mb-6"
+            },
+            {
+              "name": "margin-bottom-7",
+              "value": "mb-7"
+            },
+            {
+              "name": "margin-bottom-8",
+              "value": "mb-8"
+            },
+            {
+              "name": "margin-bottom-9",
+              "value": "mb-9"
+            },
+            {
+              "name": "margin-bottom-10",
+              "value": "mb-10"
+            },
+            {
+              "name": "custom-mb-col",
+              "value": "custom-mb-col"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "classes_grid",
+          "value": "",
+          "label": "Grid",
+          "options": [
+            {
+              "name": "None",
+              "value": ""
+            },
+            {
+              "name": "Grid 5 of 5",
+              "value": "grid-5-5"
+            },
+            {
+              "name": "Grid 5 of 6",
+              "value": "grid-5-6"
+            },
+            {
+              "name": "Grid 6 of 5",
+              "value": "grid-6-5"
+            },
+            {
+              "name": "Grid 7 of 4",
+              "value": "grid-7-4"
+            },
+            {
+              "name": "Grid 8 of 3",
+              "value": "grid-8-3"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "classes_order",
+          "value": "",
+          "label": "Content Order (Mobile)",
+          "options": [
+            {
+              "name": "Default",
+              "value": ""
+            },
+            {
+              "name": "Content then Image",
+              "value": "order-content-first-mobile"
+            }
+          ]
         }
       ]
     }

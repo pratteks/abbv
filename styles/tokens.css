@@ -1,0 +1,337 @@
+/*
+ * Copyright 2020 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
+
+/* Media Query Breakpoints (min-width, mobile-first)
+   Mobile: 0 – 743px | Tablet: 744px+ | Desktop: 1024px+ | Wide: 1440px+ */
+@custom-media --bp-tablet (min-width: 744px);
+@custom-media --bp-desktop (min-width: 1024px);
+@custom-media --bp-wide (min-width: 1440px);
+
+:root {
+/* -----------------------------------------------------------
+   PX → REM Conversion Helper
+   How to use:
+   - Define a base root font-size (default = 10px)
+   - Use `calc(<px> * var(--px-to-rem))` to convert pixels to rem
+   - Example: calc(24 * var(--px-to-rem)) = 2.4rem
+----------------------------------------------------------- */
+  --base-size: 10; /* 1rem = 10px */
+  --px-to-rem: calc(1rem / var(--base-size));
+
+    /* Colors */
+  --link-color: #035fe6;
+  --link-hover-color: #136ff6;
+  --background-color: #fff;
+  --highlight-background-color: #f1f3ff;
+  --highlight-dark-background-color:#0066F5;
+  --container-border-color: #a6b5e0;
+  --footer-background-color: #fafafa;
+  --footer-text-color: #666b7a;
+  --footer-link-color: #071d49;
+  --footer-seperator-color: #b9b4b4;
+  --text-color: #071d49; /* primary dark/nav text */
+  --strong-heading: #0066f5;
+  --hero-button-color: #479ff8;
+  --text-color-gray: #808080;
+  --light-color: #f8f8f8;
+  --dark-color: #505050;
+  --overlay-background-color: lightgrey;
+  --color-accent-purple: #8a2ecc;
+  --color-accent-blue: #0066f5;
+  --color-accent-blue-light: #479ff8;
+  --color-accent-green: #338700;
+  --overlay-navy: rgb(7 29 73 / 70%);
+  --overlay-navy-medium: rgb(7 29 73 / 55%);
+  --overlay-navy-light: rgb(7 29 73 / 50%);
+
+  /* Background Colors for Style Field Values */
+  --bg-ffffff: #fff;
+  --bg-071d49: #071d49;
+  --bg-a6b5e0: #a6b5e0;
+  --bg-f1f3ff: #f1f3ff;
+  --bg-fafbff: #fafbff;
+  --bg-666b7a: #666b7a;
+  --bg-b9b4b4: #b9b4b4;
+  --bg-f4f4f4: #f4f4f4;
+  --bg-fafafa: #fafafa;
+  --bg-8a2ecc: #8a2ecc;
+  --bg-a86bde: #a86bde;
+  --bg-0066f5: #0066f5;
+  --bg-479ff8: #479ff8;
+  --bg-cf451c: #cf451c;
+  --bg-f7634f: #f7634f;
+  --bg-338700: #338700;
+
+  /* Alerts */
+  --error-color: #cf451c;
+  --warning-color: #f2dede;
+  --success-color: #2f9ece;
+
+  /* Fonts */
+  --body-font-family: 'Roboto Regular', helvetica, arial, sans-serif;
+  --heading-font-family: 'F37 Lineca Book', helvetica, arial, sans-serif;
+  --icon-font-family: 'Abbvie Icon';
+  --heading-font-family-bold: 'F37 Lineca Medium', helvetica, arial, sans-serif;
+  --roboto-small-font-family: 'Roboto Small', helvetica, arial, sans-serif;
+  --roboto-bold-font-family: 'Roboto Bold', helvetica, arial, sans-serif;
+  --roboto-medium-font-family: 'Roboto Medium', helvetica, arial, sans-serif;
+  --form-font-family: "Open Sans", sans-serif;
+
+  /* Body sizes (match abbvie breakpoints) */
+  --body-font-size-m: 1.8rem;
+  --body-font-size-s: 1.6rem;
+  --body-font-size-xs: 1.4rem;
+  --font-size-11: 1.1rem;
+  --font-size-12: 1.2rem;
+  --font-size-13: 1.3rem;
+  --font-size-14: 1.4rem;
+  --font-size-16: 1.6rem;
+  --font-size-18: 1.8rem;
+  --font-size-20: 2rem;
+  --font-size-22: 2.2rem;
+  --font-size-24: 2.4rem;
+  --font-size-26: 2.6rem;
+  --font-size-28: 2.8rem;
+  --font-size-32: 3.2rem;
+  --font-size-30: 3rem;
+  --font-size-33: 3.3rem;
+  --font-size-34: 3.4rem;
+  --font-size-36: 3.6rem;
+  --font-size-38: 3.8rem;
+  --font-size-40: 4rem;
+  --font-size-42: 4.2rem;
+  --font-size-50: 5rem;
+  --font-size-64: 6.4rem;
+  --font-size-70: 7rem;
+  --font-size-80: 8rem;
+
+  /* Heading sizes */
+  --heading-font-size-xxl: 6.4rem;
+  --heading-font-size-xl: 5.6rem;
+  --heading-font-size-l: 4.8rem;
+  --heading-font-size-m: 4rem;
+  --heading-font-size-s: 3.2rem;
+  --heading-font-size-xs: 2.4rem;
+
+  /* nav height (approx) */
+  --nav-height: calc(72 * var(--px-to-rem));
+  --nav-height-mobile: 72px;
+  --breadcrumbs-height: 34px;
+  --header-height: var(--nav-height);
+
+  /* Spacing Tokens */
+  --space-token-xxs: calc(8 * var(--px-to-rem));
+  --space-token-xs: calc(16 * var(--px-to-rem));
+  --space-token-s: calc(24 * var(--px-to-rem));
+  --space-token-m: calc(32 * var(--px-to-rem));
+  --space-token-l: calc(40 * var(--px-to-rem));
+  --space-token-xl: calc(56 * var(--px-to-rem));
+  --space-token-xxl: calc(80 * var(--px-to-rem));
+  --space-token-xxxl: calc(104 * var(--px-to-rem));
+
+  /* Generalized Spacing Tokens */
+  --spacing-02: 0.2rem;
+  --spacing-03: 0.3rem;
+  --spacing-04: 0.4rem;
+  --spacing-05: 0.5rem;
+  --spacing-06: 0.6rem;
+  --spacing-08: 0.8rem;
+  --spacing-10: 1rem;
+  --spacing-12: 1.2rem;
+  --spacing-15: 1.5rem;
+  --spacing-16: 1.6rem;
+  --spacing-17: 1.7rem;
+  --spacing-18: 1.8rem;
+  --spacing-20: 2rem;
+  --spacing-21: 2.1rem;
+  --spacing-22: 2.2rem;
+  --spacing-24: 2.4rem;
+  --spacing-25: 2.5rem;
+  --spacing-26: 2.6rem;
+  --spacing-27: 2.7rem;
+  --spacing-275: 2.75rem;
+  --spacing-30: 3rem;
+  --spacing-32: 3.2rem;
+  --spacing-34: 3.4rem;
+  --spacing-35: 3.5rem;
+  --spacing-36: 3.6rem;
+  --spacing-37-5: 3.75rem;
+  --spacing-38: 3.8rem;
+  --spacing-40: 4rem;
+  --spacing-42: 4.2rem;
+  --spacing-44: 4.4rem;
+  --spacing-46: 4.6rem;
+  --spacing-50: 5rem;
+  --spacing-52: 5.2rem;
+  --spacing-55: 5.5rem;
+  --spacing-56: 5.6rem;
+  --spacing-60: 6rem;
+  --spacing-64: 6.4rem;
+  --spacing-66: 6.6rem;
+  --spacing-70: 7rem;
+  --spacing-72: 7.2rem;
+  --spacing-74: 7.4rem;
+  --spacing-80: 8rem;
+  --spacing-81: 8.1rem;
+  --spacing-85: 8.5rem;
+  --spacing-86: 8.6rem;
+  --spacing-90: 9rem;
+  --spacing-100: 10rem;
+  --spacing-110: 11rem;
+  --spacing-120: 12rem;
+  --spacing-124: 12.4rem;
+  --spacing-168: 16.8rem;
+  --spacing-180: 18rem;
+  --spacing-288: 28.8rem;
+  --spacing-300: 30rem;
+  --spacing-320: 32rem;
+  --spacing-375: 37.5rem;
+  --spacing-420: 42rem;
+  --spacing-500: 50rem;
+  --spacing-585: 58.5rem;
+  --spacing-810: 81rem;
+  --spacing-1000: 100rem;
+  --spacing-1200: 120rem;
+
+  /* Separator Height */
+  --separator-height-1: .1rem;
+  --separator-height-8: .8rem;
+  --separator-height-16: 1.6rem;
+  --separator-height-24: 2.4rem;
+  --separator-height-32: 3.2rem;
+  --separator-height-48: 4.8rem;
+  --separator-height-64: 6.4rem;
+  --separator-height-80: 8rem;
+  --separator-height-96: 9.6rem;
+  --separator-height-112: 11.2rem;
+  --separator-height-128: 12.8rem;
+  --separator-height-144: 14.4rem;
+
+  /* text transform */
+  --font-uppercase: uppercase;
+  --font-lowercase: lowercase;
+  --font-normal: normal;
+
+  /* Border Radius */
+  --border-radius-base: 0.4rem;
+  --border-radius-m: 0.8rem;
+
+  /* z-index */
+  --z-index-negative: -1;
+  --z-index-0 : 0;
+  --z-index-1 : 1;
+  --z-index-2 : 2;
+  --z-index-3 : 3;
+
+  /* Flex/Grid order */
+  --order-first: -1;
+  --order-0: 0;
+  --order-1: 1;
+  --order-unset: unset;
+
+  /* Layout */
+  --content-max-width: 133rem;
+  --content-max-width-narrow: 110rem;
+  --content-max-width-medium: 90rem;
+  --content-max-width-faq: 80rem;
+  --icon-size: 2.4rem;
+
+  /* Font Weight */
+  --font-weight-300: 300;
+  --font-weight-400: 400;
+  --font-weight-500: 500;
+  --font-weight-600: 600;
+  --font-weight-650: 650;
+  --font-weight-700: 700;
+  --font-weight-800: 800;
+  --font-weight-regular: 400;
+  --font-weight-bold: 700;
+
+  /* Gap */
+  --gap-0: 0;
+  --gap-10: 1rem;
+  --gap-20: 2rem;
+  --gap-24: 2.4rem;
+  --gap-32: 3.2rem;
+  --gap-42: 4.2rem;
+  --border-top-radius: 3.2rem;
+  --hero-section-height: 12rem;
+
+  /* Generalized Line Heights */
+  --line-height-16: 1.6rem;
+  --line-height-20: 2rem;
+  --line-height-22: 2.2rem;
+  --line-height-24: 2.4rem;
+  --line-height-26: 2.6rem;
+  --line-height-28: 2.8rem;
+  --line-height-30: 3rem;
+  --line-height-32: 3.2rem;
+  --line-height-34: 3.4rem;
+  --line-height-35: 3.5rem;
+  --line-height-36: 3.6rem;
+  --line-height-44: 4.4rem;
+  --line-height-46: 4.6rem;
+  --line-height-68: 6.8rem;
+
+  /* Hero Colors */
+  --hero-overlay-gradient: linear-gradient(to top, rgb(0 0 0 / 90%) 42.91%, transparent);
+  --hero-button-hover-color: var(--container-border-color);
+  --story-card-text-color: var(--footer-link-color);
+  --story-card-link-color: #0066f5;
+  --story-card-hover-bg: #f1f3ff;
+
+  /* Form Colors */
+  --form-background-color: #fff;
+  --form-text-color: #727272;
+  --form-secondary-text-color: #727272;
+  --form-border-color: #ccc;
+  --form-border-hover-color: #000;
+  --form-background-hover-color: #f3f3f3;
+  --form-primary-color: #7c3098;
+  --form-secondary-color: #80379b;
+  --form-secondary-hover-color: #6d2f85;
+  --form-disabled-color: #5e2b72;
+  --form-dark-color: #071d49;
+  --form-white-color: white;
+  --form-error-color: #eb3c36;
+  --form-error-border-color: rgb(212 43 43);
+  --form-shadow-color: rgb(167 167 167);
+  --form-overlay-bg: rgb(255 255 255 / 90%);
+  --form-divider-color: #eee;
+  --form-light-border-color: #d0d0d0;
+  --form-light-bg-color: #f5f5f5;
+  --form-light-text-color: #666;
+  --form-dark-text-color: #333;
+  --form-darker-text-color: #55565a;
+  --form-medium-text-color: #999;
+  --form-light-divider-color: #f0f0f0;
+  --form-medium-border-color: #ddd;
+  --form-orange-color: #e98300;
+  --form-success-color: #2f9ece;
+  --form-warning-color: #d32f2f;
+
+  /* Form Fonts */
+}
+
+@media (--bp-tablet) {
+  :root {
+    --border-top-radius: 6.4rem;
+    --hero-section-height: 26rem;
+  }
+}
+
+@media (--bp-desktop) {
+  :root {
+    --border-top-radius: 8rem;
+    --hero-section-height: 28.8rem;
+  }
+}

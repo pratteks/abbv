@@ -1,0 +1,50 @@
+/* styling here used exclusively to make preview easier to look at */
+main .header-content {
+  position: relative;
+  background-color: var(--bg-f4f4f4);
+  padding: var(--spacing-20);
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+}
+
+main .header-content > div:first-child > div > p:first-child {
+  font-weight: 500;
+}
+
+main .header-content > div:first-child > div > div > p:nth-of-type(2) > a {
+  border-color: var(--link-color);
+  background-color: transparent;
+  color: var(--link-color);
+}
+
+main .header-content > div:nth-child(2) > div > div > p:nth-of-type(2) > a {
+  display: flex;
+  min-width: 57px;
+  min-height: 24px;
+  gap: 0;
+  opacity: 1;
+  font-family: Roboto,Tahoma,helvetica,arial,sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: #0662BB;
+  border: unset;
+  border-radius: unset;
+  padding: unset;
+  background-color: unset;
+}
+
+main .header-content::before {
+  position: absolute;
+  content: attr(data-type);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--gray-1);
+  top: 1rem;
+  inset-inline-start: 1rem;
+}
+  

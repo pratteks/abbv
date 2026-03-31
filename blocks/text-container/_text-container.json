@@ -1,0 +1,187 @@
+{
+  "definitions": [
+    {
+      "title": "Text Container",
+      "id": "text-container",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Text Container",
+              "model": "text-container",
+              "filter": "text-container",
+              "language": "lang:none"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Text Container Image",
+      "id": "text-container-image",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Text Container Image",
+              "model": "text-container-image"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Text Container Text",
+      "id": "text-container-text",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Text Container Text",
+              "model": "text-container-text",
+              "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur volutpat consequat dui, sit amet ...</p>"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "text-container",
+      "fields": [
+        {
+          "component": "tab",
+          "label": "Styles",
+          "name": "styles"
+        },
+        {
+          "component": "select",
+          "name": "classes_textAlignment",
+          "label": "Text Alignment",
+          "options": [
+            {
+              "name": "Left",
+              "value": "align-left"
+            },
+            {
+              "name": "Center",
+              "value": "align-center"
+            },
+            {
+              "name": "Right",
+              "value": "align-right"
+            },
+            {
+              "name": "Justify",
+              "value": "align-justify"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "classes_textDirection",
+          "label": "Text Direction",
+          "options": [
+            {
+              "name": "Left to Right",
+              "value": "text-ltr"
+            },
+            {
+              "name": "Right to Left",
+              "value": "text-rtl"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "classes_theme",
+          "label": "Theme",
+          "options": [
+            {
+              "name": "Light",
+              "value": "theme-light"
+            },
+            {
+              "name": "Dark",
+              "value": "theme-dark"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "classes_columns",
+          "label": "Columns",
+          "options": [
+            {
+              "name": "One column",
+              "value": "text-one-column"
+            },
+            {
+              "name": "Two columns",
+              "value": "text-two-columns"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "name": "classes_customClass",
+          "value": "",
+          "label": "Custom Class",
+          "valueType": "string"
+        },
+        {
+          "component": "tab",
+          "label": "Accessibility",
+          "name": "accessibility"
+        },
+        {
+          "...": "../../models/_language.json#/language-field"
+        }
+      ]
+    },
+    {
+      "id": "text-container-image",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "imageAlt",
+          "value": "",
+          "label": "Alt Text"
+        }
+      ]
+    },
+    {
+      "id": "text-container-text",
+      "fields": [
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "text",
+          "value": "",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "text-container",
+      "components": [
+        "text-container-image",
+        "text-container-text"
+      ]
+    }
+  ]
+}

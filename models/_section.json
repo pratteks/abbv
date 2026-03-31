@@ -13,6 +13,24 @@
           }
         }
       }
+    },
+    {
+      "title": "Hero Section",
+      "id": "hero-section",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/section/v1/section",
+            "template": {
+              "model": "hero-section",
+              "filter": "hero-section",
+              "name": "Hero Section",
+              "identifier": "Hero Section",
+              "section-type": "hero"
+            }
+          }
+        }
+      }
     }
   ],
   "models": [
@@ -20,21 +38,397 @@
       "id": "section",
       "fields": [
         {
+          "component": "tab",
+          "label": "Properties",
+          "name": "properties"
+        },
+        {
           "component": "text",
           "name": "name",
           "label": "Section Name",
           "description": "The label shown for this section in the Content Tree"
         },
         {
-          "component": "multiselect",
-          "name": "style",
-          "label": "Style",
+          "component": "reference",
+          "name": "background",
+          "label": "Background Image",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "backgroundAlt",
+          "label": "Background Image Alt",
+          "value": "",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "sectionId",
+          "label": "Section ID",
+          "value": "",
+          "valueType": "string"
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "enablefetchPriorityHigh",
+          "label": "Enable fetchPriority = High",
+          "value": true,
+          "description": "To improve Largest Contentful Paint (LCP) and Cummulative Layout Shift (CLS) metrics, you can enable lazy loading of the background image. When enabled, the image will only load when it enters the viewport, reducing initial load time and conserving bandwidth."
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "enableLazyLoading",
+          "label": "Enable Lazy Loading",
+          "value": true,
+          "description": "To improve page load speed, you can enable lazy loading of an image. When enabled, the image will only load when it enters the viewport, reducing initial load time and conserving bandwidth."
+        },
+        {
+          "component": "tab",
+          "label": "Styles",
+          "name": "styles"
+        },
+        {
+          "component": "select",
+          "name": "classes_container",
+          "label": "Section Container",
           "options": [
+            {
+              "name": "None",
+              "value": "none"
+            },
+            {
+              "name": "Press Release Compact Container",
+              "value": "abbvie-container-small"
+            },
+            {
+              "name": "Cards Layout",
+              "value": "grid-column-split-6-3-3"
+            },
+            {
+              "name": "Navy Overlap",
+              "value": "navy-overlap"
+            },
             {
               "name": "Highlight",
               "value": "highlight"
+            },
+            {
+              "name": "Dark",
+              "value": "dark"
+            },
+            {
+              "name": "Navy",
+              "value": "navy"
+            },
+            {
+              "name": "Explore Tenacity",
+              "value": "explore-tenacity"
             }
           ]
+        },
+        {
+          "component": "select",
+          "name": "classes_height",
+          "label": "Height",
+          "options": [
+            {
+              "name": "Default",
+              "value": ""
+            },
+            {
+              "name": "Tall",
+              "value": "height-tall"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "classes_borderRadius",
+          "label": "Border Radius",
+          "options": [
+            {
+              "name": "None",
+              "value": "none"
+            },
+            {
+              "name": "Large Radius",
+              "value": "radius-large"
+            },
+            {
+              "name": "Medium Radius",
+              "value": "radius-medium"
+            },
+            {
+              "name": "Small Radius",
+              "value": "radius-small"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "classes_transparency",
+          "label": "Transparency",
+          "options": [
+            {
+              "name": "None",
+              "value": "none"
+            },
+            {
+              "name": "Semi Transparent",
+              "value": "semi-transparent"
+            },
+            {
+              "name": "Linear Gradient",
+              "value": "linear-gradient"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "classes_alignment",
+          "label": "Alignment",
+          "options": [
+            {
+              "name": "None",
+              "value": "no-align"
+            },
+            {
+              "name": "Left",
+              "value": "align-left"
+            },
+            {
+              "name": "Right",
+              "value": "align-right"
+            },
+            {
+              "name": "Center",
+              "value": "align-center"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "classes_padding",
+          "label": "Margin and Padding",
+          "options": [
+            {
+              "name": "None",
+              "value": ""
+            },
+            {
+              "name": "No Padding",
+              "value": "no-padding"
+            },
+            {
+              "name": "No Bottom Margin",
+              "value": "no-bottom-margin"
+            },
+            {
+              "name": "Section Padding",
+              "value": "section-padding"
+            },
+            {
+              "name": "Section Bottom Margin",
+              "value": "section-bottom-margin"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "classes_bg-color",
+          "label": "Background Color",
+          "options": [
+            {
+              "name": "Not Set",
+              "value": ""
+            },
+            {
+              "name": "White",
+              "value": "bg-ffffff"
+            },
+            {
+              "name": "Dark Navy Blue",
+              "value": "bg-071d49"
+            },
+            {
+              "name": "Light Periwinkle Blue",
+              "value": "bg-a6b5e0"
+            },
+            {
+              "name": "Very Light Lavender",
+              "value": "bg-f1f3ff"
+            },
+            {
+              "name": "Soft Off White",
+              "value": "bg-fafbff"
+            },
+            {
+              "name": "Slate Gray",
+              "value": "bg-666b7a"
+            },
+            {
+              "name": "Warm Gray",
+              "value": "bg-b9b4b4"
+            },
+            {
+              "name": "Light Gray",
+              "value": "bg-f4f4f4"
+            },
+            {
+              "name": "Snow White",
+              "value": "bg-fafafa"
+            },
+            {
+              "name": "Royal Purple",
+              "value": "bg-8a2ecc"
+            },
+            {
+              "name": "Soft Purple",
+              "value": "bg-a86bde"
+            },
+            {
+              "name": "Bright Blue",
+              "value": "bg-0066f5"
+            },
+            {
+              "name": "Sky Blue",
+              "value": "bg-479ff8"
+            },
+            {
+              "name": "Burnt Orange",
+              "value": "bg-cf451c"
+            },
+            {
+              "name": "Coral Red",
+              "value": "bg-f7634f"
+            },
+            {
+              "name": "Forest Green",
+              "value": "bg-338700"
+            }
+          ]
+        },
+        {
+          "component": "tab",
+          "label": "Accessibility",
+          "name": "accessibility"
+        },
+        {
+          "...": "_language.json#/language-field"
+        }
+      ]
+    },
+    {
+      "id": "hero-section",
+      "title": "Hero Section",
+      "fields": [
+        {
+          "component": "text",
+          "name": "section-type",
+          "value": "hero",
+          "valueType": "string",
+          "hidden": true
+        },
+        {
+          "component": "text",
+          "name": "name",
+          "label": "Section Name",
+          "description": "The label shown for this section in the Content Tree",
+          "value": "",
+          "valueType": "string"
+        },
+        {
+          "component": "select",
+          "name": "bg-color",
+          "label": "Background Color",
+          "options": [
+            {
+              "name": "Not set",
+              "value": ""
+            },
+            {
+              "name": "#ffffff",
+              "value": "ffffff"
+            },
+            {
+              "name": "#071d49",
+              "value": "071d49"
+            },
+            {
+              "name": "#a6b5e0",
+              "value": "a6b5e0"
+            },
+            {
+              "name": "#f1f3ff",
+              "value": "f1f3ff"
+            },
+            {
+              "name": "#fafbff",
+              "value": "fafbff"
+            },
+            {
+              "name": "#666b7a",
+              "value": "666b7a"
+            },
+            {
+              "name": "#b9b4b4",
+              "value": "b9b4b4"
+            },
+            {
+              "name": "#f4f4f4",
+              "value": "f4f4f4"
+            },
+            {
+              "name": "#fafafa",
+              "value": "fafafa"
+            },
+            {
+              "name": "#8a2ecc",
+              "value": "8a2ecc"
+            },
+            {
+              "name": "#a86bde",
+              "value": "a86bde"
+            },
+            {
+              "name": "#0066f5",
+              "value": "0066f5"
+            },
+            {
+              "name": "#479ff8",
+              "value": "479ff8"
+            },
+            {
+              "name": "#cf451c",
+              "value": "cf451c"
+            },
+            {
+              "name": "#f7634f",
+              "value": "f7634f"
+            },
+            {
+              "name": "#338700",
+              "value": "338700"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "name": "identifier",
+          "label": "ID",
+          "value": "",
+          "valueType": "string",
+          "readOnly": true
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "classes_onlyOne",
+          "label": "Show the first fragment only",
+          "value": false,
+          "description": "When checked, only the first fragment is shown. When unchecked, fragments rotate in authored order on each page visit."
         }
       ]
     }
@@ -43,15 +437,40 @@
     {
       "id": "section",
       "components": [
-        "text",
-        "image",
+        "accordion",
+        "breadcrumb",
         "button",
-        "title",
-        "hero",
         "cards",
+        "carousel",
+        "social-media",
         "columns",
-        "fragment"
+        "embed",
+        "fragment",
+        "press-releases",
+        "separator",
+        "story-card",
+        "form",
+        "hero",
+        "navigation-content",
+        "stock-ticker",
+        "eds-form",
+        "embed-form",
+        "image",
+        "quote",
+        "search",
+        "tabs",
+        "table",
+        "text",
+        "title",
+        "video",
+        "custom-title",
+        "text-container",
+        "cta"
       ]
+    },
+    {
+      "id": "hero-section",
+      "components": ["fragment"]
     }
   ]
 }

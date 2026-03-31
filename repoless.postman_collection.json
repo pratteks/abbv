@@ -1,0 +1,618 @@
+{
+	"info": {
+		"_postman_id": "bf6ff7bb-97ee-49c6-ad9f-1d7cce0cd57d",
+		"name": "repoless",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8005066"
+	},
+	"item": [
+		{
+			"name": "create or update first site",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijdzb2k4N3pkb3NJRnc4b19fbVR5a082QlVRNEZBVGhjaHlyNGZqY1dSbWcifQ.eyJlbWFpbCI6InByYXR0ZWtzQGFkb2JlLmNvbSIsIm5hbWUiOiJQcmF0dGVrIFNpbmdoYWwiLCJ1c2VyX2lkIjoiMjA2MTFFODQ2N0M4NkU1NDBBNDk1Q0NEQDJlNjIxZjY5NjM2NzMxZWU0OTVjNTAuZSIsImltc1Rva2VuIjoiZXlKaGJHY2lPaUpTVXpJMU5pSXNJbmcxZFNJNkltbHRjMTl1WVRFdGEyVjVMV0YwTFRFdVkyVnlJaXdpYTJsa0lqb2lhVzF6WDI1aE1TMXJaWGt0WVhRdE1TSXNJbWwwZENJNkltRjBJbjAuZXlKcFpDSTZJakUzTmpNMk9UWXhPRE00TnpCZlltWTBNMlJpWm1JdFkySmhNQzAwWVdVMUxXSmlOMkV0TkdKbVpEUXhPRGMzTnpVMFgzVmxNU0lzSW5SNWNHVWlPaUpoWTJObGMzTmZkRzlyWlc0aUxDSmpiR2xsYm5SZmFXUWlPaUpvWld4cGVDMWhaRzFwYmlJc0luVnpaWEpmYVdRaU9pSXlNRFl4TVVVNE5EWTNRemcyUlRVME1FRTBPVFZEUTBSQU1tVTJNakZtTmprMk16WTNNekZsWlRRNU5XTTFNQzVsSWl3aWMzUmhkR1VpT2lKbGVVcG9Za2RqYVU5cFNuVmlNalZzU1c0d0xtVjVTbmRqYlRsMFkwaFJhVTlwU25WaU1qVnNTV2wzYVdJelNtNUphbTlwV1ZkU2RsbHRWV2xtVVM0aUxDSmhjeUk2SW1sdGN5MXVZVEVpTENKaFlWOXBaQ0k2SWpGQlFURXdNVFEyTmpNek5VUkROVE13UVRRNU5VTTFRMEJoWkc5aVpTNWpiMjBpTENKamRIQWlPakFzSW1abklqb2lXamRFVGxBMlVqUldURTAxUVVSWFMwWkRVVlpMTjBGQk4xa2lMQ0p6YVdRaU9pSXhOell4TlRNME5UZzFNalF5WHpVeE1XSmxaamt4TFdJM04yWXRORE00WVMwNFpUYzBMVFkxTWpreU1UVTFOVEkzWkY5MWR6SWlMQ0p5ZEdsa0lqb2lNVGMyTXpZNU5qRTRNemczTVY4eU5EZ3hPVEkwTmkwd1lUZzFMVFE1WlRjdFlXWTNaaTFsTWpnM1l6VmtPR05oWTJaZmRXVXhJaXdpYlc5cElqb2lNamczWkRabE5qVWlMQ0p3WW1FaU9pSlBVa2NzVFdWa1UyVmpUbTlGVml4TWIzZFRaV01pTENKeWRHVmhJam9pTVRjMk5Ea3dOVGM0TXpnM01TSXNJbVY0Y0dseVpYTmZhVzRpT2lJeU9EZ3dNREF3TUNJc0ltTnlaV0YwWldSZllYUWlPaUl4TnpZek5qazJNVGd6T0Rjd0lpd2ljMk52Y0dVaU9pSkJaRzlpWlVsRUxHOXdaVzVwWkN4d2NtOW1hV3hsTEdWdFlXbHNMR0ZpTG0xaGJtRm5aU3huYm1GMkxHOXlaeTV5WldGa0xISmxZV1JmYjNKbllXNXBlbUYwYVc5dWN5eHpaWE56YVc5dUxHRmtaR2wwYVc5dVlXeGZhVzVtYnk1dmQyNWxjazl5Wnl4aFpHUnBkR2x2Ym1Gc1gybHVabTh1Y0hKdmFtVmpkR1ZrVUhKdlpIVmpkRU52Ym5SbGVIUXNZV1Z0TG1aeWIyNTBaVzVrTG1Gc2JDSjkuR2JhYzlfeXMzWGR4em5WbDcxeE92ZUdCMHNyRk5fdnotSnQzRmNPZ1VYQVREZGh3UXUzRVRDZzcxelJqNVgwWmMyTDZzdFB2eTl5Mm0xUU5pTFVrUTZvLTlfdE0xTEh5aEd2cVpfMFRfQ3NITzFpTjNPdVZNOHMwVnRMX0pDdE5ka0hveExzcGhUQlMzVThmN1JmWW9BZUlfVHpvdGEzQjl0NGxLUWJIdkRJS1cwRjZYVENqUWo4ZWZSRXU2SG5WZjFhbjYtczBkZXFQelU1YURDcjY1UzREYTV4TGQ0blB2VTZlNThQLVc3Z0RxLVJHUUdEWHV1aFNuanplOThnSG1zdi1hbktGRG44WUcycjZlaHNXV1FuaFc3SGVyemt3Q3B6eU9nT1ZkMXBQWFcxWEtacW1tVU9MY2R6TW93Sm1SV1pvWGE0dnpiT0JyOXVwc0Z2aFZRIiwiaWF0IjoxNzYzNjk2MTgzLCJpc3MiOiJodHRwczovL2FkbWluLmhseC5wYWdlLyIsInN1YiI6IiovKiIsImF1ZCI6IjgzYTM2MzU1LWFkMTctNGVkMC04NzAxLWU5OWEzMDIwZjg2YSIsImV4cCI6MTc2MzcyNDk4M30.bdusjqYwwneSUrW7JmNbycdAV0iGJRG9Bhvos55mxeBTk6oWOOV0pZL1NyQsiyVv2EJve_LPyQxyrN-dlEcmUCBiiYHDv48e8COpYmx5S0JZawQoX8iRIxxnejlVU87-IqsuJA_h5GS9j1G9vS-UGBnPdus_rPInLfnkgz4Awrt7obgWTa0oNwt8PProoOaM0R3KtfbO_HEqKchXdJODTMx9xvXuk7_5mke2RZ6O1nRs0jzh5ctTUx08HMRR04I9mX6EktK0eZU5GVoFxIB_YMOOJnfuEzt0VFSPQISJ9NH0ZSaSk5lLF7oavYjRGzqAALJetEHKBbyyB3NTsOc5LQ"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"version\": 1,\n  \"code\": {\n    \"owner\": \"AbbVie\",\n    \"repo\": \"abbvie-eds\",\n    \"source\": {\n      \"type\": \"github\",\n      \"url\": \"https://github.com/AbbVie/abbvie-eds\"\n    }\n  },\n  \"content\": {\n    \"source\": {\n      \"url\": \"https://author-p157365-e1665873.adobeaemcloud.com.adobeaemcloud.com/bin/franklin.delivery/AbbVie/abbvie/main\",\n      \"type\": \"markup\",\n      \"suffix\": \".html\"\n    }\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://admin.hlx.page/config/AbbVie/sites/abbvie.json",
+					"protocol": "https",
+					"host": [
+						"admin",
+						"hlx",
+						"page"
+					],
+					"path": [
+						"config",
+						"AbbVie",
+						"sites",
+						"abbvie.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "botox",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijdzb2k4N3pkb3NJRnc4b19fbVR5a082QlVRNEZBVGhjaHlyNGZqY1dSbWcifQ.eyJlbWFpbCI6InByYXR0ZWtzQGFkb2JlLmNvbSIsIm5hbWUiOiJQcmF0dGVrIFNpbmdoYWwiLCJ1c2VyX2lkIjoiMjA2MTFFODQ2N0M4NkU1NDBBNDk1Q0NEQDJlNjIxZjY5NjM2NzMxZWU0OTVjNTAuZSIsImltc1Rva2VuIjoiZXlKaGJHY2lPaUpTVXpJMU5pSXNJbmcxZFNJNkltbHRjMTl1WVRFdGEyVjVMV0YwTFRFdVkyVnlJaXdpYTJsa0lqb2lhVzF6WDI1aE1TMXJaWGt0WVhRdE1TSXNJbWwwZENJNkltRjBJbjAuZXlKcFpDSTZJakUzTmpNNE1ESTNNekk1TkRSZk1HRmtZekF3WlRFdFltUXdZUzAwT0RCaUxXRmtNMlF0Wm1ZeU1UQTNOVGMxTUdKalgzVmxNU0lzSW5SNWNHVWlPaUpoWTJObGMzTmZkRzlyWlc0aUxDSmpiR2xsYm5SZmFXUWlPaUpvWld4cGVDMWhaRzFwYmlJc0luVnpaWEpmYVdRaU9pSXlNRFl4TVVVNE5EWTNRemcyUlRVME1FRTBPVFZEUTBSQU1tVTJNakZtTmprMk16WTNNekZsWlRRNU5XTTFNQzVsSWl3aWMzUmhkR1VpT2lKbGVVcG9Za2RqYVU5cFNuVmlNalZzU1c0d0xtVjVTbmRqYlRsMFkwaFJhVTlwU25WaU1qVnNTV2wzYVdJelNtNUphbTlwV1ZkU2RsbHRWV2xtVVM0aUxDSmhjeUk2SW1sdGN5MXVZVEVpTENKaFlWOXBaQ0k2SWpGQlFURXdNVFEyTmpNek5VUkROVE13UVRRNU5VTTFRMEJoWkc5aVpTNWpiMjBpTENKamRIQWlPakFzSW1abklqb2lXamRITkVaSFNVTldURTAxUVVSWFMwWkRVVlpMV0VGQlMwRWlMQ0p6YVdRaU9pSXhOell4TlRNME5UZzFNalF5WHpVeE1XSmxaamt4TFdJM04yWXRORE00WVMwNFpUYzBMVFkxTWpreU1UVTFOVEkzWkY5MWR6SWlMQ0p5ZEdsa0lqb2lNVGMyTXpnd01qY3pNamswTlY5aU1HRTFZbVl6TUMwelpqWXdMVFExTlRFdE9UZ3pNUzB5TURKalpHWmhOMlF5WTJOZmRXVXhJaXdpYlc5cElqb2laalprTTJFNU1UVWlMQ0p3WW1FaU9pSlBVa2NzVFdWa1UyVmpUbTlGVml4TWIzZFRaV01pTENKeWRHVmhJam9pTVRjMk5UQXhNak16TWprME5TSXNJbVY0Y0dseVpYTmZhVzRpT2lJeU9EZ3dNREF3TUNJc0ltTnlaV0YwWldSZllYUWlPaUl4TnpZek9EQXlOek15T1RRMElpd2ljMk52Y0dVaU9pSkJaRzlpWlVsRUxHOXdaVzVwWkN4d2NtOW1hV3hsTEdWdFlXbHNMR0ZpTG0xaGJtRm5aU3huYm1GMkxHOXlaeTV5WldGa0xISmxZV1JmYjNKbllXNXBlbUYwYVc5dWN5eHpaWE56YVc5dUxHRmtaR2wwYVc5dVlXeGZhVzVtYnk1dmQyNWxjazl5Wnl4aFpHUnBkR2x2Ym1Gc1gybHVabTh1Y0hKdmFtVmpkR1ZrVUhKdlpIVmpkRU52Ym5SbGVIUXNZV1Z0TG1aeWIyNTBaVzVrTG1Gc2JDSjkuS1NtTHM5N1R4dzBUd1Q2U1VTblFIWVRMcGswa1BKd1VNNjh3VGZ6RXFkWTA4MzB4NmhQRllBQnRaVGh1SVJCY0RQbTZjcktISzVQWnNXSURQTXBkeExkcFowb3Bib0sxNkFpN0ZVcm1Yd1o2Skl0R3owSVRSazhCVUtSN2hoSTM4VXB4b1Z0U25jX2dkM3NUTFJKZkJvR0NuMHBxOVhUTEF2SWxPaUZoNHEwbXAtck1iVU13NHFQRUhheXVXYTFERzVhV0NGMlJ5QmVLUkotR1BhYVJSUVEtVXFTT3pvbmQyOFNDU0lWYmE1Qkl5WndoajJHUU5yZWJqcnpQbmh5bEpCNnQ1MDYtbDVfR28yU2x0SEV6a0dqNk40V3NMa3JuNm5pZ3FSVEYtQkNEb1RKWFUxUENjeFJWODk5aENLMnVfNHMzODM1VllTeDI1a3VJekJwaTZBIiwiaWF0IjoxNzYzODAyNzMyLCJpc3MiOiJodHRwczovL2FkbWluLmhseC5wYWdlLyIsInN1YiI6IiovKiIsImF1ZCI6IjgzYTM2MzU1LWFkMTctNGVkMC04NzAxLWU5OWEzMDIwZjg2YSIsImV4cCI6MTc2MzgzMTUzMn0.PjiHORcDLbOG_NMCGVUH_FqhQ-a-MPOrYyqNfvncx9TXfVgRoW1quqaH9e7oojSvbOsfd5HYx7vzfvKa22Zr1sdnJuZdNWzVAVQsPlHpTXcSOgP7Yikp14oXqM1SW7-2mQCWxA3sp7NkN_Bm4RcxpO8ySgYzx66H5BW298_vGeungQEjIG3bpqX6EPYTM3BVyFr8GYzs07Sm3EYT5fENj3nf3iUZ2tJ_by9jyvqVlkUkjVa9NkHfYtn_OdKydb_gmec8-I91XbSsrmEdQrVteyFD3q2H3GH0yjgjdfclAjXQ9jiJIkcoYJs1WmpQHqWKvhd3jAA-8BqTLQLJJwkEEg"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"code\": {\n        \"owner\": \"abbvie\",\n        \"repo\": \"abbvie-eds\",\n        \"source\": {\n            \"type\": \"github\",\n            \"url\": \"https://github.com/abbvie/abbvie-eds\"\n        }\n    },\n    \"content\": {\n        \"source\": {\n            \"url\": \"https://author-p157365-e1665873.adobeaemcloud.com/bin/franklin.delivery/abbvie/commercial-botox-us-com-eds/main\",\n            \"type\": \"markup\",\n            \"suffix\": \".html\"\n        }\n    },\n    \"access\": {\n        \"admin\": {\n            \"role\": {\n                \"config_admin\": [\n                    \"BA44220C683DCE840A495F84@techacct.adobe.com\"\n                ],\n                \"admin\": [\n                    \"pratteks@adobe.com\"\n                ]\n            },\n            \"requireAuth\": \"auto\"\n        }\n    },\n    \"sidekick\": {\n        \"project\": \"AEM XWalk Boilerplate\",\n        \"editUrlLabel\": \"AEM Editor\",\n        \"editUrlPattern\": \"{{contentSourceUrl}}{{pathname}}?cmd=open\"\n    },\n    \"public\": {\n        \"paths\": {\n            \"mappings\": [\n                \"/content/abbvie-eds/commercial/botox/us/en/:/\"\n              \n            ],\n            \"includes\": [\n                \"/content/abbvie-eds/commercial/botox/us/en/\"\n            ]\n        }\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://admin.hlx.page/config/abbvie/sites/commercial-botox-us-com-eds.json",
+					"protocol": "https",
+					"host": [
+						"admin",
+						"hlx",
+						"page"
+					],
+					"path": [
+						"config",
+						"abbvie",
+						"sites",
+						"commercial-botox-us-com-eds.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "rinvoq",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijdzb2k4N3pkb3NJRnc4b19fbVR5a082QlVRNEZBVGhjaHlyNGZqY1dSbWcifQ.eyJlbWFpbCI6InByYXR0ZWtzQGFkb2JlLmNvbSIsIm5hbWUiOiJQcmF0dGVrIFNpbmdoYWwiLCJ1c2VyX2lkIjoiMjA2MTFFODQ2N0M4NkU1NDBBNDk1Q0NEQDJlNjIxZjY5NjM2NzMxZWU0OTVjNTAuZSIsImltc1Rva2VuIjoiZXlKaGJHY2lPaUpTVXpJMU5pSXNJbmcxZFNJNkltbHRjMTl1WVRFdGEyVjVMV0YwTFRFdVkyVnlJaXdpYTJsa0lqb2lhVzF6WDI1aE1TMXJaWGt0WVhRdE1TSXNJbWwwZENJNkltRjBJbjAuZXlKcFpDSTZJakUzTmpNNE1ESTNNekk1TkRSZk1HRmtZekF3WlRFdFltUXdZUzAwT0RCaUxXRmtNMlF0Wm1ZeU1UQTNOVGMxTUdKalgzVmxNU0lzSW5SNWNHVWlPaUpoWTJObGMzTmZkRzlyWlc0aUxDSmpiR2xsYm5SZmFXUWlPaUpvWld4cGVDMWhaRzFwYmlJc0luVnpaWEpmYVdRaU9pSXlNRFl4TVVVNE5EWTNRemcyUlRVME1FRTBPVFZEUTBSQU1tVTJNakZtTmprMk16WTNNekZsWlRRNU5XTTFNQzVsSWl3aWMzUmhkR1VpT2lKbGVVcG9Za2RqYVU5cFNuVmlNalZzU1c0d0xtVjVTbmRqYlRsMFkwaFJhVTlwU25WaU1qVnNTV2wzYVdJelNtNUphbTlwV1ZkU2RsbHRWV2xtVVM0aUxDSmhjeUk2SW1sdGN5MXVZVEVpTENKaFlWOXBaQ0k2SWpGQlFURXdNVFEyTmpNek5VUkROVE13UVRRNU5VTTFRMEJoWkc5aVpTNWpiMjBpTENKamRIQWlPakFzSW1abklqb2lXamRITkVaSFNVTldURTAxUVVSWFMwWkRVVlpMV0VGQlMwRWlMQ0p6YVdRaU9pSXhOell4TlRNME5UZzFNalF5WHpVeE1XSmxaamt4TFdJM04yWXRORE00WVMwNFpUYzBMVFkxTWpreU1UVTFOVEkzWkY5MWR6SWlMQ0p5ZEdsa0lqb2lNVGMyTXpnd01qY3pNamswTlY5aU1HRTFZbVl6TUMwelpqWXdMVFExTlRFdE9UZ3pNUzB5TURKalpHWmhOMlF5WTJOZmRXVXhJaXdpYlc5cElqb2laalprTTJFNU1UVWlMQ0p3WW1FaU9pSlBVa2NzVFdWa1UyVmpUbTlGVml4TWIzZFRaV01pTENKeWRHVmhJam9pTVRjMk5UQXhNak16TWprME5TSXNJbVY0Y0dseVpYTmZhVzRpT2lJeU9EZ3dNREF3TUNJc0ltTnlaV0YwWldSZllYUWlPaUl4TnpZek9EQXlOek15T1RRMElpd2ljMk52Y0dVaU9pSkJaRzlpWlVsRUxHOXdaVzVwWkN4d2NtOW1hV3hsTEdWdFlXbHNMR0ZpTG0xaGJtRm5aU3huYm1GMkxHOXlaeTV5WldGa0xISmxZV1JmYjNKbllXNXBlbUYwYVc5dWN5eHpaWE56YVc5dUxHRmtaR2wwYVc5dVlXeGZhVzVtYnk1dmQyNWxjazl5Wnl4aFpHUnBkR2x2Ym1Gc1gybHVabTh1Y0hKdmFtVmpkR1ZrVUhKdlpIVmpkRU52Ym5SbGVIUXNZV1Z0TG1aeWIyNTBaVzVrTG1Gc2JDSjkuS1NtTHM5N1R4dzBUd1Q2U1VTblFIWVRMcGswa1BKd1VNNjh3VGZ6RXFkWTA4MzB4NmhQRllBQnRaVGh1SVJCY0RQbTZjcktISzVQWnNXSURQTXBkeExkcFowb3Bib0sxNkFpN0ZVcm1Yd1o2Skl0R3owSVRSazhCVUtSN2hoSTM4VXB4b1Z0U25jX2dkM3NUTFJKZkJvR0NuMHBxOVhUTEF2SWxPaUZoNHEwbXAtck1iVU13NHFQRUhheXVXYTFERzVhV0NGMlJ5QmVLUkotR1BhYVJSUVEtVXFTT3pvbmQyOFNDU0lWYmE1Qkl5WndoajJHUU5yZWJqcnpQbmh5bEpCNnQ1MDYtbDVfR28yU2x0SEV6a0dqNk40V3NMa3JuNm5pZ3FSVEYtQkNEb1RKWFUxUENjeFJWODk5aENLMnVfNHMzODM1VllTeDI1a3VJekJwaTZBIiwiaWF0IjoxNzYzODAyNzMyLCJpc3MiOiJodHRwczovL2FkbWluLmhseC5wYWdlLyIsInN1YiI6IiovKiIsImF1ZCI6IjgzYTM2MzU1LWFkMTctNGVkMC04NzAxLWU5OWEzMDIwZjg2YSIsImV4cCI6MTc2MzgzMTUzMn0.PjiHORcDLbOG_NMCGVUH_FqhQ-a-MPOrYyqNfvncx9TXfVgRoW1quqaH9e7oojSvbOsfd5HYx7vzfvKa22Zr1sdnJuZdNWzVAVQsPlHpTXcSOgP7Yikp14oXqM1SW7-2mQCWxA3sp7NkN_Bm4RcxpO8ySgYzx66H5BW298_vGeungQEjIG3bpqX6EPYTM3BVyFr8GYzs07Sm3EYT5fENj3nf3iUZ2tJ_by9jyvqVlkUkjVa9NkHfYtn_OdKydb_gmec8-I91XbSsrmEdQrVteyFD3q2H3GH0yjgjdfclAjXQ9jiJIkcoYJs1WmpQHqWKvhd3jAA-8BqTLQLJJwkEEg"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"code\": {\n        \"owner\": \"abbvie\",\n        \"repo\": \"abbvie-eds\",\n        \"source\": {\n            \"type\": \"github\",\n            \"url\": \"https://github.com/abbvie/abbvie-eds\"\n        }\n    },\n    \"content\": {\n        \"source\": {\n            \"url\": \"https://author-p157365-e1665873.adobeaemcloud.com/bin/franklin.delivery/abbvie/commercial-rinvoq-us-com-eds/main\",\n            \"type\": \"markup\",\n            \"suffix\": \".html\"\n        }\n    },\n    \"access\": {\n        \"admin\": {\n            \"role\": {\n                \"config_admin\": [\n                    \"BA44220C683DCE840A495F84@techacct.adobe.com\"\n                ],\n                \"admin\": [\n                    \"pratteks@adobe.com\"\n                ]\n            },\n            \"requireAuth\": \"auto\"\n        }\n    },\n    \"sidekick\": {\n        \"project\": \"AEM XWalk Boilerplate\",\n        \"editUrlLabel\": \"AEM Editor\",\n        \"editUrlPattern\": \"{{contentSourceUrl}}{{pathname}}?cmd=open\"\n    },\n    \"public\": {\n        \"paths\": {\n            \"mappings\": [\n                \"/content/abbvie-eds/commercial/rinvoq/us/en/:/\"\n            ],\n            \"includes\": [\n                \"/content/abbvie-eds/commercial/rinvoq/us/en/\"\n            ]\n        }\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://admin.hlx.page/config/abbvie/sites/commercial-rinvoq-us-com-eds.json",
+					"protocol": "https",
+					"host": [
+						"admin",
+						"hlx",
+						"page"
+					],
+					"path": [
+						"config",
+						"abbvie",
+						"sites",
+						"commercial-rinvoq-us-com-eds.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "corp",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijdzb2k4N3pkb3NJRnc4b19fbVR5a082QlVRNEZBVGhjaHlyNGZqY1dSbWcifQ.eyJlbWFpbCI6InByYXR0ZWtzQGFkb2JlLmNvbSIsIm5hbWUiOiJQcmF0dGVrIFNpbmdoYWwiLCJ1c2VyX2lkIjoiODMyRTFGQjM2MzczNjE4ODBBNDk1RUE1QGRmNTgyMTRlNjMyMDc3NjA0OTVlZjkuZSIsImltc1Rva2VuIjoiZXlKaGJHY2lPaUpTVXpJMU5pSXNJbmcxZFNJNkltbHRjMTl1WVRFdGEyVjVMV0YwTFRFdVkyVnlJaXdpYTJsa0lqb2lhVzF6WDI1aE1TMXJaWGt0WVhRdE1TSXNJbWwwZENJNkltRjBJbjAuZXlKcFpDSTZJakUzTmpRMk9UYzNNRGs0TVRaZk1HTXdORGd6T0dVdFkySTJaaTAwTWpka0xUazBNemt0WldJeFl6Y3hOVE5pWmpWalgzVmxNU0lzSW5SNWNHVWlPaUpoWTJObGMzTmZkRzlyWlc0aUxDSmpiR2xsYm5SZmFXUWlPaUpvWld4cGVDMWhaRzFwYmlJc0luVnpaWEpmYVdRaU9pSTRNekpGTVVaQ016WXpOek0yTVRnNE1FRTBPVFZGUVRWQVpHWTFPREl4TkdVMk16SXdOemMyTURRNU5XVm1PUzVsSWl3aWMzUmhkR1VpT2lKbGVVcG9Za2RqYVU5cFNuVmlNalZzU1c0d0xtVjVTbmRqYlRsMFkwaFJhVTlwU25WaU1qVnNTV2wzYVdJelNtNUphbTlwV1ZkU2RsbHRWV2xtVVM0aUxDSmhjeUk2SW1sdGN5MXVZVEVpTENKaFlWOXBaQ0k2SWpGQlFURXdNVFEyTmpNek5VUkROVE13UVRRNU5VTTFRMEJoWkc5aVpTNWpiMjBpTENKamRIQWlPakFzSW1abklqb2lNa0ZGUVZWWVVGbFdURTAxUVVSWFMwWkRVVlpMV0VGQlMwRWlMQ0p6YVdRaU9pSXhOelkwTlRjd05EZzNPVE0wWDJVNE56WXlaREEzTFRBNE5EQXROREk0WXkxaFlqTTFMV1ZoTVRGbFpXTXlZVEEzWWw5MWR6SWlMQ0p5ZEdsa0lqb2lNVGMyTkRZNU56Y3dPVGd4Tmw4eU56Y3pPV0U1WWkxalpXVXlMVFE0T0RjdFlqVXpPQzFoTnpnMk9ERTROR0V5WW1WZmRXVXhJaXdpYlc5cElqb2lOVFJoTjJNeU5qa2lMQ0p3WW1FaU9pSlBVa2NzVFdWa1UyVmpUbTlGVml4TWIzZFRaV01pTENKeWRHVmhJam9pTVRjMk5Ua3dOek13T1RneE5pSXNJbVY0Y0dseVpYTmZhVzRpT2lJeU9EZ3dNREF3TUNJc0luTmpiM0JsSWpvaVFXUnZZbVZKUkN4dmNHVnVhV1FzY0hKdlptbHNaU3hsYldGcGJDeGhZaTV0WVc1aFoyVXNaMjVoZGl4dmNtY3VjbVZoWkN4eVpXRmtYMjl5WjJGdWFYcGhkR2x2Ym5Nc2MyVnpjMmx2Yml4aFpHUnBkR2x2Ym1Gc1gybHVabTh1YjNkdVpYSlBjbWNzWVdSa2FYUnBiMjVoYkY5cGJtWnZMbkJ5YjJwbFkzUmxaRkJ5YjJSMVkzUkRiMjUwWlhoMExHRmxiUzVtY205dWRHVnVaQzVoYkd3aUxDSmpjbVZoZEdWa1gyRjBJam9pTVRjMk5EWTVOemN3T1RneE5pSjkuUXhfbnBEdExjVGtmNlhyVW1IWWhNbjlpa2Y0N0tPVWFZYXJhR0dXX091bGFfcnZUV2FETThjSWMwcy1NekItaDhnWHpxaDdubjlIdm13NDhkcDFlY1g4QWZJd193ckpNSUtlNzE2S1NvWFlKSWxXMlFFX3hvaUI2MkgxcUNHSjQxSTBMSFIyMUpQdGZScnhfTWpORlZUS3N3ZDhGcHoxSE5MdWlEYVZwNVpFMnc5SGc1c21Kel96MkpJVGFsTGtaTGwzTVJEM3NZZlJPOHZtRDFmdFc2MUFKRVVpbEJ4MlYtU1NiSkdJdEJmQ1ZEcFg5WmVwcUJreEgtZnIzX3lOTWpNTFJSMTFqa3YyREtGN01CZG1ZUmYzeG1hRUNlODhaNEpZUTMwTDJ5ZE9jODA3NHFETnYxSV8zQVNlUTg0Ykw0NWoxZE4xR2pIaGV2N29NTWdfN05RIiwiaWF0IjoxNzY0Njk3NzA5LCJpc3MiOiJodHRwczovL2FkbWluLmhseC5wYWdlLyIsInN1YiI6IiovKiIsImF1ZCI6IjgzYTM2MzU1LWFkMTctNGVkMC04NzAxLWU5OWEzMDIwZjg2YSIsImV4cCI6MTc2NDcyNjUwOX0.vNxg7AEkLH7F1qxpUTqavOzDDipmmuDI_Ts5ONwIHrvmBFk13kgfcyc4RHeyTmPwIc-ONSvWh6021nBFfIFfKVI4d2A8PFcWpAc8cRwim0bJ_sp0WTCO-IQZZfQlvJBxoL2sUGCwHlthFjMGLCbEAVyadHmtxYVc6j7DS0CoMh3kWgzSi8jApsEk66ynj1BhwBF8LPoQH_MBVXUNtVMq0s_pqdn9AKBDT2vtv3TVePXP3bA9opMdIiGjd2O5-_sfRKS1srkhTwjOabAyVG8zqUQG4dFNHRJ8OvoA8HEoO0eiz2Dqh8SLlyTaehX-KuVJpXjQWMFSNg_UizPQolc-7g"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"code\": {\n        \"owner\": \"abbvie\",\n        \"repo\": \"abbvie-eds\",\n        \"source\": {\n            \"type\": \"github\",\n            \"url\": \"https://github.com/abbvie/abbvie-eds\"\n        }\n    },\n    \"content\": {\n        \"source\": {\n            \"url\": \"https://author-p157365-e1665873.adobeaemcloud.com/bin/franklin.delivery/abbvie/corporate-eds/main\",\n            \"type\": \"markup\",\n            \"suffix\": \".html\"\n        }\n    },\n    \"access\": {\n        \"admin\": {\n            \"role\": {\n                \"config_admin\": [\n                    \"BA44220C683DCE840A495F84@techacct.adobe.com\"\n                ],\n                \"admin\": [\n                    \"pratteks@adobe.com\"\n                ]\n            },\n            \"requireAuth\": \"auto\"\n        }\n    },\n    \"sidekick\": {\n        \"project\": \"AEM XWalk Boilerplate\",\n        \"editUrlLabel\": \"AEM Editor\",\n        \"editUrlPattern\": \"{{contentSourceUrl}}{{pathname}}?cmd=open\"\n    },\n    \"public\": {\n        \"paths\": {\n            \"mappings\": [\n                \"/content/abbvie-eds/corporate/us/en/:/\"\n            ],\n            \"includes\": [\n                \"/content/abbvie-eds/corporate/us/en/\"\n            ]\n        }\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://admin.hlx.page/config/abbvie/sites/corporate-eds.json",
+					"protocol": "https",
+					"host": [
+						"admin",
+						"hlx",
+						"page"
+					],
+					"path": [
+						"config",
+						"abbvie",
+						"sites",
+						"corporate-eds.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-path",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijdzb2k4N3pkb3NJRnc4b19fbVR5a082QlVRNEZBVGhjaHlyNGZqY1dSbWcifQ.eyJlbWFpbCI6InByYXR0ZWtzQGFkb2JlLmNvbSIsIm5hbWUiOiJQcmF0dGVrIFNpbmdoYWwiLCJ1c2VyX2lkIjoiMjA2MTFFODQ2N0M4NkU1NDBBNDk1Q0NEQDJlNjIxZjY5NjM2NzMxZWU0OTVjNTAuZSIsImltc1Rva2VuIjoiZXlKaGJHY2lPaUpTVXpJMU5pSXNJbmcxZFNJNkltbHRjMTl1WVRFdGEyVjVMV0YwTFRFdVkyVnlJaXdpYTJsa0lqb2lhVzF6WDI1aE1TMXJaWGt0WVhRdE1TSXNJbWwwZENJNkltRjBJbjAuZXlKcFpDSTZJakUzTmpJNU5UTTJNRGs0TWpKZllUZzBNVFF4WlRNdE5UTTJPQzAwT0RGa0xUaGtaall0WmpReU0yWXlZMll5T1dZMlgzVmxNU0lzSW5SNWNHVWlPaUpoWTJObGMzTmZkRzlyWlc0aUxDSmpiR2xsYm5SZmFXUWlPaUpvWld4cGVDMWhaRzFwYmlJc0luVnpaWEpmYVdRaU9pSXlNRFl4TVVVNE5EWTNRemcyUlRVME1FRTBPVFZEUTBSQU1tVTJNakZtTmprMk16WTNNekZsWlRRNU5XTTFNQzVsSWl3aWMzUmhkR1VpT2lKbGVVcG9Za2RqYVU5cFNuVmlNalZzU1c0d0xtVjVTbmRqYlRsMFkwaFJhVTlwU25WaU1qVnNTV2wzYVdJelNtNUphbTlwV1ZkU2RsbHRWV2xtVVM0aUxDSmhjeUk2SW1sdGN5MXVZVEVpTENKaFlWOXBaQ0k2SWpGQlFURXdNVFEyTmpNek5VUkROVE13UVRRNU5VTTFRMEJoWkc5aVpTNWpiMjBpTENKamRIQWlPakFzSW1abklqb2lXalpNU0U1VlJrZFdURTAxUVVSVlMwWkJVVlpKV0VGQlVGRWlMQ0p6YVdRaU9pSXhOell4TlRNME5UZzFNalF5WHpVeE1XSmxaamt4TFdJM04yWXRORE00WVMwNFpUYzBMVFkxTWpreU1UVTFOVEkzWkY5MWR6SWlMQ0p5ZEdsa0lqb2lNVGMyTWprMU16WXdPVGd5TTE4NVpEQTNaR0V6TmkwNU5qbGpMVFJpWmpFdE9UZGlOQzB3WXpBeU9UZ3pNVFF4WVRCZmRXVXhJaXdpYlc5cElqb2lObVEyWWpJME9Ua2lMQ0p3WW1FaU9pSlBVa2NzVFdWa1UyVmpUbTlGVml4TWIzZFRaV01pTENKeWRHVmhJam9pTVRjMk5ERTJNekl3T1RneU15SXNJbVY0Y0dseVpYTmZhVzRpT2lJNE5qUXdNREF3TUNJc0luTmpiM0JsSWpvaVFXUnZZbVZKUkN4dmNHVnVhV1FzY0hKdlptbHNaU3hsYldGcGJDeGhZaTV0WVc1aFoyVXNaMjVoZGl4dmNtY3VjbVZoWkN4eVpXRmtYMjl5WjJGdWFYcGhkR2x2Ym5Nc2MyVnpjMmx2Yml4aFpHUnBkR2x2Ym1Gc1gybHVabTh1YjNkdVpYSlBjbWNzWVdSa2FYUnBiMjVoYkY5cGJtWnZMbkJ5YjJwbFkzUmxaRkJ5YjJSMVkzUkRiMjUwWlhoMExHRmxiUzVtY205dWRHVnVaQzVoYkd3aUxDSmpjbVZoZEdWa1gyRjBJam9pTVRjMk1qazFNell3T1RneU1pSjkuVWNrVmtkeGZTVlJFYnpPcUlnZFpUNkc3eUs4d2RiRXQ0VGxTcldfSDd0QnhvZzVBRGJNZDNXbGMtZ19ZV0o2Qlh4Ujh5QkJWZTFnVlZ4T0dSRnREVDZoaXYtNFlxZXdXR2YxbmE5eG9JOVNkZ21Fak12bkNXU2l3cVlkY1A1dG1ubkhUT05abjVmNTZTdE1RQ2NnSnhpajZ4b0xfdnM0QUxqRThmOWxQZHItbmNQV3I0bDk1MlUtS2NCU1B1QzUyaUhJeW9pMzExOU4xMDlvdDNlY0xyZEZDN0VMV202cExOSmlXT2JPUjFiN2FicnlqWUNLRU9kWkpTLTR2aWdOcGVMeHJWb3ZxaFhNRU9PUXAyaWpaUWxoclQtYUdWZnJsYm01SHdGMHk0VFVkbEthV1pfcE1rSXYxUy10VVRlR2hreXdWUlNSZTViYlp2SE0xRndydjVnIiwiaWF0IjoxNzYyOTUzNjA5LCJpc3MiOiJodHRwczovL2FkbWluLmhseC5wYWdlLyIsInN1YiI6IiovKiIsImF1ZCI6IjgzYTM2MzU1LWFkMTctNGVkMC04NzAxLWU5OWEzMDIwZjg2YSIsImV4cCI6MTc2MzA0MDAwOX0.oas_b5GTZJGS_db6EwjQEPxN2p_rI_YlT6Mngp1oJ4pLLMCWqpIavoNx1CEglkSL5dlGhxwF9zwDou4XO6OhiqE7KWBZY8sVAJK6HNZUEW0TFNxOYPqW3UNFkM8grJD8hnRJNBjVMgq6gLjVpzBOADFxBuafWZJRL2Y6M844B0oZG9uPQhlDM43NzVLcI0YY3xK8dxsNB2hER_K4G_7BDLI2y4LVrIC3WFCp5VW4GIlMzZREiStCuXQP1J6i7B2GX7mwRl_pDOh3gsSm4PsGfQM6gBQnhWyx7G_WwDhbVHGvRumeoCHp6asfAFXnrI_nc-iE9lSgeVVQBBSk97oRvQ"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"paths\": {\n        \"mappings\": [\n            \"/content/abbvie-qa/:/\",\n            \"/content/abbvie-qa/configuration:/.helix/config.json\"\n   ],\n        \"includes\": [\n            \"/content/abbvie-qa/\"\n        ]\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://admin.hlx.page/config/pratteks/sites/abbvie-qa/public.json",
+					"protocol": "https",
+					"host": [
+						"admin",
+						"hlx",
+						"page"
+					],
+					"path": [
+						"config",
+						"pratteks",
+						"sites",
+						"abbvie-qa",
+						"public.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add-admin-and-config-admin",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijdzb2k4N3pkb3NJRnc4b19fbVR5a082QlVRNEZBVGhjaHlyNGZqY1dSbWcifQ.eyJlbWFpbCI6InByYXR0ZWtzQGFkb2JlLmNvbSIsIm5hbWUiOiJQcmF0dGVrIFNpbmdoYWwiLCJ1c2VyX2lkIjoiMjA2MTFFODQ2N0M4NkU1NDBBNDk1Q0NEQDJlNjIxZjY5NjM2NzMxZWU0OTVjNTAuZSIsImltc1Rva2VuIjoiZXlKaGJHY2lPaUpTVXpJMU5pSXNJbmcxZFNJNkltbHRjMTl1WVRFdGEyVjVMV0YwTFRFdVkyVnlJaXdpYTJsa0lqb2lhVzF6WDI1aE1TMXJaWGt0WVhRdE1TSXNJbWwwZENJNkltRjBJbjAuZXlKcFpDSTZJakUzTmpJNU5UTTJNRGs0TWpKZllUZzBNVFF4WlRNdE5UTTJPQzAwT0RGa0xUaGtaall0WmpReU0yWXlZMll5T1dZMlgzVmxNU0lzSW5SNWNHVWlPaUpoWTJObGMzTmZkRzlyWlc0aUxDSmpiR2xsYm5SZmFXUWlPaUpvWld4cGVDMWhaRzFwYmlJc0luVnpaWEpmYVdRaU9pSXlNRFl4TVVVNE5EWTNRemcyUlRVME1FRTBPVFZEUTBSQU1tVTJNakZtTmprMk16WTNNekZsWlRRNU5XTTFNQzVsSWl3aWMzUmhkR1VpT2lKbGVVcG9Za2RqYVU5cFNuVmlNalZzU1c0d0xtVjVTbmRqYlRsMFkwaFJhVTlwU25WaU1qVnNTV2wzYVdJelNtNUphbTlwV1ZkU2RsbHRWV2xtVVM0aUxDSmhjeUk2SW1sdGN5MXVZVEVpTENKaFlWOXBaQ0k2SWpGQlFURXdNVFEyTmpNek5VUkROVE13UVRRNU5VTTFRMEJoWkc5aVpTNWpiMjBpTENKamRIQWlPakFzSW1abklqb2lXalpNU0U1VlJrZFdURTAxUVVSVlMwWkJVVlpKV0VGQlVGRWlMQ0p6YVdRaU9pSXhOell4TlRNME5UZzFNalF5WHpVeE1XSmxaamt4TFdJM04yWXRORE00WVMwNFpUYzBMVFkxTWpreU1UVTFOVEkzWkY5MWR6SWlMQ0p5ZEdsa0lqb2lNVGMyTWprMU16WXdPVGd5TTE4NVpEQTNaR0V6TmkwNU5qbGpMVFJpWmpFdE9UZGlOQzB3WXpBeU9UZ3pNVFF4WVRCZmRXVXhJaXdpYlc5cElqb2lObVEyWWpJME9Ua2lMQ0p3WW1FaU9pSlBVa2NzVFdWa1UyVmpUbTlGVml4TWIzZFRaV01pTENKeWRHVmhJam9pTVRjMk5ERTJNekl3T1RneU15SXNJbVY0Y0dseVpYTmZhVzRpT2lJNE5qUXdNREF3TUNJc0luTmpiM0JsSWpvaVFXUnZZbVZKUkN4dmNHVnVhV1FzY0hKdlptbHNaU3hsYldGcGJDeGhZaTV0WVc1aFoyVXNaMjVoZGl4dmNtY3VjbVZoWkN4eVpXRmtYMjl5WjJGdWFYcGhkR2x2Ym5Nc2MyVnpjMmx2Yml4aFpHUnBkR2x2Ym1Gc1gybHVabTh1YjNkdVpYSlBjbWNzWVdSa2FYUnBiMjVoYkY5cGJtWnZMbkJ5YjJwbFkzUmxaRkJ5YjJSMVkzUkRiMjUwWlhoMExHRmxiUzVtY205dWRHVnVaQzVoYkd3aUxDSmpjbVZoZEdWa1gyRjBJam9pTVRjMk1qazFNell3T1RneU1pSjkuVWNrVmtkeGZTVlJFYnpPcUlnZFpUNkc3eUs4d2RiRXQ0VGxTcldfSDd0QnhvZzVBRGJNZDNXbGMtZ19ZV0o2Qlh4Ujh5QkJWZTFnVlZ4T0dSRnREVDZoaXYtNFlxZXdXR2YxbmE5eG9JOVNkZ21Fak12bkNXU2l3cVlkY1A1dG1ubkhUT05abjVmNTZTdE1RQ2NnSnhpajZ4b0xfdnM0QUxqRThmOWxQZHItbmNQV3I0bDk1MlUtS2NCU1B1QzUyaUhJeW9pMzExOU4xMDlvdDNlY0xyZEZDN0VMV202cExOSmlXT2JPUjFiN2FicnlqWUNLRU9kWkpTLTR2aWdOcGVMeHJWb3ZxaFhNRU9PUXAyaWpaUWxoclQtYUdWZnJsYm01SHdGMHk0VFVkbEthV1pfcE1rSXYxUy10VVRlR2hreXdWUlNSZTViYlp2SE0xRndydjVnIiwiaWF0IjoxNzYyOTUzNjA5LCJpc3MiOiJodHRwczovL2FkbWluLmhseC5wYWdlLyIsInN1YiI6IiovKiIsImF1ZCI6IjgzYTM2MzU1LWFkMTctNGVkMC04NzAxLWU5OWEzMDIwZjg2YSIsImV4cCI6MTc2MzA0MDAwOX0.oas_b5GTZJGS_db6EwjQEPxN2p_rI_YlT6Mngp1oJ4pLLMCWqpIavoNx1CEglkSL5dlGhxwF9zwDou4XO6OhiqE7KWBZY8sVAJK6HNZUEW0TFNxOYPqW3UNFkM8grJD8hnRJNBjVMgq6gLjVpzBOADFxBuafWZJRL2Y6M844B0oZG9uPQhlDM43NzVLcI0YY3xK8dxsNB2hER_K4G_7BDLI2y4LVrIC3WFCp5VW4GIlMzZREiStCuXQP1J6i7B2GX7mwRl_pDOh3gsSm4PsGfQM6gBQnhWyx7G_WwDhbVHGvRumeoCHp6asfAFXnrI_nc-iE9lSgeVVQBBSk97oRvQ"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"admin\": {\n        \"role\": {\n            \"admin\": [\n                \"pratteks@adobe.com\"\n            ],\n            \"config_admin\": [\n                \"F07A22BA6908D6C30A495EEB@techacct.adobe.com\"\n            ]\n        },\n        \"requireAuth\": \"auto\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://admin.hlx.page/config/pratteks/sites/abbvie-qa/access.json",
+					"protocol": "https",
+					"host": [
+						"admin",
+						"hlx",
+						"page"
+					],
+					"path": [
+						"config",
+						"pratteks",
+						"sites",
+						"abbvie-qa",
+						"access.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "byog",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijdzb2k4N3pkb3NJRnc4b19fbVR5a082QlVRNEZBVGhjaHlyNGZqY1dSbWcifQ.eyJlbWFpbCI6InByYXR0ZWtzQGFkb2JlLmNvbSIsIm5hbWUiOiJQcmF0dGVrIFNpbmdoYWwiLCJ1c2VyX2lkIjoiMjA2MTFFODQ2N0M4NkU1NDBBNDk1Q0NEQDJlNjIxZjY5NjM2NzMxZWU0OTVjNTAuZSIsImltc1Rva2VuIjoiZXlKaGJHY2lPaUpTVXpJMU5pSXNJbmcxZFNJNkltbHRjMTl1WVRFdGEyVjVMV0YwTFRFdVkyVnlJaXdpYTJsa0lqb2lhVzF6WDI1aE1TMXJaWGt0WVhRdE1TSXNJbWwwZENJNkltRjBJbjAuZXlKcFpDSTZJakUzTmpNeE1EWXlPVFkwTkRaZllqZzNOR013WWpFdFlUWmtOaTAwTmpnNUxXSXlPREV0TXpkbVlqSmlNV1l3TW1JelgzVmxNU0lzSW5SNWNHVWlPaUpoWTJObGMzTmZkRzlyWlc0aUxDSmpiR2xsYm5SZmFXUWlPaUpvWld4cGVDMWhaRzFwYmlJc0luVnpaWEpmYVdRaU9pSXlNRFl4TVVVNE5EWTNRemcyUlRVME1FRTBPVFZEUTBSQU1tVTJNakZtTmprMk16WTNNekZsWlRRNU5XTTFNQzVsSWl3aWMzUmhkR1VpT2lKbGVVcG9Za2RqYVU5cFNuVmlNalZzU1c0d0xtVjVTbmRqYlRsMFkwaFJhVTlwU25WaU1qVnNTV2wzYVdJelNtNUphbTlwV1ZkU2RsbHRWV2xtVVM0aUxDSmhjeUk2SW1sdGN5MXVZVEVpTENKaFlWOXBaQ0k2SWpGQlFURXdNVFEyTmpNek5VUkROVE13UVRRNU5VTTFRMEJoWkc5aVpTNWpiMjBpTENKamRIQWlPakFzSW1abklqb2lXalpSU0VKVFJFTldURTAxUVVSVlMwWkJVVlpKTjBGQk1ra2lMQ0p6YVdRaU9pSXhOell4TlRNME5UZzFNalF5WHpVeE1XSmxaamt4TFdJM04yWXRORE00WVMwNFpUYzBMVFkxTWpreU1UVTFOVEkzWkY5MWR6SWlMQ0p5ZEdsa0lqb2lNVGMyTXpFd05qSTVOalEwTjE4eFl6RmxObUZsT0Mwek5XUXhMVFEyWlRrdFltVTRNUzAyTTJZd05UQXdabVExTlROZmRXVXhJaXdpYlc5cElqb2lZVEU0TUdSbU5EZ2lMQ0p3WW1FaU9pSlBVa2NzVFdWa1UyVmpUbTlGVml4TWIzZFRaV01pTENKeWRHVmhJam9pTVRjMk5ETXhOVGc1TmpRME55SXNJbVY0Y0dseVpYTmZhVzRpT2lJNE5qUXdNREF3TUNJc0ltTnlaV0YwWldSZllYUWlPaUl4TnpZek1UQTJNamsyTkRRMklpd2ljMk52Y0dVaU9pSkJaRzlpWlVsRUxHOXdaVzVwWkN4d2NtOW1hV3hsTEdWdFlXbHNMR0ZpTG0xaGJtRm5aU3huYm1GMkxHOXlaeTV5WldGa0xISmxZV1JmYjNKbllXNXBlbUYwYVc5dWN5eHpaWE56YVc5dUxHRmtaR2wwYVc5dVlXeGZhVzVtYnk1dmQyNWxjazl5Wnl4aFpHUnBkR2x2Ym1Gc1gybHVabTh1Y0hKdmFtVmpkR1ZrVUhKdlpIVmpkRU52Ym5SbGVIUXNZV1Z0TG1aeWIyNTBaVzVrTG1Gc2JDSjkuSC1LY1I4VkMyUG9SWFRSTmNSeTdCMFNaemVwdG9IRjdZZElhTEV5b2VUWDZnNTI2UXphalBqbnJYSnNkNWhNRldPSW1GWmdJUDNrQ2piandVbHc0MlVMeUNQckMyekotcGZnVmhBaXJ4VGlJS1NLeFAzaFJnSlp5MHJOUkdLS3JRVFhZZ0NKeEtVemFCU2JCSUhoYlFlZ2V3ZVRqSFc4cEZCX29Nd2FmalViNjczMVA5dWVTMFpab1JnNFVtQndRaUdqTFVNVGtfTndfSU9hNFVkRUJzVTA0TVpSeGM1RFVpWGdDUlppSmc4ZWdVai1kOEkzMjdvckhQUl8wSHZyWkdOVGl2dmloMWtSdG1yb19DOThrUkwyUGstSlpUcG4zQjdqVVhENnNKTko4TFhQTDRFa1VQSXh4aGdxa2otN3B2UExGeHluM3B5b3pVTU5NOTNLVDBRIiwiaWF0IjoxNzYzMTA2Mjk2LCJpc3MiOiJodHRwczovL2FkbWluLmhseC5wYWdlLyIsInN1YiI6IiovKiIsImF1ZCI6IjgzYTM2MzU1LWFkMTctNGVkMC04NzAxLWU5OWEzMDIwZjg2YSIsImV4cCI6MTc2MzE5MjY5Nn0.HnYvUECCG-Sgm7tlTOkUWubI4AVxoUnklX7HPQiowP4Y267bpNtaBJcVqPjIlXYvee6MiCXaMhu1YglPN_S62RxDeosDV-jXZFkfyJg0t7yxDPPufTu6acpNmHdzpBQyUGdbYN4AF2de61j4pQIT5mK6dLbKJAMPDwLRyyqNZL4609eBHnS6Q8UV68YPA--v7GpMJbshMZTjJ9qPa7cZc7x8XaXFrjxdkI8ODLIxmYPtjEo-Y7GEPlWcpcxALMx3w4zxZOmp9yFbHc4NUOEWP_PeyS8_h9EJUMX2cjxoOolK66hG_6kVLePsNXQbJc0LYRI2Z3qHhfxgwnVaf210ew"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"source\": {\n      \"url\": \"https://cm-repo.adobe.io/api\",\n      \"raw_url\": \"https://cm-repo.adobe.io/api/raw\",\n      \"owner\": \"170502\",\n      \"repo\": \"223053\",\n      \"type\": \"byogit\",\n      \"secretId\": \"cm-byog\"\n    }\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://admin.hlx.page/config/pratteks/sites/poc/code.json",
+					"protocol": "https",
+					"host": [
+						"admin",
+						"hlx",
+						"page"
+					],
+					"path": [
+						"config",
+						"pratteks",
+						"sites",
+						"poc",
+						"code.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "byog-secret",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijdzb2k4N3pkb3NJRnc4b19fbVR5a082QlVRNEZBVGhjaHlyNGZqY1dSbWcifQ.eyJlbWFpbCI6InByYXR0ZWtzQGFkb2JlLmNvbSIsIm5hbWUiOiJQcmF0dGVrIFNpbmdoYWwiLCJ1c2VyX2lkIjoiMjA2MTFFODQ2N0M4NkU1NDBBNDk1Q0NEQDJlNjIxZjY5NjM2NzMxZWU0OTVjNTAuZSIsImltc1Rva2VuIjoiZXlKaGJHY2lPaUpTVXpJMU5pSXNJbmcxZFNJNkltbHRjMTl1WVRFdGEyVjVMV0YwTFRFdVkyVnlJaXdpYTJsa0lqb2lhVzF6WDI1aE1TMXJaWGt0WVhRdE1TSXNJbWwwZENJNkltRjBJbjAuZXlKcFpDSTZJakUzTmpNeE1EWXlPVFkwTkRaZllqZzNOR013WWpFdFlUWmtOaTAwTmpnNUxXSXlPREV0TXpkbVlqSmlNV1l3TW1JelgzVmxNU0lzSW5SNWNHVWlPaUpoWTJObGMzTmZkRzlyWlc0aUxDSmpiR2xsYm5SZmFXUWlPaUpvWld4cGVDMWhaRzFwYmlJc0luVnpaWEpmYVdRaU9pSXlNRFl4TVVVNE5EWTNRemcyUlRVME1FRTBPVFZEUTBSQU1tVTJNakZtTmprMk16WTNNekZsWlRRNU5XTTFNQzVsSWl3aWMzUmhkR1VpT2lKbGVVcG9Za2RqYVU5cFNuVmlNalZzU1c0d0xtVjVTbmRqYlRsMFkwaFJhVTlwU25WaU1qVnNTV2wzYVdJelNtNUphbTlwV1ZkU2RsbHRWV2xtVVM0aUxDSmhjeUk2SW1sdGN5MXVZVEVpTENKaFlWOXBaQ0k2SWpGQlFURXdNVFEyTmpNek5VUkROVE13UVRRNU5VTTFRMEJoWkc5aVpTNWpiMjBpTENKamRIQWlPakFzSW1abklqb2lXalpSU0VKVFJFTldURTAxUVVSVlMwWkJVVlpKTjBGQk1ra2lMQ0p6YVdRaU9pSXhOell4TlRNME5UZzFNalF5WHpVeE1XSmxaamt4TFdJM04yWXRORE00WVMwNFpUYzBMVFkxTWpreU1UVTFOVEkzWkY5MWR6SWlMQ0p5ZEdsa0lqb2lNVGMyTXpFd05qSTVOalEwTjE4eFl6RmxObUZsT0Mwek5XUXhMVFEyWlRrdFltVTRNUzAyTTJZd05UQXdabVExTlROZmRXVXhJaXdpYlc5cElqb2lZVEU0TUdSbU5EZ2lMQ0p3WW1FaU9pSlBVa2NzVFdWa1UyVmpUbTlGVml4TWIzZFRaV01pTENKeWRHVmhJam9pTVRjMk5ETXhOVGc1TmpRME55SXNJbVY0Y0dseVpYTmZhVzRpT2lJNE5qUXdNREF3TUNJc0ltTnlaV0YwWldSZllYUWlPaUl4TnpZek1UQTJNamsyTkRRMklpd2ljMk52Y0dVaU9pSkJaRzlpWlVsRUxHOXdaVzVwWkN4d2NtOW1hV3hsTEdWdFlXbHNMR0ZpTG0xaGJtRm5aU3huYm1GMkxHOXlaeTV5WldGa0xISmxZV1JmYjNKbllXNXBlbUYwYVc5dWN5eHpaWE56YVc5dUxHRmtaR2wwYVc5dVlXeGZhVzVtYnk1dmQyNWxjazl5Wnl4aFpHUnBkR2x2Ym1Gc1gybHVabTh1Y0hKdmFtVmpkR1ZrVUhKdlpIVmpkRU52Ym5SbGVIUXNZV1Z0TG1aeWIyNTBaVzVrTG1Gc2JDSjkuSC1LY1I4VkMyUG9SWFRSTmNSeTdCMFNaemVwdG9IRjdZZElhTEV5b2VUWDZnNTI2UXphalBqbnJYSnNkNWhNRldPSW1GWmdJUDNrQ2piandVbHc0MlVMeUNQckMyekotcGZnVmhBaXJ4VGlJS1NLeFAzaFJnSlp5MHJOUkdLS3JRVFhZZ0NKeEtVemFCU2JCSUhoYlFlZ2V3ZVRqSFc4cEZCX29Nd2FmalViNjczMVA5dWVTMFpab1JnNFVtQndRaUdqTFVNVGtfTndfSU9hNFVkRUJzVTA0TVpSeGM1RFVpWGdDUlppSmc4ZWdVai1kOEkzMjdvckhQUl8wSHZyWkdOVGl2dmloMWtSdG1yb19DOThrUkwyUGstSlpUcG4zQjdqVVhENnNKTko4TFhQTDRFa1VQSXh4aGdxa2otN3B2UExGeHluM3B5b3pVTU5NOTNLVDBRIiwiaWF0IjoxNzYzMTA2Mjk2LCJpc3MiOiJodHRwczovL2FkbWluLmhseC5wYWdlLyIsInN1YiI6IiovKiIsImF1ZCI6IjgzYTM2MzU1LWFkMTctNGVkMC04NzAxLWU5OWEzMDIwZjg2YSIsImV4cCI6MTc2MzE5MjY5Nn0.HnYvUECCG-Sgm7tlTOkUWubI4AVxoUnklX7HPQiowP4Y267bpNtaBJcVqPjIlXYvee6MiCXaMhu1YglPN_S62RxDeosDV-jXZFkfyJg0t7yxDPPufTu6acpNmHdzpBQyUGdbYN4AF2de61j4pQIT5mK6dLbKJAMPDwLRyyqNZL4609eBHnS6Q8UV68YPA--v7GpMJbshMZTjJ9qPa7cZc7x8XaXFrjxdkI8ODLIxmYPtjEo-Y7GEPlWcpcxALMx3w4zxZOmp9yFbHc4NUOEWP_PeyS8_h9EJUMX2cjxoOolK66hG_6kVLePsNXQbJc0LYRI2Z3qHhfxgwnVaf210ew"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"value\": \"2447c27101de4c2b8db3c030efe9ee29\"\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://admin.hlx.page/config/pratteks/sites/poc/secrets/cm-byog.json",
+					"protocol": "https",
+					"host": [
+						"admin",
+						"hlx",
+						"page"
+					],
+					"path": [
+						"config",
+						"pratteks",
+						"sites",
+						"poc",
+						"secrets",
+						"cm-byog.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete site",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "gzip, deflate, br"
+					},
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijdzb2k4N3pkb3NJRnc4b19fbVR5a082QlVRNEZBVGhjaHlyNGZqY1dSbWcifQ.eyJlbWFpbCI6InByYXR0ZWtzQGFkb2JlLmNvbSIsIm5hbWUiOiJQcmF0dGVrIFNpbmdoYWwiLCJ1c2VyX2lkIjoiODMyRTFGQjM2MzczNjE4ODBBNDk1RUE1QGRmNTgyMTRlNjMyMDc3NjA0OTVlZjkuZSIsImltc1Rva2VuIjoiZXlKaGJHY2lPaUpTVXpJMU5pSXNJbmcxZFNJNkltbHRjMTl1WVRFdGEyVjVMV0YwTFRFdVkyVnlJaXdpYTJsa0lqb2lhVzF6WDI1aE1TMXJaWGt0WVhRdE1TSXNJbWwwZENJNkltRjBJbjAuZXlKcFpDSTZJakUzTmpRMk9UYzNNRGs0TVRaZk1HTXdORGd6T0dVdFkySTJaaTAwTWpka0xUazBNemt0WldJeFl6Y3hOVE5pWmpWalgzVmxNU0lzSW5SNWNHVWlPaUpoWTJObGMzTmZkRzlyWlc0aUxDSmpiR2xsYm5SZmFXUWlPaUpvWld4cGVDMWhaRzFwYmlJc0luVnpaWEpmYVdRaU9pSTRNekpGTVVaQ016WXpOek0yTVRnNE1FRTBPVFZGUVRWQVpHWTFPREl4TkdVMk16SXdOemMyTURRNU5XVm1PUzVsSWl3aWMzUmhkR1VpT2lKbGVVcG9Za2RqYVU5cFNuVmlNalZzU1c0d0xtVjVTbmRqYlRsMFkwaFJhVTlwU25WaU1qVnNTV2wzYVdJelNtNUphbTlwV1ZkU2RsbHRWV2xtVVM0aUxDSmhjeUk2SW1sdGN5MXVZVEVpTENKaFlWOXBaQ0k2SWpGQlFURXdNVFEyTmpNek5VUkROVE13UVRRNU5VTTFRMEJoWkc5aVpTNWpiMjBpTENKamRIQWlPakFzSW1abklqb2lNa0ZGUVZWWVVGbFdURTAxUVVSWFMwWkRVVlpMV0VGQlMwRWlMQ0p6YVdRaU9pSXhOelkwTlRjd05EZzNPVE0wWDJVNE56WXlaREEzTFRBNE5EQXROREk0WXkxaFlqTTFMV1ZoTVRGbFpXTXlZVEEzWWw5MWR6SWlMQ0p5ZEdsa0lqb2lNVGMyTkRZNU56Y3dPVGd4Tmw4eU56Y3pPV0U1WWkxalpXVXlMVFE0T0RjdFlqVXpPQzFoTnpnMk9ERTROR0V5WW1WZmRXVXhJaXdpYlc5cElqb2lOVFJoTjJNeU5qa2lMQ0p3WW1FaU9pSlBVa2NzVFdWa1UyVmpUbTlGVml4TWIzZFRaV01pTENKeWRHVmhJam9pTVRjMk5Ua3dOek13T1RneE5pSXNJbVY0Y0dseVpYTmZhVzRpT2lJeU9EZ3dNREF3TUNJc0luTmpiM0JsSWpvaVFXUnZZbVZKUkN4dmNHVnVhV1FzY0hKdlptbHNaU3hsYldGcGJDeGhZaTV0WVc1aFoyVXNaMjVoZGl4dmNtY3VjbVZoWkN4eVpXRmtYMjl5WjJGdWFYcGhkR2x2Ym5Nc2MyVnpjMmx2Yml4aFpHUnBkR2x2Ym1Gc1gybHVabTh1YjNkdVpYSlBjbWNzWVdSa2FYUnBiMjVoYkY5cGJtWnZMbkJ5YjJwbFkzUmxaRkJ5YjJSMVkzUkRiMjUwWlhoMExHRmxiUzVtY205dWRHVnVaQzVoYkd3aUxDSmpjbVZoZEdWa1gyRjBJam9pTVRjMk5EWTVOemN3T1RneE5pSjkuUXhfbnBEdExjVGtmNlhyVW1IWWhNbjlpa2Y0N0tPVWFZYXJhR0dXX091bGFfcnZUV2FETThjSWMwcy1NekItaDhnWHpxaDdubjlIdm13NDhkcDFlY1g4QWZJd193ckpNSUtlNzE2S1NvWFlKSWxXMlFFX3hvaUI2MkgxcUNHSjQxSTBMSFIyMUpQdGZScnhfTWpORlZUS3N3ZDhGcHoxSE5MdWlEYVZwNVpFMnc5SGc1c21Kel96MkpJVGFsTGtaTGwzTVJEM3NZZlJPOHZtRDFmdFc2MUFKRVVpbEJ4MlYtU1NiSkdJdEJmQ1ZEcFg5WmVwcUJreEgtZnIzX3lOTWpNTFJSMTFqa3YyREtGN01CZG1ZUmYzeG1hRUNlODhaNEpZUTMwTDJ5ZE9jODA3NHFETnYxSV8zQVNlUTg0Ykw0NWoxZE4xR2pIaGV2N29NTWdfN05RIiwiaWF0IjoxNzY0Njk3NzA5LCJpc3MiOiJodHRwczovL2FkbWluLmhseC5wYWdlLyIsInN1YiI6IiovKiIsImF1ZCI6IjgzYTM2MzU1LWFkMTctNGVkMC04NzAxLWU5OWEzMDIwZjg2YSIsImV4cCI6MTc2NDcyNjUwOX0.vNxg7AEkLH7F1qxpUTqavOzDDipmmuDI_Ts5ONwIHrvmBFk13kgfcyc4RHeyTmPwIc-ONSvWh6021nBFfIFfKVI4d2A8PFcWpAc8cRwim0bJ_sp0WTCO-IQZZfQlvJBxoL2sUGCwHlthFjMGLCbEAVyadHmtxYVc6j7DS0CoMh3kWgzSi8jApsEk66ynj1BhwBF8LPoQH_MBVXUNtVMq0s_pqdn9AKBDT2vtv3TVePXP3bA9opMdIiGjd2O5-_sfRKS1srkhTwjOabAyVG8zqUQG4dFNHRJ8OvoA8HEoO0eiz2Dqh8SLlyTaehX-KuVJpXjQWMFSNg_UizPQolc-7g"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "User-Agent",
+						"value": "EchoapiRuntime/1.1.0"
+					}
+				],
+				"url": {
+					"raw": "https://admin.hlx.page/config/abbvie/sites/rinvoq.json",
+					"protocol": "https",
+					"host": [
+						"admin",
+						"hlx",
+						"page"
+					],
+					"path": [
+						"config",
+						"abbvie",
+						"sites",
+						"rinvoq.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete-bus",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijdzb2k4N3pkb3NJRnc4b19fbVR5a082QlVRNEZBVGhjaHlyNGZqY1dSbWcifQ.eyJlbWFpbCI6InByYXR0ZWtzQGFkb2JlLmNvbSIsIm5hbWUiOiJQcmF0dGVrIFNpbmdoYWwiLCJ1c2VyX2lkIjoiODMyRTFGQjM2MzczNjE4ODBBNDk1RUE1QGRmNTgyMTRlNjMyMDc3NjA0OTVlZjkuZSIsImltc1Rva2VuIjoiZXlKaGJHY2lPaUpTVXpJMU5pSXNJbmcxZFNJNkltbHRjMTl1WVRFdGEyVjVMV0YwTFRFdVkyVnlJaXdpYTJsa0lqb2lhVzF6WDI1aE1TMXJaWGt0WVhRdE1TSXNJbWwwZENJNkltRjBJbjAuZXlKcFpDSTZJakUzTmpRMk9UYzNNRGs0TVRaZk1HTXdORGd6T0dVdFkySTJaaTAwTWpka0xUazBNemt0WldJeFl6Y3hOVE5pWmpWalgzVmxNU0lzSW5SNWNHVWlPaUpoWTJObGMzTmZkRzlyWlc0aUxDSmpiR2xsYm5SZmFXUWlPaUpvWld4cGVDMWhaRzFwYmlJc0luVnpaWEpmYVdRaU9pSTRNekpGTVVaQ016WXpOek0yTVRnNE1FRTBPVFZGUVRWQVpHWTFPREl4TkdVMk16SXdOemMyTURRNU5XVm1PUzVsSWl3aWMzUmhkR1VpT2lKbGVVcG9Za2RqYVU5cFNuVmlNalZzU1c0d0xtVjVTbmRqYlRsMFkwaFJhVTlwU25WaU1qVnNTV2wzYVdJelNtNUphbTlwV1ZkU2RsbHRWV2xtVVM0aUxDSmhjeUk2SW1sdGN5MXVZVEVpTENKaFlWOXBaQ0k2SWpGQlFURXdNVFEyTmpNek5VUkROVE13UVRRNU5VTTFRMEJoWkc5aVpTNWpiMjBpTENKamRIQWlPakFzSW1abklqb2lNa0ZGUVZWWVVGbFdURTAxUVVSWFMwWkRVVlpMV0VGQlMwRWlMQ0p6YVdRaU9pSXhOelkwTlRjd05EZzNPVE0wWDJVNE56WXlaREEzTFRBNE5EQXROREk0WXkxaFlqTTFMV1ZoTVRGbFpXTXlZVEEzWWw5MWR6SWlMQ0p5ZEdsa0lqb2lNVGMyTkRZNU56Y3dPVGd4Tmw4eU56Y3pPV0U1WWkxalpXVXlMVFE0T0RjdFlqVXpPQzFoTnpnMk9ERTROR0V5WW1WZmRXVXhJaXdpYlc5cElqb2lOVFJoTjJNeU5qa2lMQ0p3WW1FaU9pSlBVa2NzVFdWa1UyVmpUbTlGVml4TWIzZFRaV01pTENKeWRHVmhJam9pTVRjMk5Ua3dOek13T1RneE5pSXNJbVY0Y0dseVpYTmZhVzRpT2lJeU9EZ3dNREF3TUNJc0luTmpiM0JsSWpvaVFXUnZZbVZKUkN4dmNHVnVhV1FzY0hKdlptbHNaU3hsYldGcGJDeGhZaTV0WVc1aFoyVXNaMjVoZGl4dmNtY3VjbVZoWkN4eVpXRmtYMjl5WjJGdWFYcGhkR2x2Ym5Nc2MyVnpjMmx2Yml4aFpHUnBkR2x2Ym1Gc1gybHVabTh1YjNkdVpYSlBjbWNzWVdSa2FYUnBiMjVoYkY5cGJtWnZMbkJ5YjJwbFkzUmxaRkJ5YjJSMVkzUkRiMjUwWlhoMExHRmxiUzVtY205dWRHVnVaQzVoYkd3aUxDSmpjbVZoZEdWa1gyRjBJam9pTVRjMk5EWTVOemN3T1RneE5pSjkuUXhfbnBEdExjVGtmNlhyVW1IWWhNbjlpa2Y0N0tPVWFZYXJhR0dXX091bGFfcnZUV2FETThjSWMwcy1NekItaDhnWHpxaDdubjlIdm13NDhkcDFlY1g4QWZJd193ckpNSUtlNzE2S1NvWFlKSWxXMlFFX3hvaUI2MkgxcUNHSjQxSTBMSFIyMUpQdGZScnhfTWpORlZUS3N3ZDhGcHoxSE5MdWlEYVZwNVpFMnc5SGc1c21Kel96MkpJVGFsTGtaTGwzTVJEM3NZZlJPOHZtRDFmdFc2MUFKRVVpbEJ4MlYtU1NiSkdJdEJmQ1ZEcFg5WmVwcUJreEgtZnIzX3lOTWpNTFJSMTFqa3YyREtGN01CZG1ZUmYzeG1hRUNlODhaNEpZUTMwTDJ5ZE9jODA3NHFETnYxSV8zQVNlUTg0Ykw0NWoxZE4xR2pIaGV2N29NTWdfN05RIiwiaWF0IjoxNzY0Njk3NzA5LCJpc3MiOiJodHRwczovL2FkbWluLmhseC5wYWdlLyIsInN1YiI6IiovKiIsImF1ZCI6IjgzYTM2MzU1LWFkMTctNGVkMC04NzAxLWU5OWEzMDIwZjg2YSIsImV4cCI6MTc2NDcyNjUwOX0.vNxg7AEkLH7F1qxpUTqavOzDDipmmuDI_Ts5ONwIHrvmBFk13kgfcyc4RHeyTmPwIc-ONSvWh6021nBFfIFfKVI4d2A8PFcWpAc8cRwim0bJ_sp0WTCO-IQZZfQlvJBxoL2sUGCwHlthFjMGLCbEAVyadHmtxYVc6j7DS0CoMh3kWgzSi8jApsEk66ynj1BhwBF8LPoQH_MBVXUNtVMq0s_pqdn9AKBDT2vtv3TVePXP3bA9opMdIiGjd2O5-_sfRKS1srkhTwjOabAyVG8zqUQG4dFNHRJ8OvoA8HEoO0eiz2Dqh8SLlyTaehX-KuVJpXjQWMFSNg_UizPQolc-7g",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://admin.hlx.page/live/abbvie/abbvie-eds/main/index",
+					"protocol": "https",
+					"host": [
+						"admin",
+						"hlx",
+						"page"
+					],
+					"path": [
+						"live",
+						"abbvie",
+						"abbvie-eds",
+						"main",
+						"index"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create-index",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijdzb2k4N3pkb3NJRnc4b19fbVR5a082QlVRNEZBVGhjaHlyNGZqY1dSbWcifQ.eyJlbWFpbCI6InByYXR0ZWtzQGFkb2JlLmNvbSIsIm5hbWUiOiJQcmF0dGVrIFNpbmdoYWwiLCJ1c2VyX2lkIjoiODMyRTFGQjM2MzczNjE4ODBBNDk1RUE1QGRmNTgyMTRlNjMyMDc3NjA0OTVlZjkuZSIsImltc1Rva2VuIjoiZXlKaGJHY2lPaUpTVXpJMU5pSXNJbmcxZFNJNkltbHRjMTl1WVRFdGEyVjVMV0YwTFRFdVkyVnlJaXdpYTJsa0lqb2lhVzF6WDI1aE1TMXJaWGt0WVhRdE1TSXNJbWwwZENJNkltRjBJbjAuZXlKcFpDSTZJakUzTmpRMk9UYzNNRGs0TVRaZk1HTXdORGd6T0dVdFkySTJaaTAwTWpka0xUazBNemt0WldJeFl6Y3hOVE5pWmpWalgzVmxNU0lzSW5SNWNHVWlPaUpoWTJObGMzTmZkRzlyWlc0aUxDSmpiR2xsYm5SZmFXUWlPaUpvWld4cGVDMWhaRzFwYmlJc0luVnpaWEpmYVdRaU9pSTRNekpGTVVaQ016WXpOek0yTVRnNE1FRTBPVFZGUVRWQVpHWTFPREl4TkdVMk16SXdOemMyTURRNU5XVm1PUzVsSWl3aWMzUmhkR1VpT2lKbGVVcG9Za2RqYVU5cFNuVmlNalZzU1c0d0xtVjVTbmRqYlRsMFkwaFJhVTlwU25WaU1qVnNTV2wzYVdJelNtNUphbTlwV1ZkU2RsbHRWV2xtVVM0aUxDSmhjeUk2SW1sdGN5MXVZVEVpTENKaFlWOXBaQ0k2SWpGQlFURXdNVFEyTmpNek5VUkROVE13UVRRNU5VTTFRMEJoWkc5aVpTNWpiMjBpTENKamRIQWlPakFzSW1abklqb2lNa0ZGUVZWWVVGbFdURTAxUVVSWFMwWkRVVlpMV0VGQlMwRWlMQ0p6YVdRaU9pSXhOelkwTlRjd05EZzNPVE0wWDJVNE56WXlaREEzTFRBNE5EQXROREk0WXkxaFlqTTFMV1ZoTVRGbFpXTXlZVEEzWWw5MWR6SWlMQ0p5ZEdsa0lqb2lNVGMyTkRZNU56Y3dPVGd4Tmw4eU56Y3pPV0U1WWkxalpXVXlMVFE0T0RjdFlqVXpPQzFoTnpnMk9ERTROR0V5WW1WZmRXVXhJaXdpYlc5cElqb2lOVFJoTjJNeU5qa2lMQ0p3WW1FaU9pSlBVa2NzVFdWa1UyVmpUbTlGVml4TWIzZFRaV01pTENKeWRHVmhJam9pTVRjMk5Ua3dOek13T1RneE5pSXNJbVY0Y0dseVpYTmZhVzRpT2lJeU9EZ3dNREF3TUNJc0luTmpiM0JsSWpvaVFXUnZZbVZKUkN4dmNHVnVhV1FzY0hKdlptbHNaU3hsYldGcGJDeGhZaTV0WVc1aFoyVXNaMjVoZGl4dmNtY3VjbVZoWkN4eVpXRmtYMjl5WjJGdWFYcGhkR2x2Ym5Nc2MyVnpjMmx2Yml4aFpHUnBkR2x2Ym1Gc1gybHVabTh1YjNkdVpYSlBjbWNzWVdSa2FYUnBiMjVoYkY5cGJtWnZMbkJ5YjJwbFkzUmxaRkJ5YjJSMVkzUkRiMjUwWlhoMExHRmxiUzVtY205dWRHVnVaQzVoYkd3aUxDSmpjbVZoZEdWa1gyRjBJam9pTVRjMk5EWTVOemN3T1RneE5pSjkuUXhfbnBEdExjVGtmNlhyVW1IWWhNbjlpa2Y0N0tPVWFZYXJhR0dXX091bGFfcnZUV2FETThjSWMwcy1NekItaDhnWHpxaDdubjlIdm13NDhkcDFlY1g4QWZJd193ckpNSUtlNzE2S1NvWFlKSWxXMlFFX3hvaUI2MkgxcUNHSjQxSTBMSFIyMUpQdGZScnhfTWpORlZUS3N3ZDhGcHoxSE5MdWlEYVZwNVpFMnc5SGc1c21Kel96MkpJVGFsTGtaTGwzTVJEM3NZZlJPOHZtRDFmdFc2MUFKRVVpbEJ4MlYtU1NiSkdJdEJmQ1ZEcFg5WmVwcUJreEgtZnIzX3lOTWpNTFJSMTFqa3YyREtGN01CZG1ZUmYzeG1hRUNlODhaNEpZUTMwTDJ5ZE9jODA3NHFETnYxSV8zQVNlUTg0Ykw0NWoxZE4xR2pIaGV2N29NTWdfN05RIiwiaWF0IjoxNzY0Njk3NzA5LCJpc3MiOiJodHRwczovL2FkbWluLmhseC5wYWdlLyIsInN1YiI6IiovKiIsImF1ZCI6IjgzYTM2MzU1LWFkMTctNGVkMC04NzAxLWU5OWEzMDIwZjg2YSIsImV4cCI6MTc2NDcyNjUwOX0.vNxg7AEkLH7F1qxpUTqavOzDDipmmuDI_Ts5ONwIHrvmBFk13kgfcyc4RHeyTmPwIc-ONSvWh6021nBFfIFfKVI4d2A8PFcWpAc8cRwim0bJ_sp0WTCO-IQZZfQlvJBxoL2sUGCwHlthFjMGLCbEAVyadHmtxYVc6j7DS0CoMh3kWgzSi8jApsEk66ynj1BhwBF8LPoQH_MBVXUNtVMq0s_pqdn9AKBDT2vtv3TVePXP3bA9opMdIiGjd2O5-_sfRKS1srkhTwjOabAyVG8zqUQG4dFNHRJ8OvoA8HEoO0eiz2Dqh8SLlyTaehX-KuVJpXjQWMFSNg_UizPQolc-7g",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "text/yaml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "---\r\nindices:\r\n  english:\r\n    include:\r\n      - /en/**\r\n    exclude:\r\n      - /en/hero-fragments/**\r\n    target: /query-index.json\r\n    properties:\r\n      author:\r\n        select: head > meta[name=\"author\"]\r\n        value: |\r\n          attribute(el, 'content')\r\n      title:\r\n        select: head > meta[property=\"og:title\"]\r\n        value: |\r\n          attribute(el, 'content')\r\n      description:\r\n        select: head > meta[name=\"description\"]\r\n        value: |\r\n          attribute(el, 'content')\r\n      hidefromnavigation:\r\n        select: head > meta[name=\"hidefromnavigation\"]\r\n        value: |\r\n          attribute(el, 'content')\r\n      pageImage:\r\n        select: head > meta[property=\"og:image\"]\r\n        value: |\r\n          attribute(el, 'content')\r\n      pageImageAlt:\r\n        select: head > meta[property=\"og:image:alt\"]\r\n        value: |\r\n          attribute(el, 'content')\r\n",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://admin.hlx.page/config/abbvie/sites/corporate-eds/content/query.yaml",
+					"protocol": "https",
+					"host": [
+						"admin",
+						"hlx",
+						"page"
+					],
+					"path": [
+						"config",
+						"abbvie",
+						"sites",
+						"corporate-eds",
+						"content",
+						"query.yaml"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-index",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijdzb2k4N3pkb3NJRnc4b19fbVR5a082QlVRNEZBVGhjaHlyNGZqY1dSbWcifQ.eyJlbWFpbCI6InByYXR0ZWtzQGFkb2JlLmNvbSIsIm5hbWUiOiJQcmF0dGVrIFNpbmdoYWwiLCJ1c2VyX2lkIjoiODMyRTFGQjM2MzczNjE4ODBBNDk1RUE1QGRmNTgyMTRlNjMyMDc3NjA0OTVlZjkuZSIsImltc1Rva2VuIjoiZXlKaGJHY2lPaUpTVXpJMU5pSXNJbmcxZFNJNkltbHRjMTl1WVRFdGEyVjVMV0YwTFRFdVkyVnlJaXdpYTJsa0lqb2lhVzF6WDI1aE1TMXJaWGt0WVhRdE1TSXNJbWwwZENJNkltRjBJbjAuZXlKcFpDSTZJakUzTmpRMk5UZ3dNRFUyTURsZlptVmtNR1JrTURBdFlXRmtPUzAwT1Rka0xXRXdaRFV0TW1SbE5tUmpObUZoWVdVM1gzVmxNU0lzSW5SNWNHVWlPaUpoWTJObGMzTmZkRzlyWlc0aUxDSmpiR2xsYm5SZmFXUWlPaUpvWld4cGVDMWhaRzFwYmlJc0luVnpaWEpmYVdRaU9pSTRNekpGTVVaQ016WXpOek0yTVRnNE1FRTBPVFZGUVRWQVpHWTFPREl4TkdVMk16SXdOemMyTURRNU5XVm1PUzVsSWl3aWMzUmhkR1VpT2lKbGVVcG9Za2RqYVU5cFNuVmlNalZzU1c0d0xtVjVTbmRqYlRsMFkwaFJhVTlwU25WaU1qVnNTV2wzYVdJelNtNUphbTlwV1ZkU2RsbHRWV2xtVVM0aUxDSmhjeUk2SW1sdGN5MXVZVEVpTENKaFlWOXBaQ0k2SWpGQlFURXdNVFEyTmpNek5VUkROVE13UVRRNU5VTTFRMEJoWkc5aVpTNWpiMjBpTENKamRIQWlPakFzSW1abklqb2lNa0ZEV0VsT1JFUldURTAxUVVSVlMwWkJVVlpKTjBGQk1ra2lMQ0p6YVdRaU9pSXhOelkwTlRjd05EZzNPVE0wWDJVNE56WXlaREEzTFRBNE5EQXROREk0WXkxaFlqTTFMV1ZoTVRGbFpXTXlZVEEzWWw5MWR6SWlMQ0p5ZEdsa0lqb2lNVGMyTkRZMU9EQXdOVFl3T1Y4elpqaGpNMlUyWXkwMU9HVmtMVFF6TUdNdFlqbGpOeTAwWkRreE5qWmpOR1F5T1RCZmRXVXhJaXdpYlc5cElqb2lNalJpWVRGa05ERWlMQ0p3WW1FaU9pSlBVa2NzVFdWa1UyVmpUbTlGVml4TWIzZFRaV01pTENKeWRHVmhJam9pTVRjMk5UZzJOell3TlRZd09TSXNJbVY0Y0dseVpYTmZhVzRpT2lJeU9EZ3dNREF3TUNJc0ltTnlaV0YwWldSZllYUWlPaUl4TnpZME5qVTRNREExTmpBNUlpd2ljMk52Y0dVaU9pSkJaRzlpWlVsRUxHOXdaVzVwWkN4d2NtOW1hV3hsTEdWdFlXbHNMR0ZpTG0xaGJtRm5aU3huYm1GMkxHOXlaeTV5WldGa0xISmxZV1JmYjNKbllXNXBlbUYwYVc5dWN5eHpaWE56YVc5dUxHRmtaR2wwYVc5dVlXeGZhVzVtYnk1dmQyNWxjazl5Wnl4aFpHUnBkR2x2Ym1Gc1gybHVabTh1Y0hKdmFtVmpkR1ZrVUhKdlpIVmpkRU52Ym5SbGVIUXNZV1Z0TG1aeWIyNTBaVzVrTG1Gc2JDSjkuTFAtZmI2SE9vaUc5cnNMWG5ETF8wOVIxVk9RUlpGNGt2VVBNdVduUDFIZW9TcnI3QkUwVTZjX1lhTGJ2dHYweWFpUk5sbUdBU1Ita21ja1B5YkNLQm83Zm1PWlJvZGpMUUdWWUZEbHZ0ZzlPNHMtdW8tTzI3YjFFMHlXcWY4UHVMZ1luaHQtUmZTTGZXaGhpZWRMTGZFS0lzZHlia1JPLXdoU1RWSUt1RXIyVXcwSEp5OXFLT0dNNzJMTDNkdGRkblB5Y2xCcXVHLVY2VnRRYlN3dzRhSFM0Vi14bGs4QWJBdW4tWTUwVzR1aWtRVC1SSXdMdzc3NmFILVFOTVV1SGg2emtIeGdXRjhSRXlBODB4NHQ5UUdmeGw5NER6T3BMMHdhYzk3R2JXZEsxbnFLVFZtcW1rbUpySmF1VnBpNTVCWWhsNnFLRnZBaHVlV2Q1VmZRVmp3IiwiaWF0IjoxNzY0NjU4MDA1LCJpc3MiOiJodHRwczovL2FkbWluLmhseC5wYWdlLyIsInN1YiI6IiovKiIsImF1ZCI6IjgzYTM2MzU1LWFkMTctNGVkMC04NzAxLWU5OWEzMDIwZjg2YSIsImV4cCI6MTc2NDY4NjgwNX0.KCjNmef0hOzRBDrZeuJ4t2EynjQx7cGy_1_EgpOqVwYa2jXsMgmB0o3DadGfpKRud1GfXTeHUdE5q3EbI9jQ2K_zFZHnfcUafx1FHmP0d2vlU6aL_UmOGl4WBnmYgesQd9wXQGm4pRLTQ2X-ackH-dIo1u5aPaY9YndVYPHhW3Z7B3zHqd852h9QfoHqAHs0AmX8s5vHC26Va-4dZkchzSb3dfc6PM8pZQZ1DQwLL-SUDLeh8S4YT37suP7XhHQQ6FHiABhk1jny6sAnxiDadUEV8bxusE4r4P1EBEqB4V66pFuGG24u0-2wxIzgpI765fOvT6K-qGDJsPJKNO6Ntw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://admin.hlx.page/index/abbvie/corporate-eds/query-index1/products",
+					"protocol": "https",
+					"host": [
+						"admin",
+						"hlx",
+						"page"
+					],
+					"path": [
+						"index",
+						"abbvie",
+						"corporate-eds",
+						"query-index1",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cf-overlay",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijdzb2k4N3pkb3NJRnc4b19fbVR5a082QlVRNEZBVGhjaHlyNGZqY1dSbWcifQ.eyJlbWFpbCI6InByYXR0ZWtzQGFkb2JlLmNvbSIsIm5hbWUiOiJQcmF0dGVrIFNpbmdoYWwiLCJ1c2VyX2lkIjoiODMyRTFGQjM2MzczNjE4ODBBNDk1RUE1QGRmNTgyMTRlNjMyMDc3NjA0OTVlZjkuZSIsImltc1Rva2VuIjoiZXlKaGJHY2lPaUpTVXpJMU5pSXNJbmcxZFNJNkltbHRjMTl1WVRFdGEyVjVMV0YwTFRFdVkyVnlJaXdpYTJsa0lqb2lhVzF6WDI1aE1TMXJaWGt0WVhRdE1TSXNJbWwwZENJNkltRjBJbjAuZXlKcFpDSTZJakUzTmpRMk5qY3hNalEwTXpOZk0yRm1NV1U1TVdVdE5tTTNZaTAwWTJRd0xXRmlNelF0T0RKbFltVmhaR1ZqTW1aalgzVmxNU0lzSW5SNWNHVWlPaUpoWTJObGMzTmZkRzlyWlc0aUxDSmpiR2xsYm5SZmFXUWlPaUpvWld4cGVDMWhaRzFwYmlJc0luVnpaWEpmYVdRaU9pSTRNekpGTVVaQ016WXpOek0yTVRnNE1FRTBPVFZGUVRWQVpHWTFPREl4TkdVMk16SXdOemMyTURRNU5XVm1PUzVsSWl3aWMzUmhkR1VpT2lKbGVVcG9Za2RqYVU5cFNuVmlNalZzU1c0d0xtVjVTbmRqYlRsMFkwaFJhVTlwU25WaU1qVnNTV2wzYVdJelNtNUphbTlwV1ZkU2RsbHRWV2xtVVM0aUxDSmhjeUk2SW1sdGN5MXVZVEVpTENKaFlWOXBaQ0k2SWpGQlFURXdNVFEyTmpNek5VUkROVE13UVRRNU5VTTFRMEJoWkc5aVpTNWpiMjBpTENKamRIQWlPakFzSW1abklqb2lNa0ZFUVZOT1JFUldURTAxUVVSVlMwWkJVVlpKTjBGQk1ra2lMQ0p6YVdRaU9pSXhOelkwTlRjd05EZzNPVE0wWDJVNE56WXlaREEzTFRBNE5EQXROREk0WXkxaFlqTTFMV1ZoTVRGbFpXTXlZVEEzWWw5MWR6SWlMQ0p5ZEdsa0lqb2lNVGMyTkRZMk56RXlORFF6TkY5allUZzVOR1prTVMxak4yUTNMVFExTXpFdE9EYzRZeTB5WVROaFlXWmhaV1ExWmpaZmRXVXhJaXdpYlc5cElqb2lNemRqWW1WaE56UWlMQ0p3WW1FaU9pSlBVa2NzVFdWa1UyVmpUbTlGVml4TWIzZFRaV01pTENKeWRHVmhJam9pTVRjMk5UZzNOamN5TkRRek5DSXNJbVY0Y0dseVpYTmZhVzRpT2lJeU9EZ3dNREF3TUNJc0ltTnlaV0YwWldSZllYUWlPaUl4TnpZME5qWTNNVEkwTkRNeklpd2ljMk52Y0dVaU9pSkJaRzlpWlVsRUxHOXdaVzVwWkN4d2NtOW1hV3hsTEdWdFlXbHNMR0ZpTG0xaGJtRm5aU3huYm1GMkxHOXlaeTV5WldGa0xISmxZV1JmYjNKbllXNXBlbUYwYVc5dWN5eHpaWE56YVc5dUxHRmtaR2wwYVc5dVlXeGZhVzVtYnk1dmQyNWxjazl5Wnl4aFpHUnBkR2x2Ym1Gc1gybHVabTh1Y0hKdmFtVmpkR1ZrVUhKdlpIVmpkRU52Ym5SbGVIUXNZV1Z0TG1aeWIyNTBaVzVrTG1Gc2JDSjkuR1dBV094YjBqMFJLb2luU1l2YTJtNDhjRUpaQ2hHdG5PZ1V4YUYydFFfakdyYnlKUE9UT0NEQlkxZ08tSTd2NVRyT1Z3OUViQXVLN2VrNXdxbWZ6Q25EOGdfWGdJNEJITGJKQ0FlSTEwSkZtbzBIUGVGRjEzNHZsTzBiUUt6a3YtQWFKMFItc1M3TG15X1JjS2wyaXFMMDB6V19TMVgwdEZnMVBuTF9XdXRDRm9HZ2ppOTR2X0ViTHc4ZTVydlZGVHd3MVVfV0tfWTIyeWtCR3ZuOHZzQjl0MTdDVmhtc0ZXYW5QQW45Zl9RYzZIc0VVWHFuRFIzNmRZTEFDNjhtam53U3RvcEstSW5qQWpqZE55eVFpYW9xWkRoLVB0UDZUX3ZaQXA1NC02LU9hVHQ4LXFGRUxVOURiS3VVdXExM3d3T3lndlYxS3hreXVuUHdzanJ0UFpnIiwiaWF0IjoxNzY0NjY3MTI0LCJpc3MiOiJodHRwczovL2FkbWluLmhseC5wYWdlLyIsInN1YiI6IiovKiIsImF1ZCI6IjgzYTM2MzU1LWFkMTctNGVkMC04NzAxLWU5OWEzMDIwZjg2YSIsImV4cCI6MTc2NDY5NTkyNH0.nImg9EO8wjgPBCiQvs0TLWJrvpmG2ERb1cGIEUhyn8GEz0oYL8rttTphNLGKCIFSY5wA-xubTOA8XjyiFif45V8nqd9a4vL4r-9sD6p0IzIbjkjlatra0rRF1_nOHjRUN-M3IVFteBL7-bYjiFGYrMGJAnoFRxJVXiVY3QAPyAHrrTLX2YOPrI221v_IFhySs3k6MNS6_j9_5oBAHPdB5Je2GnwNi7MFz8WnDiM0pV_XDXeewLLnl_DOHPBA2Ov_syrrykNrJ45NPRHgXOkptXkYAa0yBrcTp9oBrsih9Bwt8FFiZmsqVB5la-jty4G-z2ug2gPMk-yO7wqv9iFy7w"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"paths\": {\n      \"mappings\": [\n        \"/content/abbvie-dev/:/\",\n        \"/content/dam/abbvie-dev/press/:/press/\"\n      ],\n      \"includes\": [\n        \"/content/abbvie-dev/\",\n        \"/content/dam/abbvie-dev/\"\n      ]\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://admin.hlx.page/config/pratteks/sites/abbvie-dev/public.json",
+					"protocol": "https",
+					"host": [
+						"admin",
+						"hlx",
+						"page"
+					],
+					"path": [
+						"config",
+						"pratteks",
+						"sites",
+						"abbvie-dev",
+						"public.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add-overlay",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijdzb2k4N3pkb3NJRnc4b19fbVR5a082QlVRNEZBVGhjaHlyNGZqY1dSbWcifQ.eyJlbWFpbCI6InByYXR0ZWtzQGFkb2JlLmNvbSIsIm5hbWUiOiJQcmF0dGVrIFNpbmdoYWwiLCJ1c2VyX2lkIjoiODMyRTFGQjM2MzczNjE4ODBBNDk1RUE1QGRmNTgyMTRlNjMyMDc3NjA0OTVlZjkuZSIsImltc1Rva2VuIjoiZXlKaGJHY2lPaUpTVXpJMU5pSXNJbmcxZFNJNkltbHRjMTl1WVRFdGEyVjVMV0YwTFRFdVkyVnlJaXdpYTJsa0lqb2lhVzF6WDI1aE1TMXJaWGt0WVhRdE1TSXNJbWwwZENJNkltRjBJbjAuZXlKcFpDSTZJakUzTmpRMk5qY3hNalEwTXpOZk0yRm1NV1U1TVdVdE5tTTNZaTAwWTJRd0xXRmlNelF0T0RKbFltVmhaR1ZqTW1aalgzVmxNU0lzSW5SNWNHVWlPaUpoWTJObGMzTmZkRzlyWlc0aUxDSmpiR2xsYm5SZmFXUWlPaUpvWld4cGVDMWhaRzFwYmlJc0luVnpaWEpmYVdRaU9pSTRNekpGTVVaQ016WXpOek0yTVRnNE1FRTBPVFZGUVRWQVpHWTFPREl4TkdVMk16SXdOemMyTURRNU5XVm1PUzVsSWl3aWMzUmhkR1VpT2lKbGVVcG9Za2RqYVU5cFNuVmlNalZzU1c0d0xtVjVTbmRqYlRsMFkwaFJhVTlwU25WaU1qVnNTV2wzYVdJelNtNUphbTlwV1ZkU2RsbHRWV2xtVVM0aUxDSmhjeUk2SW1sdGN5MXVZVEVpTENKaFlWOXBaQ0k2SWpGQlFURXdNVFEyTmpNek5VUkROVE13UVRRNU5VTTFRMEJoWkc5aVpTNWpiMjBpTENKamRIQWlPakFzSW1abklqb2lNa0ZFUVZOT1JFUldURTAxUVVSVlMwWkJVVlpKTjBGQk1ra2lMQ0p6YVdRaU9pSXhOelkwTlRjd05EZzNPVE0wWDJVNE56WXlaREEzTFRBNE5EQXROREk0WXkxaFlqTTFMV1ZoTVRGbFpXTXlZVEEzWWw5MWR6SWlMQ0p5ZEdsa0lqb2lNVGMyTkRZMk56RXlORFF6TkY5allUZzVOR1prTVMxak4yUTNMVFExTXpFdE9EYzRZeTB5WVROaFlXWmhaV1ExWmpaZmRXVXhJaXdpYlc5cElqb2lNemRqWW1WaE56UWlMQ0p3WW1FaU9pSlBVa2NzVFdWa1UyVmpUbTlGVml4TWIzZFRaV01pTENKeWRHVmhJam9pTVRjMk5UZzNOamN5TkRRek5DSXNJbVY0Y0dseVpYTmZhVzRpT2lJeU9EZ3dNREF3TUNJc0ltTnlaV0YwWldSZllYUWlPaUl4TnpZME5qWTNNVEkwTkRNeklpd2ljMk52Y0dVaU9pSkJaRzlpWlVsRUxHOXdaVzVwWkN4d2NtOW1hV3hsTEdWdFlXbHNMR0ZpTG0xaGJtRm5aU3huYm1GMkxHOXlaeTV5WldGa0xISmxZV1JmYjNKbllXNXBlbUYwYVc5dWN5eHpaWE56YVc5dUxHRmtaR2wwYVc5dVlXeGZhVzVtYnk1dmQyNWxjazl5Wnl4aFpHUnBkR2x2Ym1Gc1gybHVabTh1Y0hKdmFtVmpkR1ZrVUhKdlpIVmpkRU52Ym5SbGVIUXNZV1Z0TG1aeWIyNTBaVzVrTG1Gc2JDSjkuR1dBV094YjBqMFJLb2luU1l2YTJtNDhjRUpaQ2hHdG5PZ1V4YUYydFFfakdyYnlKUE9UT0NEQlkxZ08tSTd2NVRyT1Z3OUViQXVLN2VrNXdxbWZ6Q25EOGdfWGdJNEJITGJKQ0FlSTEwSkZtbzBIUGVGRjEzNHZsTzBiUUt6a3YtQWFKMFItc1M3TG15X1JjS2wyaXFMMDB6V19TMVgwdEZnMVBuTF9XdXRDRm9HZ2ppOTR2X0ViTHc4ZTVydlZGVHd3MVVfV0tfWTIyeWtCR3ZuOHZzQjl0MTdDVmhtc0ZXYW5QQW45Zl9RYzZIc0VVWHFuRFIzNmRZTEFDNjhtam53U3RvcEstSW5qQWpqZE55eVFpYW9xWkRoLVB0UDZUX3ZaQXA1NC02LU9hVHQ4LXFGRUxVOURiS3VVdXExM3d3T3lndlYxS3hreXVuUHdzanJ0UFpnIiwiaWF0IjoxNzY0NjY3MTI0LCJpc3MiOiJodHRwczovL2FkbWluLmhseC5wYWdlLyIsInN1YiI6IiovKiIsImF1ZCI6IjgzYTM2MzU1LWFkMTctNGVkMC04NzAxLWU5OWEzMDIwZjg2YSIsImV4cCI6MTc2NDY5NTkyNH0.nImg9EO8wjgPBCiQvs0TLWJrvpmG2ERb1cGIEUhyn8GEz0oYL8rttTphNLGKCIFSY5wA-xubTOA8XjyiFif45V8nqd9a4vL4r-9sD6p0IzIbjkjlatra0rRF1_nOHjRUN-M3IVFteBL7-bYjiFGYrMGJAnoFRxJVXiVY3QAPyAHrrTLX2YOPrI221v_IFhySs3k6MNS6_j9_5oBAHPdB5Je2GnwNi7MFz8WnDiM0pV_XDXeewLLnl_DOHPBA2Ov_syrrykNrJ45NPRHgXOkptXkYAa0yBrcTp9oBrsih9Bwt8FFiZmsqVB5la-jty4G-z2ug2gPMk-yO7wqv9iFy7w"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"source\": {\n      \"url\": \"https://author-p170502-e1825534.adobeaemcloud.com/bin/franklin.delivery/pratteks/abbvie-dev/main\",\n      \"type\": \"markup\",\n      \"suffix\": \".html\"\n    },\n    \"overlay\": {\n      \"url\": \"https://json2html.adobeaem.workers.dev/pratteks/abbvie-dev/main\",\n      \"type\": \"markup\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://admin.hlx.page/config/pratteks/sites/abbvie-dev/content.json",
+					"protocol": "https",
+					"host": [
+						"admin",
+						"hlx",
+						"page"
+					],
+					"path": [
+						"config",
+						"pratteks",
+						"sites",
+						"abbvie-dev",
+						"content.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "json2html",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "token eyJhbGciOiJSUzI1NiIsImtpZCI6Ijdzb2k4N3pkb3NJRnc4b19fbVR5a082QlVRNEZBVGhjaHlyNGZqY1dSbWcifQ.eyJlbWFpbCI6InByYXR0ZWtzQGFkb2JlLmNvbSIsIm5hbWUiOiJQcmF0dGVrIFNpbmdoYWwiLCJ1c2VyX2lkIjoiODMyRTFGQjM2MzczNjE4ODBBNDk1RUE1QGRmNTgyMTRlNjMyMDc3NjA0OTVlZjkuZSIsImltc1Rva2VuIjoiZXlKaGJHY2lPaUpTVXpJMU5pSXNJbmcxZFNJNkltbHRjMTl1WVRFdGEyVjVMV0YwTFRFdVkyVnlJaXdpYTJsa0lqb2lhVzF6WDI1aE1TMXJaWGt0WVhRdE1TSXNJbWwwZENJNkltRjBJbjAuZXlKcFpDSTZJakUzTmpRMk5qY3hNalEwTXpOZk0yRm1NV1U1TVdVdE5tTTNZaTAwWTJRd0xXRmlNelF0T0RKbFltVmhaR1ZqTW1aalgzVmxNU0lzSW5SNWNHVWlPaUpoWTJObGMzTmZkRzlyWlc0aUxDSmpiR2xsYm5SZmFXUWlPaUpvWld4cGVDMWhaRzFwYmlJc0luVnpaWEpmYVdRaU9pSTRNekpGTVVaQ016WXpOek0yTVRnNE1FRTBPVFZGUVRWQVpHWTFPREl4TkdVMk16SXdOemMyTURRNU5XVm1PUzVsSWl3aWMzUmhkR1VpT2lKbGVVcG9Za2RqYVU5cFNuVmlNalZzU1c0d0xtVjVTbmRqYlRsMFkwaFJhVTlwU25WaU1qVnNTV2wzYVdJelNtNUphbTlwV1ZkU2RsbHRWV2xtVVM0aUxDSmhjeUk2SW1sdGN5MXVZVEVpTENKaFlWOXBaQ0k2SWpGQlFURXdNVFEyTmpNek5VUkROVE13UVRRNU5VTTFRMEJoWkc5aVpTNWpiMjBpTENKamRIQWlPakFzSW1abklqb2lNa0ZFUVZOT1JFUldURTAxUVVSVlMwWkJVVlpKTjBGQk1ra2lMQ0p6YVdRaU9pSXhOelkwTlRjd05EZzNPVE0wWDJVNE56WXlaREEzTFRBNE5EQXROREk0WXkxaFlqTTFMV1ZoTVRGbFpXTXlZVEEzWWw5MWR6SWlMQ0p5ZEdsa0lqb2lNVGMyTkRZMk56RXlORFF6TkY5allUZzVOR1prTVMxak4yUTNMVFExTXpFdE9EYzRZeTB5WVROaFlXWmhaV1ExWmpaZmRXVXhJaXdpYlc5cElqb2lNemRqWW1WaE56UWlMQ0p3WW1FaU9pSlBVa2NzVFdWa1UyVmpUbTlGVml4TWIzZFRaV01pTENKeWRHVmhJam9pTVRjMk5UZzNOamN5TkRRek5DSXNJbVY0Y0dseVpYTmZhVzRpT2lJeU9EZ3dNREF3TUNJc0ltTnlaV0YwWldSZllYUWlPaUl4TnpZME5qWTNNVEkwTkRNeklpd2ljMk52Y0dVaU9pSkJaRzlpWlVsRUxHOXdaVzVwWkN4d2NtOW1hV3hsTEdWdFlXbHNMR0ZpTG0xaGJtRm5aU3huYm1GMkxHOXlaeTV5WldGa0xISmxZV1JmYjNKbllXNXBlbUYwYVc5dWN5eHpaWE56YVc5dUxHRmtaR2wwYVc5dVlXeGZhVzVtYnk1dmQyNWxjazl5Wnl4aFpHUnBkR2x2Ym1Gc1gybHVabTh1Y0hKdmFtVmpkR1ZrVUhKdlpIVmpkRU52Ym5SbGVIUXNZV1Z0TG1aeWIyNTBaVzVrTG1Gc2JDSjkuR1dBV094YjBqMFJLb2luU1l2YTJtNDhjRUpaQ2hHdG5PZ1V4YUYydFFfakdyYnlKUE9UT0NEQlkxZ08tSTd2NVRyT1Z3OUViQXVLN2VrNXdxbWZ6Q25EOGdfWGdJNEJITGJKQ0FlSTEwSkZtbzBIUGVGRjEzNHZsTzBiUUt6a3YtQWFKMFItc1M3TG15X1JjS2wyaXFMMDB6V19TMVgwdEZnMVBuTF9XdXRDRm9HZ2ppOTR2X0ViTHc4ZTVydlZGVHd3MVVfV0tfWTIyeWtCR3ZuOHZzQjl0MTdDVmhtc0ZXYW5QQW45Zl9RYzZIc0VVWHFuRFIzNmRZTEFDNjhtam53U3RvcEstSW5qQWpqZE55eVFpYW9xWkRoLVB0UDZUX3ZaQXA1NC02LU9hVHQ4LXFGRUxVOURiS3VVdXExM3d3T3lndlYxS3hreXVuUHdzanJ0UFpnIiwiaWF0IjoxNzY0NjY3MTI0LCJpc3MiOiJodHRwczovL2FkbWluLmhseC5wYWdlLyIsInN1YiI6IiovKiIsImF1ZCI6IjgzYTM2MzU1LWFkMTctNGVkMC04NzAxLWU5OWEzMDIwZjg2YSIsImV4cCI6MTc2NDY5NTkyNH0.nImg9EO8wjgPBCiQvs0TLWJrvpmG2ERb1cGIEUhyn8GEz0oYL8rttTphNLGKCIFSY5wA-xubTOA8XjyiFif45V8nqd9a4vL4r-9sD6p0IzIbjkjlatra0rRF1_nOHjRUN-M3IVFteBL7-bYjiFGYrMGJAnoFRxJVXiVY3QAPyAHrrTLX2YOPrI221v_IFhySs3k6MNS6_j9_5oBAHPdB5Je2GnwNi7MFz8WnDiM0pV_XDXeewLLnl_DOHPBA2Ov_syrrykNrJ45NPRHgXOkptXkYAa0yBrcTp9oBrsih9Bwt8FFiZmsqVB5la-jty4G-z2ug2gPMk-yO7wqv9iFy7w"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"path\": \"/press/\",\n        \"endpoint\": \"https://author-p170502-e1825534.adobeaemcloud.com/api/assets/abbvie-dev/press/{{id}}.json\",\n        \"regex\": \"/[^/]+$/\",\n        \"template\": \"/cf-templates/press.html\",\n        \"relativeURLPrefix\": \"https://publish-p170502-e1825534.adobeaemcloud.com\", \n\t  \"headers\": {           \n          \"Accept\": \"application/json\"\n        },\n        \"forwardHeaders\":[\n            \"Authorization\"\n        ]\n    },\n    {\n        \"path\": \"/events/\",\n        \"endpoint\": \"https://author-p170502-e1825534.adobeaemcloud.com/api/assets/abbvie-dev/events/{{id}}.json\",\n        \"regex\": \"/[^/]+$/\",\n        \"template\": \"/cf-templates/events.html\",\n        \"relativeURLPrefix\": \"https://publish-p170502-e1825534.adobeaemcloud.com\", \n\t  \"headers\": {           \n          \"Accept\": \"application/json\"\n        },\n        \"forwardHeaders\":[\n            \"Authorization\"\n        ]\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://json2html.adobeaem.workers.dev/config/pratteks/abbvie-dev/main",
+					"protocol": "https",
+					"host": [
+						"json2html",
+						"adobeaem",
+						"workers",
+						"dev"
+					],
+					"path": [
+						"config",
+						"pratteks",
+						"abbvie-dev",
+						"main"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

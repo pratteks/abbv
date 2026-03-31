@@ -1,0 +1,76 @@
+{
+  "definitions": [
+    {
+      "title": "EDS Form",
+      "id": "eds-form",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "EDS Form",
+              "model": "eds-form"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "eds-form",
+      "fields": [
+         {
+          "component": "select",
+          "name": "classes",
+          "label": "Select Form",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "find-an-injector",
+              "value": "find-an-injector"
+            }
+          ]
+        },
+        {
+          "component": "aem-content",
+          "name": "text",
+          "label": "Form Link",
+          "multi": false,
+          "required": true
+        },
+        {
+          "component": "aem-content",
+          "name": "optionsLink",
+          "label": "Options Link",
+          "multi": false,
+          "required": true,
+          "condition": {
+            "===": [
+              {
+                "var": "classes"
+              },
+              "find-an-injector"
+            ]
+          }
+        },
+        {
+          "component": "boolean",
+          "name": "showMap",
+          "label": "Show Map",
+          "valueType": "boolean",
+          "value": true,
+          "condition": {
+            "===": [
+              {
+                "var": "classes"
+              },
+              "find-an-injector"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "filters": []
+}

@@ -1,5 +1,5 @@
 /*
- * Copyright 2026 Adobe. All rights reserved.
+ * Copyright 2025 Adobe. All rights reserved.
  * This file is licensed to you under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License. You may obtain a copy
  * of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -16,24 +16,15 @@ function sampleRUM(checkpoint, data) {
   const timeShift = () => (window.performance ? window.performance.now() : Date.now() - window.hlx.rum.firstReadTime);
   try {
     window.hlx = window.hlx || {};
-    if (!window.hlx.rum || !window.hlx.rum.collector) {
+    if (!window.hlx.rum) {
       sampleRUM.enhance = () => {};
-      const params = new URLSearchParams(window.location.search);
-      const { currentScript } = document;
-      const rate = params.get('rum')
-        || window.SAMPLE_PAGEVIEWS_AT_RATE
-        || params.get('optel')
-        || (currentScript && currentScript.dataset.rate);
-      const rateValue = {
-        on: 1,
-        off: 0,
-        high: 10,
-        low: 1000,
-      }[rate];
-      const weight = rateValue !== undefined ? rateValue : 100;
-      const id = (window.hlx.rum && window.hlx.rum.id) || crypto.randomUUID().slice(-9);
-      const isSelected = (window.hlx.rum && window.hlx.rum.isSelected)
-        || (weight > 0 && Math.random() * weight < 1);
+      const param = new URLSearchParams(window.location.search).get('rum');
+      const weight = (param === 'on' && 1)
+        || (window.SAMPLE_PAGEVIEWS_AT_RATE === 'high' && 10)
+        || (window.SAMPLE_PAGEVIEWS_AT_RATE === 'low' && 1000)
+        || 100;
+      const id = Math.random().toString(36).slice(-4);
+      const isSelected = param !== 'off' && Math.random() * weight < 1;
       // eslint-disable-next-line object-curly-newline, max-len
       window.hlx.rum = {
         weight,
@@ -49,15 +40,13 @@ function sampleRUM(checkpoint, data) {
           const errData = { source: 'undefined error' };
           try {
             errData.target = error.toString();
-            if (error.stack) {
-              errData.source = error.stack
-                .split('\n')
-                .filter((line) => line.match(/https?:\/\//))
-                .shift()
-                .replace(/at ([^ ]+) \((.+)\)/, '$1@$2')
-                .replace(/ at /, '@')
-                .trim();
-            }
+            errData.source = error.stack
+              .split('\n')
+              .filter((line) => line.match(/https?:\/\//))
+              .shift()
+              .replace(/at ([^ ]+) \((.+)\)/, '$1@$2')
+              .replace(/ at /, '@')
+              .trim();
           } catch (err) {
             /* error structure was not as expected */
           }
@@ -80,17 +69,7 @@ function sampleRUM(checkpoint, data) {
           sampleRUM('error', errData);
         });
 
-        window.addEventListener('securitypolicyviolation', (e) => {
-          if (e.blockedURI.includes('helix-rum-enhancer') && e.disposition === 'enforce') {
-            const errData = {
-              source: 'csp',
-              target: e.blockedURI,
-            };
-            sampleRUM.sendPing('error', timeShift(), errData);
-          }
-        });
-
-        sampleRUM.baseURL = sampleRUM.baseURL || new URL(window.RUM_BASE || '/', new URL('https://ot.aem.live'));
+        sampleRUM.baseURL = sampleRUM.baseURL || new URL(window.RUM_BASE || '/', new URL('https://rum.hlx.page'));
         sampleRUM.collectBaseURL = sampleRUM.collectBaseURL || sampleRUM.baseURL;
         sampleRUM.sendPing = (ck, time, pingData = {}) => {
           // eslint-disable-next-line max-len, object-curly-newline
@@ -103,10 +82,10 @@ function sampleRUM(checkpoint, data) {
             ...pingData,
           });
           const urlParams = window.RUM_PARAMS
-            ? new URLSearchParams(window.RUM_PARAMS).toString() || ''
+            ? `?${new URLSearchParams(window.RUM_PARAMS).toString()}`
             : '';
           const { href: url, origin } = new URL(
-            `.rum/${weight}${urlParams ? `?${urlParams}` : ''}`,
+            `.rum/${weight}${urlParams}`,
             sampleRUM.collectBaseURL,
           );
           const body = origin === window.location.origin
@@ -310,6 +289,16 @@ function getMetadata(name, doc = document) {
 }
 
 /**
+ * Returns the brand path for block/theme assets (e.g. 'abbvie/'). Used to load compiled block CSS
+ * from styles/<brand>/blocks/<blockName>/ (breakpoint tokens resolved to real media queries).
+ * @returns {string} Brand path with trailing slash, default 'abbvie/'
+ */
+function getBrandPath() {
+  const brand = getMetadata('brand')?.trim();
+  return brand ? `${brand}/` : 'abbvie/';
+}
+
+/**
  * Returns a picture element with webp and fallbacks
  * @param {string} src The image URL
  * @param {string} [alt] The image alternative text
@@ -389,7 +378,6 @@ function wrapTextNodes(block) {
     'H4',
     'H5',
     'H6',
-    'HR',
   ];
 
   const wrap = (el) => {
@@ -494,6 +482,43 @@ function decorateIcons(element, prefix = '') {
   });
 }
 
+function applySectionStyleValue(section, value) {
+  value
+    .split(',')
+    .map((style) => toClassName(style.trim()))
+    .filter(Boolean)
+    .forEach((style) => section.classList.add(style));
+}
+
+function applySectionMetaClasses(section, sectionMeta) {
+  [...sectionMeta.classList]
+    .filter((className) => className !== 'section-metadata')
+    .forEach((className) => {
+      section.classList.add(className);
+    });
+}
+
+function applySectionMeta(section, key, value) {
+  if (!value) return;
+
+  if (key === 'style') {
+    applySectionStyleValue(section, value);
+    return;
+  }
+
+  if (key === 'section-id' || key === 'sectionid') {
+    section.id = value;
+    return;
+  }
+
+  if (key.startsWith('classes-')) {
+    applySectionStyleValue(section, value);
+    return;
+  }
+
+  section.dataset[toCamelCase(key)] = value;
+}
+
 /**
  * Decorates all sections in a container element.
  * @param {Element} main The container element
@@ -513,23 +538,17 @@ function decorateSections(main) {
     });
     wrappers.forEach((wrapper) => section.append(wrapper));
     section.classList.add('section');
+    section.classList.add('abbvie-container');
     section.dataset.sectionStatus = 'initialized';
     section.style.display = 'none';
 
     // Process section metadata
     const sectionMeta = section.querySelector('div.section-metadata');
     if (sectionMeta) {
+      applySectionMetaClasses(section, sectionMeta);
       const meta = readBlockConfig(sectionMeta);
       Object.keys(meta).forEach((key) => {
-        if (key === 'style') {
-          const styles = meta.style
-            .split(',')
-            .filter((style) => style)
-            .map((style) => toClassName(style.trim()));
-          styles.forEach((style) => section.classList.add(style));
-        } else {
-          section.dataset[toCamelCase(key)] = meta[key];
-        }
+        applySectionMeta(section, key, meta[key]);
       });
       sectionMeta.parentNode.remove();
     }
@@ -576,8 +595,12 @@ async function loadBlock(block) {
   if (status !== 'loading' && status !== 'loaded') {
     block.dataset.blockStatus = 'loading';
     const { blockName } = block.dataset;
+    const brandPath = getBrandPath();
+    const baseCss = `${window.hlx.codeBasePath}/blocks/${blockName}/${blockName}.css`;
+    const brandCss = `${window.hlx.codeBasePath}/styles/${brandPath}blocks/${blockName}/${blockName}.css`;
     try {
-      const cssLoaded = loadCSS(`${window.hlx.codeBasePath}/blocks/${blockName}/${blockName}.css`);
+      // Load brand-compiled CSS first, fall back to base if brand css not found
+      const cssLoaded = loadCSS(brandCss).catch(() => loadCSS(baseCss));
       const decorationComplete = new Promise((resolve) => {
         (async () => {
           try {
@@ -589,7 +612,7 @@ async function loadBlock(block) {
             }
           } catch (error) {
             // eslint-disable-next-line no-console
-            console.error(`failed to load module for ${blockName}`, error);
+            console.log(`failed to load module for ${blockName}`, error);
           }
           resolve();
         })();
@@ -597,7 +620,7 @@ async function loadBlock(block) {
       await Promise.all([cssLoaded, decorationComplete]);
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.error(`failed to load block ${blockName}`, error);
+      console.log(`failed to load block ${blockName}`, error);
     }
     block.dataset.blockStatus = 'loaded';
   }

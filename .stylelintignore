@@ -1,0 +1,13 @@
+# Styles generated files (base + theme combinations)
+styles/*/*.css
+!styles/*/_*.css
+# Styles theme generated files (base + theme combinations)
+styles/themes/*/*.css
+!styles/themes/*/_*.css
+# Styles brand generated files (base + brand combinations)
+styles/*/*/*.css
+!styles/*/*/_*.css
+# Styles brand theme generated files (base + brand + theme combinations)
+styles/*/themes/*/*.css
+!styles/*/themes/*/_*.css
+# Ignore the merged CSS files. They are not linted. - End.

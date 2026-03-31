@@ -1,0 +1,144 @@
+{
+  "definitions": [
+    {
+      "title": "Accordion",
+      "id": "accordion",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Accordion",
+              "model": "accordion",
+              "filter": "accordion"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Accordion Item",
+      "id": "accordion-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Accordion Item",
+              "model": "accordion-item",
+              "summary": "Lorem Ipsum",
+              "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur volutpat consequat dui, sit amet ...</p>"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "accordion",
+      "fields": [
+        {
+          "component": "select",
+          "name": "classes_desktopWidth",
+          "label": "Desktop Width",
+          "options": [
+            { "name": "None", "value": "accordion-base" },
+            { "name": "XX-Large (12 column)", "value": "accordion-xxl" },
+            { "name": "X-Large (8 column)", "value": "accordion-xl" },
+            { "name": "Large (7 column)", "value": "accordion-l" },
+            { "name": "Medium (6 column)", "value": "accordion-m" },
+            { "name": "Small (5 column)", "value": "accordion-s" },
+            { "name": "X-Small (4 column)", "value": "accordion-xs" }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "classes_alignment",
+          "label": "Alignment",
+          "options": [
+            { "name": "None", "value": "accordion-normal" },
+            { "name": "Align Left", "value": "accordion-left" },
+            { "name": "Align Center", "value": "accordion-center" },
+            { "name": "Align Right", "value": "accordion-right" }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "classes_theme",
+          "label": "Theme",
+          "options": [
+            { "name": "None", "value": "accordion-none" },
+            { "name": "Light Theme", "value": "accordion-light" },
+            { "name": "Dark Theme", "value": "accordion-dark" }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "classes_margin",
+          "label": "Margin",
+          "options": [
+            { "name": "None", "value": "no-margin" },
+            { "name": "No Bottom Margin", "value": "margin-bottom-0" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "accordion-item",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "summary",
+          "value": "",
+          "label": "Summary"
+        },
+        {
+          "component": "select",
+          "name": "summaryType",
+          "label": "Title Type",
+          "options": [
+            {
+              "name": "None",
+              "value": ""
+            },
+            {
+              "name": "h2",
+              "value": "h2"
+            },
+            {
+              "name": "h3",
+              "value": "h3"
+            },
+            {
+              "name": "h4",
+              "value": "h4"
+            },
+            {
+              "name": "h5",
+              "value": "h5"
+            },
+            {
+              "name": "h6",
+              "value": "h6"
+            }
+          ]
+        },
+        {
+          "component": "richtext",
+          "name": "text",
+          "value": "",
+          "label": "Text",
+          "valueType": "string"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "accordion",
+      "components": ["accordion-item"]
+    }
+  ]
+}

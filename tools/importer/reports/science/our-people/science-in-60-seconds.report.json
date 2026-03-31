@@ -1,0 +1,16 @@
+{
+  "status": "success",
+  "url": "https://www.abbvie.com/science/our-people/science-in-60-seconds.html",
+  "path": "science/our-people/science-in-60-seconds",
+  "timestamp": "2026-03-12T10:24:44.261Z",
+  "title": "One Minute Thesis | AbbVie",
+  "template": "content-series",
+  "blocks": [
+    "hero",
+    "columns",
+    "columns",
+    "columns",
+    "cards",
+    "cards"
+  ]
+}

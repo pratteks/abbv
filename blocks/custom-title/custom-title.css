@@ -1,0 +1,164 @@
+@import url('../../styles/tokens.css');
+
+.custom-title {
+  /* Block-scoped custom properties — avoids duplicate :root lint error */
+  --custom-title-color: var(--text-color);
+  --custom-title-accent-color: var(--link-color);
+
+  margin: 0;
+  padding: 0;
+}
+
+.custom-title .custom-title-heading {
+  font-family: var(--heading-font-family-bold);
+  color: var(--custom-title-color);
+  margin: 0;
+  padding: 0;
+  margin-bottom: var(--spacing-20);
+  font-weight: inherit;
+}
+
+/* Heading sizes — base (mobile) */
+.custom-title h1.custom-title-heading {
+  font-size: var(--font-size-30);
+  line-height: var(--line-height-34);
+}
+
+.custom-title h2.custom-title-heading {
+  font-size: var(--font-size-28);
+  line-height: var(--line-height-32);
+}
+
+.custom-title h3.custom-title-heading {
+  font-size: var(--font-size-26);
+  line-height: var(--line-height-30);
+}
+
+.custom-title h4.custom-title-heading {
+  font-size: var(--font-size-24);
+  line-height: var(--line-height-28);
+}
+
+.custom-title h5.custom-title-heading {
+  font-size: var(--font-size-20);
+  line-height: var(--line-height-24);
+}
+
+.custom-title h6.custom-title-heading {
+  font-size: var(--font-size-28);
+  line-height: var(--line-height-32);
+}
+
+/* Heading sizes — tablet (≥744px) */
+@media (width >= 744px) {
+  .custom-title h1.custom-title-heading {
+    font-size: var(--font-size-40);
+    line-height: var(--line-height-44);
+  }
+
+  .custom-title h2.custom-title-heading {
+    font-size: var(--font-size-36);
+    line-height: var(--spacing-40);
+  }
+
+  .custom-title h3.custom-title-heading {
+    font-size: var(--font-size-32);
+    line-height: var(--line-height-36);
+  }
+
+  .custom-title h4.custom-title-heading {
+    font-size: var(--font-size-30);
+    line-height: var(--line-height-34);
+  }
+
+  .custom-title h5.custom-title-heading {
+    font-size: var(--font-size-28);
+    line-height: var(--line-height-32);
+  }
+
+  .custom-title h6.custom-title-heading {
+    font-size: var(--font-size-28);
+    line-height: var(--line-height-32);
+  }
+}
+
+/* Heading sizes — desktop (≥1024px) */
+@media (width >= 1024px) {
+  .custom-title h1.custom-title-heading {
+    font-size: var(--font-size-64);
+    line-height: var(--line-height-68);
+    letter-spacing: -0.02em;
+  }
+
+  .custom-title h2.custom-title-heading {
+    font-size: var(--font-size-56);
+    line-height: var(--spacing-64);
+    letter-spacing: -0.02em;
+  }
+
+  .custom-title h3.custom-title-heading {
+    font-size: var(--heading-font-size-l);
+    line-height: var(--line-height-46);
+  }
+
+  .custom-title h4.custom-title-heading {
+    font-size: var(--font-size-40);
+    line-height: var(--line-height-44);
+  }
+
+  .custom-title h5.custom-title-heading {
+    font-size: var(--font-size-32);
+    line-height: var(--line-height-36);
+  }
+
+  .custom-title h6.custom-title-heading {
+    font-size: var(--font-size-24);
+    line-height: var(--line-height-28);
+  }
+}
+
+/* Alignment */
+.custom-title.align-left   .custom-title-heading { text-align: left; }
+.custom-title.align-center .custom-title-heading { text-align: center; }
+.custom-title.align-right  .custom-title-heading { text-align: right; }
+
+/* Font Weight
+   Default : F37 Lineca Medium, 800
+   Medium  : F37 Lineca Medium, 500
+   Book    : F37 Lineca Book,   400 */
+.custom-title.weight-medium .custom-title-heading {
+  font-family: var(--heading-font-family-bold);
+  font-weight: var(--font-weight-500);
+}
+
+.custom-title.weight-book .custom-title-heading {
+  font-family: var(--heading-font-family);
+  font-weight: var(--font-weight-400);
+}
+
+/* Format: Outdented — first letter changes to brand accent blue */
+.custom-title.format-outdented .custom-title-heading::first-letter {
+  color: var(--custom-title-accent-color);
+  display: inline;
+}
+
+/* Format: Raised Cap — first letter scales up, sits raised on the baseline */
+.custom-title.format-raised .custom-title-heading::first-letter {
+  font-size: 2em;
+  line-height: 0.75;
+  font-weight: inherit;
+  color: inherit;
+  vertical-align: baseline;
+  float: none;
+  display: inline;
+}
+
+/* Theme: Light — no background, navy text (inherits from project default) */
+.custom-title.theme-light .custom-title-heading {
+  color: var(--text-color);
+}
+
+/* Theme: Dark — no background, text changes to white */
+.custom-title.theme-dark .custom-title-heading {
+  color: var(--bg-ffffff);
+}

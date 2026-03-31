@@ -1,0 +1,53 @@
+main img {
+  max-width: 100%;
+  width: auto;
+  height: auto;
+}
+
+/* ----------sections---------- */
+main > .section {
+  max-width: var(--content-max-width);
+  margin-bottom: 8rem;
+  margin-left: 3.5rem;
+  margin-right: 3.5rem;
+}
+
+/* ----------section metadata---------- */
+main .section.light,
+main .section[data-backgroundcolor="highlight"] {
+  background-color: var(--highlight-background-color);
+}
+
+main .section[data-backgroundcolor="highlight-white"]{
+  background-color: var(--background-color);
+}
+
+.abbvie-container {
+  margin-bottom: 5.6rem;
+}
+
+@media (--bp-tablet) {
+  .abbvie-container {
+    margin-bottom: 0;
+  }
+
+  main > .section {
+    margin-left: 7rem;
+    margin-right: 7rem;
+  }
+}
+
+@media (--bp-desktop) {
+  main > .section {
+    margin-left: 5.5rem;
+    margin-right: 5.5rem;
+  }
+}
+
+@media (--bp-wide) {
+  main > .section {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: var(--content-max-width);
+  }
+}
