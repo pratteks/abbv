@@ -1,6 +1,6 @@
 {
   "mappings": [
-    "/content/abbv/:/"
+    "/content/abbv:/"
   ],
   "includes": [
     "/content/abbv/"
