@@ -1,8 +1,8 @@
 {
   "mappings": [
-    "/content/aem-boilerplate/:/"
+    "/content/abbv/:/"
   ],
   "includes": [
-    "/content/aem-boilerplate/"
+    "/content/abbv/"
   ]
 }
