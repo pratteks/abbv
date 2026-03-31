@@ -1,5 +1,0 @@
-mountpoints:
-  /:
-    url: "https://author-p170502-e1825534.adobeaemcloud.com/bin/franklin.delivery/pratteks/abbv/main"
-    type: "markup"
-    suffix: ".html"
