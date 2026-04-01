@@ -765,6 +765,25 @@
       },
       {
         "component": "select",
+        "name": "classes_brand",
+        "label": "Brand",
+        "options": [
+          {
+            "name": "Default",
+            "value": "default"
+          },
+          {
+            "name": "AbbVie",
+            "value": "abbvie"
+          },
+          {
+            "name": "Rinvoq",
+            "value": "rinvoq"
+          }
+        ]
+      },
+      {
+        "component": "select",
         "name": "classes_theme",
         "label": "Theme",
         "options": [
