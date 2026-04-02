@@ -1,312 +1,269 @@
 /*
  * Botox Accordion Block Styles
- * Source reference: https://www.botoxone.com/faqs
+ * Extracted from: https://www.botoxone.com/faqs
+ * Stylesheets:
+ *   - /etc/clientlibs/common-elements/clientlibs/v1/css-clientlib-all.min.css
+ *   - /content/dam/botoxone/css/botoxplus.css
  *
  * This stylesheet is loaded only on `brand=botox` pages.
- * Selectors intentionally mirror the shared accordion selectors so the
- * Botox theme can override the base block without requiring JS changes.
+ *
+ * Key differences from AbbVie corporate accordion:
+ *   - Font: "Open Sans" (not F37 Lineca)
+ *   - Question color: #80379B purple (not #071d49 navy)
+ *   - Top border on items (not bottom border)
+ *   - No hover background (transparent override)
+ *   - Plus/minus icons (not chevrons)
+ *   - Multi-expand by default
  */
 
-/* Component tokens */
+/* Design tokens — extracted from botoxone.com source CSS */
 .accordion.botox,
 .accordion.botox.accordion-center {
-  --accordion-surface-color: var(--background-color);
-  --accordion-panel-color: var(--bg-fafbff);
-  --accordion-heading-color: var(--text-color);
-  --accordion-body-color: var(--text-color);
-  --accordion-border-color: var(--container-border-color);
-  --accordion-accent-color: var(--highlight-dark-background-color);
-  --accordion-hover-surface: var(--highlight-background-color);
-  --accordion-focus-color: var(--highlight-dark-background-color);
-  --accordion-radius: var(--border-radius-00);
-  --accordion-control-gap: var(--spacing-16);
-  --accordion-summary-padding-y: var(--spacing-24);
-  --accordion-summary-padding-x: var(--spacing-20);
-  --accordion-body-padding-x: var(--spacing-20);
-  --accordion-body-padding-bottom: var(--spacing-32);
-  --accordion-icon-size: var(--font-size-20);
-  --accordion-summary-font-size: var(--font-size-24);
-  --accordion-summary-line-height: var(--line-height-28);
-  --accordion-body-font-size: var(--font-size-16);
-  --accordion-body-line-height: var(--line-height-24);
+  /* Colors */
+  --botox-purple: #80379b;
+  --botox-navy: #071d49;
+  --botox-text: #333;
+  --botox-border: #979797;
+  --botox-hover-bg: transparent;
+  --botox-focus-outline: #888;
+  --botox-white: #fff;
+
+  /* Typography — "Open Sans" throughout (from source computed styles) */
+  --botox-font: "Open Sans", sans-serif;
+  --botox-question-size: 20px;
+  --botox-question-weight: 700;
+  --botox-question-lh: 24px;
+  --botox-body-size: 0.9rem;
+  --botox-icon-size: 1.3rem;
+
+  /* Spacing — from source .abbv-accordion-blade-content */
+  --botox-blade-py: 20px;
+  --botox-blade-pr: 40px;
+  --botox-blade-pl: 10px;
+  --botox-content-pb: 20px;
+  --botox-content-px: 10px;
+  --botox-icon-top: 18px;
+  --botox-icon-right: 10px;
 }
 
-/* Expand All / Collapse All button */
+/* Expand All / Collapse All — from source .abbv-accordion-tools */
 .accordion.botox .accordion-expand-all {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-08);
-  margin-bottom: var(--accordion-control-gap);
-  padding: var(--spacing-05) var(--spacing-00);
-  color: var(--accordion-accent-color);
-  font-family: var(--roboto-bold-font-family);
-  font-size: var(--font-size-14);
-  font-weight: var(--font-weight-700);
-  letter-spacing: var(--letter-spacing-wide-06);
-  line-height: var(--line-height-20);
-  text-transform: uppercase;
-  transition: color 0.2s ease;
+  display: flex;
+  justify-content: flex-end;
+  margin: 5px 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--botox-font);
+  font-size: var(--botox-body-size);
+  font-weight: var(--botox-question-weight);
+  color: var(--botox-text);
+  text-transform: none;
+  letter-spacing: normal;
+  line-height: 1.4;
 }
 
 .accordion.botox .accordion-expand-all::after {
-  width: var(--spacing-08);
-  height: var(--spacing-08);
-  margin-top: calc(-1 * var(--spacing-03));
-  border-right: var(--border-02) solid currentcolor;
-  border-bottom: var(--border-02) solid currentcolor;
-  transition: transform 0.2s ease, margin-top 0.2s ease;
+  display: none;
 }
 
-.accordion.botox .accordion-expand-all.expanded::after {
-  margin-top: var(--spacing-03);
-  transform: rotate(-135deg);
-}
-
-.accordion.botox .accordion-expand-all:hover:not(:focus) {
-  color: var(--link-hover-color);
+.accordion.botox .accordion-expand-all:hover,
+.accordion.botox .accordion-expand-all:focus {
+  color: var(--botox-purple);
+  text-decoration: underline;
 }
 
 .accordion.botox .accordion-expand-all:focus-visible {
-  outline: var(--border-02) solid var(--accordion-focus-color);
-  outline-offset: var(--spacing-04);
-  border-radius: var(--border-radius-base);
+  outline: 1px dotted var(--botox-focus-outline);
 }
 
-/* Container and borders */
+/* Accordion items — from source .abbv-accordion-blade */
 .accordion.botox .accordion-item {
-  border-top: var(--border-01) solid var(--accordion-border-color);
-  border-bottom: var(--border-01) solid var(--accordion-border-color);
-  background-color: var(--accordion-surface-color);
+  position: relative;
+  border-bottom: none;
+  border-top: 1px solid var(--botox-border);
+  cursor: pointer;
+  font-size: var(--botox-body-size);
+  clear: both;
 }
 
-.accordion.botox .accordion-item + .accordion-item {
-  border-top: none;
+.accordion.botox .accordion-item:hover {
+  background: var(--botox-hover-bg);
 }
 
+.accordion.botox .accordion-item:focus-within {
+  outline: 1px dotted var(--botox-focus-outline);
+}
+
+/* Bottom border on entire wrapper — from source .abbv-accordion-multi */
+.accordion.botox {
+  font-family: var(--botox-font);
+  font-size: 18px;
+  color: var(--botox-text);
+  border-bottom: 1px solid var(--botox-border);
+  max-width: 740px;
+}
+
+/* Summary / Header — from source .abbv-accordion-blade-content */
 .accordion.botox summary {
+  position: relative;
   display: block;
-  padding: var(--accordion-summary-padding-y) calc(var(--accordion-summary-padding-x) + var(--spacing-32))
-    var(--accordion-summary-padding-y) var(--accordion-summary-padding-x);
-  overflow: visible;
-  color: var(--accordion-heading-color);
-  font-family: var(--heading-font-family-bold);
-  font-size: var(--accordion-summary-font-size);
-  line-height: var(--accordion-summary-line-height);
-  letter-spacing: var(--letter-spacing-tight);
-  transition: background-color 0.2s ease, color 0.2s ease;
+  padding: var(--botox-blade-py) var(--botox-blade-pr) var(--botox-blade-py) var(--botox-blade-pl);
+  overflow: hidden;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--botox-font);
+  font-size: var(--botox-body-size);
+  font-weight: normal;
+  color: var(--botox-text);
 }
 
+.accordion.botox summary:hover {
+  font-weight: normal;
+}
+
+/* Plus/minus icon — PNG images from source (25x25px) */
 .accordion.botox .accordion-item-label::after {
-  top: 50%;
-  right: var(--accordion-summary-padding-x);
-  color: var(--accordion-accent-color);
-  font-size: var(--accordion-icon-size);
-  transform: translateY(-50%) scale(0.75);
-  transition: color 0.2s ease, transform 0.2s ease;
+  content: "";
+  position: absolute;
+  top: var(--botox-icon-top);
+  right: var(--botox-icon-right);
+  width: 25px;
+  height: 25px;
+  background: url("./icons/icon-plus.png") no-repeat center;
+  background-size: contain;
+  font-size: 0;
+  transform: none;
+  margin-left: 0;
+}
+
+.accordion.botox .accordion-item-label.open::after {
+  background-image: url("./icons/icon-minus.png");
 }
 
 .accordion.botox .accordion-item-label:hover,
-.accordion.botox .accordion-item-label:focus-visible,
-.accordion.botox .accordion-item[open] .accordion-item-label {
-  background-color: var(--accordion-hover-surface);
+.accordion.botox .accordion-item-label:focus-visible {
+  background-color: var(--botox-hover-bg);
+  font-weight: normal;
 }
 
 .accordion.botox .accordion-item-label:focus-visible {
-  outline: var(--border-02) solid var(--accordion-focus-color);
-  outline-offset: calc(-1 * var(--border-02));
+  outline: 1px dotted var(--botox-focus-outline);
 }
 
-/* Typography */
+/* Typography — from source .abbv-accordion-blade-text computed styles */
 .accordion.botox .accordion-item-label p,
 .accordion.botox .accordion-item-label h2,
 .accordion.botox .accordion-item-label h3,
 .accordion.botox .accordion-item-label h4,
 .accordion.botox .accordion-item-label h5,
 .accordion.botox .accordion-item-label h6 {
-  margin: var(--spacing-00);
-  padding-right: var(--spacing-12);
-  color: inherit;
+  font-family: var(--botox-font);
+  font-size: var(--botox-question-size);
+  font-weight: var(--botox-question-weight);
+  line-height: var(--botox-question-lh);
+  color: var(--botox-purple);
+  display: inline-block;
+  margin: 0;
 }
 
-.accordion.botox .accordion-item-label p {
-  font-family: var(--heading-font-family-bold);
-  font-size: var(--accordion-summary-font-size);
-  font-weight: var(--font-weight-650);
-  line-height: var(--accordion-summary-line-height);
-  letter-spacing: var(--letter-spacing-tight);
-}
-
-.accordion.botox .accordion-item-label h2 {
-  font-size: var(--font-size-30);
-  line-height: var(--line-height-34);
-}
-
-.accordion.botox .accordion-item-label h3 {
-  font-size: var(--font-size-28);
-  line-height: var(--line-height-32);
-}
-
-.accordion.botox .accordion-item-label h4 {
-  font-size: var(--font-size-26);
-  line-height: var(--line-height-30);
-}
-
-.accordion.botox .accordion-item-label h5 {
-  font-size: var(--font-size-24);
-  line-height: var(--line-height-28);
-}
-
-.accordion.botox .accordion-item-label h6 {
-  font-size: var(--font-size-20);
-  line-height: var(--line-height-24);
-}
-
+/* No bold shift on hover/open (Botox question text stays consistent) */
 .accordion.botox .accordion-item-label.open .accordion-item-label-text,
 .accordion.botox .accordion-item-label .accordion-item-label-text:hover {
-  font-family: var(--heading-font-family-bold);
-  font-weight: var(--font-weight-700);
+  font-family: var(--botox-font);
+  font-weight: var(--botox-question-weight);
 }
 
-/* Panel content */
+/* Panel body — from source .abbv-accordion-content */
 .accordion.botox .accordion-item-body {
-  padding: var(--spacing-00) var(--accordion-body-padding-x) var(--accordion-body-padding-bottom);
-  background-color: var(--accordion-panel-color);
+  position: relative;
+  padding: 0 var(--botox-content-px) var(--botox-content-pb);
+  box-sizing: content-box;
+  overflow: hidden;
+  transition: none;
+}
+
+.accordion.botox .accordion-item:not([open]) .accordion-item-body {
+  display: none;
+}
+
+.accordion.botox .accordion-item[open] .accordion-item-body {
+  display: block;
+  background-color: transparent;
+  border-top: none;
+  border-bottom: none;
+  opacity: 1;
+  padding-top: 0;
+  transition: none;
 }
 
 .accordion.botox .accordion-item-body .accordion-item-body-text {
-  color: var(--accordion-body-color);
-  font-family: var(--body-font-family);
-  font-size: var(--accordion-body-font-size);
-  line-height: var(--accordion-body-line-height);
+  font-family: var(--botox-font);
+  font-size: var(--botox-body-size);
+  line-height: 1.6;
+  color: var(--botox-text);
 }
 
-.accordion.botox .accordion-item-body .accordion-item-body-text > :first-child {
-  margin-top: var(--spacing-00);
+/* Paragraph margin: 0 (from source .abbv-accordion-content p) */
+.accordion.botox .accordion-item-body p {
+  margin: 0;
 }
 
-.accordion.botox .accordion-item-body .accordion-item-body-text > :last-child {
-  margin-bottom: var(--spacing-00);
-}
-
-.accordion.botox .accordion-item-body ul,
-.accordion.botox .accordion-item-body ol {
-  margin: var(--spacing-16) var(--spacing-00) var(--spacing-00);
-  padding-left: var(--spacing-24);
-}
-
-.accordion.botox .accordion-item-body li + li {
-  margin-top: var(--spacing-08);
-}
-
+/* Links in panel body */
 .accordion.botox .accordion-item-body a {
-  color: var(--accordion-accent-color);
-  padding: 0;
+  color: var(--botox-purple);
   text-decoration: underline;
-  text-decoration-color: currentcolor;
-  text-decoration-thickness: 0.12rem;
-  text-underline-offset: 0.22rem;
-  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  background: none;
+  padding: 0;
+  transition: color 0.15s ease;
 }
 
 .accordion.botox .accordion-item-body a:hover {
-  color: var(--link-hover-color);
+  color: var(--botox-navy);
   background: none;
 }
 
 .accordion.botox .accordion-item-body a:focus-visible {
-  outline: var(--border-02) solid var(--accordion-focus-color);
-  outline-offset: var(--spacing-02);
-  border-radius: var(--border-radius-base);
+  outline: 1px dotted var(--botox-focus-outline);
 }
 
 /* Dark variant */
 .accordion.botox.accordion-dark {
-  --accordion-surface-color: transparent;
-  --accordion-panel-color: rgb(248 248 248 / 8%);
-  --accordion-heading-color: var(--light-color);
-  --accordion-body-color: var(--light-color);
-  --accordion-border-color: rgb(248 248 248 / 35%);
-  --accordion-hover-surface: rgb(248 248 248 / 12%);
+  color: var(--botox-white);
+}
+
+.accordion.botox.accordion-dark .accordion-item-label p,
+.accordion.botox.accordion-dark .accordion-item-label h2,
+.accordion.botox.accordion-dark .accordion-item-label h3,
+.accordion.botox.accordion-dark .accordion-item-label h4,
+.accordion.botox.accordion-dark .accordion-item-label h5,
+.accordion.botox.accordion-dark .accordion-item-label h6 {
+  color: var(--botox-white);
+}
+
+.accordion.botox.accordion-dark .accordion-item-body .accordion-item-body-text {
+  color: var(--botox-white);
 }
 
 .accordion.botox.accordion-dark .accordion-item-body a {
-  color: var(--light-color);
+  color: var(--botox-white);
 }
 
-/* Responsive tuning */
-@media (--bp-tablet) {
+/* Responsive — Tablet (601px+, from source breakpoint) */
+@media (width >= 601px) {
   .accordion.botox {
-    --accordion-summary-padding-y: var(--spacing-30);
-    --accordion-summary-padding-x: var(--spacing-24);
-    --accordion-body-padding-x: var(--spacing-24);
-    --accordion-body-padding-bottom: var(--spacing-40);
-    --accordion-icon-size: var(--font-size-24);
-    --accordion-summary-font-size: var(--font-size-28);
-    --accordion-summary-line-height: var(--line-height-32);
-  }
-
-  .accordion.botox .accordion-item-label h2 {
-    font-size: var(--font-size-36);
-    line-height: var(--line-height-40);
-  }
-
-  .accordion.botox .accordion-item-label h3 {
-    font-size: var(--font-size-32);
-    line-height: var(--line-height-36);
-  }
-
-  .accordion.botox .accordion-item-label h4 {
-    font-size: var(--font-size-30);
-    line-height: var(--line-height-34);
-  }
-
-  .accordion.botox .accordion-item-label h5 {
-    font-size: var(--font-size-28);
-    line-height: var(--line-height-32);
-  }
-
-  .accordion.botox .accordion-item-label h6 {
-    font-size: var(--font-size-24);
-    line-height: var(--line-height-28);
+    max-width: 740px;
   }
 }
 
-@media (--bp-desktop) {
-  .accordion.botox,
-  .accordion.botox.accordion-center {
-    --accordion-summary-padding-y: var(--spacing-32);
-    --accordion-summary-padding-x: var(--spacing-32);
-    --accordion-body-padding-x: var(--spacing-32);
-    --accordion-body-padding-bottom: var(--spacing-44);
-    --accordion-icon-size: var(--font-size-28);
-    --accordion-summary-font-size: var(--font-size-32);
-    --accordion-summary-line-height: var(--line-height-36);
-    --accordion-body-font-size: var(--font-size-18);
-    --accordion-body-line-height: var(--line-height-28);
+/* Responsive — Desktop (1200px+, from source breakpoint) */
+@media (width >= 1200px) {
+  .accordion.botox {
+    max-width: 740px;
   }
 
-  .accordion.botox .accordion-item-label h2 {
-    font-size: var(--font-size-40);
-    line-height: var(--line-height-44);
-  }
-
-  .accordion.botox .accordion-item-label h3 {
-    font-size: var(--font-size-36);
-    line-height: var(--line-height-40);
-  }
-
-  .accordion.botox .accordion-item-label h4 {
-    font-size: var(--font-size-32);
-    line-height: var(--line-height-36);
-  }
-
-  .accordion.botox .accordion-item-label h5 {
-    font-size: var(--font-size-28);
-    line-height: var(--line-height-32);
-  }
-
-  .accordion.botox .accordion-item-label h6 {
-    font-size: var(--font-size-24);
-    line-height: var(--line-height-28);
+  .accordion.botox .accordion-item-body .accordion-item-body-text {
+    font-size: 16px;
+    line-height: 1.6;
   }
 }
