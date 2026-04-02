@@ -1,24 +1,20 @@
 /*
  * Rinvoq Accordion Block
- * Extends the base accordion with Rinvoq-specific behavior:
- * - Single-expand mode (only one item open at a time)
- * - Custom blade-style expand/collapse with plus/minus icon
- * - Image separator between accordion items
- * - Tooltip support inside accordion content
- * - ARIA attributes for accessibility
- * - Analytics data attributes preservation
- *
- * Source: https://www.rinvoq.com/resources/save-on-rinvoq-costs
+ * Extracted behavior from: https://www.rinvoq.com/resources/save-on-rinvoq-costs
  * AEM component: .abbv-accordion.save-rinvoq-accordion.abbv-accordion-single
  *
- * DOM Structure (source):
- *   div.abbv-accordion.save-rinvoq-accordion.abbv-accordion-single
- *     div.abbv-accordion-container
- *       div.abbv-accordion-blade.abbv-accordion-blade-N
- *         div.abbv-accordion-blade-content
- *           div.abbv-accordion-blade-text > h3
- *         div.abbv-accordion-blade-icon > i.i-a
- *         div.abbv-accordion-content > div.rich-text > div.abbv-rich-text
+ * Source behavior:
+ * - Single-expand by default (.abbv-accordion-single)
+ * - Toggling via .abbv-active class on blades
+ * - PNG-based plus/close icons (not icon-font)
+ * - Blade decorative background image frames
+ *
+ * EDS mapping:
+ *   .abbv-accordion-blade        → details.accordion-item
+ *   .abbv-accordion-blade-content → summary.accordion-item-label
+ *   .abbv-accordion-blade-text    → .accordion-item-label-text
+ *   .abbv-accordion-blade-icon    → ::after pseudo on summary
+ *   .abbv-accordion-content       → .accordion-item-body
  *
  * Library structure: N rows x 2 cols (title | body)
  * UE Model fields: summary (text), text (richtext)
@@ -29,7 +25,9 @@ import { moveInstrumentation } from '../../../scripts/scripts.js';
 
 export default function decorate(block) {
   const accordionId = `accordion-${Math.random().toString(36).slice(2, 9)}`;
-  const isSingleExpand = block.classList.contains('single');
+
+  // Rinvoq source uses single-expand by default
+  const isSingleExpand = !block.classList.contains('multi');
 
   [...block.children].forEach((row, index) => {
     if (!row.children[0] || !row.children[1]) return;
@@ -78,7 +76,7 @@ export default function decorate(block) {
     row.replaceWith(details);
   });
 
-  // Single-expand mode: close others when one opens
+  // Single-expand mode (default for Rinvoq): close others when one opens
   if (isSingleExpand) {
     block.addEventListener('toggle', (e) => {
       const toggled = e.target.closest('details.accordion-item');
@@ -94,7 +92,6 @@ export default function decorate(block) {
           }
         });
       }
-      // Update toggled item's ARIA
       if (toggled) {
         const s = toggled.querySelector('summary');
         if (s) {
@@ -104,7 +101,7 @@ export default function decorate(block) {
       }
     }, true);
   } else {
-    // Multi-expand: add Expand All / Collapse All button
+    // Multi-expand: add Expand All / Collapse All
     const expandAllBtn = document.createElement('button');
     expandAllBtn.className = 'accordion-expand-all';
     expandAllBtn.type = 'button';

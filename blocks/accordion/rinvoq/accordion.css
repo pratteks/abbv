@@ -1,17 +1,21 @@
 /*
  * Rinvoq Accordion Block Styles
- * Source: https://www.rinvoq.com/resources/save-on-rinvoq-costs
+ * Extracted from: https://www.rinvoq.com/resources/save-on-rinvoq-costs
  * AEM component: .abbv-accordion.save-rinvoq-accordion.abbv-accordion-single
  *
- * Characteristics:
- * - Blade-style items with bordered cards and rounded corners
- * - Plus/minus icon toggle (image-based, not icon-font)
- * - Single-expand mode (one item open at a time)
- * - Separator image between items
- * - Max-width 985px, centered
- * - Rinvoq brand purple accent color on active state
- * - Rich text panels with tooltips, lists, phone links
- * - Gold/warm background section context
+ * Source CSS files:
+ *   - /etc/clientlibs/common-elements/clientlibs/v1/css-clientlib-all.min.css
+ *   - /content/dam/rinvoq/css/rinvoq-rce.css
+ *
+ * Design tokens (from source):
+ *   Font family:  "Helvetica Neue LT W05_75 Bold", Arial, Helvetica Neue, Helvetica, sans-serif
+ *   Font size:    18px (blade text)
+ *   Border:       1px solid #ccc
+ *   Hover bg:     #f1f1f1
+ *   Focus:        1px dotted #888
+ *   Alt row bg:   #f3f3f3
+ *   Icons:        PNG-based plus/close (not icon-font)
+ *   Breakpoints:  601px, 1200px
  */
 
 /* ===================== Base Layout ===================== */
@@ -19,87 +23,72 @@
   max-width: 985px;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: var(--spacing-32);
+  margin-bottom: 25px;
+  font-size: 0.9rem;
 }
 
 .accordion.rinvoq.margin-0 {
-  margin: var(--spacing-00);
+  margin: 0;
 }
 
 .accordion.rinvoq.margin-bottom-0 {
-  margin-bottom: var(--spacing-00);
+  margin-bottom: 0;
 }
 
 /* ===================== Expand All (multi-expand mode) ===================== */
 .accordion.rinvoq .accordion-expand-all {
   display: flex;
-  align-items: center;
-  gap: var(--spacing-04);
-  margin-left: auto;
-  margin-bottom: var(--spacing-16);
-  padding: var(--spacing-00);
+  justify-content: flex-end;
+  margin: 5px 10px;
   background: none;
   border: none;
   cursor: pointer;
-  font-family: var(--body-font-family);
-  font-size: var(--font-size-14);
-  font-weight: var(--font-weight-700);
-  color: var(--rinvoq-purple, #532e82);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  line-height: var(--line-height-20);
-}
-
-.accordion.rinvoq .accordion-expand-all::after {
-  content: '';
-  display: inline-block;
-  width: 0.6rem;
-  height: 0.6rem;
-  border-color: var(--rinvoq-purple, #532e82);
-  border-right: 2px solid;
-  border-bottom: 2px solid;
-  transform: rotate(45deg);
-  margin-top: -3px;
-  transition: transform 0.2s;
-}
-
-.accordion.rinvoq .expanded::after {
-  border-left: 2px solid;
-  border-top: 2px solid;
-  border-right: none;
-  border-bottom: none;
-  margin-top: 3px;
+  font-family: "Helvetica Neue LT W05_75 Bold", Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 0.9rem;
+  font-weight: normal;
+  color: inherit;
 }
 
 /* ===================== Accordion Items (Blade Style) ===================== */
 .accordion.rinvoq .accordion-item {
-  border: 1px solid var(--rinvoq-border, #d6d6d6);
-  border-radius: 12px;
-  margin-bottom: var(--spacing-12);
-  overflow: hidden;
-  background-color: var(--background-color, #fff);
-  transition: border-color 0.2s;
+  position: relative;
+  border-bottom: solid 1px #ccc;
+  cursor: pointer;
+  font-size: 0.9rem;
+  clear: both;
+  margin-bottom: 25px;
+}
+
+.accordion.rinvoq .accordion-item:hover {
+  background: #f1f1f1;
+}
+
+.accordion.rinvoq .accordion-item:focus-within {
+  background: #f1f1f1;
+}
+
+.accordion.rinvoq .accordion-item:focus {
+  outline: 1px dotted #888;
 }
 
 .accordion.rinvoq .accordion-item[open] {
-  border-color: var(--rinvoq-purple, #532e82);
+  margin-top: 10px;
+  margin-bottom: 0;
 }
 
 /* ===================== Summary / Blade Label ===================== */
 .accordion.rinvoq summary {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--spacing-20) var(--spacing-24);
+  display: block;
+  padding: 41px 40px 8px 0;
+  overflow: hidden;
   cursor: pointer;
   list-style: none;
-  font-family: var(--heading-font-family);
-  font-size: var(--font-size-18);
-  line-height: var(--line-height-24);
-  font-weight: var(--font-weight-700);
-  color: var(--text-color);
-  transition: background-color 0.2s;
+  font-family: "Helvetica Neue LT W05_75 Bold", Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: normal;
+  font-style: normal;
+  color: inherit;
 }
 
 .accordion.rinvoq summary::-webkit-details-marker {
@@ -107,53 +96,75 @@
 }
 
 .accordion.rinvoq .accordion-item-label p,
+.accordion.rinvoq .accordion-item-label h2,
 .accordion.rinvoq .accordion-item-label h3,
 .accordion.rinvoq .accordion-item-label h4 {
-  color: var(--text-color);
+  display: inline-block;
+  color: inherit;
   cursor: pointer;
-  font-family: var(--heading-font-family);
-  font-size: var(--font-size-18);
-  font-weight: var(--font-weight-700);
-  line-height: var(--line-height-24);
+  font-family: "Helvetica Neue LT W05_75 Bold", Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1.4;
   margin: 0;
 }
 
-/* Plus/minus icon */
+/* Plus/close icon — PNG-based (matching source site) */
 .accordion.rinvoq .accordion-item-label::after {
-  content: "+";
+  content: "";
   position: absolute;
-  top: 50%;
-  right: var(--spacing-24);
-  transform: translateY(-50%);
-  font-size: var(--font-size-24);
-  font-weight: var(--font-weight-300);
-  color: var(--rinvoq-purple, #532e82);
-  transition: transform 0.2s;
+  top: 37px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  background-image: url("https://www.rinvoq.com/content/dam/rinvoq/images/homepage/resources/plus-expand_r2_allviews.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: 0;
+  font-size: 1.3rem;
 }
 
 .accordion.rinvoq .accordion-item-label.open::after {
-  content: "\2212";
+  background-image: url("https://www.rinvoq.com/content/dam/rinvoq/images/homepage/resources/save-on-rinvoq-costs/close-icon-desktop-r8.png");
 }
 
 .accordion.rinvoq .accordion-item-label:hover {
-  background-color: var(--rinvoq-hover-bg, #f8f5fb);
+  background-color: #f1f1f1;
 }
 
 .accordion.rinvoq .accordion-item-label:focus {
-  outline: 2px solid var(--rinvoq-purple, #532e82);
-  outline-offset: -2px;
-  border-radius: 12px;
+  outline: 1px dotted #888;
+}
+
+/* ===================== Blade Decorative Border (background image frame) ===================== */
+.accordion.rinvoq .accordion-item::after {
+  background-image: url("https://www.rinvoq.com/content/dam/rinvoq/images/homepage/resources/save-on-rinvoq-costs/box-accordion-close-desktop-r8.png");
+  background-size: 100% 100%;
+  content: "";
+  height: 94px;
+  left: -50vw;
+  position: absolute;
+  width: 150vw;
+  top: 0;
+  z-index: -1;
+}
+
+.accordion.rinvoq .accordion-item[open]::after {
+  background-image: url("https://www.rinvoq.com/content/dam/rinvoq/images/homepage/resources/save-on-rinvoq-costs/box-accordion-open-desktop-r8.png");
+  height: 100%;
 }
 
 /* ===================== Panel Body ===================== */
 .accordion.rinvoq .accordion-item-body {
-  padding: var(--spacing-00) var(--spacing-24) var(--spacing-24);
+  position: relative;
+  padding: 0 0 35px;
 }
 
 .accordion.rinvoq .accordion-item-body .accordion-item-body-text {
-  font-size: var(--font-size-16);
-  line-height: var(--line-height-24);
-  color: var(--text-color);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: inherit;
 }
 
 .accordion.rinvoq .accordion-item:not([open]) .accordion-item-body {
@@ -161,8 +172,9 @@
 }
 
 .accordion.rinvoq .accordion-item[open] .accordion-item-body {
+  display: block;
   background-color: transparent;
-  border-top: 1px solid var(--rinvoq-border, #d6d6d6);
+  border-top: none;
 }
 
 /* ===================== Body Content Styles ===================== */
@@ -170,7 +182,8 @@
 /* Bold sub-headings inside panels */
 .accordion.rinvoq .accordion-item-body b,
 .accordion.rinvoq .accordion-item-body strong {
-  font-weight: var(--font-weight-700);
+  font-family: "Helvetica Neue LT W05_75 Bold", Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-weight: normal;
 }
 
 /* Paragraph spacing inside panels */
@@ -182,50 +195,52 @@
   margin-bottom: 0;
 }
 
-/* Lists inside panels (purple arrow style) */
+/* Lists inside panels (purple arrow style from source) */
 .accordion.rinvoq .accordion-item-body ul {
   list-style: none;
-  padding-left: var(--spacing-20);
-  margin-bottom: var(--spacing-16);
+  padding-left: 20px;
+  margin-bottom: 16px;
 }
 
 .accordion.rinvoq .accordion-item-body ul li {
   position: relative;
-  padding-left: var(--spacing-16);
-  margin-bottom: var(--spacing-08);
-  font-size: var(--font-size-16);
-  line-height: var(--line-height-24);
+  padding-left: 0;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  line-height: 1.6;
 }
 
 .accordion.rinvoq .accordion-item-body ul li::before {
-  content: "\25B8";
-  position: absolute;
-  left: 0;
-  color: var(--rinvoq-purple, #532e82);
-  font-size: var(--font-size-14);
+  background-image: url("https://www.rinvoq.com/content/dam/rinvoq/images/homepage/resources/save-on-rinvoq-costs/arrow-purple-desktop-r8.png");
+  background-repeat: no-repeat;
+  content: "";
+  display: block;
+  height: 12px;
+  left: -20px;
+  position: relative;
+  width: 15px;
+  top: 18px;
 }
 
 /* Links inside panels */
 .accordion.rinvoq .accordion-item-body a {
-  color: var(--rinvoq-purple, #532e82);
+  color: inherit;
   text-decoration: underline;
-  transition: color 0.15s ease;
 }
 
 .accordion.rinvoq .accordion-item-body a:hover {
-  color: var(--rinvoq-purple-dark, #3d2162);
+  opacity: 0.8;
 }
 
 /* Phone links */
 .accordion.rinvoq .accordion-item-body a[href^="tel:"] {
   white-space: nowrap;
-  font-weight: var(--font-weight-700);
 }
 
 /* ===================== Tooltip Support ===================== */
 .accordion.rinvoq .accordion-item-body .rinvoq-tooltip {
   position: relative;
-  border-bottom: 1px dotted var(--rinvoq-purple, #532e82);
+  border-bottom: 1px dotted currentcolor;
   cursor: help;
 }
 
@@ -235,12 +250,12 @@
   bottom: 100%;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--text-color, #333);
+  background: #333;
   color: #fff;
-  padding: var(--spacing-08) var(--spacing-12);
+  padding: 8px 12px;
   border-radius: 6px;
-  font-size: var(--font-size-14);
-  line-height: var(--line-height-18);
+  font-size: 14px;
+  line-height: 1.4;
   white-space: normal;
   width: max-content;
   max-width: 280px;
@@ -254,63 +269,38 @@
 
 /* ===================== Section Container ===================== */
 .section.accordion-container.rinvoq {
-  padding-left: var(--spacing-20);
-  padding-right: var(--spacing-20);
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
-/* ===================== Tablet ===================== */
-@media (width >= 744px) {
-  .section.accordion-container.rinvoq {
-    padding-left: var(--spacing-32);
-    padding-right: var(--spacing-32);
-  }
-
-  .accordion.rinvoq .accordion-item-label p,
-  .accordion.rinvoq .accordion-item-label h3,
-  .accordion.rinvoq .accordion-item-label h4 {
-    font-size: var(--font-size-20);
-    line-height: var(--line-height-28);
-  }
-
+/* ===================== Tablet (601px+) ===================== */
+@media (width >= 601px) {
   .accordion.rinvoq summary {
-    padding: var(--spacing-24) var(--spacing-32);
-    font-size: var(--font-size-20);
+    padding: 41px 40px 8px 0;
   }
 
   .accordion.rinvoq .accordion-item-label::after {
-    right: var(--spacing-32);
-    font-size: var(--font-size-28);
+    top: 39px;
   }
 
   .accordion.rinvoq .accordion-item-body {
-    padding: var(--spacing-00) var(--spacing-32) var(--spacing-32);
+    padding: 0 15px 35px 0;
+  }
+
+  .section.accordion-container.rinvoq {
+    padding-left: 30px;
+    padding-right: 30px;
   }
 }
 
-/* ===================== Desktop ===================== */
-@media (width >= 1024px) {
-  .section.accordion-container.rinvoq {
-    padding-left: var(--spacing-55);
-    padding-right: var(--spacing-55);
-  }
-
+/* ===================== Desktop (1200px+) ===================== */
+@media (width >= 1200px) {
   .accordion.rinvoq {
     max-width: 985px;
   }
 
-  .accordion.rinvoq .accordion-item-label p,
-  .accordion.rinvoq .accordion-item-label h3,
-  .accordion.rinvoq .accordion-item-label h4 {
-    font-size: var(--font-size-22);
-    line-height: var(--line-height-28);
-  }
-
-  .accordion.rinvoq summary {
-    font-size: var(--font-size-22);
-  }
-
-  .accordion.rinvoq .accordion-item-body .accordion-item-body-text {
-    font-size: var(--font-size-16);
-    line-height: var(--line-height-24);
+  .section.accordion-container.rinvoq {
+    padding-left: 65px;
+    padding-right: 65px;
   }
 }
