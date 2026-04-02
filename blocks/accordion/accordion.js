@@ -6,6 +6,7 @@
  * Brand-specific variants (read from page metadata <meta name="brand">):
  * - Default: base accordion
  * - AbbVie: dynamically loads abbvie/accordion.js + abbvie/accordion.css
+ * - Botox: dynamically loads botox/accordion.js + botox/accordion.css
  * - Rinvoq: dynamically loads rinvoq/accordion.js + rinvoq/accordion.css
  */
 

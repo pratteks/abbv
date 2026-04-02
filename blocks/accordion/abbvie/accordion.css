@@ -1,22 +1,33 @@
 /*
  * AbbVie Accordion Block Styles
- * Source: https://www.abbvie.com/who-we-are/our-principles/positions-views.html
- * AEM component: .accordion.cmp-accordion-xx-large inside .cmp-container-medium
- *
- * Characteristics:
- * - XX-Large text sizing for labels
- * - Expand All / Collapse All controls with chevron icon
- * - Rich text panels with PDF document link lists
- * - AbbVie brand link hover effect (underline fill animation)
- * - Medium-width container (centered)
+ * Source reference: https://www.abbvie.com/who-we-are/our-principles/positions-views.html
  */
 
-/* Base layout */
+/* Component tokens */
 .accordion.abbvie,
 .accordion.abbvie.accordion-center {
+  --accordion-surface-color: var(--background-color);
+  --accordion-panel-color: var(--bg-fafbff);
+  --accordion-heading-color: var(--text-color);
+  --accordion-body-color: var(--text-color);
+  --accordion-border-color: var(--footer-seperator-color);
+  --accordion-accent-color: var(--highlight-dark-background-color);
+  --accordion-hover-surface: var(--highlight-background-color);
+  --accordion-focus-color: var(--form-border-hover-color);
+  --accordion-control-gap: var(--spacing-16);
+  --accordion-summary-padding-y: var(--spacing-24);
+  --accordion-summary-padding-x: var(--spacing-20);
+  --accordion-body-padding-x: var(--spacing-20);
+  --accordion-body-padding-bottom: var(--spacing-32);
+  --accordion-icon-size: var(--font-size-20);
+  --accordion-summary-font-size: var(--font-size-24);
+  --accordion-summary-line-height: var(--line-height-28);
+  --accordion-body-font-size: var(--font-size-16);
+  --accordion-body-line-height: var(--line-height-28);
   margin-left: auto;
   margin-right: auto;
   margin-bottom: var(--spacing-56);
+  color: var(--accordion-heading-color);
 }
 
 .accordion.abbvie.margin-0 {
@@ -27,163 +38,186 @@
   margin-bottom: var(--spacing-00);
 }
 
-/* Expand All / Collapse All button */
+/* Expand / collapse control */
 .accordion.abbvie .accordion-expand-all {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: var(--spacing-04);
+  gap: var(--spacing-08);
+  margin-bottom: var(--accordion-control-gap);
   margin-left: var(--spacing-00);
-  margin-bottom: var(--spacing-08);
-  padding: var(--spacing-00);
-  background: none;
+  padding: var(--spacing-05) var(--spacing-00);
   border: none;
+  background: none;
+  color: var(--accordion-accent-color);
   cursor: pointer;
   font-family: var(--roboto-bold-font-family);
-  font-size: var(--font-size-16);
+  font-size: var(--font-size-14);
   font-weight: var(--font-weight-700);
-  color: var(--highlight-dark-background-color);
-  text-transform: var(--font-uppercase);
   letter-spacing: var(--letter-spacing-wide-06);
   line-height: var(--line-height-20);
+  text-transform: uppercase;
+  text-decoration: none;
   overflow: visible;
+  transition: color 0.2s ease;
 }
 
 .accordion.abbvie .accordion-expand-all::after {
-  content: '';
+  content: "";
   display: inline-block;
-  width: var(--accordion-icon-width);
-  height: var(--accordion-icon-height);
-  border-color: var(--highlight-dark-background-color);
-  border-right: var(--accordion-border-02) solid;
-  border-bottom: var(--accordion-border-02) solid;
-  transform: rotate(45deg);
+  width: var(--spacing-08);
+  height: var(--spacing-08);
   margin-top: calc(-1 * var(--spacing-03));
-  transition: transform 0.2s;
-  color: inherit;
+  border-right: var(--border-02) solid currentcolor;
+  border-bottom: var(--border-02) solid currentcolor;
+  transform: rotate(45deg);
+  transform-origin: center;
+  transition: transform 0.2s ease, margin-top 0.2s ease;
 }
 
-.accordion.abbvie .expanded::after {
-  border-left: var(--accordion-border-02) solid;
-  border-top: var(--accordion-border-02) solid;
-  border-right: none;
-  border-bottom: none;
+.accordion.abbvie .accordion-expand-all.expanded::after {
   margin-top: var(--spacing-03);
+  transform: rotate(-135deg);
 }
 
-.accordion.abbvie .accordion-expand-all:hover:not(:focus) {
-  text-decoration: none;
-  color: var(--text-color);
+.accordion.abbvie .accordion-expand-all:hover {
+  color: var(--accordion-heading-color);
 }
 
-.accordion.abbvie .accordion-expand-all:focus {
-  border: var(--border-02) solid var(--form-border-hover-color);
-  border-radius: var(--border-radius-00);
-  color: var(--text-color);
+.accordion.abbvie .accordion-expand-all:focus-visible {
+  outline: var(--border-02) solid var(--accordion-focus-color);
+  outline-offset: var(--spacing-04);
+  border-radius: var(--border-radius-base);
 }
 
-/* Accordion item separator */
+/* Container and borders */
 .accordion.abbvie .accordion-item {
-  border-bottom: var(--accordion-border-01) solid var(--footer-seperator-color);
+  margin: var(--spacing-00);
+  border-top: var(--border-01) solid var(--accordion-border-color);
+  border-bottom: var(--border-01) solid var(--accordion-border-color);
+  background-color: var(--accordion-surface-color);
 }
 
-/* Summary / Label */
+.accordion.abbvie .accordion-item + .accordion-item {
+  border-top: none;
+}
+
 .accordion.abbvie summary {
   position: relative;
-  padding: var(--spacing-32) var(--spacing-00);
-  cursor: pointer;
+  display: block;
+  padding: var(--accordion-summary-padding-y) calc(var(--accordion-summary-padding-x) + var(--spacing-32))
+    var(--accordion-summary-padding-y) var(--accordion-summary-padding-x);
   list-style: none;
-  overflow: auto;
+  cursor: pointer;
+  overflow: visible;
+  color: var(--accordion-heading-color);
   font-family: var(--heading-font-family);
-  font-size: var(--font-size-18);
-  line-height: var(--line-height-24);
+  font-size: var(--accordion-summary-font-size);
   font-weight: var(--font-weight-500);
-  color: var(--text-color);
-  transition: background-color 0.2s;
-  padding-right: var(--spacing-30);
+  line-height: var(--accordion-summary-line-height);
+  letter-spacing: var(--letter-spacing-tight);
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .accordion.abbvie summary::-webkit-details-marker {
   display: none;
 }
 
-.accordion.abbvie .accordion-item-label p {
-  color: var(--text-color);
-  cursor: pointer;
-  font-family: var(--heading-font-family);
-  font-size: var(--font-size-20);
-  font-weight: var(--font-weight-650);
-  line-height: var(--line-height-24);
-  padding-right: var(--spacing-30);
+.accordion.abbvie .accordion-item-label::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: var(--accordion-summary-padding-x);
+  color: var(--accordion-accent-color);
+  font-family: var(--icon-font-family);
+  font-size: var(--accordion-icon-size);
+  font-weight: var(--font-weight-800);
+  line-height: 1;
+  transform: translateY(-50%) scale(0.75);
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
-/* Heading sizes in label */
+.accordion.abbvie .accordion-item-label.open::after {
+  content: "";
+}
+
+.accordion.abbvie .accordion-item-label:hover,
+.accordion.abbvie .accordion-item-label:focus-visible {
+  background-color: var(--accordion-hover-surface);
+}
+
+.accordion.abbvie .accordion-item-label:focus-visible {
+  outline: var(--border-02) solid var(--accordion-focus-color);
+  outline-offset: calc(-1 * var(--border-02));
+}
+
+.accordion.abbvie .accordion-item[open] .accordion-item-label {
+  background-color: var(--accordion-hover-surface);
+}
+
+/* Typography */
+.accordion-container .custom-title .custom-title-heading {
+  margin-bottom: var(--spacing-52);
+}
+
+.accordion.abbvie .accordion-item-label p,
+.accordion.abbvie .accordion-item-label h2,
+.accordion.abbvie .accordion-item-label h3,
+.accordion.abbvie .accordion-item-label h4,
+.accordion.abbvie .accordion-item-label h5,
+.accordion.abbvie .accordion-item-label h6 {
+  margin: var(--spacing-00);
+  padding-right: var(--spacing-12);
+  color: inherit;
+}
+
+.accordion.abbvie .accordion-item-label p {
+  font-family: var(--heading-font-family);
+  font-size: var(--accordion-summary-font-size);
+  font-weight: var(--font-weight-500);
+  line-height: var(--accordion-summary-line-height);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
 .accordion.abbvie .accordion-item-label h2 {
+  font-size: var(--font-size-30);
+  font-weight: var(--font-weight-700);
+  line-height: var(--line-height-34);
+}
+
+.accordion.abbvie .accordion-item-label h3 {
   font-size: var(--font-size-28);
   font-weight: var(--font-weight-700);
   line-height: var(--line-height-32);
 }
 
-.accordion.abbvie .accordion-item-label h3 {
+.accordion.abbvie .accordion-item-label h4 {
   font-size: var(--font-size-26);
   font-weight: var(--font-weight-700);
   line-height: var(--line-height-30);
 }
 
-.accordion.abbvie .accordion-item-label h4 {
+.accordion.abbvie .accordion-item-label h5 {
   font-size: var(--font-size-24);
   font-weight: var(--font-weight-700);
   line-height: var(--line-height-28);
 }
 
-.accordion.abbvie .accordion-item-label h5 {
+.accordion.abbvie .accordion-item-label h6 {
   font-size: var(--font-size-20);
   font-weight: var(--font-weight-700);
   line-height: var(--line-height-24);
 }
 
-.accordion.abbvie .accordion-item-label h6 {
-  font-size: var(--font-size-18);
-  font-weight: var(--font-weight-700);
-  line-height: var(--line-height-20);
-}
-
-/* Open/hover state: bold label */
 .accordion.abbvie .accordion-item-label.open .accordion-item-label-text,
 .accordion.abbvie .accordion-item-label .accordion-item-label-text:hover {
   font-family: var(--heading-font-family-bold);
-  font-weight: var(--font-weight-800);
+  font-weight: var(--font-weight-700);
 }
 
-/* Expand/collapse icon (plus/minus via icon font) */
-.accordion.abbvie .accordion-item-label::after {
-  content: "\e900";
-  position: absolute;
-  top: 37%;
-  right: 0;
-  font-size: var(--font-size-20);
-  font-family: var(--icon-font-family);
-  font-weight: var(--font-weight-800);
-  transform: scale(.75);
-}
-
-.accordion.abbvie .accordion-item-label.open::after {
-  content: "\e901";
-}
-
-.accordion.abbvie .accordion-item-label:focus,
-.accordion.abbvie .accordion-item-label:hover {
-  background-color: transparent;
-}
-
-/* Panel body */
+/* Panel content */
 .accordion.abbvie .accordion-item-body {
-  padding: var(--spacing-00) var(--spacing-00) var(--spacing-24);
-}
-
-.accordion.abbvie .accordion-item-body .accordion-item-body-text {
-  font-size: var(--font-size-16);
-  line-height: var(--line-height-22);
-  color: var(--text-color);
+  padding: var(--spacing-00) var(--accordion-body-padding-x) var(--accordion-body-padding-bottom);
+  background-color: var(--accordion-panel-color);
 }
 
 .accordion.abbvie .accordion-item:not([open]) .accordion-item-body {
@@ -191,85 +225,123 @@
 }
 
 .accordion.abbvie .accordion-item[open] .accordion-item-body {
-  background-color: transparent;
   border-top: none;
 }
 
-/* AbbVie link hover animation (underline fill) */
+.accordion.abbvie .accordion-item-body .accordion-item-body-text {
+  color: var(--accordion-body-color);
+  font-family: var(--body-font-family);
+  font-size: var(--accordion-body-font-size);
+  line-height: var(--accordion-body-line-height);
+}
+
+.accordion.abbvie .accordion-item-body .accordion-item-body-text > :first-child {
+  margin-top: var(--spacing-00);
+}
+
+.accordion.abbvie .accordion-item-body .accordion-item-body-text > :last-child {
+  margin-bottom: var(--spacing-00);
+}
+
+.accordion.abbvie .accordion-item-body p,
+.accordion.abbvie .accordion-item-body li {
+  color: var(--accordion-body-color);
+}
+
+.accordion.abbvie .accordion-item-body ul,
+.accordion.abbvie .accordion-item-body ol {
+  margin: var(--spacing-16) var(--spacing-00) var(--spacing-00);
+  padding-left: var(--spacing-24);
+}
+
+.accordion.abbvie .accordion-item-body li + li {
+  margin-top: var(--spacing-08);
+}
+
 .accordion.abbvie .accordion-item-body a {
-  background: linear-gradient(180deg, var(--highlight-dark-background-color) 50%, var(--highlight-dark-background-color) 0);
-  background-position: 0 100%;
-  background-repeat: repeat-x;
-  background-size: var(--spacing-02) var(--spacing-02);
-  color: inherit;
-  padding: var(--spacing-00) var(--spacing-02) var(--spacing-03);
-  text-decoration: none;
-  transition: background-size .1s ease, color .1s ease;
+  color: var(--accordion-heading-color);
+  text-decoration-color: var(--accordion-accent-color);
+  text-decoration-thickness: 0.15rem;
+  text-underline-offset: 0.24rem;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
 }
 
 .accordion.abbvie .accordion-item-body a:hover {
-  background-size: 100% 100%;
-  color: var(--background-color);
+  color: var(--accordion-accent-color);
 }
 
-/* Dark theme variant */
+.accordion.abbvie .accordion-item-body a:focus-visible {
+  outline: var(--border-02) solid var(--accordion-focus-color);
+  outline-offset: var(--spacing-02);
+  border-radius: var(--border-radius-base);
+}
+
+/* Dark variant */
 .accordion.abbvie.accordion-dark {
+  --accordion-surface-color: transparent;
+  --accordion-panel-color: transparent;
+  --accordion-heading-color: var(--light-color);
+  --accordion-body-color: var(--light-color);
+  --accordion-border-color: rgb(248 248 248 / 35%);
+  --accordion-hover-surface: rgb(248 248 248 / 8%);
   color: var(--light-color);
 }
 
+.accordion.abbvie.accordion-dark .accordion-item-label,
 .accordion.abbvie.accordion-dark .accordion-item-label p,
 .accordion.abbvie.accordion-dark .accordion-item-label h2,
 .accordion.abbvie.accordion-dark .accordion-item-label h3,
 .accordion.abbvie.accordion-dark .accordion-item-label h4,
 .accordion.abbvie.accordion-dark .accordion-item-label h5,
-.accordion.abbvie.accordion-dark .accordion-item-label h6 {
-  color: var(--light-color);
-}
-
-.accordion.abbvie.accordion-dark .accordion-item-label {
-  color: var(--light-color);
-}
-
+.accordion.abbvie.accordion-dark .accordion-item-label h6,
 .accordion.abbvie.accordion-dark .accordion-item-body .accordion-item-body-text {
   color: var(--light-color);
 }
 
-/* Section container spacing */
-.section.accordion-container.abbvie {
-  padding-left: var(--spacing-55);
-  padding-right: var(--spacing-55);
-  padding-top: var(--spacing-32);
+.accordion.abbvie.accordion-dark .accordion-item-body a {
+  color: var(--light-color);
+  text-decoration-color: currentcolor;
 }
 
-/* ===================== Tablet ===================== */
+/* Section spacing */
+.section.accordion-container {
+  padding-top: var(--spacing-32);
+  padding-left: var(--spacing-55);
+  padding-right: var(--spacing-55);
+}
+
+.section.accordion-container .default-content-wrapper h2 {
+  font-size: var(--heading-font-size-s);
+  line-height: var(--line-height-40);
+  letter-spacing: var(--letter-spacing-n96);
+  text-align: center;
+}
+
 @media (width >= 744px) {
-  .section.accordion-container.abbvie {
+  .section.accordion-container {
+    padding-top: var(--spacing-56);
     padding-left: var(--spacing-100);
     padding-right: var(--spacing-100);
-    padding-top: var(--spacing-56);
   }
 
   .accordion.abbvie {
+    --accordion-summary-padding-y: var(--spacing-30);
+    --accordion-summary-padding-x: var(--spacing-24);
+    --accordion-body-padding-x: var(--spacing-24);
+    --accordion-body-padding-bottom: var(--spacing-40);
+    --accordion-icon-size: var(--font-size-24);
+    --accordion-summary-font-size: var(--font-size-28);
+    --accordion-summary-line-height: var(--line-height-32);
     margin-bottom: var(--spacing-80);
   }
 
   .accordion.abbvie .accordion-expand-all {
     margin-left: auto;
-    font-size: var(--font-size-14);
-  }
-
-  .accordion.abbvie .accordion-item-label::after {
-    font-size: var(--font-size-28);
-  }
-
-  .accordion.abbvie .accordion-item-label p {
-    font-size: var(--font-size-28);
-    line-height: var(--line-height-32);
   }
 
   .accordion.abbvie .accordion-item-label h2 {
     font-size: var(--font-size-36);
-    line-height: var(--line-height-32);
+    line-height: var(--line-height-40);
   }
 
   .accordion.abbvie .accordion-item-label h3 {
@@ -289,30 +361,27 @@
 
   .accordion.abbvie .accordion-item-label h6 {
     font-size: var(--font-size-24);
-    line-height: var(--line-height-18);
-  }
-
-  .accordion.abbvie .accordion-item-body .accordion-item-body-text {
-    font-size: var(--font-size-16);
-    line-height: var(--line-height-22);
+    line-height: var(--line-height-28);
   }
 }
 
-/* ===================== Desktop ===================== */
 @media (width >= 1024px) {
-  .section.accordion-container.abbvie {
+  .section.accordion-container {
+    padding-top: var(--spacing-80);
     padding-left: var(--spacing-55);
     padding-right: var(--spacing-55);
-    padding-top: var(--spacing-80);
   }
 
-  .accordion.abbvie .accordion-item-label::after {
-    font-size: var(--font-size-32);
-  }
-
-  .accordion.abbvie .accordion-item-label p {
-    font-size: var(--font-size-26);
-    line-height: var(--line-height-32);
+  .accordion.abbvie {
+    --accordion-summary-padding-y: var(--spacing-32);
+    --accordion-summary-padding-x: var(--spacing-32);
+    --accordion-body-padding-x: var(--spacing-32);
+    --accordion-body-padding-bottom: var(--spacing-44);
+    --accordion-icon-size: var(--font-size-28);
+    --accordion-summary-font-size: var(--font-size-32);
+    --accordion-summary-line-height: var(--line-height-36);
+    --accordion-body-font-size: var(--font-size-18);
+    --accordion-body-line-height: var(--line-height-30);
   }
 
   .accordion.abbvie .accordion-item-label h2 {
@@ -337,18 +406,6 @@
 
   .accordion.abbvie .accordion-item-label h6 {
     font-size: var(--font-size-28);
-    line-height: var(--line-height-30);
-  }
-
-  .accordion.abbvie .accordion-item-body .accordion-item-body-text {
-    font-size: var(--font-size-18);
-    line-height: var(--line-height-24);
-  }
-
-  /* Medium container width constraint (matches source cmp-container-medium) */
-  .section.accordion-container.abbvie .accordion.abbvie {
-    max-width: 960px;
-    margin-left: auto;
-    margin-right: auto;
+    line-height: var(--line-height-32);
   }
 }
