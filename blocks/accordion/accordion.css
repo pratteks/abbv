@@ -1,24 +1,5 @@
 /* Brand variant styles (abbvie/accordion.css, rinvoq/accordion.css) are loaded dynamically by accordion.js */
 
-/*
- * AbbVie Accordion Design Tokens (from abbvie.com source CSS)
- *
- * These map to existing project tokens in styles.css:
- *   --text-color (#071d49)               → AbbVie Navy (primary text, focus borders)
- *   --highlight-dark-background-color    → #0066f5 Link Blue (expand/collapse controls)
- *   --footer-seperator-color (#b9b4b4)   → Border Gray (item dividers)
- *   --heading-font-family                → F37 Lineca Book, weight 650
- *   --heading-font-family-bold           → F37 Lineca Medium, weight 800
- *   --roboto-bold-font-family            → Roboto Bold (controls, subheadings)
- *   --icon-font-family                   → Abbvie Icon (chevron glyphs \e91b / \e91a)
- *
- * Accordion-specific tokens:
- *   --accordion-icon-width / height      → 0.7rem chevron size
- *   --accordion-border-01 / 02           → 0.1rem / 0.2rem borders
- *
- * Breakpoints: --bp-tablet (744px), --bp-desktop (1024px)
- */
-
 /* Alignment Classes */
 .accordion, .accordion.accordion-center {
   margin-left: auto;
@@ -77,20 +58,15 @@
   margin-top: var(--spacing-03);
 }
 
-/* States: hover/focus/active — from source .cmp-accordion__expand-all */
-.accordion .accordion-expand-all:hover,
-.accordion .accordion-expand-all:focus {
-  color: var(--text-color);
+.accordion .accordion-expand-all:hover:not(:focus) {
   text-decoration: none;
+  color: var(--text-color);
 }
 
 .accordion .accordion-expand-all:focus {
-  outline: var(--spacing-01) solid var(--text-color);
-}
-
-.accordion .accordion-expand-all:active {
+  border: var(--border-02) solid var(--form-border-hover-color);
+  border-radius: var(--border-radius-00);
   color: var(--text-color);
-  opacity: 0.5;
 }
 
 .accordion .accordion-item {
@@ -131,19 +107,19 @@
    color: var(--background-color);
    }
 
-/* Summary / Header — from source .cmp-accordion__header */
 .accordion summary {
   position: relative;
   padding: var(--spacing-32) var(--spacing-00);
-  padding-right: var(--spacing-30);
   cursor: pointer;
   list-style: none;
   overflow: auto;
   font-family: var(--heading-font-family);
-  font-size: var(--font-size-20);
+  font-size: var(--font-size-18);
   line-height: var(--line-height-24);
-  font-weight: var(--font-weight-650);
+  font-weight: var(--font-weight-500);
   color: var(--text-color);
+  transition: background-color 0.2s;
+  padding-right: var(--spacing-30);
 }
 
 .accordion-container .custom-title .custom-title-heading {
@@ -204,11 +180,10 @@
   position: absolute;
   top: 37%;
   right: 0;
-  font-size: inherit;
+  font-size: var(--font-size-20);
   font-family: var(--icon-font-family);
-  font-weight: var(--font-weight-400);
+  font-weight: var(--font-weight-800);
   transform: scale(.75);
-  margin-left: var(--spacing-12);
 }
 
 .accordion-item-label.open::after {
@@ -219,36 +194,22 @@
   color: var(--light-color);
 }
 
-/* States: hover/focus — from source .cmp-accordion__header:hover */
-.accordion .accordion-item-label:focus,
-.accordion .accordion-item-label:hover {
+.accordion  .accordion-item-label:focus,
+.accordion  .accordion-item-label:hover {
   background-color: transparent;
-  font-family: var(--heading-font-family-bold);
-  font-weight: var(--font-weight-800);
 }
 
-/* Panel body — from source .cmp-accordion__panel with staggered transitions */
 .accordion .accordion-item-body {
-  box-sizing: content-box;
-  overflow: hidden;
   padding: var(--spacing-00) var(--spacing-00) var(--spacing-24);
-  transition: opacity 0.2s ease, padding-top 0.2s ease 0.2s, max-height 0.2s ease 0.2s;
 }
 
 .accordion-item:not([open]) .accordion-item-body {
   display: none;
-  max-height: 0;
-  opacity: 0;
 }
 
 .accordion-item[open] .accordion-item-body {
   background-color: transparent;
-  border-bottom: var(--accordion-border-01) solid var(--footer-seperator-color);
   border-top: none;
-  display: block;
-  opacity: 1;
-  padding-top: var(--spacing-16);
-  transition: max-height 0.2s ease, padding-top 0.2s ease, opacity 0.2s ease 0.2s;
 }
 
 .accordion.accordion-dark {
@@ -458,15 +419,10 @@
     line-height: var(--line-height-30);
 }
 
-.accordion .accordion-item-body .accordion-item-body-text {
+.accordion .accordion-item-body .accordion-item-body-text  {
   font-size: var(--font-size-18);
   line-height: var(--line-height-24);
 }
-
-  /* Panel padding increases at desktop — from source */
-  .accordion-item[open] .accordion-item-body {
-    padding-top: var(--spacing-24);
-  }
 }
 
 /* Accordion in cards+accordion section — constrain width to match original (768px centered) */
