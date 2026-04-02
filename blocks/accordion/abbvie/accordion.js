@@ -1,12 +1,25 @@
 /*
  * AbbVie Accordion Block
- * Extends the base accordion with AbbVie-specific behavior:
- * - ARIA attributes for accessibility (aria-expanded, aria-controls, role)
- * - Analytics data attributes preservation
- * - Keyboard navigation support
+ * Extracted behavior from: https://www.abbvie.com/who-we-are/our-principles/positions-views.html
+ * AEM component: .accordion .cmp-accordion with .cmp-accordion-xx-large
  *
- * Source: https://www.abbvie.com/who-we-are/our-principles/positions-views.html
- * AEM component: .accordion.cmp-accordion-xx-large
+ * Source behavior:
+ * - Multi-expand with Expand All / Collapse All controls
+ * - F37 Lineca Book (650) → Medium (800) on hover/focus/expanded
+ * - abbvie-icon font glyphs for chevrons (\e91b down, \e91a up)
+ * - Staggered transitions: opacity → padding-top → max-height (0.2s each)
+ * - Panel border-bottom on expanded state
+ *
+ * EDS mapping:
+ *   .cmp-accordion__header     → summary.accordion-item-label
+ *   .cmp-accordion__title      → .accordion-item-label-text
+ *   .cmp-accordion__icon       → ::after pseudo on summary
+ *   .cmp-accordion__panel      → .accordion-item-body
+ *   .cmp-accordion__expand-all → .accordion-expand-all
+ *
+ * Library structure: N rows x 2 cols (title | body)
+ * UE Model fields: summary (text), text (richtext)
+ * Accessibility: aria-expanded, aria-controls, role="button", role="region"
  */
 
 import { moveInstrumentation } from '../../../scripts/scripts.js';
@@ -20,7 +33,7 @@ export default function decorate(block) {
     const label = row.children[0];
     const body = row.children[1];
 
-    // Create summary element for the accordion item label
+    // Create summary — maps to .cmp-accordion__header + .cmp-accordion__title
     const summary = document.createElement('summary');
     summary.className = 'accordion-item-label';
     summary.append(...label.childNodes);
@@ -36,7 +49,7 @@ export default function decorate(block) {
     summary.setAttribute('aria-controls', panelId);
     summary.setAttribute('id', itemId);
 
-    // Decorate accordion item body
+    // Decorate panel body — maps to .cmp-accordion__panel
     body.className = 'accordion-item-body';
     body.setAttribute('id', panelId);
     body.setAttribute('role', 'region');
@@ -45,7 +58,7 @@ export default function decorate(block) {
       body.firstElementChild.classList.add('accordion-item-body-text');
     }
 
-    // Preserve analytics data attributes from source
+    // Preserve analytics data attributes
     const analyticsAttrs = row.dataset;
     Object.keys(analyticsAttrs).forEach((key) => {
       if (key.startsWith('analytics') || key.startsWith('track') || key.startsWith('contentName') || key.startsWith('contentType')) {
@@ -61,7 +74,7 @@ export default function decorate(block) {
     row.replaceWith(details);
   });
 
-  // Add Expand All / Collapse All button
+  // Add Expand All / Collapse All button (maps to .cmp-accordion__expand-controls)
   const expandAllBtn = document.createElement('button');
   expandAllBtn.className = 'accordion-expand-all';
   expandAllBtn.type = 'button';
@@ -85,7 +98,7 @@ export default function decorate(block) {
     );
   });
 
-  // Update ARIA states and button text when individual items are toggled
+  // Update ARIA and open/close states on individual toggle
   block.addEventListener('toggle', (e) => {
     const detail = e.target.closest('details.accordion-item');
     if (detail) {
