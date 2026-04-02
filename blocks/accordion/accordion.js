@@ -3,13 +3,14 @@
  * Recreate an accordion
  * https://www.hlx.live/developer/block-collection/accordion
  *
- * Brand-specific variants (set via UE properties in _accordion.json):
+ * Brand-specific variants (read from page metadata <meta name="brand">):
  * - Default: base accordion
  * - AbbVie: dynamically loads abbvie/accordion.js + abbvie/accordion.css
  * - Rinvoq: dynamically loads rinvoq/accordion.js + rinvoq/accordion.css
  */
 
 import { moveInstrumentation } from '../../scripts/scripts.js';
+import { getMetadata } from '../../scripts/aem.js';
 
 /**
  * Dynamically load a brand-specific CSS file if not already loaded.
@@ -75,11 +76,15 @@ function decorateDefault(block) {
 /* ===================== Main Entry ===================== */
 
 export default async function decorate(block) {
-  if (block.classList.contains('rinvoq')) {
+  const brand = getMetadata('brand').trim().toLowerCase();
+
+  if (brand === 'rinvoq') {
+    block.classList.add('rinvoq');
     loadBrandCSS('rinvoq/accordion.css');
     const { default: decorateRinvoq } = await import('./rinvoq/accordion.js');
     decorateRinvoq(block);
-  } else if (block.classList.contains('abbvie')) {
+  } else if (brand === 'abbvie') {
+    block.classList.add('abbvie');
     loadBrandCSS('abbvie/accordion.css');
     const { default: decorateAbbvie } = await import('./abbvie/accordion.js');
     decorateAbbvie(block);
