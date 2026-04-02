@@ -26,6 +26,24 @@ function loadBrandCSS(href) {
   }
 }
 
+function getBrandCode() {
+  const brand = getMetadata("brand") || getMetadata("keywords");
+  return brand.trim().toLowerCase().replace(/[^a-z0-9-]/g, "");
+}
+
+async function loadBrandDecorator(brand) {
+  if (!brand) return null;
+
+  loadBrandCSS(`${brand}/accordion.css`);
+
+  try {
+    const module = await import(`./${brand}/accordion.js`);
+    return module.default || null;
+  } catch (error) {
+    return null;
+  }
+}
+
 /* ===================== Default Decorator ===================== */
 
 function decorateDefault(block) {
@@ -82,19 +100,14 @@ function decorateDefault(block) {
 /* ===================== Main Entry ===================== */
 
 export default async function decorate(block) {
-  const brand = getMetadata("keywords").trim().toLowerCase();
+  const brand = getBrandCode();
+  const decorateBrand = await loadBrandDecorator(brand);
 
-  if (brand === "rinvoq") {
-    block.classList.add("rinvoq");
-    loadBrandCSS("rinvoq/accordion.css");
-    const { default: decorateRinvoq } = await import("./rinvoq/accordion.js");
-    decorateRinvoq(block);
-  } else if (brand === "abbvie") {
-    block.classList.add("abbvie");
-    loadBrandCSS("abbvie/accordion.css");
-    const { default: decorateAbbvie } = await import("./abbvie/accordion.js");
-    decorateAbbvie(block);
-  } else {
-    decorateDefault(block);
+  if (decorateBrand) {
+    block.classList.add(brand);
+    decorateBrand(block);
+    return;
   }
+
+  decorateDefault(block);
 }
