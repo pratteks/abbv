@@ -6,6 +6,7 @@ const glob = require('glob');
 // Configuration
 const DEFAULT_THEMES = ['light', 'dark'];
 const CONFIG_FILE = 'brand-config.json';
+const BRANDS_DIR = 'brands';
 
 // State management
 let brands = [];
@@ -286,31 +287,13 @@ async function removeBrandCSS(brandCode) {
 
     let totalRemoved = 0;
 
-    // Remove from blocks directory
-    const blocksDir = path.join(process.cwd(), 'blocks');
-    if (fsSync.existsSync(blocksDir)) {
-      const removed = await removeBrandCSSForFolder(brandCode, blocksDir, true);
+    // Remove from unified brands directory
+    const brandsDir = path.join(process.cwd(), BRANDS_DIR);
+    if (fsSync.existsSync(brandsDir)) {
+      const removed = await removeBrandCSSForFolder(brandCode, brandsDir);
       totalRemoved += removed;
     } else {
-      log(`Blocks directory not found: ${blocksDir}`, 'warning');
-    }
-
-    // Remove from templates directory
-    const templatesDir = path.join(process.cwd(), 'templates');
-    if (fsSync.existsSync(templatesDir)) {
-      const removed = await removeBrandCSSForFolder(brandCode, templatesDir, true);
-      totalRemoved += removed;
-    } else {
-      log(`Templates directory not found: ${templatesDir}`, 'warning');
-    }
-
-    // Remove from styles directory
-    const stylesDir = path.join(process.cwd(), 'styles');
-    if (fsSync.existsSync(stylesDir)) {
-      const removed = await removeBrandCSSForFolder(brandCode, stylesDir);
-      totalRemoved += removed;
-    } else {
-      log(`Styles directory not found: ${stylesDir}`, 'warning');
+      log(`Brands directory not found: ${brandsDir}`, 'warning');
     }
 
     // Remove from react-app directory

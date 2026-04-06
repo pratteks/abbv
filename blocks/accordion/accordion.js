@@ -5,45 +5,12 @@
  *
  * Brand-specific variants (read from page metadata <meta name="brand">):
  * - Default: base accordion
- * - AbbVie: dynamically loads abbvie/accordion.js + abbvie/accordion.css
- * - Botox: dynamically loads botox/accordion.js + botox/accordion.css
- * - Rinvoq: dynamically loads rinvoq/accordion.js + rinvoq/accordion.css
+ * - AbbVie: dynamically loads brands/abbvie/blocks/accordion/*
+ * - Botox: dynamically loads brands/botox/blocks/accordion/*
+ * - Rinvoq: dynamically loads brands/rinvoq/blocks/accordion/*
  */
 
 import { moveInstrumentation } from "../../scripts/scripts.js";
-import { getMetadata } from "../../scripts/aem.js";
-
-/**
- * Dynamically load a brand-specific CSS file if not already loaded.
- * @param {string} href - path to the CSS file relative to this block folder
- */
-function loadBrandCSS(href) {
-  const fullHref = `${window.hlx.codeBasePath}/blocks/accordion/${href}`;
-  if (!document.querySelector(`link[href="${fullHref}"]`)) {
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href = fullHref;
-    document.head.append(link);
-  }
-}
-
-function getBrandCode() {
-  const brand = getMetadata("brand") || getMetadata("keywords");
-  return brand.trim().toLowerCase().replace(/[^a-z0-9-]/g, "");
-}
-
-async function loadBrandDecorator(brand) {
-  if (!brand) return null;
-
-  loadBrandCSS(`${brand}/accordion.css`);
-
-  try {
-    const module = await import(`./${brand}/accordion.js`);
-    return module.default || null;
-  } catch (error) {
-    return null;
-  }
-}
 
 /* ===================== Default Decorator ===================== */
 
@@ -101,14 +68,5 @@ function decorateDefault(block) {
 /* ===================== Main Entry ===================== */
 
 export default async function decorate(block) {
-  const brand = getBrandCode();
-  const decorateBrand = await loadBrandDecorator(brand);
-
-  if (decorateBrand) {
-    block.classList.add(brand);
-    decorateBrand(block);
-    return;
-  }
-
   decorateDefault(block);
 }

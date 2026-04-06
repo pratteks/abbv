@@ -37,8 +37,7 @@ function inlineImports(content, filePath, visited = new Set()) {
 }
 
 // Function to replace @import statements with the content of the imported files.
-// Block CSS: sources under styles/<brand>/blocks/<blockName>/_*.css are written to the same folder.
-// Other brand partials under styles/<brand>/_*.css are also written in the same directory.
+// Block CSS: sources under brands/<brand>/blocks/<blockName>/_*.css are written to the same folder.
 function replaceImports(filePath) {
   const pathStr = typeof filePath === 'string' ? filePath : (filePath && filePath.path);
   if (!pathStr) return Promise.resolve();
@@ -136,6 +135,8 @@ function watchFiles() {
     'blocks/*/*.css',
     'styles/**/_*.css',
     'styles/*/*.css',
+    'brands/**/_*.css',
+    'brands/**/*.css',
   ];
 
   // Add templates directory to watch patterns only if it exists
@@ -176,8 +177,7 @@ function createBrandCSS(done) {
       // eslint-disable-next-line no-console
       console.log('Processing brand:', brand);
       const srcPatterns = [
-        `styles/**/${brand}/_*.css`,
-        `styles/${brand}/blocks/**/_*.css`,
+        `brands/${brand}/blocks/**/_*.css`,
       ];
 
       // Add templates directory to src patterns only if it exists

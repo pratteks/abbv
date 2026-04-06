@@ -161,14 +161,14 @@ export default function (plop) {
           brands.forEach((brand) => {
             actions.push({
               type: 'add',
-              path: `../blocks/{{name}}/${brand}/_{{name}}.css`,
+              path: `../brands/${brand}/blocks/{{name}}/_{{name}}.css`,
               templateFile: 'plop-templates/index.css.template',
               skipIfExists: true,
               data: { name: data.name },
             });
             actions.push({
               type: 'add',
-              path: `../blocks/{{name}}/${brand}/block-config.js`,
+              path: `../brands/${brand}/blocks/{{name}}/block-config.js`,
               templateFile: 'plop-templates/index.block-config.js',
               skipIfExists: true,
             });
@@ -177,7 +177,7 @@ export default function (plop) {
             themes.forEach((theme) => {
               actions.push({
                 type: 'add',
-                path: `../blocks/{{name}}/${brand}/themes/${theme}/_{{name}}.css`,
+                path: `../brands/${brand}/blocks/{{name}}/themes/${theme}/_{{name}}.css`,
                 templateFile: 'plop-templates/index.css.template',
                 skipIfExists: true,
                 data: { name: data.name },

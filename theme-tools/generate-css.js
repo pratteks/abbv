@@ -5,6 +5,7 @@ const path = require('path');
 // Configuration
 const DEFAULT_THEMES = ['light', 'dark'];
 const CONFIG_FILE = 'brand-config.json';
+const BRANDS_DIR = 'brands';
 
 // State management
 let brands = [];
@@ -176,17 +177,18 @@ async function generateBlockCSS(blockName, currentDir) {
 
     // Generate brand + theme CSS files
     for (const brand of brands) {
-      const brandCSSPath = path.join(blocksDir, brand, `_${blockName}.css`);
+      const brandBlockDir = path.join(currentDir, BRANDS_DIR, brand, 'blocks', blockName);
+      const brandCSSPath = path.join(brandBlockDir, `_${blockName}.css`);
 
       // Brand-only CSS
-      const brandOutputPath = path.join(blocksDir, brand, `${blockName}.css`);
+      const brandOutputPath = path.join(brandBlockDir, `${blockName}.css`);
       const brandSuccess = await combineCSSFiles(baseCSSPath, brandCSSPath, null, brandOutputPath);
       if (brandSuccess) generatedCount++;
 
       // Brand + theme CSS (themes within brand)
       for (const theme of themes) {
-        const themeCSSPath = path.join(blocksDir, brand, 'themes', theme, `_${blockName}.css`);
-        const outputPath = path.join(blocksDir, brand, 'themes', theme, `${blockName}.css`);
+        const themeCSSPath = path.join(brandBlockDir, 'themes', theme, `_${blockName}.css`);
+        const outputPath = path.join(brandBlockDir, 'themes', theme, `${blockName}.css`);
 
         const success = await combineCSSFiles(baseCSSPath, brandCSSPath, themeCSSPath, outputPath);
         if (success) generatedCount++;
@@ -239,17 +241,18 @@ async function generateStylesCSS(currentDir) {
 
         // Generate brand + theme CSS files
         for (const brand of brands) {
-          const brandCSSPath = path.join(stylesDir, brand, `_${fileName}`);
+          const brandStylesDir = path.join(process.cwd(), BRANDS_DIR, brand, 'styles');
+          const brandCSSPath = path.join(brandStylesDir, `_${fileName}`);
 
           // Brand-only CSS
-          const brandOutputPath = path.join(stylesDir, brand, fileName);
+          const brandOutputPath = path.join(brandStylesDir, fileName);
           const brandSuccess = await combineCSSFiles(null, brandCSSPath, null, brandOutputPath);
           if (brandSuccess) fileGeneratedCount++;
 
           // Brand + theme CSS (themes within brand)
           for (const theme of themes) {
-            const themeCSSPath = path.join(stylesDir, brand, 'themes', theme, `_${fileName}`);
-            const outputPath = path.join(stylesDir, brand, 'themes', theme, fileName);
+            const themeCSSPath = path.join(brandStylesDir, 'themes', theme, `_${fileName}`);
+            const outputPath = path.join(brandStylesDir, 'themes', theme, fileName);
 
             const success = await combineCSSFiles(null, brandCSSPath, themeCSSPath, outputPath);
             if (success) fileGeneratedCount++;
@@ -274,17 +277,18 @@ async function generateStylesCSS(currentDir) {
 
         // Generate brand + theme CSS files
         for (const brand of brands) {
-          const brandCSSPath = path.join(stylesDir, brand, `_${fileName}`);
+          const brandStylesDir = path.join(process.cwd(), BRANDS_DIR, brand, 'styles');
+          const brandCSSPath = path.join(brandStylesDir, `_${fileName}`);
 
           // Brand-only CSS
-          const brandOutputPath = path.join(stylesDir, brand, fileName);
+          const brandOutputPath = path.join(brandStylesDir, fileName);
           const brandSuccess = await combineCSSFiles(basePath, brandCSSPath, null, brandOutputPath);
           if (brandSuccess) fileGeneratedCount++;
 
           // Brand + theme CSS (themes within brand)
           for (const theme of themes) {
-            const themeCSSPath = path.join(stylesDir, brand, 'themes', theme, `_${fileName}`);
-            const outputPath = path.join(stylesDir, brand, 'themes', theme, fileName);
+            const themeCSSPath = path.join(brandStylesDir, 'themes', theme, `_${fileName}`);
+            const outputPath = path.join(brandStylesDir, 'themes', theme, fileName);
 
             const success = await combineCSSFiles(basePath, brandCSSPath, themeCSSPath, outputPath);
             if (success) fileGeneratedCount++;

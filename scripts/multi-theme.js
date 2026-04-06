@@ -12,7 +12,7 @@ const brandCode = getBrandCode();
 export function getBrandPath() {
   if (brandCode) {
     document.body.classList.add(brandCode);
-    return `${brandCode}/`;
+    return `brands/${brandCode}/`;
   }
   return '';
 }
@@ -32,6 +32,46 @@ export function getThemePath() {
 const themePath = getThemePath();
 
 let pageShowEventRegistered = false;
+const blockBrandClassCache = {};
+
+async function isBrandClassForBlock(candidate, blockName) {
+  if (!candidate || !blockName) return false;
+
+  const cacheKey = `${candidate}:${blockName}`;
+  if (blockBrandClassCache[cacheKey] !== undefined) {
+    return blockBrandClassCache[cacheKey];
+  }
+
+  try {
+    const response = await fetch(
+      `${window.hlx.codeBasePath}/brands/${candidate}/blocks/${blockName}/${blockName}.css`,
+      { method: 'HEAD' },
+    );
+    blockBrandClassCache[cacheKey] = response.ok;
+  } catch (error) {
+    blockBrandClassCache[cacheKey] = false;
+  }
+
+  return blockBrandClassCache[cacheKey];
+}
+
+async function syncBlockBrandClasses(block, blockName) {
+  if (!block || !brandCode) return;
+
+  const classes = [...block.classList].filter((className) => className !== brandCode);
+  const brandClasses = await Promise.all(
+    classes.map(async (className) => (
+      await isBrandClassForBlock(className, blockName) ? className : null
+    )),
+  );
+
+  const classesToRemove = brandClasses.filter(Boolean);
+  if (classesToRemove.length) {
+    block.classList.remove(...classesToRemove);
+  }
+
+  block.classList.add(brandCode);
+}
 
 /**
  * Loads JS and CSS for a block.
@@ -43,7 +83,11 @@ async function loadBlock(block) {
     block.dataset.blockStatus = 'loading';
     const { blockName } = block.dataset;
     try {
-      const cssLoaded = loadCSS(`${window.hlx.codeBasePath}/blocks/${blockName}/${brandPath}${themePath}${blockName}.css`);
+      await syncBlockBrandClasses(block, blockName);
+      const cssPath = brandPath
+        ? `${window.hlx.codeBasePath}/${brandPath}blocks/${blockName}/${themePath}${blockName}.css`
+        : `${window.hlx.codeBasePath}/blocks/${blockName}/${themePath}${blockName}.css`;
+      const cssLoaded = loadCSS(cssPath);
       const decorationComplete = new Promise((resolve) => {
         (async () => {
           try {
@@ -168,10 +212,12 @@ export async function loadBlockConfig(blockName) {
       console.debug('Error loading global config:', e);
       return null;
     }),
-    configCache[blockName].brandConfig || import(`/blocks/${blockName}/${brandPath}block-config.js`).catch((e) => {
-      console.debug('Error loading brand config:', e);
-      return null;
-    }),
+    configCache[blockName].brandConfig || (brandPath
+      ? import(`/${brandPath}blocks/${blockName}/block-config.js`).catch((e) => {
+        console.debug('Error loading brand config:', e);
+        return null;
+      })
+      : Promise.resolve(null)),
   ]);
 
   configCache[blockName].globalConfig = globalConfig;

@@ -289,13 +289,13 @@ function getMetadata(name, doc = document) {
 }
 
 /**
- * Returns the brand path for block/theme assets (e.g. 'abbvie/'). Used to load compiled block CSS
- * from styles/<brand>/blocks/<blockName>/ (breakpoint tokens resolved to real media queries).
- * @returns {string} Brand path with trailing slash, default 'abbvie/'
+ * Returns the brand asset root (e.g. 'brands/abbvie/'). Used to load brand block assets
+ * from brands/<brand>/blocks/<blockName>/.
+ * @returns {string} Brand asset root with trailing slash, default 'brands/abbvie/'
  */
 function getBrandPath() {
   const brand = getMetadata('brand')?.trim();
-  return brand ? `${brand}/` : 'abbvie/';
+  return brand ? `brands/${brand}/` : 'brands/abbvie/';
 }
 
 /**
@@ -597,7 +597,7 @@ async function loadBlock(block) {
     const { blockName } = block.dataset;
     const brandPath = getBrandPath();
     const baseCss = `${window.hlx.codeBasePath}/blocks/${blockName}/${blockName}.css`;
-    const brandCss = `${window.hlx.codeBasePath}/styles/${brandPath}blocks/${blockName}/${blockName}.css`;
+    const brandCss = `${window.hlx.codeBasePath}/${brandPath}blocks/${blockName}/${blockName}.css`;
     try {
       // Load brand-compiled CSS first, fall back to base if brand css not found
       const cssLoaded = loadCSS(brandCss).catch(() => loadCSS(baseCss));

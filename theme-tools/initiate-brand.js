@@ -6,6 +6,7 @@ const path = require('path');
 // Configuration
 const DEFAULT_THEMES = ['light', 'dark'];
 const CONFIG_FILE = 'brand-config.json';
+const BRANDS_DIR = 'brands';
 
 // State management
 let brands = [];
@@ -93,13 +94,34 @@ async function loadTemplate(templatePath, fallbackContent) {
   }
 }
 
+function resolveBrandDir(codeDir, fileName, brandCode, isStyleFolder = false) {
+  const cwd = process.cwd();
+  const relativeCodeDir = path.relative(cwd, codeDir);
+
+  if (relativeCodeDir === 'styles' && isStyleFolder) {
+    return path.join(cwd, BRANDS_DIR, brandCode, 'styles');
+  }
+
+  if (relativeCodeDir === 'blocks' && fileName) {
+    return path.join(cwd, BRANDS_DIR, brandCode, 'blocks', fileName);
+  }
+
+  if (relativeCodeDir === 'templates' && fileName) {
+    return path.join(cwd, BRANDS_DIR, brandCode, 'templates', fileName);
+  }
+
+  return fileName
+    ? path.join(codeDir, fileName, brandCode)
+    : path.join(codeDir, brandCode);
+}
+
 // =========================
 // THEME & BRAND CSS GENERATION LOGIC
 // =========================
 //
 // - When creating a new theme at the root (styles/themes/<theme>/),
 //   the import should be: @import '../../styles.css'
-// - When creating a new theme inside a brand (styles/<brand>/themes/<theme>/),
+// - When creating a new theme inside a brand (brands/<brand>/styles/themes/<theme>/),
 //   the import should be: @import '../../../styles.css'
 //
 // - The script will SKIP existing files to avoid overwriting user changes.
@@ -238,9 +260,7 @@ async function generateThemeCSSWithinBrandFolder(themeCode, brandDir, fileName, 
 // Brand CSS generation functions
 async function generateBrandCSSForFolder(brandCode, codeDir, fileName, isStyleFolder = false) {
   try {
-    const brandDir = fileName
-      ? path.join(codeDir, fileName, brandCode)
-      : path.join(codeDir, brandCode);
+    const brandDir = resolveBrandDir(codeDir, fileName, brandCode, isStyleFolder);
 
     await ensureDirectoryExists(brandDir);
 
@@ -357,10 +377,10 @@ async function generateTemplateContent(file, fileName, codeDir, code, isTheme = 
     // 2. Brand CSS files: ../{{blockName}}.css
     // 3. Brand theme files: ../../../{{blockName}}.css
     if (isWithinBrand && isTheme) {
-      // Brand theme files (e.g., blocks/cards/roy/themes/bright/_cards.css)
+      // Brand theme files (e.g., brands/roy/blocks/cards/themes/bright/_cards.css)
       content = content.replace(/\{\{#if isBrandTheme\}\}(.*?)\{\{else if isBrandCSS\}\}(.*?)\{\{else\}\}(.*?)\{\{\/if\}\}/gs, '$1');
     } else if (isWithinBrand && !isTheme) {
-      // Brand CSS files (e.g., blocks/cards/roy/_cards.css)
+      // Brand CSS files (e.g., brands/roy/blocks/cards/_cards.css)
       content = content.replace(/\{\{#if isBrandTheme\}\}(.*?)\{\{else if isBrandCSS\}\}(.*?)\{\{else\}\}(.*?)\{\{\/if\}\}/gs, '$2');
     } else {
       // Root theme files (e.g., blocks/cards/themes/bright/_cards.css)
@@ -518,7 +538,7 @@ export default async function getBlockConfigs() {
     log(`Processing ${validBlockFolders.length} block directories...`);
 
     for (const blockName of validBlockFolders) {
-      const brandBlockDir = path.join(blocksDir, blockName, brandCode);
+      const brandBlockDir = path.join(process.cwd(), BRANDS_DIR, brandCode, 'blocks', blockName);
       const blockConfigPath = path.join(brandBlockDir, 'block-config.js');
 
       await ensureDirectoryExists(brandBlockDir);
@@ -664,7 +684,7 @@ async function generateThemeCSS(themeCode) {
       if (fsSync.existsSync(blocksDir)) {
         const blockFolders = fsSync.readdirSync(blocksDir).filter((f) => fsSync.statSync(path.join(blocksDir, f)).isDirectory());
         for (const blockName of blockFolders) {
-          const brandBlockDir = path.join(blocksDir, blockName, brandCode);
+          const brandBlockDir = path.join(process.cwd(), BRANDS_DIR, brandCode, 'blocks', blockName);
           if (fsSync.existsSync(brandBlockDir)) {
             await generateThemeCSSWithinBrandFolder(themeCode, brandBlockDir, null, false);
           }
@@ -680,7 +700,12 @@ async function generateThemeCSS(themeCode) {
       // Process styles directory for brand
       const stylesDir = path.join(process.cwd(), 'styles');
       if (fsSync.existsSync(stylesDir)) {
-        await generateThemeCSSWithinBrandFolder(themeCode, path.join(stylesDir, brandCode), null, true);
+        await generateThemeCSSWithinBrandFolder(
+          themeCode,
+          path.join(process.cwd(), BRANDS_DIR, brandCode, 'styles'),
+          null,
+          true,
+        );
       }
     }
 
