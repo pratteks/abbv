@@ -1,38 +1,4 @@
-import { getMetadata } from '../../scripts/aem.js';
-
-function loadBrandCSS(href) {
-  const fullHref = `${window.hlx.codeBasePath}/blocks/hero/${href}`;
-  if (!document.querySelector(`link[href="${fullHref}"]`)) {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = fullHref;
-    document.head.append(link);
-  }
-}
-
-function getBrandCode() {
-  const brand = getMetadata('brand') || '';
-  return brand.trim().toLowerCase().replace(/[^a-z0-9-]/g, '');
-}
-
 export default async function decorate(block) {
-  const brand = getBrandCode();
-
-  // Load brand-specific hero CSS + JS if available
-  if (brand) {
-    loadBrandCSS(`${brand}/hero.css`);
-    try {
-      const module = await import(`./${brand}/hero.js`);
-      if (module.default) {
-        block.classList.add(brand);
-        module.default(block);
-        return;
-      }
-    } catch (e) {
-      // Brand variant not found, fall through to default
-    }
-  }
-
   const section = block.closest('.section');
 
   // Absorb a breadcrumb block into the hero text panel.
