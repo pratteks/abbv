@@ -1,0 +1,301 @@
+/*
+ * Rinvoq Hero Block Styles
+ * Extracted from: https://www.rinvoq.com/resources/save-on-rinvoq-costs
+ * Stylesheets:
+ *   - /etc/clientlibs/common-elements/clientlibs/v1/css-clientlib-all.min.css
+ *   - /content/dam/rinvoq/css/rinvoq-rce.css
+ *   - /content/dam/rinvoq/css/rinvoq-global.css
+ *   - /content/dam/rinvoq/css/rinvoq-utility-global.css
+ *
+ * Hero structure (from source):
+ *   - Full-width background image (desktop JPG, mobile PNG)
+ *   - "RINVOQ Complete" ribbon logo overlaid on background
+ *   - "Save on RINVOQ" headline with yellow underline decoration
+ *   - Below hero: $0/month value prop with savings card image + CTA
+ *   - Gold/warm top+bottom decorative borders
+ *
+ * Fonts: "Neue Haas Grotesk Disp W0595Bl" (headings), Helvetica Neue (body)
+ * Colors: #ffd100 yellow accent, #25282a dark text, #f5f5f5 light gray bg
+ */
+
+/* ==========================================================================
+   Design Tokens
+   ========================================================================== */
+
+.hero.rinvoq {
+  /* Colors — from source :root variables */
+  --rinvoq-text: #25282a;
+  --rinvoq-yellow: #ffd100;
+  --rinvoq-yellow-bright: #ffd206;
+  --rinvoq-yellow-25: #fff3bf;
+  --rinvoq-white: #fff;
+  --rinvoq-grey-light: #f5f5f5;
+  --rinvoq-grey-light2: #f3f3f3;
+  --rinvoq-grey-dark: #666869;
+  --rinvoq-grey-border: #979797;
+  --rinvoq-navy: #071d49;
+
+  /* Typography — from source @font-face + computed styles */
+  --rinvoq-heading-font: "Neue Haas Grotesk Disp W0595Bl", arial, "Helvetica Neue", helvetica, sans-serif;
+  --rinvoq-body-font: "Helvetica Neue LT W05_55 Roman", arial, "Helvetica Neue", helvetica, sans-serif;
+  --rinvoq-body-bold: "Helvetica Neue LT W05_75 Bold", arial, "Helvetica Neue", helvetica, sans-serif;
+
+  /* Spacing — from source .abbv-background-container-content */
+  --rinvoq-hero-min-height-mobile: 210px;
+  --rinvoq-hero-min-height-tablet: 275px;
+  --rinvoq-hero-min-height-desktop: 460px;
+  --rinvoq-content-max-width: 985px;
+  --rinvoq-content-padding-mobile: 20px;
+  --rinvoq-content-padding-tablet: 30px;
+  --rinvoq-content-padding-desktop: 65px;
+
+  /* Layout */
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  font-family: var(--rinvoq-body-font);
+  color: var(--rinvoq-text);
+}
+
+/* Background image container (first row = image) */
+.hero.rinvoq > div:first-child {
+  position: relative;
+  min-height: var(--rinvoq-hero-min-height-mobile);
+  overflow: hidden;
+}
+
+.hero.rinvoq > div:first-child img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: bottom center;
+  display: block;
+}
+
+/* ==========================================================================
+   Hero Text Content (second row = text overlay)
+   ========================================================================== */
+
+.hero.rinvoq .hero-text-container {
+  position: relative;
+  z-index: 10;
+  background-color: var(--rinvoq-grey-light);
+  padding: var(--rinvoq-content-padding-mobile);
+}
+
+/* Heading — Neue Haas Grotesk (from source .font-neueHaasGrotesk) */
+.hero.rinvoq .hero-text-container h1 {
+  font-family: var(--rinvoq-heading-font);
+  font-weight: normal;
+  font-size: 28px;
+  line-height: 1.2;
+  color: var(--rinvoq-white);
+  margin: 0 0 16px;
+}
+
+.hero.rinvoq .hero-text-container h2 {
+  font-family: var(--rinvoq-heading-font);
+  font-weight: normal;
+  font-size: 22px;
+  line-height: 28px;
+  color: var(--rinvoq-text);
+  margin: 0 0 16px;
+}
+
+/* Body text */
+.hero.rinvoq .hero-text-container p {
+  font-family: var(--rinvoq-body-font);
+  font-size: 16px;
+  line-height: 22px;
+  color: var(--rinvoq-text);
+  margin: 0 0 20px;
+}
+
+/* ==========================================================================
+   Yellow Stroke Decoration (on "$0 a month" text)
+   From source .text-yellow-stroke-129::after
+   ========================================================================== */
+
+.hero.rinvoq .hero-text-container em,
+.hero.rinvoq .hero-text-container .yellow-stroke {
+  position: relative;
+  font-style: normal;
+}
+
+.hero.rinvoq .hero-text-container em::after,
+.hero.rinvoq .hero-text-container .yellow-stroke::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -8px;
+  left: -5px;
+  width: 129px;
+  height: 100%;
+  background-image: url("./icons/text-yellow-stroke-129.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  z-index: -1;
+}
+
+/* ==========================================================================
+   CTA Button — Yellow link with brush arrow
+   From source .abbv-button-plain.link-btn-yellow + .cta-brush-arrow-yellow-left
+   ========================================================================== */
+
+.hero.rinvoq .hero-text-container a.button,
+.hero.rinvoq .hero-text-container a.button.primary {
+  position: relative;
+  display: inline-block;
+  font-family: var(--rinvoq-heading-font);
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 1.28;
+  color: var(--rinvoq-yellow);
+  background: none;
+  border: none;
+  text-decoration: none;
+  padding: 25px 30px 25px 0;
+  cursor: pointer;
+}
+
+.hero.rinvoq .hero-text-container a.button::after,
+.hero.rinvoq .hero-text-container a.button.primary::after {
+  content: "";
+  display: block;
+  width: 17px;
+  height: 17px;
+  background: url("./icons/cta-arrow.png") no-repeat center;
+  background-size: 100%;
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hero.rinvoq .hero-text-container a.button:hover,
+.hero.rinvoq .hero-text-container a.button.primary:hover {
+  opacity: 0.8;
+}
+
+/* ==========================================================================
+   Gold Background Decorative Borders
+   From source .gold-bkgrnd-top / .gold-bkgrnd-bottom images
+   ========================================================================== */
+
+.hero.rinvoq::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: url("./icons/gold-bkgrnd-top.png") no-repeat center top;
+  background-size: 100% auto;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.hero.rinvoq::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: url("./icons/gold-bkgrnd-bottom.png") no-repeat center bottom;
+  background-size: 100% auto;
+  z-index: 20;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Animations — from source .abbv-animation + .abbv-fadeInLeft
+   ========================================================================== */
+
+@keyframes fade-in-left {
+  from {
+    opacity: 0;
+    transform: translate3d(-50px, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fade-in-right {
+  from {
+    opacity: 0;
+    transform: translate3d(50px, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.hero.rinvoq .hero-text-container img {
+  animation: fade-in-left 2s ease 0.2s both;
+}
+
+/* ==========================================================================
+   Tablet (601px+)
+   ========================================================================== */
+
+@media (width >= 601px) {
+  .hero.rinvoq > div:first-child {
+    min-height: var(--rinvoq-hero-min-height-tablet);
+  }
+
+  .hero.rinvoq .hero-text-container {
+    padding: var(--rinvoq-content-padding-tablet);
+  }
+
+  .hero.rinvoq .hero-text-container h2 {
+    font-size: 32px;
+    line-height: 36px;
+  }
+}
+
+/* ==========================================================================
+   Desktop (985px+)
+   ========================================================================== */
+
+@media (width >= 985px) {
+  .hero.rinvoq > div:first-child {
+    min-height: var(--rinvoq-hero-min-height-desktop);
+  }
+
+  .hero.rinvoq .hero-text-container {
+    max-width: var(--rinvoq-content-max-width);
+    margin: 0 auto;
+    padding: 30px var(--rinvoq-content-padding-desktop);
+    background-color: var(--rinvoq-white);
+  }
+
+  .hero.rinvoq .hero-text-container h1 {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+
+  .hero.rinvoq .hero-text-container a.button::after,
+  .hero.rinvoq .hero-text-container a.button.primary::after {
+    right: -20px;
+    top: 50%;
+  }
+}
+
+/* ==========================================================================
+   Large Desktop (1200px+)
+   ========================================================================== */
+
+@media (width >= 1200px) {
+  .hero.rinvoq .hero-text-container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

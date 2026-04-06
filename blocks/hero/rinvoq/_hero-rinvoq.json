@@ -1,0 +1,158 @@
+{
+  "definitions": [
+    {
+      "title": "Hero (Rinvoq)",
+      "id": "hero-rinvoq",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Hero",
+              "model": "hero-rinvoq"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "hero-rinvoq",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "backgroundImage",
+          "label": "Background Image",
+          "description": "Hero background image. Desktop: use JPG (1440×460). Mobile: use PNG (600×210).",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "backgroundImageAlt",
+          "label": "Background Image Alt",
+          "value": ""
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "logo",
+          "label": "Logo / Ribbon Image",
+          "description": "Overlaid brand logo or ribbon (e.g. 'RINVOQ Complete' ribbon). PNG with transparency.",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "logoAlt",
+          "label": "Logo Alt",
+          "value": "RINVOQ Complete"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "headlineImage",
+          "label": "Headline Image",
+          "description": "Optional image-based headline (e.g. 'Save' text as image). PNG with transparency.",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "headlineImageAlt",
+          "label": "Headline Image Alt",
+          "value": "Save"
+        },
+        {
+          "component": "richtext",
+          "name": "headline",
+          "label": "Headline Text",
+          "description": "Headline text overlaid on the hero. Use <em> to apply the yellow underline decoration.",
+          "value": "<h1>On RINVOQ</h1>",
+          "valueType": "string"
+        },
+        {
+          "component": "richtext",
+          "name": "text",
+          "label": "Body Text",
+          "description": "Body text below the hero image. Supports rich formatting, links, and lists.",
+          "value": "",
+          "valueType": "string"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Content Image",
+          "description": "Optional content image beside the body text (e.g. savings card image).",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "imageAlt",
+          "label": "Content Image Alt",
+          "value": ""
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "ctaLabel",
+          "label": "CTA Label",
+          "description": "Call-to-action button text (e.g. 'Request your card').",
+          "value": ""
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "ctaLink",
+          "label": "CTA Link",
+          "description": "URL for the CTA button.",
+          "value": ""
+        },
+        {
+          "component": "select",
+          "name": "classes_theme",
+          "label": "Theme",
+          "options": [
+            {
+              "name": "Light (default)",
+              "value": "light"
+            },
+            {
+              "name": "Dark (white text)",
+              "value": "dark"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "classes_goldBorder",
+          "label": "Gold Decorative Borders",
+          "description": "Add gold gradient borders at top and bottom of the hero.",
+          "options": [
+            {
+              "name": "None",
+              "value": ""
+            },
+            {
+              "name": "Top + Bottom",
+              "value": "gold-border"
+            },
+            {
+              "name": "Top only",
+              "value": "gold-border-top"
+            },
+            {
+              "name": "Bottom only",
+              "value": "gold-border-bottom"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "filters": []
+}
