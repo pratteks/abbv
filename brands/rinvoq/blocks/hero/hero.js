@@ -1,96 +1,88 @@
 /*
  * Rinvoq Hero — Brand-specific decorator
+ * Source: https://www.rinvoq.com/resources/save-on-rinvoq-costs
  *
- * Loaded by multi-theme.js when brand=rinvoq (replaces base hero.js).
- * Includes base hero logic (breadcrumb, image promotion, text panel)
- * plus Rinvoq-only enhancements:
- *   - Yellow stroke decoration on <em> tags
- *   - Fade-in animation on content images
- *   - Analytics data attribute passthrough
+ * 3-row authored structure:
+ *   Row 1: Background image (hero photo)
+ *   Row 2: Overlay content (ribbon logo + "Save" image + h1) — positioned ON the bg image
+ *   Row 3: Content panel below (h2 "$0 a month" + body + CTA)
+ *
+ * Source DOM mapping:
+ *   Row 1 → .abbv-background-container (bg image, bottom-positioned)
+ *   Row 2 → .abbv-background-container-content (overlaid on bg, desktop only, mobile above)
+ *   Row 3 → .abv-custom-bgcolor-light-grey2 (content area below)
  */
 
 export default function decorate(block) {
-  const section = block.closest('.section');
+  const rows = [...block.children];
 
-  /* ---- Base hero logic (shared across brands) ---- */
+  /* ---- Row 1: Background image → set as CSS background-image on .hero-bg ---- */
+  const bgRow = rows[0];
+  if (bgRow) {
+    bgRow.classList.add('hero-bg');
 
-  const textPanel = block.querySelector(':scope > div:nth-child(2) > div');
-  if (textPanel) {
-    textPanel.parentElement.classList.add('hero-text-container');
-    textPanel.classList.add('cmp-container-x-large');
-  }
-
-  // Breadcrumb absorption
-  if (section && textPanel) {
-    let breadcrumbWrapper = section.querySelector('.breadcrumb-wrapper');
-    if (!breadcrumbWrapper) {
-      const prevSection = section.previousElementSibling;
-      if (prevSection?.classList.contains('section')) {
-        breadcrumbWrapper = prevSection.querySelector('.breadcrumb-wrapper');
-      }
-    }
-    if (breadcrumbWrapper) {
-      const breadcrumbBlock = breadcrumbWrapper.querySelector('.breadcrumb');
-      if (breadcrumbBlock) {
-        textPanel.prepend(breadcrumbBlock);
-        breadcrumbWrapper.remove();
-        const prevSection = section.previousElementSibling;
-        if (prevSection?.classList.contains('section') && !prevSection.children.length) {
-          prevSection.remove();
-        }
-      }
-    }
-  }
-
-  // Image promotion
-  if (section) {
-    const imgCell = block.querySelector(':scope > div:first-child');
-    const img = imgCell?.querySelector('img');
+    // Extract image src from <img> or <a> reference, apply as background-image
+    let bgSrc = null;
+    const img = bgRow.querySelector('img');
     if (img?.src) {
-      img.loading = 'eager';
-    }
-    if (!img?.src) {
-      const link = imgCell?.querySelector('a');
+      bgSrc = img.src;
+    } else {
+      const link = bgRow.querySelector('a');
       if (link?.href) {
-        const spacer = document.createElement('img');
-        spacer.src = link.href;
-        spacer.alt = link.title || link.textContent || '';
-        spacer.loading = 'eager';
-        const container = link.closest('.button-container') || link.closest('p') || link;
-        container.replaceWith(spacer);
+        bgSrc = link.href;
       }
     }
+
+    if (bgSrc) {
+      bgRow.style.backgroundImage = `url('${bgSrc}')`;
+      // Remove the picture/img/link elements — bg is now CSS
+      const inner = bgRow.querySelector(':scope > div');
+      if (inner) inner.innerHTML = '';
+    }
   }
 
-  /* ---- Rinvoq-only: yellow stroke on <em> ---- */
-
-  if (textPanel) {
-    textPanel.querySelectorAll('em').forEach((em) => {
-      em.classList.add('yellow-stroke');
-    });
+  /* ---- Row 2: Overlay (ribbon + headline, positioned on bg image) ---- */
+  const overlayRow = rows[1];
+  if (overlayRow) {
+    overlayRow.classList.add('hero-overlay');
   }
 
-  /* ---- Rinvoq-only: fade-in animation on content images ---- */
-
-  const contentImages = block.querySelectorAll(':scope > div:nth-child(2) img');
-  if (contentImages.length > 0 && 'IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('in-view');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.2 },
-    );
-    contentImages.forEach((img) => observer.observe(img));
+  /* ---- Row 3: Content panel ---- */
+  const contentRow = rows[2];
+  if (contentRow) {
+    contentRow.classList.add('hero-content');
+    const contentInner = contentRow.querySelector(':scope > div');
+    if (contentInner) {
+      contentInner.classList.add('hero-content-inner');
+    }
   }
 
-  /* ---- Rinvoq-only: analytics data attribute passthrough ---- */
+  /* ---- Rinvoq-specific: yellow stroke on <em> ---- */
+  block.querySelectorAll('em').forEach((em) => {
+    em.classList.add('yellow-stroke');
+  });
 
-  block.querySelectorAll(':scope > div').forEach((row) => {
+  /* ---- Rinvoq-specific: fade-in animation on content images ---- */
+  if (contentRow) {
+    const contentImages = contentRow.querySelectorAll('img');
+    if (contentImages.length > 0 && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in-view');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.2 },
+      );
+      contentImages.forEach((img) => observer.observe(img));
+    }
+  }
+
+  /* ---- Analytics data attribute passthrough ---- */
+  rows.forEach((row) => {
     Object.keys(row.dataset).forEach((key) => {
       if (key.startsWith('analytics') || key.startsWith('track')) {
         block.dataset[key] = row.dataset[key];
