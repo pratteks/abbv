@@ -8,5 +8,8 @@
   },
   {
     "...": "../blocks/*/_*.json#/filters"
+  },
+  {
+    "...": "../brands/*/blocks/**/_*.json#/filters"
   }
 ]

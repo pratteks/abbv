@@ -36,42 +36,27 @@ export function getThemePath() {
 const themePath = getThemePath();
 
 let pageShowEventRegistered = false;
-const blockBrandClassCache = {};
+let brandListPromise;
 
-async function isBrandClassForBlock(candidate, blockName) {
-  if (!candidate || !blockName) return false;
-
-  const cacheKey = `${candidate}:${blockName}`;
-  if (blockBrandClassCache[cacheKey] !== undefined) {
-    return blockBrandClassCache[cacheKey];
+async function getBrandList() {
+  if (!brandListPromise) {
+    brandListPromise = fetch(`${window.hlx.codeBasePath}/brand-config.json`)
+      .then((response) => (response.ok ? response.json() : { brands: [] }))
+      .then((config) => new Set(config.brands || []))
+      .catch(() => new Set());
   }
 
-  try {
-    const response = await fetch(
-      `${window.hlx.codeBasePath}/brands/${candidate}/blocks/${blockName}/${blockName}.css`,
-      { method: "HEAD" },
-    );
-    blockBrandClassCache[cacheKey] = response.ok;
-  } catch (error) {
-    blockBrandClassCache[cacheKey] = false;
-  }
-
-  return blockBrandClassCache[cacheKey];
+  return brandListPromise;
 }
 
-async function syncBlockBrandClasses(block, blockName) {
+async function syncBlockBrandClasses(block) {
   if (!block || !brandCode) return;
 
-  const classes = [...block.classList].filter(
-    (className) => className !== brandCode,
-  );
-  const brandClasses = await Promise.all(
-    classes.map(async (className) =>
-      (await isBrandClassForBlock(className, blockName)) ? className : null,
-    ),
+  const brands = await getBrandList();
+  const classesToRemove = [...block.classList].filter(
+    (className) => className !== brandCode && brands.has(className),
   );
 
-  const classesToRemove = brandClasses.filter(Boolean);
   if (classesToRemove.length) {
     block.classList.remove(...classesToRemove);
   }
@@ -103,7 +88,7 @@ async function loadBlock(block) {
     block.dataset.blockStatus = "loading";
     const { blockName } = block.dataset;
     try {
-      await syncBlockBrandClasses(block, blockName);
+      await syncBlockBrandClasses(block);
       const cssPath = brandPath
         ? `${window.hlx.codeBasePath}/${brandPath}blocks/${blockName}/${themePath}${blockName}.css`
         : `${window.hlx.codeBasePath}/blocks/${blockName}/${themePath}${blockName}.css`;

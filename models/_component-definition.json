@@ -33,6 +33,9 @@
       "components": [
         {
           "...": "../blocks/*/_*.json#/definitions"
+        },
+        {
+          "...": "../brands/*/blocks/**/_*.json#/definitions"
         }
       ]
     }
