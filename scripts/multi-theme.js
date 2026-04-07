@@ -5,10 +5,10 @@ import {
   getMetadata,
   buildBlock,
   decorateBlock,
-} from "./aem.js";
+} from './aem.js';
 
 export function getBrandCode() {
-  return getMetadata("brand") || getMetadata("keywords") || "";
+  return getMetadata('brand') || getMetadata('keywords') || '';
 }
 
 const brandCode = getBrandCode();
@@ -18,35 +18,39 @@ export function getBrandPath() {
     document.body.classList.add(brandCode);
     return `brands/${brandCode}/`;
   }
-  return "";
+  return '';
 }
 
 const brandPath = getBrandPath();
 
 export function getTheme() {
-  return getMetadata("theme") || "";
+  return getMetadata('theme') || '';
 }
 
 const theme = getTheme();
 
 export function getThemePath() {
-  return theme ? `themes/${theme}/` : "";
+  return theme ? `themes/${theme}/` : '';
 }
 
 const themePath = getThemePath();
 
 let pageShowEventRegistered = false;
-let brandListPromise;
+let brandConfigPromise;
 
-async function getBrandList() {
-  if (!brandListPromise) {
-    brandListPromise = fetch(`${window.hlx.codeBasePath}/brand-config.json`)
-      .then((response) => (response.ok ? response.json() : { brands: [] }))
-      .then((config) => new Set(config.brands || []))
-      .catch(() => new Set());
+async function getBrandConfig() {
+  if (!brandConfigPromise) {
+    brandConfigPromise = fetch(`${window.hlx.codeBasePath}/brand-config.json`)
+      .then((response) => (response.ok ? response.json() : { brands: [], brandAssets: {} }))
+      .catch(() => ({ brands: [], brandAssets: {} }));
   }
 
-  return brandListPromise;
+  return brandConfigPromise;
+}
+
+async function getBrandList() {
+  const config = await getBrandConfig();
+  return new Set(config.brands || []);
 }
 
 async function syncBlockBrandClasses(block) {
@@ -64,13 +68,21 @@ async function syncBlockBrandClasses(block) {
   block.classList.add(brandCode);
 }
 
+async function hasBrandAsset(blockName, assetType) {
+  if (!brandCode) return false;
+
+  const config = await getBrandConfig();
+  const assets = config.brandAssets?.[brandCode];
+  if (!assets) return false;
+
+  const blockList = assets[assetType];
+  return Array.isArray(blockList) && blockList.includes(blockName);
+}
+
 async function loadBlockModule(blockName) {
-  if (brandPath) {
-    try {
-      return await import(`/${brandPath}blocks/${blockName}/${blockName}.js`);
-    } catch (error) {
-      // Fall back to the shared block implementation when no brand module exists.
-    }
+  if (brandPath && (await hasBrandAsset(blockName, 'js'))) {
+    const brandModulePath = `/${brandPath}blocks/${blockName}/${blockName}.js`;
+    return import(brandModulePath);
   }
 
   return import(
@@ -84,14 +96,16 @@ async function loadBlockModule(blockName) {
  */
 async function loadBlock(block) {
   const status = block.dataset.blockStatus;
-  if (status !== "loading" && status !== "loaded") {
-    block.dataset.blockStatus = "loading";
+  if (status !== 'loading' && status !== 'loaded') {
+    block.dataset.blockStatus = 'loading';
     const { blockName } = block.dataset;
     try {
       await syncBlockBrandClasses(block);
-      const cssPath = brandPath
+      const brandCssPath = brandPath && (await hasBrandAsset(blockName, 'css'))
         ? `${window.hlx.codeBasePath}/${brandPath}blocks/${blockName}/${themePath}${blockName}.css`
-        : `${window.hlx.codeBasePath}/blocks/${blockName}/${themePath}${blockName}.css`;
+        : '';
+      const cssPath = brandCssPath
+        || `${window.hlx.codeBasePath}/blocks/${blockName}/${themePath}${blockName}.css`;
       const cssLoaded = loadCSS(cssPath);
       const decorationComplete = new Promise((resolve) => {
         (async () => {
@@ -112,7 +126,7 @@ async function loadBlock(block) {
       // eslint-disable-next-line no-console
       console.log(`failed to load block ${blockName}`, error);
     }
-    block.dataset.blockStatus = "loaded";
+    block.dataset.blockStatus = 'loaded';
   }
   return block;
 }
@@ -124,15 +138,15 @@ async function loadBlock(block) {
 
 async function loadSection(section, loadCallback) {
   const status = section.dataset.sectionStatus;
-  if (!status || status === "initialized") {
-    section.dataset.sectionStatus = "loading";
-    const blocks = [...section.querySelectorAll("div.block")];
+  if (!status || status === 'initialized') {
+    section.dataset.sectionStatus = 'loading';
+    const blocks = [...section.querySelectorAll('div.block')];
     for (let i = 0; i < blocks.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
       await loadBlock(blocks[i]);
     }
     if (loadCallback) await loadCallback(section);
-    section.dataset.sectionStatus = "loaded";
+    section.dataset.sectionStatus = 'loaded';
     section.style.display = null;
   }
 }
@@ -143,7 +157,7 @@ async function loadSection(section, loadCallback) {
  */
 
 async function loadSections(element) {
-  const sections = [...element.querySelectorAll("div.section")];
+  const sections = [...element.querySelectorAll('div.section')];
   for (let i = 0; i < sections.length; i += 1) {
     // eslint-disable-next-line no-await-in-loop
     await loadSection(sections[i]);
@@ -163,17 +177,17 @@ async function loadSections(element) {
 async function executeDecorate(ctx, blockConfig) {
   try {
     const { beforeDecorate, decorate, afterDecorate } = blockConfig.decorations;
-    if (typeof beforeDecorate === "function") {
+    if (typeof beforeDecorate === 'function') {
       await beforeDecorate(ctx, blockConfig);
     }
-    if (typeof decorate === "function") {
+    if (typeof decorate === 'function') {
       await decorate(ctx, blockConfig);
     }
-    if (typeof afterDecorate === "function") {
+    if (typeof afterDecorate === 'function') {
       await afterDecorate(ctx, blockConfig);
     }
   } catch (error) {
-    console.debug("Error executing method:", error);
+    console.debug('Error executing method:', error);
   }
 }
 /**
@@ -217,19 +231,17 @@ export async function loadBlockConfig(blockName) {
   }
 
   const [globalConfig, brandConfig] = await Promise.all([
-    configCache[blockName].globalConfig ||
-      import(`/blocks/${blockName}/block-config.js`).catch((e) => {
-        console.debug("Error loading global config:", e);
+    configCache[blockName].globalConfig
+      || import(`/blocks/${blockName}/block-config.js`).catch((e) => {
+        console.debug('Error loading global config:', e);
         return null;
       }),
-    configCache[blockName].brandConfig ||
-      (brandPath
-        ? import(`/${brandPath}blocks/${blockName}/block-config.js`).catch(
-            (e) => {
-              console.debug("Error loading brand config:", e);
-              return null;
-            },
-          )
+    configCache[blockName].brandConfig
+      || (brandPath && (await hasBrandAsset(blockName, 'config'))
+        ? import(`/${brandPath}blocks/${blockName}/block-config.js`).catch((e) => {
+          console.debug('Error loading brand config:', e);
+          return null;
+        })
         : Promise.resolve(null)),
   ]);
 
@@ -258,7 +270,7 @@ export async function renderBlock(ctx) {
   blockConfig?.variations?.forEach(({ variation, module, method }) => {
     const condition = ctx.classList.contains(variation);
     if (condition) {
-      if (typeof method === "function") {
+      if (typeof method === 'function') {
         method(ctx, blockConfig);
       } else if (module) {
         import(`/blocks/${blockName}/${module}`).then((mod) => {
@@ -281,7 +293,7 @@ export async function renderBlock(ctx) {
 
   // check if cacheResetStack is not empty and call the functions upon pageshow event
   if (!pageShowEventRegistered && window.cacheResetHandlers?.length) {
-    window.addEventListener("pageshow", (e) => {
+    window.addEventListener('pageshow', (e) => {
       if (e.persisted) {
         window.cacheResetHandlers.forEach((fn) => fn());
       }
@@ -296,7 +308,7 @@ export async function renderBlock(ctx) {
  * @returns {Promise}
  */
 async function loadHeader(header) {
-  const headerBlock = buildBlock("header", "");
+  const headerBlock = buildBlock('header', '');
   header.append(headerBlock);
   decorateBlock(headerBlock);
   return loadBlock(headerBlock);
@@ -308,10 +320,12 @@ async function loadHeader(header) {
  * @returns {Promise}
  */
 async function loadFooter(footer) {
-  const footerBlock = buildBlock("footer", "");
+  const footerBlock = buildBlock('footer', '');
   footer.append(footerBlock);
   decorateBlock(footerBlock);
   return loadBlock(footerBlock);
 }
 
-export { loadSections, loadSection, loadBlock, loadHeader, loadFooter };
+export {
+  loadSections, loadSection, loadBlock, loadHeader, loadFooter,
+};

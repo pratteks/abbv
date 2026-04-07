@@ -22,9 +22,7 @@
   --brand-bg-color: rgb(255 255 255);
   --brand-accent-color: rgb(255 209 0);
   --brand-accent-hover: rgb(255 210 6);
-
   --brand-border-color: rgb(151 151 151);
-
   --brand-surface-light: rgb(255 255 255);
   --brand-surface-muted: rgb(245 245 245);
 
@@ -43,11 +41,9 @@
   --brand-heading-font-bold: "Neue Haas Grotesk Disp W0595Bl", arial, "Helvetica Neue", helvetica, sans-serif;
   --brand-heading-weight: var(--font-weight-400);
   --brand-heading-weight-bold: var(--font-weight-400);
-
   --brand-body-font: "Helvetica Neue LT W05_55 Roman", arial, "Helvetica Neue", helvetica, sans-serif;
   --brand-body-bold: "Helvetica Neue LT W05_75 Bold", arial, "Helvetica Neue", helvetica, sans-serif;
   --brand-body-weight: var(--font-weight-400);
-
   --brand-ui-font: "Helvetica Neue LT W05_75 Bold", arial, "Helvetica Neue", helvetica, sans-serif;
 }
 
@@ -62,7 +58,6 @@
   --brand-hero-image-radius: 0;
   --brand-hero-image-position: center bottom;
   --brand-hero-overlap: 0;
-
   --brand-cta-color: rgb(255 209 0);
   --brand-cta-font: "Neue Haas Grotesk Disp W0595Bl", arial, "Helvetica Neue", helvetica, sans-serif;
   --brand-cta-weight: var(--font-weight-400);

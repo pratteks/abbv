@@ -35,6 +35,19 @@
         "selector-max-specificity": null,
         "selector-max-type": null
       }
+    },
+    {
+      "files": ["brands/**/*.css"],
+      "rules": {
+        "color-no-hex": null,
+        "declaration-no-important": null,
+        "no-descending-specificity": null,
+        "no-duplicate-selectors": null,
+        "property-no-deprecated": null,
+        "scale-unlimited/declaration-strict-value": null,
+        "selector-max-specificity": null,
+        "selector-max-type": null
+      }
     }
   ],
   "ignoreFiles": ["**/node_modules/**", "**/*.min*.css", "styles/**/*.css"]

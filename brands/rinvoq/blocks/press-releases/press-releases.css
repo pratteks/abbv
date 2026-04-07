@@ -24,6 +24,7 @@
   --press-slide-speed: 0.36s;
   --press-slide-easing: cubic-bezier(.2, .9, .2, 1);
 }
+
 /* ─────────────────────────────────────────────
    CAROUSEL WRAPPER
    ───────────────────────────────────────────── */
@@ -33,6 +34,7 @@
   margin-bottom: 5.6rem;
   padding-bottom: 5.3rem;
 }
+
 /* ─────────────────────────────────────────────
    TRACK
    ───────────────────────────────────────────── */
@@ -43,6 +45,7 @@
   align-items: flex-start;
   min-height: 152px;
 }
+
 /* ─────────────────────────────────────────────
    CARD WRAPPER
    ───────────────────────────────────────────── */
@@ -53,11 +56,13 @@
   border: none;
   box-shadow: none;
 }
+
 .press-card a {
   text-decoration: none;
   color: inherit;
   display: block;
 }
+
 /* ─────────────────────────────────────────────
    DATE STYLE
    ───────────────────────────────────────────── */
@@ -71,6 +76,7 @@
   line-height: var(--line-height-20);
   font-family: var(--roboto-bold-font-family);
 }
+
 /* ─────────────────────────────────────────────
    TITLE STYLE
    ───────────────────────────────────────────── */
@@ -81,6 +87,7 @@
   font-weight: var(--font-weight-400);
   line-height: var(--line-height-20);
 }
+
 /* ─────────────────────────────────────────────
    CONTROLS / ARROWS
    ───────────────────────────────────────────── */
@@ -91,6 +98,7 @@
   justify-content: flex-end;
   z-index: 10;
 }
+
 .press-arrow {
   width: var(--press-arrow-size);
   border-radius: 0;
@@ -104,6 +112,7 @@
   align-items: center;
   justify-content: center;
 }
+
 .splide__arrow--prev::after, 
 .splide__arrow--next::after {
     color: inherit;
@@ -113,17 +122,21 @@
     font-size: var(--font-size-20);
     transition: color .1s ease;
 }
+
 .splide__arrow--next::after {
     transform: rotate(180deg);
 }
+
 .press-arrow:hover, 
 .press-arrow:focus {
   color: var(--strong-heading);
   background: transparent;
 }
+
 .press-arrow:active {
   transform: translateY(1px);
 }
+
 .main > .abbvie-container-small p {
   font-size: var(--font-size-14);
   font-weight: var(--font-weight-700);;
@@ -131,12 +144,14 @@
   line-height: 1.6rem;
   text-transform: uppercase;
 }
+
 @media (width >= 744px) {
     .press-title {
       font-size: var(--font-size-18);
       line-height: var(--line-height-24);
     }
 }
+
 @media (width >= 1024px) {
     .press-carousel {
       margin-bottom: 8rem;

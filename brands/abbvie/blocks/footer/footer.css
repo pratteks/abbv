@@ -158,7 +158,7 @@
   text-transform: uppercase;
 }
 
-@media (min-width: 744px) {
+@media (width >= 744px) {
   .footer-wrapper {
     margin-top: var(--spacing-n64);
   }
@@ -259,7 +259,7 @@
   outline: var(--spacing-01) solid var(--footer-link-color);;
 }
 
-@media (min-width: 1024px) {
+@media (width >= 1024px) {
   .footer-wrapper {
     margin-top: var(--spacing-n80);
   }

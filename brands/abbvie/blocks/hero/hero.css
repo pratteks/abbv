@@ -562,7 +562,7 @@ padding: var(--spacing-00);
 
 /* ---- Tablet (>=744px) ---- */
 
-@media (min-width: 744px) {
+@media (width >= 744px) {
 .section.hero-container:has(.fragment-wrapper .hero.landing) {
   margin-bottom: var(--spacing-80);
 }
@@ -598,7 +598,7 @@ padding: var(--spacing-00);
 
 /* ---- Desktop (>=1024px) ---- */
 
-@media (min-width: 1024px) {
+@media (width >= 1024px) {
   main > .section.hero-container:has(.hero.landing) {
     margin-left: auto;
     margin-right: auto;
@@ -651,7 +651,7 @@ color: inherit;
 
 /* ---- Tablet (>=744px) ---- */
 
-@media (min-width: 744px) {
+@media (width >= 744px) {
   .hero.landing .hero-press-releases-container {
     border-top-left-radius: var(--border-top-left-radius-40);
     margin: var(--spacing-118) var(--spacing-00) var(--spacing-n40);
@@ -661,7 +661,7 @@ color: inherit;
 
 /* ---- Desktop (>=1024px) — profile-like auto centering ---- */
 
-@media (min-width: 1024px) {
+@media (width >= 1024px) {
   .hero.landing .hero-press-releases-container {
     border-top-left-radius: var(--border-top-left-radius-40);
     margin: var(--spacing-41) auto var(--spacing-n40);

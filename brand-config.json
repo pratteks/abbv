@@ -4,5 +4,73 @@
     "botox",
     "abbvie"
   ],
-  "themes": []
+  "themes": [],
+  "brandAssets": {
+    "rinvoq": {
+      "css": [
+        "accordion",
+        "cards",
+        "columns",
+        "eds-form",
+        "footer",
+        "fragment",
+        "header",
+        "hero",
+        "press-releases",
+        "separator",
+        "social-media",
+        "stock-ticker",
+        "story-card"
+      ],
+      "js": [
+        "accordion",
+        "hero"
+      ],
+      "config": []
+    },
+    "botox": {
+      "css": [
+        "accordion",
+        "cards",
+        "columns",
+        "eds-form",
+        "footer",
+        "fragment",
+        "header",
+        "hero",
+        "press-releases",
+        "separator",
+        "social-media",
+        "stock-ticker",
+        "story-card"
+      ],
+      "js": [
+        "accordion"
+      ],
+      "config": []
+    },
+    "abbvie": {
+      "css": [
+        "accordion",
+        "cards",
+        "columns",
+        "eds-form",
+        "embed",
+        "footer",
+        "fragment",
+        "header",
+        "hero",
+        "navigation-content",
+        "separator",
+        "social-media",
+        "stock-ticker",
+        "story-card",
+        "text-container"
+      ],
+      "js": [
+        "accordion"
+      ],
+      "config": []
+    }
+  }
 }

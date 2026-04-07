@@ -7,7 +7,7 @@
  * and instrumentation handling used by the other brand decorators.
  */
 
-import { moveInstrumentation } from '../../../scripts/scripts.js';
+import { moveInstrumentation } from '../../../../scripts/scripts.js';
 
 export default function decorate(block) {
   const accordionId = `accordion-${Math.random().toString(36).slice(2, 9)}`;

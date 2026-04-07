@@ -46,11 +46,9 @@
   --brand-heading-font-bold: var(--heading-font-family-bold);
   --brand-heading-weight: var(--font-weight-650);
   --brand-heading-weight-bold: var(--font-weight-800);
-
   --brand-body-font: var(--body-font-family);
   --brand-body-bold: var(--roboto-bold-font-family);
   --brand-body-weight: var(--font-weight-400);
-
   --brand-ui-font: var(--roboto-bold-font-family);
 }
 

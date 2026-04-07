@@ -107,7 +107,7 @@
   gap: var(--gap-04);
 }
 
-@media (min-width: 744px) {
+@media (width >= 744px) {
   .section:has(.cards.story) {
     padding: var(--spacing-56) var(--spacing-70);
   }
@@ -413,7 +413,7 @@
   }
 }
 
-@media (min-width: 1024px) {
+@media (width >= 1024px) {
   .section:has(.cards.story) {
     padding: var(--spacing-80) var(--spacing-55);
   }
@@ -645,7 +645,7 @@ main .section.cards-container:has(.cards-wrapper:first-child) .cards .cards-card
   margin: var(--spacing-00);
 }
 
-@media (min-width: 744px) {
+@media (width >= 744px) {
   .section.cards-container:has(.cards-wrapper:first-child) {
     padding: var(--spacing-56) var(--spacing-70);
   }
@@ -672,7 +672,7 @@ main .section.cards-container:has(.cards-wrapper:first-child) .cards .cards-card
   }
 }
 
-@media (min-width: 1024px) {
+@media (width >= 1024px) {
   .section.cards-container:has(.cards-wrapper:first-child) {
     padding: var(--spacing-80) var(--spacing-55);
   }
@@ -754,7 +754,7 @@ main .section.cards-container:has(.cards-wrapper:first-child) .cards .cards-card
   }
 }
 
-@media (min-width: 1440px) {
+@media (width >= 1440px) {
   .section.cards-container:has(.cards-wrapper:first-child) .cards-wrapper {
     max-width: var(--content-max-width);
     margin: var(--spacing-00) auto;

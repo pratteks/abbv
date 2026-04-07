@@ -173,7 +173,7 @@ p.text-container-text:last-child,
   padding-bottom: var(--spacing-20);
 }
 
-@media (min-width: 744px) {
+@media (width >= 744px) {
    .text-container.text-two-columns {
      grid-template-columns: repeat(2, minmax(0, 1fr));
      gap: var(--gap-20);
@@ -215,7 +215,7 @@ p.text-container-text:last-child,
     }
 }
 
-@media (min-width: 1024px) {
+@media (width >= 1024px) {
   .text-container {
   margin-bottom: var(--spacing-24);
   }

@@ -24,6 +24,7 @@
   --accordion-summary-line-height: var(--line-height-28);
   --accordion-body-font-size: var(--font-size-16);
   --accordion-body-line-height: var(--line-height-28);
+
   margin-left: auto;
   margin-right: auto;
   margin-bottom: var(--spacing-56);
@@ -284,6 +285,7 @@
   --accordion-body-color: var(--light-color);
   --accordion-border-color: rgb(248 248 248 / 35%);
   --accordion-hover-surface: rgb(248 248 248 / 8%);
+
   color: var(--light-color);
 }
 
@@ -332,6 +334,7 @@
     --accordion-icon-size: var(--font-size-24);
     --accordion-summary-font-size: var(--font-size-28);
     --accordion-summary-line-height: var(--line-height-32);
+
     margin-bottom: var(--spacing-80);
   }
 

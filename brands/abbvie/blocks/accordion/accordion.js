@@ -9,7 +9,7 @@
  * AEM component: .accordion.cmp-accordion-xx-large
  */
 
-import { moveInstrumentation } from '../../../scripts/scripts.js';
+import { moveInstrumentation } from '../../../../scripts/scripts.js';
 
 export default function decorate(block) {
   const accordionId = `accordion-${Math.random().toString(36).slice(2, 9)}`;
@@ -48,7 +48,12 @@ export default function decorate(block) {
     // Preserve analytics data attributes from source
     const analyticsAttrs = row.dataset;
     Object.keys(analyticsAttrs).forEach((key) => {
-      if (key.startsWith('analytics') || key.startsWith('track') || key.startsWith('contentName') || key.startsWith('contentType')) {
+      if (
+        key.startsWith('analytics')
+        || key.startsWith('track')
+        || key.startsWith('contentName')
+        || key.startsWith('contentType')
+      ) {
         summary.dataset[key] = analyticsAttrs[key];
       }
     });
@@ -86,22 +91,26 @@ export default function decorate(block) {
   });
 
   // Update ARIA states and button text when individual items are toggled
-  block.addEventListener('toggle', (e) => {
-    const detail = e.target.closest('details.accordion-item');
-    if (detail) {
-      const s = detail.querySelector('summary');
-      if (s) {
-        s.setAttribute('aria-expanded', String(detail.open));
-        s.classList.toggle('open', detail.open);
+  block.addEventListener(
+    'toggle',
+    (e) => {
+      const detail = e.target.closest('details.accordion-item');
+      if (detail) {
+        const s = detail.querySelector('summary');
+        if (s) {
+          s.setAttribute('aria-expanded', String(detail.open));
+          s.classList.toggle('open', detail.open);
+        }
       }
-    }
-    const allDetails = block.querySelectorAll('details.accordion-item');
-    const allOpen = [...allDetails].every((d) => d.open);
-    expandAllBtn.textContent = allOpen ? 'Collapse All' : 'Expand All';
-    expandAllBtn.classList.toggle('expanded', allOpen);
-    expandAllBtn.setAttribute(
-      'aria-label',
-      allOpen ? 'Collapse all accordion items' : 'Expand all accordion items',
-    );
-  }, true);
+      const allDetails = block.querySelectorAll('details.accordion-item');
+      const allOpen = [...allDetails].every((d) => d.open);
+      expandAllBtn.textContent = allOpen ? 'Collapse All' : 'Expand All';
+      expandAllBtn.classList.toggle('expanded', allOpen);
+      expandAllBtn.setAttribute(
+        'aria-label',
+        allOpen ? 'Collapse all accordion items' : 'Expand all accordion items',
+      );
+    },
+    true,
+  );
 }
