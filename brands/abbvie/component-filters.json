@@ -1,0 +1,157 @@
+[
+  {
+    "id": "main",
+    "components": [
+      "section",
+      "hero-section"
+    ]
+  },
+  {
+    "id": "section",
+    "components": [
+      "accordion",
+      "breadcrumb",
+      "button",
+      "cards",
+      "carousel",
+      "social-media",
+      "columns",
+      "embed",
+      "fragment",
+      "press-releases",
+      "separator",
+      "story-card",
+      "form",
+      "hero",
+      "navigation-content",
+      "stock-ticker",
+      "eds-form",
+      "embed-form",
+      "image",
+      "quote",
+      "search",
+      "tabs",
+      "table",
+      "text",
+      "title",
+      "video",
+      "custom-title",
+      "text-container",
+      "cta"
+    ]
+  },
+  {
+    "id": "hero-section",
+    "components": [
+      "fragment"
+    ]
+  },
+  {
+    "id": "accordion",
+    "components": [
+      "accordion-item"
+    ]
+  },
+  {
+    "id": "cards-leader",
+    "components": [
+      "card"
+    ]
+  },
+  {
+    "id": "cards",
+    "components": [
+      "card"
+    ]
+  },
+  {
+    "id": "carousel",
+    "components": [
+      "carousel-item"
+    ]
+  },
+  {
+    "id": "columns",
+    "components": [
+      "column"
+    ]
+  },
+  {
+    "id": "column",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title"
+    ]
+  },
+  {
+    "id": "custom-title",
+    "components": []
+  },
+  {
+    "id": "press-releases",
+    "components": [
+      "press-release"
+    ]
+  },
+  {
+    "id": "press-release",
+    "components": [
+      "number"
+    ]
+  },
+  {
+    "id": "social-media",
+    "components": [
+      "social-link"
+    ]
+  },
+  {
+    "id": "story-card",
+    "components": [
+      "story-card-item"
+    ]
+  },
+  {
+    "id": "table",
+    "components": [
+      "table-row"
+    ]
+  },
+  {
+    "id": "table-2-columns",
+    "components": [
+      "table-col-2"
+    ]
+  },
+  {
+    "id": "table-3-columns",
+    "components": [
+      "table-col-3"
+    ]
+  },
+  {
+    "id": "table-4-columns",
+    "components": [
+      "table-col-4"
+    ]
+  },
+  {
+    "id": "tabs",
+    "components": [
+      "tabs-item"
+    ]
+  },
+  {
+    "id": "text-container",
+    "components": [
+      "text-container-image",
+      "text-container-text"
+    ]
+  },
+  {
+    "id": "video",
+    "components": []
+  }
+]

@@ -8,9 +8,77 @@ import {
   loadBlock,
   loadScript,
   loadSections,
+  getMetadata,
 } from './aem.js';
 import { decorateRichtext } from './editor-support-rte.js';
 import { decorateMain } from './scripts.js';
+
+function getEditorBrandCode() {
+  const rawBrand = getMetadata('brand') || getMetadata('keywords') || '';
+  return rawBrand
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9-]/g, '');
+}
+
+async function manifestExists(path) {
+  try {
+    const response = await fetch(path, { method: 'HEAD' });
+    return response.ok;
+  } catch (error) {
+    return false;
+  }
+}
+
+async function replaceEditorManifest(selector, fallbackFile, replacementFile) {
+  const script = document.querySelector(selector);
+  if (!script) {
+    console.warn(`Script with "${fallbackFile}" not found.`);
+    return;
+  }
+
+  const targetSrc = script.src.replace(/[^/]+$/, replacementFile);
+  if (replacementFile === fallbackFile || (await manifestExists(targetSrc))) {
+    script.src = targetSrc;
+  }
+}
+
+function loadEditorManifestEntry({ selector, fallbackFile, replacementFile }) {
+  return replaceEditorManifest(selector, fallbackFile, replacementFile);
+}
+
+const loadEditorManifests = async () => {
+  try {
+    const brand = getEditorBrandCode();
+    const manifestMap = [
+      {
+        selector: 'script[src*="component-filters.json"]',
+        fallbackFile: 'component-filters.json',
+        replacementFile: brand
+          ? `brands/${brand}/component-filters.json`
+          : 'component-filters.json',
+      },
+      {
+        selector: 'script[src*="component-definition.json"]',
+        fallbackFile: 'component-definition.json',
+        replacementFile: brand
+          ? `brands/${brand}/component-definition.json`
+          : 'component-definition.json',
+      },
+      {
+        selector: 'script[src*="component-models.json"]',
+        fallbackFile: 'component-models.json',
+        replacementFile: brand
+          ? `brands/${brand}/component-models.json`
+          : 'component-models.json',
+      },
+    ];
+
+    await Promise.all(manifestMap.map(loadEditorManifestEntry));
+  } catch (error) {
+    console.error('Error in loadEditorManifests:', error);
+  }
+};
 
 function getState(block) {
   if (block.matches('.accordion')) {
@@ -22,7 +90,9 @@ function getState(block) {
     return block.dataset.activeSlide;
   }
   if (block.matches('.tabs')) {
-    const [currentPanel] = block.querySelectorAll('.tabs-panel[aria-hidden="false"]');
+    const [currentPanel] = block.querySelectorAll(
+      '.tabs-panel[aria-hidden="false"]',
+    );
     return currentPanel?.dataset.aueResource;
   }
 
@@ -64,13 +134,20 @@ async function applyChanges(event) {
   // load dompurify
   await loadScript(`${window.hlx.codeBasePath}/scripts/dompurify.min.js`);
 
-  const sanitizedContent = window.DOMPurify.sanitize(content, { USE_PROFILES: { html: true } });
-  const parsedUpdate = new DOMParser().parseFromString(sanitizedContent, 'text/html');
+  const sanitizedContent = window.DOMPurify.sanitize(content, {
+    USE_PROFILES: { html: true },
+  });
+  const parsedUpdate = new DOMParser().parseFromString(
+    sanitizedContent,
+    'text/html',
+  );
   const element = document.querySelector(`[data-aue-resource="${resource}"]`);
 
   if (element) {
     if (element.matches('main')) {
-      const newMain = parsedUpdate.querySelector(`[data-aue-resource="${resource}"]`);
+      const newMain = parsedUpdate.querySelector(
+        `[data-aue-resource="${resource}"]`,
+      );
       newMain.style.display = 'none';
       element.insertAdjacentElement('afterend', newMain);
       decorateMain(newMain);
@@ -83,11 +160,14 @@ async function applyChanges(event) {
       return true;
     }
 
-    const block = element.parentElement?.closest('.block[data-aue-resource]') || element?.closest('.block[data-aue-resource]');
+    const block = element.parentElement?.closest('.block[data-aue-resource]')
+      || element?.closest('.block[data-aue-resource]');
     if (block) {
       const state = getState(block);
       const blockResource = block.getAttribute('data-aue-resource');
-      const newBlock = parsedUpdate.querySelector(`[data-aue-resource="${blockResource}"]`);
+      const newBlock = parsedUpdate.querySelector(
+        `[data-aue-resource="${blockResource}"]`,
+      );
       if (newBlock) {
         newBlock.style.display = 'none';
         block.insertAdjacentElement('afterend', newBlock);
@@ -103,7 +183,9 @@ async function applyChanges(event) {
       }
     } else {
       // sections and default content, may be multiple in the case of richtext
-      const newElements = parsedUpdate.querySelectorAll(`[data-aue-resource="${resource}"],[data-richtext-resource="${resource}"]`);
+      const newElements = parsedUpdate.querySelectorAll(
+        `[data-aue-resource="${resource}"],[data-richtext-resource="${resource}"]`,
+      );
       if (newElements.length) {
         const { parentElement } = element;
         if (element.matches('.section')) {
@@ -143,12 +225,16 @@ function handleSelection(event) {
 
     if (block && block.matches('.accordion')) {
       // close all details
-      const details = element.matches('details') ? element : element.querySelector('details');
+      const details = element.matches('details')
+        ? element
+        : element.querySelector('details');
       setState(block, [details.dataset.aueResource]);
     }
 
     if (block && block.matches('.carousel')) {
-      const slideIndex = [...block.querySelectorAll('.carousel-slide')].findIndex((slide) => slide === element);
+      const slideIndex = [
+        ...block.querySelectorAll('.carousel-slide'),
+      ].findIndex((slide) => slide === element);
       setState(block, slideIndex);
     }
 
@@ -183,4 +269,9 @@ decorateRichtext();
 // in cases where the block decoration is not done in one synchronous iteration we need to listen
 // for new richtext-instrumented elements. this happens for example when using experimentation.
 const observer = new MutationObserver(() => decorateRichtext());
-observer.observe(document, { attributeFilter: ['data-richtext-prop'], subtree: true });
+observer.observe(document, {
+  attributeFilter: ['data-richtext-prop'],
+  subtree: true,
+});
+
+loadEditorManifests();

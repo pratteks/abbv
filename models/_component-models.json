@@ -19,8 +19,5 @@
   },
   {
     "...": "../blocks/*/_*.json#/models"
-  },
-  {
-    "...": "../brands/*/blocks/**/_*.json#/models"
   }
 ]
