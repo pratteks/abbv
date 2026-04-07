@@ -105,7 +105,7 @@ main > .section.navy-overlap.hero-container:not(.columns-container, .cards-conta
   position: relative;
   overflow: hidden;
   height: 100%;
-  min-height: var(--hero-image-container-height);
+  min-height: var(--brand-hero-height, var(--hero-image-container-height));
   margin: var(--spacing-00) var(--spacing-n20);
   padding-left: var(--spacing-55);
   padding-right: var(--spacing-55);
@@ -117,20 +117,19 @@ main > .section.navy-overlap.hero-container:not(.columns-container, .cards-conta
 
 .hero img {
   object-fit: cover;
+  object-position: var(--brand-hero-image-position, center center);
   width: 100%;
   height: auto;
   display: block;
-  border-top-left-radius: var(--border-top-left-radius);
-  max-height: var(--hero-image-container-height);
+  border-top-left-radius: var(--brand-hero-image-radius, var(--border-top-left-radius));
+  max-height: var(--brand-hero-height, var(--hero-image-container-height));
 }
 
-/* Text container — white overlap panel */
+/* Text container — overlap panel */
 .hero > div:nth-child(2) {
- /*  display: flex;
-  flex-direction: column; */
-  background-color: var(--background-color);
-  border-top-left-radius: var(--border-top-radius-medium);
-  margin: -5rem var(--spacing-20) var(--spacing-00);
+  background-color: var(--brand-hero-panel-bg, var(--background-color));
+  border-top-left-radius: var(--brand-hero-panel-radius, var(--border-top-radius-medium));
+  margin: var(--brand-hero-overlap, -5rem) var(--spacing-20) var(--spacing-00);
   position: relative;
   padding: var(--spacing-32) var(--spacing-20) var(--spacing-40);
   padding-bottom: var(--spacing-00);
@@ -142,8 +141,8 @@ main > .section.navy-overlap.hero-container:not(.columns-container, .cards-conta
   margin: 0 0 var(--spacing-16);
   font-size: var(--font-size-30);
   line-height: var(--line-height-34);
-  color: var(--text-color);
-  font-family: var(--heading-font-family-bold);
+  color: var(--brand-heading-color, var(--text-color));
+  font-family: var(--brand-heading-font-bold, var(--heading-font-family-bold));
 }
 
 /* Roboto Small (300 light) for all hero paragraphs */
@@ -159,29 +158,29 @@ main > .section.navy-overlap.hero-container:not(.columns-container, .cards-conta
 
 .hero a.button {
   background: none;
-  font-family: var(--roboto-bold-font-family);
+  font-family: var(--brand-cta-font, var(--roboto-bold-font-family));
   font-size: var(--font-size-14);
   font-style: normal;
-  font-weight: var(--font-weight-700);
-  letter-spacing: 0.06em;
+  font-weight: var(--brand-cta-weight, var(--font-weight-700));
+  letter-spacing: var(--brand-cta-letter-spacing, 0.06em);
   padding: var(--spacing-05) 0;
-  color: var(--highlight-dark-background-color);
+  color: var(--brand-cta-color, var(--highlight-dark-background-color));
   line-height: var(--line-height-20);
   text-decoration: none;
-  text-transform: uppercase;
+  text-transform: var(--brand-cta-transform, uppercase);
   margin: var(--spacing-16) 0 0;
   border: 0;
 }
 
 .hero a.button:hover {
-  color: var(--link-hover-color);
+  color: var(--brand-cta-hover, var(--link-hover-color));
   cursor: pointer;
   background: none;
 }
 
 @media (width >= 744px) {
   .hero > div:first-child {
-    min-height: var(--hero-image-container-height);
+    min-height: var(--brand-hero-height, var(--hero-image-container-height));
     width: 100%;
     margin: 0 auto;
     padding-left: var(--spacing-70);
@@ -194,13 +193,13 @@ main > .section.navy-overlap.hero-container:not(.columns-container, .cards-conta
     }
 
   .hero img {
-    border-top-left-radius: var(--spacing-64);
-    max-height: var(--hero-image-container-height);
+    border-top-left-radius: var(--brand-hero-image-radius, var(--spacing-64));
+    max-height: var(--brand-hero-height, var(--hero-image-container-height));
   }
 
   .hero > div:nth-child(2) {
-    border-top-left-radius: var(--spacing-40);
-    margin: var(--spacing-n64) var(--spacing-70) var(--spacing-00);
+    border-top-left-radius: var(--brand-hero-panel-radius, var(--spacing-40));
+    margin: var(--brand-hero-overlap, var(--spacing-n64)) var(--spacing-70) var(--spacing-00);
     padding: var(--spacing-56) var(--spacing-70) var(--spacing-00);
     max-width: calc(100vw - var(--spacing-140));
   }
@@ -215,7 +214,7 @@ main > .section.navy-overlap.hero-container:not(.columns-container, .cards-conta
 
 @media (width >= 1024px) {
     .hero > div:first-child {
-    min-height: var(--hero-image-container-height);
+    min-height: var(--brand-hero-height, var(--hero-image-container-height));
       margin: var(--spacing-00) auto;
       width: 100%;
       padding-left: var(--spacing-55);
@@ -228,13 +227,13 @@ main > .section.navy-overlap.hero-container:not(.columns-container, .cards-conta
     }
 
   .hero img {
-    border-top-left-radius: var(--spacing-80);
-    max-height: var(--hero-image-container-height);
+    border-top-left-radius: var(--brand-hero-image-radius, var(--spacing-80));
+    max-height: var(--brand-hero-height, var(--hero-image-container-height));
   }
 
   .hero > div:nth-child(2) {
-    border-top-left-radius: var(--spacing-40);
-    margin: var(--spacing-n112) auto var(--spacing-00);
+    border-top-left-radius: var(--brand-hero-panel-radius, var(--spacing-40));
+    margin: var(--brand-hero-overlap, var(--spacing-n112)) auto var(--spacing-00);
     padding: var(--spacing-80) var(--spacing-55) var(--spacing-00);
     max-width: 78%;
   }

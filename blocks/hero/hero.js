@@ -1,3 +1,14 @@
+/*
+ * Hero Block — Base decorator (shared across all brands)
+ *
+ * Brand-specific JS: placed in brands/{brand}/blocks/hero/hero.js
+ * The multi-theme.js loader automatically loads brand JS/CSS when
+ * brands/{brand}/blocks/hero/hero.js exists — no routing code needed here.
+ *
+ * Brand-specific CSS: tokens in brands/{brand}/tokens.css handle most styling.
+ * Block overrides in brands/{brand}/blocks/hero/hero.css for unique features.
+ */
+
 export default async function decorate(block) {
   const section = block.closest('.section');
 

@@ -1,0 +1,97 @@
+/*
+ * Rinvoq Brand Design Tokens
+ * Source: https://www.rinvoq.com/resources/save-on-rinvoq-costs
+ *
+ * Extracted from:
+ *   - /content/dam/rinvoq/css/rinvoq-utility-global.css (:root variables)
+ *   - /content/dam/rinvoq/css/rinvoq-global.css (heading fonts, sizes)
+ *   - /etc/clientlibs/common-elements/clientlibs/v1/css-clientlib-all.min.css
+ *
+ * These tokens override the project defaults in styles/styles.css.
+ * All blocks that use --brand-* tokens will automatically pick up
+ * Rinvoq styling without any per-block CSS changes.
+ */
+
+/* ==========================================================================
+   Colors
+   ========================================================================== */
+
+:root {
+  --brand-text-color: rgb(37 40 42);
+  --brand-heading-color: rgb(37 40 42);
+  --brand-bg-color: rgb(255 255 255);
+  --brand-accent-color: rgb(255 209 0);
+  --brand-accent-hover: rgb(255 210 6);
+
+  --brand-border-color: rgb(151 151 151);
+
+  --brand-surface-light: rgb(255 255 255);
+  --brand-surface-muted: rgb(245 245 245);
+
+  /* Rinvoq-specific extra tokens (available for block overrides) */
+  --rinvoq-navy: rgb(7 29 73);
+  --rinvoq-yellow: rgb(255 209 0);
+  --rinvoq-yellow-25: rgb(255 243 191);
+}
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+
+:root {
+  --brand-heading-font: "Neue Haas Grotesk Disp W0595Bl", arial, "Helvetica Neue", helvetica, sans-serif;
+  --brand-heading-font-bold: "Neue Haas Grotesk Disp W0595Bl", arial, "Helvetica Neue", helvetica, sans-serif;
+  --brand-heading-weight: var(--font-weight-400);
+  --brand-heading-weight-bold: var(--font-weight-400);
+
+  --brand-body-font: "Helvetica Neue LT W05_55 Roman", arial, "Helvetica Neue", helvetica, sans-serif;
+  --brand-body-bold: "Helvetica Neue LT W05_75 Bold", arial, "Helvetica Neue", helvetica, sans-serif;
+  --brand-body-weight: var(--font-weight-400);
+
+  --brand-ui-font: "Helvetica Neue LT W05_75 Bold", arial, "Helvetica Neue", helvetica, sans-serif;
+}
+
+/* ==========================================================================
+   Hero Block
+   ========================================================================== */
+
+:root {
+  --brand-hero-height: 210px;
+  --brand-hero-panel-bg: rgb(245 245 245);
+  --brand-hero-panel-radius: 0;
+  --brand-hero-image-radius: 0;
+  --brand-hero-image-position: center bottom;
+  --brand-hero-overlap: 0;
+
+  --brand-cta-color: rgb(255 209 0);
+  --brand-cta-font: "Neue Haas Grotesk Disp W0595Bl", arial, "Helvetica Neue", helvetica, sans-serif;
+  --brand-cta-weight: var(--font-weight-400);
+  --brand-cta-transform: none;
+  --brand-cta-letter-spacing: normal;
+  --brand-cta-hover: rgb(255 210 6);
+}
+
+@media (width >= 601px) {
+  :root {
+    --brand-hero-height: 275px;
+  }
+}
+
+@media (width >= 985px) {
+  :root {
+    --brand-hero-height: 460px;
+    --brand-hero-panel-bg: rgb(255 255 255);
+  }
+}
+
+/* ==========================================================================
+   Accordion Block
+   ========================================================================== */
+
+:root {
+  --brand-accordion-heading-font: "Helvetica Neue LT W05_75 Bold", arial, sans-serif;
+  --brand-accordion-heading-weight: var(--font-weight-700);
+  --brand-accordion-heading-weight-bold: var(--font-weight-700);
+  --brand-accordion-border-color: rgb(151 151 151);
+  --brand-accordion-expand-color: rgb(37 40 42);
+}

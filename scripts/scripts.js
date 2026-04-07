@@ -262,6 +262,14 @@ export function decorateMain(main) {
 async function loadEager(doc) {
   document.documentElement.lang = 'en';
   loadCSS(`${window.hlx.codeBasePath}/styles/section.css`);
+
+  // Load brand design tokens (colors, fonts, spacing) before any blocks render.
+  // The multi-theme.js block loader handles brand-specific block CSS/JS separately.
+  const brand = getMetadata('brand')?.trim().toLowerCase().replace(/[^a-z0-9-]/g, '');
+  if (brand) {
+    loadCSS(`${window.hlx.codeBasePath}/brands/${brand}/tokens.css`);
+  }
+
   decorateTemplateAndTheme();
   if (getMetadata('breadcrumbs').toLowerCase() === 'true') {
     doc.body.dataset.breadcrumbs = true;

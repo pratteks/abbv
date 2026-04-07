@@ -1,0 +1,107 @@
+/*
+ * Brand Design Tokens — Template
+ * Copy this file to brands/<your-brand>/tokens.css and fill in values.
+ *
+ * How it works:
+ *   1. scripts/scripts.js loads this file in loadEager() based on <meta name="brand">
+ *   2. Tokens override :root defaults from styles/styles.css
+ *   3. All blocks reference --brand-* tokens, falling back to project defaults
+ *   4. No per-block JS or CSS changes needed for most brands
+ *
+ * Token naming convention:
+ *   --brand-<category>-<property>
+ *   e.g. --brand-text-color, --brand-heading-font, --brand-hero-height
+ *
+ * For block-specific overrides that tokens alone can't handle,
+ * create brands/<your-brand>/blocks/<blockName>/<blockName>.css
+ * The multi-theme loader picks it up automatically.
+ */
+
+/* ==========================================================================
+   Colors
+   ========================================================================== */
+
+:root {
+  /* Primary palette */
+  --brand-text-color: var(--text-color);
+  --brand-heading-color: var(--text-color);
+  --brand-bg-color: var(--background-color);
+  --brand-accent-color: var(--highlight-dark-background-color);
+  --brand-accent-hover: var(--link-hover-color);
+
+  /* Borders */
+  --brand-border-color: var(--footer-seperator-color);
+
+  /* Surfaces */
+  --brand-surface-light: var(--background-color);
+  --brand-surface-muted: var(--bg-f8f8f8, #f8f8f8);
+}
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+
+:root {
+  --brand-heading-font: var(--heading-font-family);
+  --brand-heading-font-bold: var(--heading-font-family-bold);
+  --brand-heading-weight: var(--font-weight-650);
+  --brand-heading-weight-bold: var(--font-weight-800);
+
+  --brand-body-font: var(--body-font-family);
+  --brand-body-bold: var(--roboto-bold-font-family);
+  --brand-body-weight: var(--font-weight-400);
+
+  --brand-ui-font: var(--roboto-bold-font-family);
+}
+
+/* ==========================================================================
+   Hero Block
+   ========================================================================== */
+
+:root {
+  /* Heights (responsive — override per breakpoint below) */
+  --brand-hero-height: var(--hero-image-container-height);
+  --brand-hero-panel-bg: var(--background-color);
+  --brand-hero-panel-radius: var(--border-top-radius-medium);
+  --brand-hero-image-radius: var(--border-top-left-radius);
+  --brand-hero-image-position: center center;
+  --brand-hero-overlap: var(--spacing-n48);
+
+  /* CTA */
+  --brand-cta-color: var(--highlight-dark-background-color);
+  --brand-cta-font: var(--roboto-bold-font-family);
+  --brand-cta-weight: var(--font-weight-700);
+  --brand-cta-transform: uppercase;
+  --brand-cta-letter-spacing: 0.06em;
+  --brand-cta-hover: var(--link-hover-color);
+}
+
+/* Tablet */
+@media (width >= 744px) {
+  :root {
+    --brand-hero-height: var(--hero-image-container-height);
+    --brand-hero-panel-radius: var(--spacing-40);
+    --brand-hero-image-radius: var(--spacing-64);
+  }
+}
+
+/* Desktop */
+@media (width >= 1024px) {
+  :root {
+    --brand-hero-height: var(--hero-image-container-height);
+    --brand-hero-image-radius: var(--spacing-80);
+  }
+}
+
+/* ==========================================================================
+   Accordion Block
+   ========================================================================== */
+
+:root {
+  --brand-accordion-heading-font: var(--heading-font-family);
+  --brand-accordion-heading-weight: var(--font-weight-650);
+  --brand-accordion-heading-weight-bold: var(--font-weight-800);
+  --brand-accordion-border-color: var(--footer-seperator-color);
+  --brand-accordion-icon-font: var(--icon-font-family);
+  --brand-accordion-expand-color: var(--highlight-dark-background-color);
+}
