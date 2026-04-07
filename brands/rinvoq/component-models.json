@@ -1680,9 +1680,9 @@
       },
       {
         "component": "text",
-        "name": "classes_customClass",
+        "name": "classes_customClass2",
         "value": "",
-        "label": "Custom Class",
+        "label": "Custom Class 2",
         "valueType": "string"
       }
     ]
@@ -1740,10 +1740,7 @@
             {
               "var": "classes"
             },
-            [
-              "",
-              "language-links"
-            ]
+            ["", "language-links"]
           ]
         }
       },
@@ -1756,9 +1753,7 @@
             {
               "var": "classes"
             },
-            [
-              ""
-            ]
+            [""]
           ]
         }
       },
@@ -1772,9 +1767,7 @@
             {
               "var": "classes"
             },
-            [
-              "logo"
-            ]
+            ["logo"]
           ]
         }
       },
@@ -1788,9 +1781,7 @@
             {
               "var": "classes"
             },
-            [
-              "logo"
-            ]
+            ["logo"]
           ]
         }
       },
@@ -1803,9 +1794,7 @@
             {
               "var": "classes"
             },
-            [
-              "language-links"
-            ]
+            ["language-links"]
           ]
         }
       },
@@ -1819,9 +1808,7 @@
             {
               "var": "classes"
             },
-            [
-              "search"
-            ]
+            ["search"]
           ]
         }
       },
@@ -1834,9 +1821,7 @@
             {
               "var": "classes"
             },
-            [
-              "search"
-            ]
+            ["search"]
           ]
         }
       },
@@ -1849,9 +1834,7 @@
             {
               "var": "classes"
             },
-            [
-              ""
-            ]
+            [""]
           ]
         }
       },
@@ -1864,9 +1847,7 @@
             {
               "var": "classes"
             },
-            [
-              ""
-            ]
+            [""]
           ]
         }
       },
@@ -1879,9 +1860,7 @@
             {
               "var": "classes"
             },
-            [
-              ""
-            ]
+            [""]
           ]
         }
       },
@@ -1894,9 +1873,7 @@
             {
               "var": "classes"
             },
-            [
-              ""
-            ]
+            [""]
           ]
         }
       },
@@ -1909,9 +1886,7 @@
             {
               "var": "classes"
             },
-            [
-              ""
-            ]
+            [""]
           ]
         }
       },
@@ -1924,9 +1899,7 @@
             {
               "var": "classes"
             },
-            [
-              ""
-            ]
+            [""]
           ]
         }
       },
@@ -1939,9 +1912,7 @@
             {
               "var": "classes"
             },
-            [
-              ""
-            ]
+            [""]
           ]
         }
       },
@@ -1954,9 +1925,7 @@
             {
               "var": "classes"
             },
-            [
-              ""
-            ]
+            [""]
           ]
         }
       },
@@ -1969,9 +1938,7 @@
             {
               "var": "classes"
             },
-            [
-              ""
-            ]
+            [""]
           ]
         }
       },
@@ -1984,9 +1951,7 @@
             {
               "var": "classes"
             },
-            [
-              ""
-            ]
+            [""]
           ]
         }
       },
@@ -2000,9 +1965,7 @@
             {
               "var": "classes"
             },
-            [
-              ""
-            ]
+            [""]
           ]
         },
         "options": [
@@ -2086,9 +2049,7 @@
             {
               "var": "quoteType"
             },
-            [
-              "basic"
-            ]
+            ["basic"]
           ]
         }
       },
@@ -2104,9 +2065,7 @@
             {
               "var": "quoteType"
             },
-            [
-              "basic"
-            ]
+            ["basic"]
           ]
         }
       },
@@ -2122,9 +2081,7 @@
             {
               "var": "quoteType"
             },
-            [
-              "basic"
-            ]
+            ["basic"]
           ]
         }
       },
@@ -2140,9 +2097,7 @@
             {
               "var": "quoteType"
             },
-            [
-              "basic"
-            ]
+            ["basic"]
           ]
         }
       },
@@ -2157,9 +2112,7 @@
             {
               "var": "quoteType"
             },
-            [
-              "content-fragment"
-            ]
+            ["content-fragment"]
           ]
         }
       },
