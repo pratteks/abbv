@@ -48,16 +48,85 @@
         {
           "component": "reference",
           "valueType": "string",
-          "name": "placeholder_image",
+          "name": "placeholderImage",
           "label": "Placeholder Image",
           "multi": true
         },
         {
           "component": "text",
           "valueType": "string",
-          "name": "placeholder_imageAlt",
+          "name": "placeholderAlt",
           "value": "",
-          "label": "Placeholder Image Alt Text"
+          "label": "Placeholder Alt Text"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "overlayTitle",
+          "value": "",
+          "label": "Overlay Title"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "overlayDescription",
+          "value": "",
+          "label": "Overlay Description"
+        },
+        {
+          "name": "overlayBtnText",
+          "label": "Button Text (e.g. Watch 2:10)",
+          "component": "text"
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "classes_overlayColor",
+          "value": "video-overlay-navy",
+          "label": "Overlay Color",
+          "options": [
+            {
+              "name": "Navy Overlay",
+              "value": "video-overlay-navy"
+            },
+            {
+              "name": "Gray Overlay",
+              "value": "video-overlay-gray"
+            },
+            {
+              "name": "Purple Overlay",
+              "value": "video-overlay-purple"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "classes_overlayBtnStyle",
+          "value": "video-btn-outline",
+          "label": "Button Style",
+          "options": [
+            {
+              "name": "Outline",
+              "value": "video-btn-outline"
+            },
+            {
+              "name": "Solid",
+              "value": "video-btn-solid"
+            },
+            {
+              "name": "Ghost",
+              "value": "video-btn-ghost"
+            }
+          ]
+        },
+        {
+          "component": "tab",
+          "label": "Accessibility",
+          "name": "accessibility"
+        },
+        {
+          "...": "../../models/_language.json#/language-field"
         }
       ]
     }

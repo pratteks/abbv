@@ -1,3 +1,8 @@
+/* eslint-disable no-console */
+import { isUniversalEditor } from '../../scripts/utils.js';
+// eslint-disable-next-line import/no-named-as-default
+import IndexUtils from '../../scripts/index-utils.js';
+
 /**
  * Formats a URL segment into a human-readable title.
  * @param {string} segment - URL path segment
@@ -11,16 +16,75 @@ function formatSegment(segment) {
 }
 
 /**
+ * Fetches redirect data from the API.
+ * @async
+ * @function getRedirects
+ * @returns {Promise<Object>} Returns redirect JSON data
+ */
+async function getRedirects() {
+  let apiUrl = '/redirects.json';
+  if (isUniversalEditor()) {
+    // In Universal Editor, we need to use the current path + .resource/ + the index file
+    let currentPath = window.location.pathname;
+    // Strip .html extension if present
+    if (currentPath.endsWith('.html')) {
+      currentPath = currentPath.substring(0, currentPath.length - 5);
+    }
+    apiUrl = `${currentPath}.resource${apiUrl}`;
+  }
+
+  try {
+    const response = await fetch(apiUrl);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data.data;
+  } catch (error) {
+    console.error('Error fetching redirects:', error);
+    return null;
+  }
+}
+
+/**
+ * Finds the final page object using redirect and index data.
+ * - First checks if the path exists in redirects
+ * - If found, uses destination path
+ * - Then searches in index JSON for matching path
+ *
+ * @param {string} path - Current page path
+ * @param {Array<Object>} redirects - Redirect JSON data
+ * @param {Array<Object>} indexData - Index JSON data
+ * @returns {Object|null} Matched index object or null if not found
+ */
+function getPageData(path, redirects, indexData) {
+  // Step 1: Check if path exists in redirects
+  const redirectMatch = redirects.find((item) => item.source === path);
+
+  // Step 2: Use destination if redirect exists, else use original path
+  const finalPath = redirectMatch ? redirectMatch.destination : null;
+
+  // Step 3: Find matching object in index JSON
+  const pageData = indexData.find((item) => item.path === finalPath);
+
+  return pageData || [];
+}
+
+/**
  * Builds the breadcrumb trail as a <nav> element.
  * Dynamically resolves page titles from the AEM content hierarchy.
  * @param {Object} config - Breadcrumb configuration
+ * @param {Object} indexData - query index data
  * @returns {Promise<HTMLElement|null>} The breadcrumb nav element or null
  */
-export async function buildBreadcrumbTrail(config) {
+export async function buildBreadcrumbTrail(config, indexData, redirectData) {
   const {
     homePagePath,
     homeTitle,
     enableCurrentPage,
+    enableRedirectTitle,
   } = config;
 
   const currentPath = window.location.pathname
@@ -60,15 +124,22 @@ export async function buildBreadcrumbTrail(config) {
 
     const li = document.createElement('li');
     let title;
-
+    const matchedItem = Object.values(indexData).find((item) => item.path === itemPath);
+    const redirectMatchData = getPageData(itemPath, redirectData, indexData);
     // Use current document title for the last segment
     const isLast = i === totalSegments - 1;
     if (isLast && enableCurrentPage) {
-      title = document.title || formatSegment(segments[i]);
+      title = formatSegment(matchedItem?.navtitle || segments[i]);
+      if (enableRedirectTitle) {
+        title = formatSegment(redirectMatchData?.title || matchedItem?.navtitle || segments[i]);
+      }
       li.textContent = title;
       li.setAttribute('aria-current', 'page');
     } else {
-      title = formatSegment(segments[i]);
+      title = formatSegment(matchedItem?.navtitle || segments[i]);
+      if (enableRedirectTitle) {
+        title = formatSegment(redirectMatchData?.title || matchedItem?.navtitle || segments[i]);
+      }
       const a = document.createElement('a');
       a.href = itemPath;
       a.textContent = title;
@@ -164,7 +235,8 @@ function extractConfig(block) {
  */
 export default async function decorate(block) {
   const config = extractConfig(block);
-
+  const indexData = await IndexUtils.getIndexData(true);
+  const redirectData = await getRedirects();
   // Apply optional id and custom class
   if (config.id) block.id = config.id;
   if (config.customClass) {
@@ -180,8 +252,25 @@ export default async function decorate(block) {
     return;
   }
 
-  const breadcrumbNav = await buildBreadcrumbTrail(config);
+  const breadcrumbNav = await buildBreadcrumbTrail(config, indexData, redirectData);
   if (breadcrumbNav) {
+    // Get current page title for mobile dropdown button
+    const lastItem = breadcrumbNav.querySelector('ol li:last-child');
+    const currentTitle = lastItem?.textContent?.trim() || '';
+
+    // Mobile dropdown toggle button (hidden on tablet+)
+    const dropBtn = document.createElement('button');
+    dropBtn.className = 'breadcrumb-drop-title';
+    dropBtn.setAttribute('aria-label', `${currentTitle}, Breadcrumb`);
+    dropBtn.setAttribute('aria-expanded', 'false');
+    dropBtn.textContent = currentTitle;
+
+    dropBtn.addEventListener('click', () => {
+      const isOpen = block.classList.toggle('open-breadcrumb');
+      dropBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    block.append(dropBtn);
     block.append(breadcrumbNav);
   }
 }

@@ -171,7 +171,7 @@ async function getSecondCardData(url) {
   if (!url) return false;
 
   try {
-    const response = await fetchDashboardCardData(url);
+    const response = await fetchDashboardCardData(url, 'cfBaseUrl');
     return response?.data?.dashboardCardByPath?.item || { children: [] };
   } catch (error) {
     return { children: [] };
@@ -403,6 +403,7 @@ async function buildLevelTwoNavigations(block, languageLinkData, element) {
       button.addEventListener('click', () => {
         const isExpanded = button.getAttribute('aria-expanded') === 'true';
         button.setAttribute('aria-expanded', !isExpanded);
+        button.classList.toggle('active');
         menuItems.classList.toggle('show-child');
       });
       const goToPageLink = createElement('a', {

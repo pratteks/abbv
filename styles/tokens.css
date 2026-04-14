@@ -54,22 +54,22 @@
   --overlay-navy-light: rgb(7 29 73 / 50%);
 
   /* Background Colors for Style Field Values */
-  --bg-ffffff: #fff;
-  --bg-071d49: #071d49;
-  --bg-a6b5e0: #a6b5e0;
-  --bg-f1f3ff: #f1f3ff;
-  --bg-fafbff: #fafbff;
-  --bg-666b7a: #666b7a;
-  --bg-b9b4b4: #b9b4b4;
-  --bg-f4f4f4: #f4f4f4;
-  --bg-fafafa: #fafafa;
-  --bg-8a2ecc: #8a2ecc;
-  --bg-a86bde: #a86bde;
-  --bg-0066f5: #0066f5;
-  --bg-479ff8: #479ff8;
-  --bg-cf451c: #cf451c;
-  --bg-f7634f: #f7634f;
-  --bg-338700: #338700;
+  --color-white: #ffffff;
+  --color-navy-dark: #071d49;
+  --color-blue-light: #a6b5e0;
+  --color-blue-very-light: #f1f3ff;
+  --color-blue-ultra-light: #fafbff;
+  --color-gray-dark: #666b7a;
+  --color-gray-medium: #b9b4b4;
+  --color-gray-light: #f4f4f4;
+  --color-gray-extra-light: #fafafa;
+  --color-purple-primary: #8a2ecc;
+  --color-purple-light: #a86bde;
+  --color-blue-primary: #0066f5;
+  --color-blue-secondary: #479ff8;
+  --color-orange-dark: #cf451c;
+  --color-orange-light: #f7634f;
+  --color-green-primary: #338700;
 
   /* Alerts */
   --error-color: #cf451c;
@@ -90,6 +90,7 @@
   --body-font-size-m: 1.8rem;
   --body-font-size-s: 1.6rem;
   --body-font-size-xs: 1.4rem;
+  --font-size-10: 1rem;
   --font-size-11: 1.1rem;
   --font-size-12: 1.2rem;
   --font-size-13: 1.3rem;
@@ -110,6 +111,7 @@
   --font-size-40: 4rem;
   --font-size-42: 4.2rem;
   --font-size-50: 5rem;
+  --font-size-625: 6.25rem;
   --font-size-64: 6.4rem;
   --font-size-70: 7rem;
   --font-size-80: 8rem;
@@ -147,6 +149,7 @@
   --spacing-08: 0.8rem;
   --spacing-10: 1rem;
   --spacing-12: 1.2rem;
+  --spacing-14: 1.4rem;
   --spacing-15: 1.5rem;
   --spacing-16: 1.6rem;
   --spacing-17: 1.7rem;
@@ -265,6 +268,7 @@
   --gap-42: 4.2rem;
   --border-top-radius: 3.2rem;
   --hero-section-height: 12rem;
+  --hero-tall-image-container-height: 25.6rem;
 
   /* Generalized Line Heights */
   --line-height-16: 1.6rem;
@@ -281,6 +285,20 @@
   --line-height-44: 4.4rem;
   --line-height-46: 4.6rem;
   --line-height-68: 6.8rem;
+
+  /* Shared Motion, Surface, Border, Text, Elevation, Focus, Tracking */
+  --transition-duration-fast: 0.2s;
+  --transition-duration-medium: 0.3s;
+  --transition-easing-standard: ease;
+  --transition-easing-emphasized: ease-out;
+  --surface-background-default: var(--background-color);
+  --border-subtle: var(--separator-height-1) solid var(--container-border-color);
+  --text-subtle: var(--color-gray-dark);
+  --elevation-card: 0 var(--spacing-08) var(--spacing-20) rgb(7 29 73 / 10%);
+  --focus-ring-default: 0 0 0 var(--spacing-02) rgb(0 102 245 / 16%);
+  --motion-hover-scale: 1.02;
+  --tracking-wide-sm: 0.04em;
+  --tracking-wide-md: 0.06em;
 
   /* Hero Colors */
   --hero-overlay-gradient: linear-gradient(to top, rgb(0 0 0 / 90%) 42.91%, transparent);
@@ -326,6 +344,7 @@
   :root {
     --border-top-radius: 6.4rem;
     --hero-section-height: 26rem;
+    --hero-tall-image-container-height: 41.6rem;
   }
 }
 
@@ -333,5 +352,6 @@
   :root {
     --border-top-radius: 8rem;
     --hero-section-height: 28.8rem;
+    --hero-tall-image-container-height: 60.8rem;
   }
 }

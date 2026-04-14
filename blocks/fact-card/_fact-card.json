@@ -1,0 +1,105 @@
+{
+  "definitions": [
+    {
+      "title": "Fact Card",
+      "id": "fact-card",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Fact Card",
+              "model": "fact-card",
+              "language": "lang:none",
+              "blockId": "id:"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "fact-card",
+      "fields": [
+        {
+          "component": "tab",
+          "label": "Overview",
+          "name": "overview"
+        },
+        {
+          "component": "aem-content",
+          "valueType": "string",
+          "name": "contentFragment",
+          "label": "Content Fragment",
+          "description": "Select a content fragment to source data for the card (eyebrow, data point, suffix, description, image)."
+        },
+        {
+          "component": "boolean",
+          "name": "hideImage",
+          "label": "Hide Image",
+          "description": "Toggle to remove the image from the card layout.",
+          "value": false,
+          "valueType": "boolean"
+        },
+        {
+          "component": "select",
+          "name": "classes_cardColor",
+          "label": "Card Color",
+          "description": "Choose the background color for this card.",
+          "valueType": "string",
+          "value": "",
+          "options": [
+            { "name": "Default", "value": "" },
+            { "name": "Medium (Light Blue)", "value": "medium-theme" },
+            { "name": "Dark (Navy)", "value": "dark-theme" }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "imagePreset",
+          "label": "Image Preset",
+          "description": "Choose a predefined image rendition or crop configuration.",
+          "valueType": "string",
+          "value": "",
+          "options": [
+            { "name": "None", "value": "" },
+            { "name": "testImagePreset1", "value": "testImagePreset1" },
+            { "name": "testImagePreset2", "value": "testImagePreset2" }
+          ],
+          "condition": {
+            "===": [{ "var": "hideImage" }, false]
+          }
+        },
+        {
+          "component": "text",
+          "name": "imageModifiers",
+          "label": "Image Modifiers",
+          "description": "Apply additional transformation parameters (e.g., width, quality) supported by the image service.",
+          "value": "",
+          "valueType": "string",
+          "condition": {
+            "===": [{ "var": "hideImage" }, false]
+          }
+        },
+        {
+          "component": "tab",
+          "label": "Analytics",
+          "name": "analytics"
+        },
+        {
+          "component": "text",
+          "name": "analyticsInteractionId",
+          "label": "Analytics Interaction ID",
+          "description": "Identifier used for tracking interactions in analytics systems.",
+          "value": "",
+          "valueType": "string"
+        },
+        {
+           "...": "../../models/_common-properties.json#/common-prop"
+        }
+      ]
+    }
+  ],
+  "filters": []
+}

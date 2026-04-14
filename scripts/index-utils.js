@@ -6,11 +6,34 @@
 import { getConfigValue } from './config.js';
 import { isUniversalEditor } from './utils.js';
 
+function normalizeLookupPath(path) {
+  let normalized = `${path || ''}`.trim();
+  if (!normalized) return '';
+
+  try {
+    normalized = new URL(normalized, window.location.origin).pathname;
+  } catch {
+    // Fall back to the raw string when the path is not URL-like.
+  }
+
+  normalized = normalized.replace(/\/index\.html$/, '/');
+  normalized = normalized.replace(/\.html$/, '');
+
+  if (!normalized.startsWith('/')) normalized = `/${normalized}`;
+  normalized = normalized.replace(/\/{2,}/g, '/');
+
+  if (normalized !== '/' && normalized.endsWith('/')) {
+    normalized = normalized.slice(0, -1);
+  }
+
+  return normalized || '/';
+}
+
 class IndexUtils {
   constructor() {
     this.cacheKey = 'abbvie-index-data';
     this.apiUrl = '/query-index-en.json'; // Default URL
-    this.initialized = true;
+    this.initialized = false;
   }
 
   /**
@@ -21,6 +44,7 @@ class IndexUtils {
     if (!this.initialized) {
       try {
         const configIndexPath = await getConfigValue('indexFilePath');
+        const resolvedIndexPath = configIndexPath || this.apiUrl;
         if (configIndexPath) {
           this.apiUrl = configIndexPath;
         }
@@ -33,7 +57,7 @@ class IndexUtils {
           if (currentPath.endsWith('.html')) {
             currentPath = currentPath.substring(0, currentPath.length - 5);
           }
-          this.apiUrl = `${currentPath}.resource${configIndexPath}`;
+          this.apiUrl = `${currentPath}.resource${resolvedIndexPath}`;
         }
         this.initialized = true;
       } catch (error) {
@@ -47,7 +71,7 @@ class IndexUtils {
    * Get index data from cache or API
    * @returns {Promise<Object>} Hierarchical index structure
    */
-  async getIndexData() {
+  async getIndexData(isBreadcrumb) {
     try {
       // Ensure initialization is complete
       if (!this.initialized) {
@@ -56,7 +80,7 @@ class IndexUtils {
 
       // Check if cached data exists
       const cachedData = this.getCachedData();
-      if (cachedData) {
+      if (cachedData && !isBreadcrumb) {
         return cachedData;
       }
 
@@ -70,13 +94,22 @@ class IndexUtils {
       const data = await response.json();
 
       // Cache the raw API response for future use
-      sessionStorage.setItem(`${this.cacheKey}-raw`, JSON.stringify(data));
+      if (!isBreadcrumb) {
+        sessionStorage.setItem(`${this.cacheKey}-raw`, JSON.stringify(data));
+      }
 
       // Transform flat data into hierarchical structure
-      const indexTree = this.buildIndexTree(data.data);
+      let indexTree;
+      if (!isBreadcrumb) {
+        indexTree = this.buildIndexTree(data.data);
+      } else {
+        indexTree = data.data;
+      }
 
       // Cache the processed data
-      this.setCachedData(indexTree);
+      if (!isBreadcrumb) {
+        this.setCachedData(indexTree);
+      }
 
       return indexTree;
     } catch (error) {
@@ -138,7 +171,7 @@ class IndexUtils {
     // Filter out hidden pages and pages without titles
     const visiblePages = flatData.filter((page) => (
       page.hidefromnavigation !== 'true'
-      && page.title
+      && page.navtitle
       && page.path !== '/' // Exclude home page from index
     ));
 
@@ -155,13 +188,14 @@ class IndexUtils {
 
       const indexItem = {
         path: page.path,
-        title: (page.title || '').split('|')[0].trim(),
+        title: (page.navtitle || '').split('|')[0].trim(),
         description: page.description || '',
         level,
         segments: pathSegments,
         parent: level > 1 ? `/${pathSegments.slice(0, level - 1).join('/')}` : null,
         children: [],
       };
+      console.log('Processing page:', indexItem);
 
       if (level === 1) {
         indexLevels.level1.push(indexItem);
@@ -219,12 +253,15 @@ class IndexUtils {
    * @returns {Promise<Object|null>} Index item or null if not found
    */
   async findIndexItem(path) {
+    const lookupPath = normalizeLookupPath(path);
+    if (!lookupPath) return null;
+
     const indexData = await this.getIndexData();
 
     // Using recursive function with array methods instead of for...of loop
     const findInTree = (items) => {
       // First try to find direct match
-      const directMatch = items.find((item) => item.path === path);
+      const directMatch = items.find((item) => item.path === lookupPath);
       if (directMatch) {
         return directMatch;
       }
@@ -255,12 +292,15 @@ class IndexUtils {
    */
   async getPageProperties(path) {
     try {
+      const lookupPath = normalizeLookupPath(path);
+      if (!lookupPath) return null;
+
       // Try to find the raw data in sessionStorage first
       const rawData = sessionStorage.getItem(`${this.cacheKey}-raw`);
       if (rawData) {
         const parsedData = JSON.parse(rawData);
         if (parsedData && Array.isArray(parsedData.data)) {
-          const page = parsedData.data.find((item) => item.path === path);
+          const page = parsedData.data.find((item) => item.path === lookupPath);
           if (page) {
             return page;
           }
@@ -275,7 +315,7 @@ class IndexUtils {
       if (freshRawData) {
         const parsedData = JSON.parse(freshRawData);
         if (parsedData && Array.isArray(parsedData.data)) {
-          const page = parsedData.data.find((item) => item.path === path);
+          const page = parsedData.data.find((item) => item.path === lookupPath);
           return page || null;
         }
       }

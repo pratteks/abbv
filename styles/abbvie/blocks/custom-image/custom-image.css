@@ -1,0 +1,59 @@
+.block.custom-image {
+    position: relative;
+}
+
+.custom-image picture img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Caption: overlays on top of image by default */
+
+.custom-image figure {
+    position: relative;
+    margin: 0;
+}
+
+.custom-image figcaption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+/* Caption: positioned below the image */
+
+.custom-image figure.caption-below figcaption {
+    position: static;
+}
+
+/* Variant: circle — crops image into a perfect circle */
+
+.custom-image.circle picture img {
+    border-radius: 50%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+/* Variant: logo — constrains image to logo dimensions */
+
+.custom-image.logo picture img {
+    height: 1.6rem;
+    max-width: 8.8rem;
+    object-fit: cover;
+}
+
+@media (width >= 744px) {
+    .custom-image.logo picture img {
+        height: 1.4rem;
+        max-width: 8rem;
+    }
+}
+
+@media (width >= 1024px) {
+    .custom-image.logo picture img {
+        height: 2rem;
+        max-width: 11.2rem;
+    }
+}

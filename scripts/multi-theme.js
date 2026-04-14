@@ -1,6 +1,9 @@
 /* eslint-disable no-console */
 import {
-  sampleRUM, loadCSS, getMetadata, buildBlock, decorateBlock,
+  buildBlock, decorateBlock,
+  getMetadata,
+  loadCSS,
+  sampleRUM,
 } from './aem.js';
 
 export function getBrandCode() {
@@ -251,9 +254,9 @@ async function loadFooter(footer) {
 }
 
 export {
-  loadSections,
-  loadSection,
   loadBlock,
-  loadHeader,
   loadFooter,
+  loadHeader,
+  loadSection,
+  loadSections,
 };

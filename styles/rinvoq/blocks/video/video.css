@@ -1,0 +1,314 @@
+/*
+ * Video Block
+ */
+
+/* ── Block wrapper ───────────────────────────────────────────────────────── */
+
+.video.video-stage {
+  text-align: center;
+
+  /* max-width: var(--content-max-width-medium); */
+  margin: var(--spacing-24) auto;
+}
+
+.video.video-stage[data-embed-loaded='false']:not(.has-poster) {
+  aspect-ratio: 16 / 9;
+}
+
+.video.video-stage > div {
+  display: flex;
+  justify-content: center;
+}
+
+/* ── Shell ───────────────────────────────────────────────────────────────── */
+
+.video.video-stage .video-shell {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--color-navy-dark);
+}
+
+/* ── Media layer ─────────────────────────────────────────────────────────── */
+
+.video.video-stage .video-media,
+.video.video-stage .video-player-wrap {
+  position: absolute;
+  inset: var(--spacing-00);
+}
+
+.video.video-stage .video-media > * {
+  position: absolute;
+  inset: var(--spacing-00);
+}
+
+.video.video-stage .video-poster,
+.video.video-stage .video-poster img,
+.video.video-stage .video-iframe,
+.video.video-stage .video-native {
+  width: 100%;
+  height: 100%;
+}
+
+.video.video-stage .video-poster img,
+.video.video-stage .video-native {
+  object-fit: cover;
+}
+
+.video.video-stage[data-embed-loaded='true'] .video-poster {
+  opacity: var(--opacity-00);
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* ── Overlay ─────────────────────────────────────────────────────────────── */
+
+.video.video-stage .video-overlay {
+  position: absolute;
+  inset: var(--spacing-00);
+  z-index: var(--z-index-3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-24);
+  padding: var(--spacing-32) var(--spacing-24);
+  text-align: center;
+}
+
+/* Colour variants — EDS adds these classes directly on the block element
+   via classes_overlayColor. The overlay div reads them from block.classList
+   and applies them to itself in JS. */
+
+.video.video-stage .video-overlay.video-overlay-navy {
+  background: var(--overlay-navy);
+}
+
+.video.video-stage .video-overlay.video-overlay-gray {
+  background: var(--overlay-gray, rgb(80 80 80 / 68%));
+}
+
+.video.video-stage .video-overlay.video-overlay-purple {
+  background: var(--overlay-purple, rgb(138 46 204 / 66%));
+}
+
+/* ── Overlay title ───────────────────────────────────────────────────────── */
+
+p.video-overlay-title {
+  margin: var(--spacing-00);
+}
+
+.video.video-stage .video-overlay-title {
+    /* margin-bottom: var(--spacing-24); */
+    letter-spacing: var(--letter-spacing-tight);
+    color: var(--background-color);
+    font-weight: var(--font-weight-800);
+    font-family: var(--heading-font-family-bold);
+    font-size: var(--font-size-32);
+    line-height: var(--line-height-36);
+}
+
+.video.video-stage .video-overlay-description {
+  margin: var(--spacing-00);
+  color: var(--background-color);
+  font-size: var(--font-size-14);
+  line-height: var(--line-height-20);
+  font-family: var(--body-font-family);
+}
+
+@media (min-width: 744px) {
+  .video.video-stage .video-overlay-title {
+    font-size: var(--font-size-32);
+    line-height: var(--line-height-36);
+  }
+
+  .video.video-stage .video-overlay-description {
+    font-size: var(--font-size-18);
+    line-height: var(--line-height-24);
+  }
+
+}
+
+@media (min-width: 1024px) {
+  .video.video-stage .video-overlay-title {
+    font-size: var(--font-size-40);
+    line-height: var(--line-height-44);
+  }
+
+  .video.video-stage .video-overlay-description {
+    font-size: var(--font-size-20);
+    line-height: var(--line-height-24);
+  }
+}
+
+/* ── Controls wrapper ────────────────────────────────────────────────────── */
+
+.video.video-stage .video-controls {
+  display: flex;
+  justify-content: center;
+}
+
+/* ── Play button base ────────────────────────────────────────────────────── */
+
+.video.video-stage .video-play-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-12);
+  padding: var(--spacing-16) var(--spacing-40);
+  border-radius: var(--border-radius-00);
+  font-family: var(--roboto-bold-font-family);
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-700);
+  letter-spacing: var(--letter-spacing-wide-06);
+  line-height: var(--line-height-20);
+  text-transform: var(--font-uppercase);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.video.video-stage .video-play-btn:focus-visible {
+  outline: var(--border-02) solid var(--background-color);
+  outline-offset: var(--spacing-04);
+}
+
+.video.video-stage .video-play-btn:active {
+  transform: scale(0.97);
+}
+
+/* Play triangle icon */
+
+.video.video-stage .video-play-icon {
+  display: inline-block;
+  flex-shrink: var(--spacing-00);
+  width: var(--spacing-00);
+  height: var(--spacing-00);
+  border-top: var(--spacing-07) solid transparent;
+  border-bottom: var(--spacing-07) solid transparent;
+  border-left: var(--font-size-11) solid currentcolor;
+}
+
+.video.video-stage .video-play-label,
+.video.video-stage .video-play-time {
+  display: inline-block;
+  line-height: var(--line-height-20);
+  font-size: var(--font-size-14);
+  font-family: var(--roboto-bold-font-family);
+  letter-spacing: var(--letter-spacing-wide-08);
+}
+
+/* ── Outline variant ─────────────────────────────────────────────────────── */
+
+.video.video-stage .video-play-btn.video-btn-outline {
+  background-color: transparent;
+  border: var(--border-01) solid rgb(255 255 255 / 72%);
+  color: var(--background-color);
+  margin: var(--spacing-00);
+}
+
+.video.video-stage .video-play-btn.video-btn-outline:hover,
+.video.video-stage .video-play-btn.video-btn-outline:focus-visible {
+  background-color: var(--color-white);
+  border: var(--border-01) solid var(--background-color);
+  border-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* ── Solid variant ───────────────────────────────────────────────────────── */
+
+.video.video-stage .video-play-btn.video-btn-solid {
+  background-color: var(--background-color);
+  border: var(--border-01) solid var(--background-color);
+  color: var(--footer-text-color);
+  margin: var(--spacing-00);
+}
+
+.video.video-stage .video-play-btn.video-btn-solid:hover,
+.video.video-stage .video-play-btn.video-btn-solid:focus-visible {
+  background-color: rgb(255 255 255 / 55%);
+  border-color: rgb(255 255 255 / 55%);
+  color: var(--footer-text-color);
+  
+}
+
+/* ── Ghost variant ───────────────────────────────────────────────────────── */
+
+.video.video-stage .video-play-btn.video-btn-ghost {
+  background-color: rgb(255 255 255 / 8%);
+  border: var(--border-01) solid rgb(255 255 255 / 35%);
+  color: var(--background-color);
+  backdrop-filter: blur(var(--spacing-02));
+  margin: var(--spacing-00);
+
+  /* -webkit-backdrop-filter: blur(var(--spacing-02)); */
+}
+
+.video.video-stage .video-play-btn.video-btn-ghost:hover,
+.video.video-stage .video-play-btn.video-btn-ghost:focus-visible {
+  background-color: rgb(255 255 255 / 18%);
+  border-color: rgb(255 255 255 / 55%);
+  color: var(--background-color);
+}
+
+/* ── Fallback minimal play button ────────────────────────────────────────── */
+
+.video.video-stage .video-fallback-play {
+  position: absolute;
+  inset: var(--spacing-00);
+  z-index: var(--z-index-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video.video-stage .video-fallback-play button {
+  position: relative;
+  display: block;
+  width: var(--spacing-44);
+  height: var(--spacing-44);
+  margin: var(--spacing-00);
+  padding: var(--spacing-00);
+  background: transparent;
+  border-radius: var(--border-radius-l);
+  outline: var(--border-02) solid var(--background-color);
+  cursor: pointer;
+}
+
+.video.video-stage .video-fallback-play button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: calc(50% + var(--spacing-02));
+  width: var(--spacing-00);
+  height: var(--spacing-24);
+  box-sizing: border-box;
+  border-top: var(--spacing-12) solid transparent;
+  border-bottom: var(--spacing-12) solid transparent;
+  border-left: var(--spacing-18) solid var(--background-color);
+  transform: translate(-50%, -50%);
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+
+@media (min-width: 744px) {
+  .video.video-stage .video-overlay {
+    padding-right: var(--spacing-40);
+    padding-left: var(--spacing-40);
+    gap: var(--spacing-16);
+  }
+
+}
+
+@media (min-width: 1024px) {
+  .video.video-stage {
+    margin: var(--spacing-32) auto;
+  }
+
+  .video.video-stage .video-overlay {
+    gap: var(--spacing-24);
+  }
+
+}

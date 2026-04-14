@@ -1,0 +1,42 @@
+{
+  "variantName": "story-cards",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-03-02T07:21:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.abbvie.com/science/our-people/our-rd-leaders.html",
+    "originPage": "R&D Leaders listing page",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "team-leadership",
+    "imagePattern": "portrait",
+    "structure": "image + heading + description + CTA link"
+  },
+  "contentPattern": {
+    "structure": "image + heading + description + CTA link",
+    "buttonCount": 0,
+    "imageCount": 1,
+    "ctaCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "leadership team pages",
+      "team member directories",
+      "people listing pages",
+      "staff profiles grid"
+    ],
+    "notSuitableFor": [
+      "product feature cards",
+      "article listing cards",
+      "icon-based cards without photos"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/science/our-people/our-rd-leaders"],
+    "reuseCount": 1,
+    "lastUsed": "2026-03-02T07:21:00.000Z"
+  }
+}

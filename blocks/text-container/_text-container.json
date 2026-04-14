@@ -11,7 +11,8 @@
               "name": "Text Container",
               "model": "text-container",
               "filter": "text-container",
-              "language": "lang:none"
+              "language": "lang:none",
+              "blockId": "id:"
             }
           }
         }
@@ -127,19 +128,7 @@
           ]
         },
         {
-          "component": "text",
-          "name": "classes_customClass",
-          "value": "",
-          "label": "Custom Class",
-          "valueType": "string"
-        },
-        {
-          "component": "tab",
-          "label": "Accessibility",
-          "name": "accessibility"
-        },
-        {
-          "...": "../../models/_language.json#/language-field"
+          "...": "../../models/_common-properties.json#/common-prop"
         }
       ]
     },

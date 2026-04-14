@@ -1,38 +1,161 @@
-
 /* Quote Block — matches live AbbVie quote component */
+
+/* =====================================================
+   Custom properties — desktop grid defaults
+   ===================================================== */
 .quote-wrapper {
   margin-left: var(--spacing-15);
   margin-right: var(--spacing-15);
 }
 
+.quote {
+  --quote-content-span-desktop: 6;
+  --quote-col-start-desktop: 1;
+}
+
+/* =====================================================
+   Desktop column span overrides
+   (variables are ignored below 1024px — no grid active)
+   ===================================================== */
+.quote.quote-content-col-1  { --quote-content-span-desktop: 1; }
+.quote.quote-content-col-3  { --quote-content-span-desktop: 3; }
+.quote.quote-content-col-6  { --quote-content-span-desktop: 6; }
+.quote.quote-content-col-9  { --quote-content-span-desktop: 9; }
+.quote.quote-content-col-12 { --quote-content-span-desktop: 12; }
+
+/* =====================================================
+   Desktop alignment
+   Left: starts at col 2 | Center: (12-span)/2+1 for default span 6 = col 4
+   Right: handled via grid-column span from end (see desktop media query)
+   ===================================================== */
+.quote.quote-align-left   { --quote-col-start-desktop: 2; }
+.quote.quote-align-center { --quote-col-start-desktop: 4; }
+
+/* =====================================================
+   Inner container — plain block on mobile/tablet
+   ===================================================== */
+.quote-innercontainer {
+  display: block;
+}
+
+/* =====================================================
+   Blockquote — base (mobile + tablet: full width)
+   ===================================================== */
 .quote blockquote {
   margin: 0;
   padding: var(--spacing-35);
+  padding-top: var(--spacing-55);
   max-width: 100%;
+  width: 100%;
   position: relative;
   z-index: var(--z-index-1);
   margin-bottom: var(--spacing-80);
-  grid-column: 1 / span 6;
-  padding-top: var(--spacing-55);
+}
+
+/* =====================================================
+   Quote icon
+   ===================================================== */
+.quote blockquote::before {
+  content: '\e909';
+  font-family: var(--icon-font-family);
+  font-size: var(--font-size-33);
+  line-height: 1;
+  color: var(--highlight-dark-background-color);
+  display: block;
+  padding-left: var(--spacing-06);
+}
+
+/* =====================================================
+   Quote text
+   ===================================================== */
+.quote blockquote .quote-quotation {
+  font-family: var(--heading-font-family);
+  font-weight: var(--font-weight-650);
+  line-height: var(--line-height-32);
+  color: var(--text-color);
+  padding-top: var(--spacing-44);
+}
+
+.quote blockquote .quote-quotation p,
+.quote blockquote.quote-fragment {
+  font-size: var(--font-size-20);
+  line-height: var(--line-height-24);
+}
+
+/* =====================================================
+   Attribution
+   ===================================================== */
+.quote blockquote .quote-attribution {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-16);
+  text-align: left;
+  margin-top: var(--spacing-40);
+}
+
+.quote .quote-attribution-image {
+  flex-shrink: 0;
+  width: var(--spacing-56);
+  height: var(--spacing-56);
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.quote .quote-attribution-image picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.quote .quote-attribution-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.quote .quote-attribution-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.quote .quote-attribution-name {
+  font-family: var(--roboto-bold-font-family);
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-700);
+  line-height: var(--line-height-20);
+  color: var(--text-color);
+  margin: var(--spacing-00);
+}
+
+.quote .quote-attribution-title {
+  font-family: var(--body-font-family);
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-400);
+  font-style: normal;
+  line-height: var(--line-height-20);
+  color: var(--text-color);
+  margin: var(--spacing-00);
+}
+
+/* =====================================================
+   Content Fragment mode
+   ===================================================== */
+.quote blockquote.quote-fragment {
+  font-family: var(--heading-font-family);
+  font-size: var(--font-size-24);
+  font-weight: var(--font-weight-650);
+  line-height: var(--line-height-32);
+  color: var(--text-color);
+}
+
+.quote blockquote.quote-fragment p {
+  margin: var(--spacing-00);
 }
 
 /* =====================================================
    Background image — optional, covers entire block
    ===================================================== */
-
-/* Section override: remove padding so bg image spans edge-to-edge */
-main>.section.quote-container:has(.quote.quote-has-background) {
-  padding: var(--spacing-00);
-  max-width: var(--content-max-width-wide);
-  margin: auto;
-  background-color: var(--highlight-background-color);
-}
-
-main > .section.quote-container:has(.quote.quote-has-background) .quote-wrapper {
-  max-width: unset;
-  padding: var(--spacing-00);
-}
-
 .quote.quote-has-background {
   position: relative;
   overflow: hidden;
@@ -63,132 +186,36 @@ main > .section.quote-container:has(.quote.quote-has-background) .quote-wrapper 
   object-fit: cover;
   object-position: center;
   pointer-events: none;
-  position: absolute; 
+  position: absolute;
   z-index: var(--z-index-negative);
   border-top-left-radius: var(--spacing-32);
 }
 
-/* Quote icon — blue open quote mark */
-.quote blockquote::before {
-  content: '\e909';
-  font-family: var(--icon-font-family);
-  font-size: var(--font-size-33);
-  line-height: 1;
-  color: var(--highlight-dark-background-color);
-  display: block;
-  padding-left: var(--spacing-06);
-}
-
-/* --- Quote text --- */
-.quote blockquote .quote-quotation {
-  font-family: var(--heading-font-family);
-  font-size: var(--font-size-24);
-  font-weight: var(--font-weight-650);
-  line-height: var(--line-height-32);
-  color: var(--text-color);
-  padding-top: var(--spacing-44);
-}
-
-.quote blockquote .quote-quotation p {
-  font-size: var(--font-size-20);
-  line-height: var(--line-height-24);
-}
-
-/* --- Attribution container --- */
-.quote blockquote .quote-attribution {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-16);
-  text-align: left;
-  margin-top: var(--spacing-40);
-}
-
-/* --- Attribution image (circular avatar) --- */
-.quote .quote-attribution-image {
-  flex-shrink: 0;
-  width: var(--spacing-56);
-  height: var(--spacing-56);
-  border-radius: 50%;
-  overflow: hidden;
-}
-
-.quote .quote-attribution-image picture {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.quote .quote-attribution-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* --- Attribution text wrapper --- */
-.quote .quote-attribution-text {
-  display: flex;
-  flex-direction: column;
-}
-
-/* --- Attribution name --- */
-.quote .quote-attribution-name {
-  font-family: var(--roboto-bold-font-family);
-  font-size: var(--font-size-16);
-  font-weight: var(--font-weight-700);
-  line-height: var(--line-height-20);
-  color: var(--text-color);
-  margin: var(--spacing-00);
-}
-
-/* --- Attribution title --- */
-.quote .quote-attribution-title {
-  font-family: var(--body-font-family);
-  font-size: var(--font-size-16);
-  font-weight: var(--font-weight-400);
-  font-style: normal;
-  line-height: var(--line-height-20);
-  color: var(--text-color);
-  margin: var(--spacing-00);
-}
-
-/* --- Content Fragment mode --- */
-.quote blockquote.quote-fragment {
-  font-family: var(--heading-font-family);
-  font-size: var(--font-size-24);
-  font-weight: var(--font-weight-650);
-  line-height: var(--line-height-32);
-  color: var(--text-color);
-}
-
-.quote blockquote.quote-fragment p {
-  margin: var(--spacing-00);
-}
-
-.quote-innercontainer {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: var(--gap-20);
-  }
-
 /* =====================================================
    Dark theme — white text on dark/image backgrounds
-   Applied when quote is inside a dark section
    ===================================================== */
-
-.dark .quote blockquote .quote-quotation,
+.dark .quote .quote-quotation,
 .dark .quote .quote-attribution-name,
 .dark .quote .quote-attribution-title,
-.dark .quote blockquote.quote-fragment {
+.dark .quote .quote-fragment {
   color: var(--background-color);
 }
 
-/* --- Responsive: Tablet (744px+) --- */
-@media (width >= 744px) {
-  .quote-wrapper {
-  margin-left: var(--spacing-00);
-  margin-right: var(--spacing-00);
+.quote.quote-dark  .quote-quotation,
+.quote.quote-dark .quote-attribution-name,
+.quote.quote-dark .quote-attribution-title,
+.quote.quote-dark .quote-fragment {
+  color: var(--light-color);
 }
+
+/* =====================================================
+   Tablet (744px+) — still full width, no grid
+   ===================================================== */
+@media (--bp-tablet) {
+  .quote-wrapper {
+    margin-left: var(--spacing-00);
+    margin-right: var(--spacing-00);
+  }
 
   .quote blockquote .quote-quotation p,
   .quote blockquote.quote-fragment {
@@ -201,17 +228,24 @@ main > .section.quote-container:has(.quote.quote-has-background) .quote-wrapper 
     height: var(--spacing-64);
   }
 
+  .quote .quote-attribution-name {    
+    line-height: var(--line-height-22);
+  }
+
+  .quote .quote-attribution-title { 
+  font-size: var(--font-size-14);
+  }
+
   .quote .quote-background-image picture::before,
-.quote .quote-background-image img::before {
-  border-top-left-radius: var(--spacing-64);
-}
+  .quote .quote-background-image img::before {
+    border-top-left-radius: var(--spacing-64);
+  }
 
   .quote .quote-background-image picture,
-.quote .quote-background-image img {
-  border-top-left-radius: var(--spacing-64);
-}
+  .quote .quote-background-image img {
+    border-top-left-radius: var(--spacing-64);
+  }
 
-  /* Background image layout: content on right half */
   .quote.quote-has-background {
     min-height: var(--spacing-400);
     display: flex;
@@ -219,35 +253,43 @@ main > .section.quote-container:has(.quote.quote-has-background) .quote-wrapper 
     justify-content: flex-end;
   }
 
-  .quote-innercontainer {
-    grid-template-columns: repeat(8, 1fr);
-    margin-bottom: var(--spacing-80);
-  }
-
   .quote.quote-has-background blockquote {
     padding: var(--spacing-56) var(--spacing-70) var(--spacing-00);
-    grid-column: auto / span 6;
     padding-top: var(--spacing-81);
     padding-right: var(--spacing-46);
   }
-
-  .quote .quote-attribution-name {
-  font-size: var(--font-size-18);
-  line-height: var(--line-height-24);
-}
 }
 
-/* --- Responsive: Desktop (1024px+) --- */
-@media (width >= 1024px) {
-  .quote blockquote::before {    
-    height: var(--spacing-36);   
+/* =====================================================
+   Desktop (1024px+) — 12-column grid layout active
+   ===================================================== */
+@media (--bp-desktop) {
+  .quote-innercontainer {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--gap-20);
+    margin-bottom: var(--spacing-18);
+  }
+
+  /* Grid placement — left/center use col-start variable, right anchors to end */
+  .quote blockquote {
+    width: auto;
+    grid-column: var(--quote-col-start-desktop) / span var(--quote-content-span-desktop);
+  }
+
+  .quote.quote-align-right blockquote {
+    grid-column: span var(--quote-content-span-desktop) / -1;
+  }
+
+  .quote blockquote::before {
+    height: var(--spacing-36);
   }
 
   .quote blockquote .quote-quotation p,
   .quote blockquote.quote-fragment {
     font-size: var(--font-size-32);
     line-height: var(--line-height-36);
-    font-weight: var(--font-weight-650);   
+    font-weight: var(--font-weight-650);
   }
 
   .quote .quote-attribution-image {
@@ -256,34 +298,30 @@ main > .section.quote-container:has(.quote.quote-has-background) .quote-wrapper 
   }
 
   .quote .quote-background-image picture::before,
-.quote .quote-background-image img::before {
-  border-top-left-radius: var(--spacing-80);
-}
+  .quote .quote-background-image img::before {
+    border-top-left-radius: var(--spacing-80);
+  }
 
-.quote .quote-background-image picture,
-.quote .quote-background-image img {
-  border-top-left-radius: var(--spacing-80);
-}
+  .quote .quote-background-image picture,
+  .quote .quote-background-image img {
+    border-top-left-radius: var(--spacing-80);
+  }
+
+  .quote .quote-attribution-name {    
+    font-size: var(--font-size-18);
+    font-weight: var(--font-weight-700);
+    line-height: var(--line-height-24);
+  }
+
+  .quote .quote-attribution-title { 
+  font-size: var(--font-size-16);
+  }
 
   .quote.quote-has-background {
     min-height: var(--spacing-480);
   }
 
-  .quote-innercontainer {
-    grid-template-columns: repeat(12, 1fr);
-    margin-bottom: var(--spacing-18);
-  }
-
   .quote.quote-has-background blockquote {
     padding: var(--spacing-80) var(--spacing-60) var(--spacing-64) var(--spacing-00);
-    grid-column: 7 / span 6;
   }
-}
-
-/* dark theme  styles */
-.quote.quote-dark blockquote .quote-quotation,
-.quote.quote-dark .quote-attribution-name,
-.quote.quote-dark .quote-attribution-title,
-.quote.quote-dark blockquote.quote-fragment {
-  color: var(--light-color);
 }

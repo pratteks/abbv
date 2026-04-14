@@ -7,8 +7,9 @@
  *   Row 2: description (<p>text</p>)
  *   Row 3: buttonText (<p>text</p>)
  *   Row 4: buttonURL (<p><a href="...">url</a></p> or <p>url</p>)
- *   Row 5: clickType (<p>_self|_blank</p>)
- *   Row 6: ariaLabel (<p>text</p>)
+ *   Row 5: buttonType (<p>primary|secondary|link-external</p>)
+ *   Row 6: clickType (<p>_self|_blank</p>)
+ *   Row 7: ariaLabel (<p>text</p>)
  *
  * Decorated structure:
  *   .teaser
@@ -29,6 +30,8 @@ export default function decorate(block) {
   if (eyebrowText) {
     const eyebrowDiv = document.createElement('div');
     eyebrowDiv.classList.add('teaser-eyebrow');
+    eyebrowDiv.setAttribute('role', 'heading');
+    eyebrowDiv.setAttribute('aria-level', '2');
     eyebrowDiv.textContent = eyebrowText;
     block.insertBefore(eyebrowDiv, rows[0]);
   }
@@ -38,20 +41,16 @@ export default function decorate(block) {
   const buttonText = rows[3]?.textContent?.trim() || '';
   const buttonURLEl = rows[4]?.querySelector('a');
   const buttonURL = buttonURLEl?.href || rows[4]?.textContent?.trim() || '';
-  const clickType = rows[5]?.textContent?.trim() || '_self';
-  const ariaLabel = rows[6]?.textContent?.trim() || '';
+  const buttonType = rows[5]?.textContent?.trim() || '';
+  const clickType = rows[6]?.textContent?.trim() || '_self';
+  const ariaLabel = rows[7]?.textContent?.trim() || '';
 
   // Remove extra rows from DOM (reverse order to preserve indices)
+  if (rows[7]) rows[7].remove();
   if (rows[6]) rows[6].remove();
   if (rows[5]) rows[5].remove();
   if (rows[4]) rows[4].remove();
   if (rows[3]) rows[3].remove();
-
-  // Apply aria-label to the block for accessibility
-  if (ariaLabel) {
-    block.setAttribute('role', 'region');
-    block.setAttribute('aria-label', ariaLabel);
-  }
 
   // Wrap title (row 1) and description (row 2) in a flex container
   const contentDiv = document.createElement('div');
@@ -60,12 +59,22 @@ export default function decorate(block) {
   rows[1].classList.add('teaser-left');
   rows[2].classList.add('teaser-right');
 
-  const heading = rows[1].querySelector('h2, h3, h4');
-  if (heading) heading.classList.add('teaser-title');
+  const heading = rows[1].querySelector('h1, h2, h3, h4, p');
+  if (heading) {
+    heading.classList.add('teaser-title');
+    heading.setAttribute('role', 'heading');
+    heading.setAttribute('aria-level', '3');
+  }
 
   rows[2].querySelectorAll('p').forEach((p) => {
     p.classList.add('teaser-description');
   });
+
+  // Apply aria-label to the block for accessibility
+  if (ariaLabel) {
+    block.setAttribute('role', 'region');
+    block.setAttribute('aria-labelledby', eyebrowText);
+  }
 
   // Add button to the description column if button text and URL exist
   if (buttonText && buttonURL) {
@@ -76,7 +85,9 @@ export default function decorate(block) {
     link.textContent = buttonText;
     link.target = clickType;
     link.classList.add('button');
-    if (clickType === '_blank') {
+    link.setAttribute('aria-label', ariaLabel);
+    if (buttonType) link.classList.add(buttonType);
+    if (clickType === '_blank' || buttonType === 'link-external') {
       link.rel = 'noopener noreferrer';
     }
     buttonP.appendChild(link);

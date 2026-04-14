@@ -1,8 +1,7 @@
-main > .section.embed-container {
+.section.embed-container {
+  margin: auto;
   max-width: var(--content-max-width-wide);
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: var(--spacing-56);
+  margin-bottom: 5.6rem;
   padding-top: var(--spacing-56);
 }
 
@@ -127,19 +126,28 @@ main > .section.embed-container {
 .embed .embed-placeholder-watch {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-08);
-  padding: var(--spacing-16) var(--spacing-40);
+  padding: var(--spacing-12) var(--spacing-32);
   border: 1px solid var(--background-color);
   background: transparent;
   color: var(--background-color);
   font-family: var(--roboto-bold-font-family);
-  font-size: var(--font-size-14);
+  font-size: var(--font-size-16);
   font-weight: var(--font-weight-700);
   letter-spacing: var(--letter-spacing-wide-06);
   text-transform: uppercase;
   cursor: pointer;
   white-space: nowrap;
   border-radius: var(--spacing-00);
+}
+
+.embed .embed-placeholder-watch::before {
+  color: inherit;
+  content: "";
+  font-family: var(--icon-font-family);
+  margin-left: var(--spacing-03);
+  margin-right: var(--spacing-12);
+  transform: scale(.8);
+  transition: color .1s ease;
 }
 
 .embed .embed-placeholder-watch:hover {
@@ -153,7 +161,7 @@ main > .section.embed-container {
 
 /* Play icon triangle — matches columns-video-play-icon */
 .embed .embed-placeholder-watch-icon {
-  display: inline-block;
+  display: none;
   width: var(--spacing-00);
   height: var(--spacing-00);
   border-style: solid;
@@ -161,11 +169,9 @@ main > .section.embed-container {
   border-color: transparent transparent transparent var(--background-color);
 }
 
-@media (--bp-tablet) {
-  main > .section.embed-container {
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: calc(var(--spacing-74) + var(--spacing-02));
+@media (width >= 744px) {
+  .section.embed-container {
+  margin-bottom: 7.6rem;
 }
 
   .embed .embed-placeholder-title {
@@ -177,16 +183,25 @@ main > .section.embed-container {
     display: block;
     font-size: var(--font-size-18);
     line-height: var(--line-height-24);
-    margin-bottom: var(--spacing-00);
+    margin-bottom: var(--spacing-18);
   }
 
   .embed .embed-placeholder-overlay {
     width: 80%;
     left: 10%;
   }
+
+  .embed .embed-placeholder-watch {
+    padding: var(--spacing-12) var(--spacing-32);
+    font-size: var(--font-size-14);
+  }
 }
 
 @media (width >= 1024px) {
+  .section.embed-container {
+    margin-bottom: var(--spacing-56);
+  }
+
   .embed .embed-placeholder-title {
     font-size: var(--font-size-40);
     line-height: var(--line-height-44);
@@ -201,6 +216,11 @@ main > .section.embed-container {
   .embed .embed-placeholder-overlay {
     width: 60%;
     left: 20%;
+  }
+
+  .embed .embed-placeholder-watch {
+    padding: var(--spacing-16) var(--spacing-40);
+    font-size: var(--font-size-14);
   }
 }
 

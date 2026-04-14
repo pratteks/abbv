@@ -1,154 +1,465 @@
+/* ================================================================
+   Story Card — Mobile-first responsive styles (AbbVie brand)
+   Specificity: max 3 levels (e.g. .story-card .story-card-title)
+   Variants: card-info (default), story-card-info, is-leader-card, large-title
+   ================================================================ */
+
+/* ================================================================
+   Token Fallbacks (when tokens.css is not loaded globally)
+   ================================================================ */
+.story-card {
+  --surface-background-default: var(--background-color, rgb(255 255 255));
+  --border-subtle: var(--separator-height-1, 0.1rem) solid var(--container-border-color, rgb(166 181 224));
+  --transition-duration-fast: 0.2s;
+  --transition-duration-medium: 0.3s;
+  --transition-easing-standard: ease;
+  --transition-easing-emphasized: ease-out;
+  --tracking-wide-sm: 0.04em;
+  --tracking-wide-md: 0.06em;
+  --elevation-card: 0 var(--spacing-08, 0.8rem) var(--spacing-20, 2rem) rgb(7 29 73 / 10%);
+  --focus-ring-default: 0 0 0 var(--spacing-02, 0.2rem) rgb(0 102 245 / 16%);
+  --motion-hover-scale: 1.02;
+  --text-subtle: var(--bg-666b7a, rgb(102 107 122));
+
+  /* Story card design tokens */
+  --story-card-image-ratio: 16 / 9;
+  --story-card-image-ratio-square: 1 / 1;
+  --story-card-image-ratio-portrait: 4 / 5;
+  --story-card-image-ratio-wide: 21 / 9;
+  --story-card-image-ratio-large-title: 2 / 1;
+  --story-card-placeholder-min-height: var(--spacing-120);
+  --story-card-placeholder-min-height-tablet: var(--spacing-140);
+  --story-card-eyebrow-margin-bottom: var(--spacing-38);
+  --story-card-read-time-icon: '\e904';
+  --story-card-read-time-icon-line-height: 1;
+  --story-card-title-font-weight: var(--font-weight-650);
+  --story-card-description-font-weight: var(--font-weight-400);
+  --story-card-cta-font-weight: var(--font-weight-700);
+  --story-card-cta-arrow-size: calc(7 * var(--px-to-rem));
+  --story-card-cta-arrow-stroke-width: var(--spacing-02);
+  --story-card-content-min-height-tablet: calc(254 * var(--px-to-rem));
+  --story-card-content-min-height-desktop: calc(270 * var(--px-to-rem));
+  --story-card-large-title-height: calc(73 * var(--px-to-rem));
+}
+
+/* ================================================================
+   Panel
+   ================================================================ */
+.story-card .story-card-panel {
+  background-color: transparent;
+  border: none;
+  overflow: hidden;
+  transition: all 0.3s ease-out;
+}
+
+/* ================================================================
+   Link (column-reverse on mobile/tablet, row-reverse on desktop)
+   ================================================================ */
+.story-card .story-card-link {
+  color: inherit;
+  display: flex;
+  flex-direction: column-reverse;
+  text-decoration: none;
+}
+
+/* ================================================================
+   Placeholder (author-mode)
+   ================================================================ */
+.story-card .story-card-placeholder {
+  background-color: var(--surface-background-default);
+  border: var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-08);
+  justify-content: center;
+  min-height: var(--story-card-placeholder-min-height);
+  padding: var(--spacing-24);
+}
+
+.story-card .story-card-placeholder-title {
+  color: var(--story-card-link-color);
+  font-family: var(--roboto-bold-font-family);
+  font-size: var(--font-size-12);
+  letter-spacing: var(--tracking-wide-sm);
+  line-height: var(--line-height-16);
+  margin: 0;
+  text-transform: var(--font-uppercase);
+}
+
+.story-card .story-card-placeholder-text {
+  color: var(--story-card-text-color);
+  font-family: var(--roboto-regular-font-family);
+  font-size: var(--font-size-16);
+  line-height: var(--line-height-22);
+  margin: 0;
+}
+
+/* ================================================================
+   Image
+   ================================================================ */
+.story-card .story-card-image {
+  align-items: center;
+  border-radius: 4rem 0 0;
+  display: flex;
+  flex: 1 1 0%;
+  justify-content: center;
+  margin-left: var(--spacing-35, 3.5rem);
+  overflow: hidden;
+}
+
+.story-card .story-card-image picture {
+  display: block;
+  width: 100%;
+}
+
+.story-card .story-card-image img {
+  aspect-ratio: 1 / 1;
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: all 0.3s ease-out;
+  width: 100%;
+}
+
+.story-card .story-card-image.contain :where(img) {
+  object-fit: contain;
+}
+
+/* ================================================================
+   Content
+   ================================================================ */
 .story-card .story-card-content {
   display: flex;
   flex-direction: column;
-  border: 0.1rem solid var(--container-border-color);
-}
-
-.story-card .story-card-body {
-  padding: var(--spacing-24) var(--spacing-32);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.story-card .story-card-eyebrow {
-  font-family: var(--roboto-bold-font-family);
-  font-size: var(--font-size-16);
-  margin-top: 0;
-  margin-bottom: var(--spacing-38);
-  font-weight: 700;
-  letter-spacing: 0.04rem;
-  color: var(--story-card-text-color);
-  line-height: var(--line-height-20);
-  text-transform: uppercase;
-}
-
-.story-card .story-card-title {
-  color: var(--story-card-text-color);
-  font-family: var(--heading-font-family);
-  font-size: var(--font-size-20);
-  line-height: var(--line-height-24);
-  overflow: hidden;
-  margin-top: 0;
-  margin-bottom: var(--spacing-08);
-  transition: all 0.3s ease-out;
-  text-overflow: ellipsis;
-  white-space: normal;
-}
-
-.story-card.large-title .story-card-title {
-  -webkit-line-clamp: 2;
-  font-size: var(--font-size-40);
-  height: 7.3rem;
-  line-height: var(--line-height-35);
-}
-
-.story-card.story-card.hide-description .story-card-title {
-  margin-bottom: var(--spacing-16);
-}
-
-.story-card .story-card-description {
-  color: var(--story-card-text-color);
-  font-family: var(--roboto-regular-font-family);
-  font-size: var(--font-size-12);
-  font-weight: 400;
-  line-height: var(--line-height-16);
-  text-overflow: ellipsis;
-  white-space: normal;
-  overflow: hidden;
-  margin-bottom: var(--spacing-16);
+  justify-content: center;
+  min-height: auto;
+  padding: var(--spacing-64, 6.4rem) var(--spacing-35, 3.5rem) var(--spacing-120, 12rem) var(--spacing-35, 3.5rem);
 }
 
 .story-card .story-card-content * {
   transition: all 0.3s ease-out;
 }
 
-.story-card .story-card-cta {
-  display: inline-flex;
-  width: fit-content;
-  margin: 0;
-  line-height: 0;
-  position: relative;
-  bottom: 0;
-}
-
-.story-card .story-card-cta a {
-  font-size: var(--font-size-16);
-  align-items: center;
-  color: var(--story-card-link-color);
-  cursor: pointer;
-  margin: 0;
+/* ================================================================
+   Meta (date + eyebrow + read-time) — column on mobile
+   ================================================================ */
+.story-card .story-card-meta {
+  color: var(--story-card-text-color);
+  display: flex;
+  flex-direction: column;
   font-family: var(--roboto-bold-font-family);
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  font-size: var(--font-size-16);
+  gap: var(--spacing-08);
+  letter-spacing: var(--tracking-wide-sm);
   line-height: var(--line-height-20);
-  padding: 0;
-  border: 0;
-  background-color: transparent;
-  padding-right: var(--spacing-18);
-  text-decoration: none;
-  text-transform: uppercase;
+  margin: 0;
+  text-transform: var(--font-uppercase);
 }
 
-.story-card .story-card-cta::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%) rotate(-45deg);
-  width: 7px;
-  height: 7px;
-  border-right: 0.2rem solid var(--story-card-link-color);
-  border-bottom: 0.2rem solid var(--story-card-link-color);
+.story-card-meta > :not(:first-child)::before {
+  content: none;
 }
 
-.story-card .story-card-image {
-  overflow: hidden;
+/* ================================================================
+   Eyebrow — full width on mobile (own line)
+   ================================================================ */
+.story-card .story-card-eyebrow {
+  color: var(--story-card-text-color);
+  flex-basis: 100%;
+  font-family: var(--roboto-bold-font-family);
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-700);
+  letter-spacing: var(--tracking-wide-sm);
+  line-height: var(--line-height-20);
+  margin: 0;
+  text-transform: var(--font-uppercase);
 }
 
-.story-card .story-card-image picture {
-  display: inline;
+/* ================================================================
+   Date / Read-time
+   ================================================================ */
+.story-card .story-card-date,
+.story-card .story-card-read-time {
+  color: var(--text-subtle);
+  font-family: var(--roboto-bold-font-family);
+  font-size: var(--font-size-14);
+  font-style: normal;
+  font-weight: var(--font-weight-700);
+  letter-spacing: var(--tracking-wide-sm);
+  line-height: var(--line-height-20);
 }
 
-.story-card .story-card-image img {
-  aspect-ratio: 16 / 9;
-  height: 100%;
-  object-fit: cover;
+.story-card .story-card-read-time {
+  align-items: center;
+  display: inline-flex;
+  flex-basis: 100%;
+  gap: var(--spacing-04);
+  margin-top: var(--spacing-04);
   width: 100%;
 }
 
-.story-card.hide-description .story-card-description {
+.story-card .story-card-read-time::before {
+  content: var(--story-card-read-time-icon);
+  font-family: var(--icon-font-family);
+  font-size: var(--font-size-14);
+  line-height: var(--story-card-read-time-icon-line-height);
+}
+
+/* ================================================================
+   Text container
+   ================================================================ */
+.story-card .card-text-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-08);
+  margin-bottom: var(--spacing-16);
+}
+
+/* ================================================================
+   Title — 30px on mobile
+   ================================================================ */
+.story-card .story-card-title {
+  color: var(--story-card-text-color);
+  font-family: var(--heading-font-family);
+  font-size: var(--font-size-30);
+  font-weight: var(--story-card-title-font-weight);
+  line-height: var(--line-height-34);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all 0.3s ease-out;
+  white-space: normal;
+}
+
+.story-card.hide-description .story-card-title {
+  margin-bottom: var(--spacing-16);
+}
+
+/* ================================================================
+   Description
+   ================================================================ */
+.story-card .story-card-description {
+  color: var(--story-card-text-color);
+  font-family: var(--roboto-regular-font-family);
+  font-size: var(--font-size-12);
+  font-weight: var(--story-card-description-font-weight);
+  line-height: var(--line-height-16);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.story-card.hide-description .story-card-description,
+.story-card .show-image-hide-desc .story-card-description {
   display: none;
 }
 
+/* ================================================================
+   CTA — no arrow, single line
+   ================================================================ */
+.story-card .story-card-cta {
+  align-items: center;
+  color: var(--story-card-link-color);
+  display: inline-flex;
+  font-family: var(--roboto-bold-font-family);
+  font-size: var(--font-size-16);
+  font-weight: var(--story-card-cta-font-weight);
+  gap: var(--spacing-08);
+  letter-spacing: var(--tracking-wide-md);
+  line-height: var(--line-height-20);
+  margin: 0;
+  text-transform: var(--font-uppercase);
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.story-card .story-card-cta::after {
+  content: none;
+}
+
+/* ================================================================
+   CTA container — column on mobile, row on tablet+
+   ================================================================ */
+.story-card .story-card-cta-container {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-08);
+}
+
+/* ================================================================
+   Inline read-time (next to CTA for Card Info variant)
+   ================================================================ */
+.story-card .story-card-read-time-inline {
+  align-items: center;
+  color: var(--story-card-text-color);
+  display: inline-flex;
+  font-family: var(--body-font-family);
+  font-size: var(--font-size-12);
+  font-weight: var(--font-weight-400);
+  gap: var(--spacing-04);
+  line-height: var(--line-height-20);
+}
+
+.story-card .story-card-read-time-inline::before {
+  content: var(--story-card-read-time-icon);
+  font-family: var(--icon-font-family);
+  font-size: var(--font-size-14);
+  line-height: var(--story-card-read-time-icon-line-height);
+}
+
+/* ================================================================
+   Hover / Focus
+   ================================================================ */
 .story-card:hover {
   cursor: pointer;
 }
 
 .story-card:hover .story-card-content {
-  background-color: var(--story-card-hover-bg);
+  background-color: transparent;
 }
 
-.story-card.large-title img {
-  aspect-ratio: 2/1;
+.story-card .story-card-panel:hover {
+  box-shadow: none;
 }
 
-.story-card:hover .story-card-image img {
-  transform: scale(1.05);
+.story-card .story-card-panel:has(:where(.story-card-link:focus-visible)) {
+  box-shadow: var(--focus-ring-default);
 }
 
-.story-card:hover *,
-.story-card:hover a {
+.story-card-panel:hover .story-card-image :where(img),
+.story-card-panel:has(:where(.story-card-link:focus-visible)) .story-card-image :where(img) {
+  transform: scale(var(--motion-hover-scale));
+}
+
+.story-card:where(:not(.story-card-info)):hover *,
+.story-card:where(:not(.story-card-info)):hover a {
   color: var(--story-card-text-color);
 }
 
-.story-card:hover .story-card-cta::after {
-  border-right: 0.2rem solid var(--story-card-text-color);
-  border-bottom: 0.2rem solid var(--story-card-text-color);
+.story-card .story-card-link:focus-visible {
+  outline: none;
 }
 
+/* ================================================================
+   Variant: Story Card Info — compact meta-only layout
+   ================================================================ */
+.story-card.story-card-info .story-card-cta-container {
+  display: none;
+}
+
+.story-card.story-card-info .story-card-content {
+  padding: var(--spacing-24) var(--spacing-20);
+}
+
+.story-card.story-card-info .story-card-read-time {
+  color: var(--story-card-text-color);
+  flex-basis: auto;
+  font-family: var(--body-font-family);
+  font-size: var(--font-size-12);
+  font-weight: var(--font-weight-400);
+  letter-spacing: normal;
+  margin-top: 0;
+  width: auto;
+}
+
+/* Story Card Info: eyebrow as link — hover uses custom property */
+.story-card.story-card-info .story-card-eyebrow {
+  color: var(--story-card-eyebrow-color, var(--story-card-text-color));
+  text-decoration: none;
+}
+
+.story-card.story-card-info :where(.story-card-eyebrow:hover) {
+  --story-card-eyebrow-color: var(--color-accent-blue);
+}
+
+/* Story Card Info: no pointer cursor on card itself */
+.story-card.story-card-info:hover {
+  cursor: default;
+}
+
+/* ================================================================
+   Variant: Leader Card — stacked vertical, people cards
+   ================================================================ */
+.story-card.is-leader-card .story-card-panel {
+  background-color: transparent;
+  border: none;
+}
+
+.story-card.is-leader-card .story-card-link {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-20);
+}
+
+.story-card.is-leader-card .story-card-image {
+  overflow: hidden;
+}
+
+.story-card.is-leader-card .story-card-image :where(img) {
+  aspect-ratio: var(--story-card-image-ratio);
+}
+
+.story-card.is-leader-card .story-card-content {
+  display: block;
+  min-height: auto;
+  padding: var(--spacing-00);
+}
+
+.story-card.is-leader-card .story-card-title {
+  font-family: var(--body-font-family);
+  font-size: var(--font-size-18);
+  font-weight: var(--font-weight-400);
+  line-height: var(--line-height-24);
+  margin: 0 0 var(--spacing-08) 0;
+}
+
+.story-card.is-leader-card .story-card-description {
+  -webkit-line-clamp: unset;
+  color: var(--story-card-text-color);
+  display: block;
+  font-family: var(--body-font-family);
+  font-size: var(--font-size-12);
+  font-weight: var(--font-weight-400);
+  line-clamp: unset;
+  line-height: var(--line-height-16);
+}
+
+.story-card.is-leader-card .story-card-cta {
+  color: var(--color-accent-blue);
+  font-family: var(--roboto-bold-font-family);
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-700);
+  letter-spacing: var(--letter-spacing-wide-06);
+  line-height: var(--line-height-20);
+  text-transform: var(--font-uppercase);
+}
+
+.story-card.is-leader-card .story-card-meta,
+.story-card.is-leader-card .story-card-date,
+.story-card.is-leader-card .story-card-read-time,
+.story-card.is-leader-card .story-card-eyebrow {
+  display: none;
+}
+
+/* ================================================================
+   Variant: Large Title
+   ================================================================ */
 .story-card.large-title .story-card-eyebrow {
   margin-bottom: var(--spacing-74);
+}
+
+.story-card.large-title .story-card-title {
+  -webkit-line-clamp: 2;
+  font-size: var(--font-size-40);
+  height: var(--story-card-large-title-height);
+  line-height: var(--line-height-35);
+}
+
+.story-card.large-title img {
+  aspect-ratio: var(--story-card-image-ratio-large-title);
 }
 
 .story-card.large-title .story-card-description {
@@ -156,57 +467,169 @@
   color: var(--story-card-text-color);
   font-family: var(--roboto-regular-font-family);
   font-size: var(--font-size-16);
-  font-weight: 400;
+  font-weight: var(--story-card-description-font-weight);
   line-height: var(--line-height-22);
 }
 
-.story-card.large-title .story-card-body {
-  width: 66%;
-  padding-right: 0;
-}
-
 .story-card.large-title:not(.hide-description)
-  :is(.story-card-title, .story-card-description) {
+  :where(.story-card-title, .story-card-description) {
   margin-top: var(--spacing-32);
 }
 
-@media (width >= 744px) {
-  .story-card .story-card-content {
-    min-height: 25.4rem;
-    flex-direction: row;
+/* ================================================================
+   Variant: Text-only
+   ================================================================ */
+.story-card.is-text-only .story-card-link {
+  min-height: 100%;
+}
+
+/* ================================================================
+   Tablet (≥ 744px)
+   ================================================================ */
+@media (min-width: 744px) {
+  /* Placeholder */
+  .story-card .story-card-placeholder {
+    min-height: var(--story-card-placeholder-min-height-tablet);
+    padding: var(--spacing-32);
   }
 
-  .story-card .story-card-body,
+  /* Layout */
+  .story-card .story-card-link {
+    flex-direction: column-reverse;
+  }
+
+  .story-card .story-card-image,
+  .story-card .story-card-content {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  /* Image */
   .story-card .story-card-image {
-    width: 50%;
+    flex: 1 1 0%;
+    margin-left: var(--spacing-70);
+  }
+
+  .story-card .story-card-image img {
+    aspect-ratio: 1 / 1;
+    height: 100%;
+  }
+
+  /* Content */
+  .story-card .story-card-content {
+    min-height: auto;
+    padding: var(--space-token-xxl, 8rem) var(--spacing-70) var(--spacing-120, 12rem) var(--spacing-00);
+  }
+
+  /* Meta — row on tablet */
+  .story-card .story-card-meta {
+    flex-flow: row nowrap;
+    font-size: var(--font-size-14);
+    gap: var(--spacing-16);
   }
 
   .story-card .story-card-eyebrow {
+    flex-basis: auto;
     font-size: var(--font-size-14);
   }
 
+  /* Title — 40px on tablet */
   .story-card .story-card-title {
-    -webkit-line-clamp: 3;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    font-size: var(--font-size-28);
-    line-height: var(--line-height-32);
+    font-size: var(--font-size-40);
+    line-height: var(--line-height-44);
   }
 
+  /* Description / CTA */
   .story-card .story-card-description {
-    -webkit-line-clamp: 4;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
     font-size: var(--font-size-14);
     line-height: var(--line-height-20);
   }
 
-  .story-card .story-card-cta a {
+  .story-card .story-card-cta {
     font-size: var(--font-size-14);
   }
 
-  .story-card.large-title .story-card-body {
+  .story-card .story-card-cta-container {
+    align-items: center;
+    flex-direction: row;
+    gap: var(--spacing-10);
+  }
+
+  /* Story Card Info — tablet */
+  .story-card.story-card-info .story-card-content {
+    padding: var(--spacing-24) var(--spacing-70);
+  }
+
+  .story-card.story-card-info .story-card-read-time {
+    margin-left: auto;
+  }
+
+  /* Leader card — tablet */
+  .story-card.is-leader-card .story-card-link {
+    flex-direction: column;
+  }
+
+  .story-card.is-leader-card .story-card-image,
+  .story-card.is-leader-card .story-card-content {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .story-card.is-leader-card .story-card-content {
+    min-height: auto;
+  }
+
+  .story-card.is-leader-card .story-card-image :where(img) {
+    aspect-ratio: var(--story-card-image-ratio);
+    height: auto;
+  }
+
+  .story-card.is-leader-card .story-card-title {
+    -webkit-line-clamp: unset;
+    display: block;
+    font-family: var(--body-font-family);
+    font-size: var(--font-size-18);
+    font-weight: var(--font-weight-400);
+    line-height: var(--line-height-24);
+  }
+
+  .story-card.is-leader-card .story-card-description {
+    display: block;
+    font-size: var(--font-size-12);
+    line-height: var(--line-height-16);
+  }
+
+  .story-card.is-leader-card .story-card-cta {
+    font-size: var(--font-size-14);
+  }
+
+  /* Large title — tablet */
+  .story-card.large-title .story-card-link {
+    flex-direction: row;
+  }
+
+  .story-card.large-title .story-card-content {
+    max-width: 66%;
     padding-right: var(--spacing-24);
+    width: 66%;
+  }
+
+  .story-card.large-title .story-card-image {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    max-width: 33%;
+    min-height: 100%;
+    width: 33%;
+  }
+
+  .large-title .story-card-image :where(picture) {
+    height: 100%;
+  }
+
+  .large-title .story-card-image :where(img) {
+    aspect-ratio: auto;
+    height: 100%;
   }
 
   .story-card.large-title .story-card-description {
@@ -214,35 +637,73 @@
     line-height: var(--line-height-26);
   }
 
-  .story-card.large-title .story-card-image {
-    width: 33%;
-  }
-
-  .story-card.large-title:not(.hide-description) .story-card-text {
+  .story-card.large-title:not(.hide-description) :where(.card-text-container) {
+    column-gap: var(--spacing-32);
     display: grid;
     grid-template: repeat(2, auto) / 1fr 1fr;
-    column-gap: var(--spacing-32);
   }
 
-  .story-card.large-title:not(.hide-description) .story-card-eyebrow {
+  .story-card.large-title:not(.hide-description) :where(.story-card-eyebrow) {
     grid-column: span 2;
   }
 
   .story-card.large-title:not(.hide-description)
-    :is(.story-card-title, .story-card-description) {
+    :where(.story-card-title, .story-card-description) {
     grid-column: span 1;
     margin-top: 0;
   }
 }
 
-@media (width >= 1024px) {
-  .story-card .story-card-content {
-    min-height: 27rem;
+/* ================================================================
+   Desktop (≥ 1024px)
+   ================================================================ */
+@media (min-width: 1024px) {
+  /* Layout — side-by-side: content left, image right */
+  .story-card .story-card-link {
+    flex-direction: row-reverse;
   }
 
+  .story-card .story-card-image,
+  .story-card .story-card-content {
+    max-width: 50%;
+    width: 50%;
+  }
+
+  /* Image — desktop */
+  .story-card .story-card-image {
+    align-items: center;
+    border-radius: 4rem 0 0;
+    display: flex;
+    justify-content: center;
+    margin-left: 0;
+    min-height: 100%;
+  }
+
+  .story-card .story-card-image img {
+    aspect-ratio: 1 / 1;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Content — desktop */
+  .story-card .story-card-content {
+    min-height: auto;
+    padding: 0 var(--spacing-120, 13rem) 0 0;
+  }
+
+  /* Meta — single row, no wrap */
+  .story-card .story-card-meta {
+    flex-wrap: nowrap;
+  }
+
+  .story-card .story-card-eyebrow {
+    flex-basis: auto;
+  }
+
+  /* Title — 64px on desktop */
   .story-card .story-card-title {
-    font-size: var(--font-size-32);
-    line-height: var(--line-height-36);
+    font-size: var(--font-size-64, 6.4rem);
+    line-height: var(--line-height-68, 6.8rem);
   }
 
   .story-card .story-card-description {
@@ -250,7 +711,36 @@
     line-height: var(--line-height-20);
   }
 
-  .story-card.story-card.large-title .story-card-description {
+  /* Story Card Info — desktop */
+  .story-card.story-card-info .story-card-link {
+    flex-direction: row;
+  }
+
+  .story-card.story-card-info .story-card-content {
+    max-width: 100%;
+    padding: var(--spacing-24) var(--spacing-70);
+    width: 100%;
+  }
+
+  /* Leader card — desktop */
+  .story-card.is-leader-card .story-card-content {
+    min-height: auto;
+  }
+
+  .story-card.is-leader-card .story-card-title {
+    font-family: var(--body-font-family);
+    font-size: var(--font-size-20);
+    font-weight: var(--font-weight-400);
+    line-height: var(--line-height-24);
+  }
+
+  .story-card.is-leader-card .story-card-description {
+    font-size: var(--font-size-14);
+    line-height: var(--line-height-20);
+  }
+
+  /* Large title — desktop */
+  .story-card.large-title .story-card-description {
     font-size: var(--font-size-24);
     line-height: var(--line-height-32);
   }

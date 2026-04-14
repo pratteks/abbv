@@ -1,26 +1,25 @@
 /* AbbVie Hero — White overlap panel on hero image */
-
 .hero-container .hero-wrapper {
   max-width: unset;
-  padding: 0;
+  padding: var(--spacing-00);
 }
 
 /* Navy-overlap hero: pull wrapper into section padding so bg image shows */
 main > .section.navy-overlap.hero-container:not(.columns-container, .cards-container) {
   padding-bottom: var(--spacing-00);
   margin-bottom: var(--spacing-32);
-  background-color: var(--bg-ffffff);
+  background-color: var(--color-white);
 }
 
 main > .section.navy-overlap.hero-container:not(.columns-container, .cards-container) .hero-wrapper {
-  margin: -4rem -3.5rem 0;
+  margin: var(--spacing-n40) -3.5rem var(--spacing-00);
   max-width: none;
   overflow: hidden;
 }
 
-@media (width >= 744px) {
+@media (--bp-tablet) {
   main > .section.navy-overlap.hero-container:not(.columns-container, .cards-container) .hero-wrapper {
-    margin: -5.6rem -7rem 0;
+    margin: -5.6rem -7rem var(--spacing-00);
   }
 
   main > .section.navy-overlap.hero-container:not(.columns-container, .cards-container) {
@@ -29,7 +28,7 @@ main > .section.navy-overlap.hero-container:not(.columns-container, .cards-conta
   }
 }
 
-@media (width >= 1024px) {
+@media (--bp-desktop) {
   main > .section.navy-overlap.hero-container:not(.columns-container, .cards-container) .hero-wrapper {
     margin: -8rem -5.5rem 0;
   }
@@ -37,6 +36,21 @@ main > .section.navy-overlap.hero-container:not(.columns-container, .cards-conta
   main > .section.navy-overlap.hero-container:not(.columns-container, .cards-container) {
    border-top-left-radius: var(--spacing-80);
   }
+}
+
+/* Height-tall variant — taller hero image area matching live site .height-tall */
+.section.height-tall .hero > div:first-child {
+  min-height: var(--hero-tall-image-container-height);
+  padding: var(--spacing-00);
+}
+
+.section.height-tall .hero > div:first-child img {
+  position: absolute;
+  inset: var(--spacing-00);
+  height: 100%;
+  width: 100%;
+  max-height: none;
+  object-fit: cover;
 }
 
 /* Breadcrumbs inside hero text panel */
@@ -48,8 +62,8 @@ main > .section.navy-overlap.hero-container:not(.columns-container, .cards-conta
   display: flex;
   flex-flow: wrap;
   list-style: none;
-  padding: 0;
-  margin: 0;
+  padding: var(--spacing-00);
+  margin: var(--spacing-00);
   gap: var(--spacing-08);
   align-items: baseline;
 }
@@ -58,7 +72,7 @@ main > .section.navy-overlap.hero-container:not(.columns-container, .cards-conta
   font-family: var(--roboto-bold-font-family);
   font-size: var(--font-size-14);
   font-weight: var(--font-weight-700);
-  letter-spacing: 0.06em;
+  letter-spacing: var(--letter-spacing-wide-06);
   line-height: var(--line-height-20);
   text-transform: uppercase;
   color: var(--text-color);
@@ -85,7 +99,7 @@ main > .section.navy-overlap.hero-container:not(.columns-container, .cards-conta
 
 /* Current page — muted gray, no link */
 .hero .hero-breadcrumbs ol li[aria-current] {
-  color: var(--bg-666b7a);
+  color: var(--color-gray-dark);
   font-weight: var(--font-weight-700);
 }
 
@@ -111,6 +125,16 @@ main > .section.navy-overlap.hero-container:not(.columns-container, .cards-conta
   padding-right: var(--spacing-55);
 }
 
+.section-wide .hero > div:first-child {
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.hero.no-padding > div:first-child{
+  padding: var(--spacing-00);
+}
+
 .hero picture {
   display: block;
 }
@@ -130,7 +154,7 @@ main > .section.navy-overlap.hero-container:not(.columns-container, .cards-conta
   flex-direction: column; */
   background-color: var(--background-color);
   border-top-left-radius: var(--border-top-radius-medium);
-  margin: -5rem var(--spacing-20) var(--spacing-00);
+  margin: var(--spacing-n48) var(--spacing-20) var(--spacing-00);
   position: relative;
   padding: var(--spacing-32) var(--spacing-20) var(--spacing-40);
   padding-bottom: var(--spacing-00);
@@ -139,7 +163,7 @@ main > .section.navy-overlap.hero-container:not(.columns-container, .cards-conta
 
 /* font-weight: inherit prevents browser UA bold, defers to F37 Lineca Medium's own weight */
 .hero h1 {
-  margin: 0 0 var(--spacing-16);
+  margin: var(--spacing-00) var(--spacing-00) var(--spacing-08);
   font-size: var(--font-size-30);
   line-height: var(--line-height-34);
   color: var(--text-color);
@@ -152,8 +176,22 @@ main > .section.navy-overlap.hero-container:not(.columns-container, .cards-conta
   padding-bottom: var(--spacing-16);
 }
 
+.navy-overlap .hero:not(.body-unica-32-reg) p {
+    font-size: 1.6rem;
+    line-height: 2.2rem;
+}
+
+/* Height-tall hero paragraph — larger font matching body-unica-32-reg scale
+   Uses higher specificity to override navy-overlap when both are present */
+.navy-overlap.height-tall .hero p,
+.height-tall .hero p {
+  font-size: var(--font-size-20);
+  line-height: var(--line-height-26);
+  margin-top: var(--spacing-08);
+}
+
 .hero.light-font p {
-  font-family: var(--roboto-small-font-family);
+  font-family: var(--roboto-light-font-family);
   font-weight: var(--font-weight-300);
 }
 
@@ -163,7 +201,7 @@ main > .section.navy-overlap.hero-container:not(.columns-container, .cards-conta
   font-size: var(--font-size-14);
   font-style: normal;
   font-weight: var(--font-weight-700);
-  letter-spacing: 0.06em;
+  letter-spacing: var(--letter-spacing-wide-06);
   padding: var(--spacing-05) 0;
   color: var(--highlight-dark-background-color);
   line-height: var(--line-height-20);
@@ -179,11 +217,11 @@ main > .section.navy-overlap.hero-container:not(.columns-container, .cards-conta
   background: none;
 }
 
-@media (width >= 744px) {
+@media (--bp-tablet) {
   .hero > div:first-child {
     min-height: var(--hero-image-container-height);
     width: 100%;
-    margin: 0 auto;
+    margin: var(--spacing-00) auto;
     padding-left: var(--spacing-70);
     padding-right: var(--spacing-70);
   }
@@ -191,6 +229,10 @@ main > .section.navy-overlap.hero-container:not(.columns-container, .cards-conta
   .hero > div:first-child:has(picture) {
       padding-left: var(--spacing-70);
       padding-right: var(--spacing-70);
+    }
+
+    .hero.no-padding > div:first-child{
+      padding: var(--spacing-00);
     }
 
   .hero img {
@@ -209,13 +251,24 @@ main > .section.navy-overlap.hero-container:not(.columns-container, .cards-conta
   .hero h1 {
     font-size: var(--font-size-40);
     line-height: var(--line-height-44);
-    margin-bottom: var(--spacing-24);
+    margin-bottom: var(--spacing-16);
+  }
+
+  .navy-overlap .hero:not(.body-unica-32-reg) p {
+    font-size: 1.8rem;
+    line-height: 2.4rem;
+  }
+
+  .navy-overlap.height-tall .hero p,
+  .height-tall .hero p {
+    font-size: var(--font-size-32);
+    line-height: var(--line-height-40);
   }
 }
 
-@media (width >= 1024px) {
+@media (--bp-desktop) {
     .hero > div:first-child {
-    min-height: var(--hero-image-container-height);
+      min-height: var(--hero-image-container-height);
       margin: var(--spacing-00) auto;
       width: 100%;
       padding-left: var(--spacing-55);
@@ -225,6 +278,10 @@ main > .section.navy-overlap.hero-container:not(.columns-container, .cards-conta
     .hero > div:first-child:has(picture) {
       padding-left: var(--spacing-55);
       padding-right: var(--spacing-55);
+    }
+
+    .hero.no-padding > div:first-child{
+      padding: var(--spacing-00);
     }
 
   .hero img {
@@ -241,11 +298,14 @@ main > .section.navy-overlap.hero-container:not(.columns-container, .cards-conta
 
   .hero h1 {
     font-size: var(--font-size-64);
-    letter-spacing: -0.02em;
+    letter-spacing: var(--letter-spacing-tight);
     line-height: var(--line-height-68);
   }
 
-  /* desktop: 32px / line-height 40px — no --line-height-40 token, using --line-height-44 (4.4rem) as closest */
+  .height-tall .hero p {
+    font-size: var(--font-size-32);
+    line-height: 4rem;
+  }
 }
 
 /* =====================================================
@@ -254,17 +314,16 @@ main > .section.navy-overlap.hero-container:not(.columns-container, .cards-conta
    ===================================================== */
 
 /* Section override — full-width so navy band spans edge-to-edge */
+main > .section.hero-container,
 main > .section.hero-container:has(.hero.profile) {
-  max-width: 1440px;
+  max-width: var(--content-max-width-wide);
   margin-bottom: var(--spacing-32);
-  margin-left: 0;
-  margin-right: 0;
 }
 
 /* Profile breadcrumbs — uppercase, 14px to match live site */
 .hero.profile .hero-breadcrumbs ol li {
   font-size: var(--font-size-14);
-  letter-spacing: 0.06em;
+  letter-spacing: var(--letter-spacing-wide-06);
   text-transform: uppercase;
   font-weight: var(--font-weight-700);
 }
@@ -279,11 +338,15 @@ main > .section.hero-container:has(.hero.profile) {
 
 /* Navy background band replaces hero image */
 .hero.profile > div:first-child {
-  background-color: var(--bg-071d49);
+  background-color: var(--color-navy-dark);
   height: var(--hero-section-height);
-  border-top-left-radius: var(--border-top-radius);
+  border-top-left-radius: var(--border-top-radius-medium);
    min-height: var(--hero-profile-container-height);
    margin: var(--spacing-00);
+}
+
+.hero.profile.purple-overlap > div:first-child {
+ background-color: var(--color-accent-purple);
 }
 
 .large-radius .hero > div:first-child {
@@ -302,7 +365,7 @@ main > .section.hero-container:has(.hero.profile) {
 /* White overlap card — profile spacing */
 .hero.profile > div:nth-child(2) {
   margin-top: var(--spacing-n48);
-  padding: var(--spacing-32) var(--spacing-35) var(--spacing-00);
+  padding: var(--spacing-32) var(--spacing-20) var(--spacing-00);
 }
 
 /* Subtitle — Roboto Small, weight 300 (matches --roboto-small-font-family) */
@@ -311,7 +374,7 @@ main > .section.hero-container:has(.hero.profile) {
   font-weight: var(--font-weight-300);
 }
 
-@media (width >= 744px) {
+@media (--bp-tablet) {
 .hero.profile > div:nth-child(2) {
   margin-top: var(--spacing-n64);
   padding: var(--spacing-56) var(--spacing-70) var(--spacing-00);
@@ -322,7 +385,7 @@ margin-bottom: var(--spacing-80);
 }
 }
 
-@media (width >= 1024px) {
+@media (--bp-desktop) {
   main > .section.hero-container:has(.hero.profile) {
     margin-bottom: var(--spacing-00);
     margin-left: auto;
@@ -334,8 +397,8 @@ margin-bottom: var(--spacing-80);
   }
 
   .hero.profile > div:nth-child(2) {
-    margin: -11.2rem auto -1px;
-    padding: var(--spacing-80) var(--spacing-55) 0;
+    margin: var(--spacing-n112) auto -1px;
+    padding: var(--spacing-80) var(--spacing-55) var(--spacing-00);
     width: 85%;
     min-height: 44.8rem;
     border-top-left-radius: var(--spacing-40);
@@ -345,6 +408,7 @@ margin-bottom: var(--spacing-80);
 
 /* hero grid */
 .hero .hero-text-container {
+  width: 100%;
   display: grid;
   column-gap: var(--gap-20);
   grid-template-columns: repeat(6, 1fr);
@@ -355,7 +419,7 @@ margin-bottom: var(--spacing-80);
   grid-column: 1 / span 6;
 }
 
-@media(width >= 744px) {
+@media (--bp-tablet) {
 .hero .hero-text-container {
     grid-template-columns: repeat(8, 1fr);
     min-height: var(--spacing-368);
@@ -366,7 +430,7 @@ margin-bottom: var(--spacing-80);
 }
 }
 
-@media(width >= 1024px) {
+@media (--bp-desktop) {
 .hero .hero-text-container {
     grid-template-columns: repeat(12, 1fr);
     }
@@ -487,14 +551,14 @@ main > .section.hero-container:has(.hero.landing) .hero-wrapper {
 
 /* Text colours — white on dark overlay */
 .hero.landing h1 {
-  color: var(--bg-ffffff);
+  color: var(--color-white);
   font-size: var(--font-size-30);
   line-height: var(--line-height-34);
   margin-bottom: var(--spacing-16);
 }
 
 .hero.landing p {
-  color: var(--bg-ffffff);
+  color: var(--color-white);
   margin-bottom: var(--spacing-16);
 }
 
@@ -525,11 +589,11 @@ padding: var(--spacing-00);
 
 /* Landing breadcrumbs — white text on dark overlay */
 .hero.landing .hero-breadcrumbs ol li {
-  color: var(--bg-ffffff);
+  color: var(--color-white);
 }
 
 .hero.landing .hero-breadcrumbs ol li a {
-  color: var(--bg-ffffff);
+  color: var(--color-white);
 }
 
 .hero.landing .hero-breadcrumbs ol li[aria-current] {
@@ -610,7 +674,7 @@ padding: var(--spacing-00);
 
 /* ---- Mobile (base) ---- */
 .hero.landing .hero-press-releases-container {
-  background-color: var(--bg-ffffff);
+  background-color: var(--color-white);
   border-top-left-radius: var(--border-top-left-radius-24);
   margin: var(--spacing-88) var(--spacing-n15) var(--spacing-n40);
   padding: var(--spacing-32) var(--spacing-35) var(--spacing-00);

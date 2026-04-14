@@ -53,9 +53,10 @@
   font-size: var(--font-size-14);
 }
 
-@media (width >=744px) {
+@media (--bp-tablet) {
   .social-media {
     gap: var(--spacing-40);
+    margin-bottom: var(--spacing-24);
   }
 
   .social-media .footer-social-links li {

@@ -1,5 +1,5 @@
 import { toCamelCase, toClassName } from '../../scripts/aem.js';
-import { processTextWithLinksAndNewlines, FormTypeHandler, loadSpreadsheet } from './find-an-injector.js';
+import { FormTypeHandler, loadSpreadsheet, processTextWithLinksAndNewlines } from './find-an-injector.js';
 
 /**
  * Creates an HTML element with an optional class name

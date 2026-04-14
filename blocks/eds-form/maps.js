@@ -181,7 +181,7 @@ export function updateMapMarkers(providers, startIndex) {
 }
             <a href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
     `${address.AddressLine1} ${address.CityName},${address.StateProvinceCode} ${address.PostalCode}`,
-  )}" 
+  )}"
                target="_blank" class="gm-provider-directions">Get Directions</a>
           </div>
         </div>

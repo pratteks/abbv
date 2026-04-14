@@ -1,20 +1,24 @@
+import { fetchDashboardCardData } from '../../scripts/cfUtil.js';
 import { getConfigValue } from '../../scripts/config.js';
 import { loadFragment } from '../fragment/fragment.js';
-import { fetchDashboardCardData } from '../../scripts/cfUtil.js';
-/*
- * Row indices — must match the field order in _quote.json
- * (after id and classes which are handled by the framework):
- *
- * 0  quoteType          select      (basic | content-fragment)
- * 1  quotation          richtext    (basic only)
- * 2  attributionName    text        (basic only)
- * 3  attributionTitle   text        (basic only)
- * 4  attributionImage   reference   (basic only)
- * 5  quoteFragment      aem-content (CF only)
- * 6  backgroundImage    reference
- * 7  backgroundImageAlt text
- * 8  language           select
- */
+import { applyCommonProps } from '../../scripts/utils.js';
+
+// Row index map — mirrors field order in _quote.json (tabs are UI-only, not rows)
+// Row  0: quoteType
+// Row  1: quotation
+// Row  2: attributionName
+// Row  3: attributionTitle
+// Row  4: attributionImage
+// Row  5: quoteFragment
+// Row  6: backgroundImage
+// Row  7: backgroundImageAlt
+// Row  8: classes_theme          (CSS class — no JS handling)
+// Row  9: classes_contentAlignment (CSS class — no JS handling)
+// Row 10: classes_contentWidth   (CSS class — no JS handling)
+// Row 11: blockId                (handled by applyCommonProps)
+// Row 12: classes_commonCustomClass (handled by applyCommonProps)
+// Row 13: language
+// Row 14: analyticsInteractionId
 const ROW = {
   QUOTE_TYPE: 0,
   QUOTATION: 1,
@@ -24,7 +28,8 @@ const ROW = {
   QUOTE_FRAGMENT: 5,
   BACKGROUND_IMAGE: 6,
   BACKGROUND_IMAGE_ALT: 7,
-  LANGUAGE: 8,
+  LANGUAGE: 13,
+  ANALYTICS_ID: 14,
 };
 
 /**
@@ -75,9 +80,10 @@ async function normalizePath(rawPath) {
  * @param {string} lang
  * @returns {HTMLElement}
  */
-function decorateSimpleQuote(rows, lang) {
+function decorateSimpleQuote(rows) {
   const blockquote = document.createElement('blockquote');
-  if (lang) blockquote.setAttribute('lang', lang);
+  // if (lang) blockquote.setAttribute('lang', lang);
+  applyCommonProps(blockquote);
 
   // Row 0: quotation
   const quotationCell = rows[0]?.firstElementChild;
@@ -129,9 +135,10 @@ function decorateSimpleQuote(rows, lang) {
  * @param {string} lang
  * @returns {HTMLElement}
  */
-function decorateBasicQuote(rows, lang) {
+function decorateBasicQuote(rows) {
   const blockquote = document.createElement('blockquote');
-  if (lang) blockquote.setAttribute('lang', lang);
+  // if (lang) blockquote.setAttribute('lang', lang);
+  applyCommonProps(blockquote);
 
   // Quotation (richtext)
   const quotationCell = rows[ROW.QUOTATION]?.firstElementChild;
@@ -300,7 +307,7 @@ function renderCfQuote(blockquote, quoteData) {
  * @param {string} lang
  * @returns {Promise<HTMLElement|null>}
  */
-async function decorateFragmentQuote(rows, lang) {
+async function decorateFragmentQuote(rows) {
   // Extract the fragment reference path from the quoteFragment row
   const cell = rows[ROW.QUOTE_FRAGMENT]?.firstElementChild;
   let rawPath = '';
@@ -321,12 +328,13 @@ async function decorateFragmentQuote(rows, lang) {
   const blockquote = document.createElement('blockquote');
   blockquote.className = 'quote-fragment';
 
-  if (lang) blockquote.setAttribute('lang', lang);
+  // if (lang) blockquote.setAttribute('lang', lang);
+  applyCommonProps(blockquote);
 
   // Try loading as a page fragment (normalized path)
   try {
     const path = await normalizePath(rawPath);
-    const quoteData = await fetchDashboardCardData(path);
+    const quoteData = await fetchDashboardCardData(path, 'cfBaseUrl');
     renderCfQuote(blockquote, quoteData);
     if (blockquote.childNodes.length > 0) {
       return blockquote;
@@ -371,10 +379,8 @@ export default async function decorate(block) {
   // Detect simple imported format (2 rows: quotation + attribution)
   // vs xwalk model (many rows starting with quoteType selector)
   const isSimpleFormat = rows.length <= 2;
-
-  const quoteType = isSimpleFormat ? 'basic' : getCellText(rows[ROW.QUOTE_TYPE]);
-  const lang = isSimpleFormat ? 'en' : (getCellText(rows[ROW.LANGUAGE]) || 'en');
-
+  const quoteType = isSimpleFormat ? 'basic' : getCellText(rows[ROW.QUOTE_TYPE]) || 'basic';
+  // const lang = isSimpleFormat ? 'en' : getCellText(rows[ROW.LANGUAGE]) || 'en';
   // Background image (shared by both modes)
   let bgPicture = isSimpleFormat ? null : rows[ROW.BACKGROUND_IMAGE]?.querySelector('picture');
   // const bgAlt = isSimpleFormat ? '' : getCellText(rows[ROW.BACKGROUND_IMAGE_ALT]);
@@ -382,16 +388,16 @@ export default async function decorate(block) {
   let blockquote = null;
   try {
     if (isSimpleFormat) {
-      blockquote = decorateSimpleQuote(rows, lang);
+      blockquote = decorateSimpleQuote(rows);
     } else if (quoteType === 'content-fragment') {
-      blockquote = await decorateFragmentQuote(rows, lang);
+      blockquote = await decorateFragmentQuote(rows);
     } else {
-      blockquote = decorateBasicQuote(rows, lang);
+      blockquote = decorateBasicQuote(rows);
     }
   } catch (e) {
     // Decoration failed — ensure block is still cleaned up below
   }
-
+  applyCommonProps(blockquote);
   block.textContent = '';
 
   // Look for background image in preceding default content (imported pattern:

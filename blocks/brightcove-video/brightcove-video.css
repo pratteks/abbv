@@ -1,0 +1,399 @@
+/* =====================================================
+   Brightcove Video Block
+   ===================================================== */
+
+.brightcove-video {
+  width: 100%;
+  max-width: 100%;
+  margin: var(--spacing-32) var(--spacing-00);
+}
+
+/* =====================================================
+   Main layout wrapper
+   ===================================================== */
+
+.brightcove-video .bcvideo-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-16);
+}
+
+/* Content layout: left or right — side-by-side on desktop */
+.brightcove-video.bcvideo-content-left .bcvideo-main,
+.brightcove-video.bcvideo-content-right .bcvideo-main {
+  flex-direction: column;
+}
+
+@media (--bp-desktop) {
+  .brightcove-video.bcvideo-content-left .bcvideo-main,
+  .brightcove-video.bcvideo-content-right .bcvideo-main {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .brightcove-video.bcvideo-content-left .bcvideo-container,
+  .brightcove-video.bcvideo-content-right .bcvideo-container {
+    flex: 2;
+    min-width: var(--spacing-00);
+  }
+
+  .brightcove-video.bcvideo-content-left .bcvideo-content-area,
+  .brightcove-video.bcvideo-content-right .bcvideo-content-area {
+    flex: 1;
+    min-width: var(--spacing-00);
+  }
+}
+
+/* Content layout: none — hide content area */
+.brightcove-video.bcvideo-content-none .bcvideo-content-area {
+  display: none;
+}
+
+/* =====================================================
+   Video container (16:9 aspect ratio)
+   ===================================================== */
+
+.brightcove-video .bcvideo-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--border-radius-m);
+  overflow: hidden;
+  background: var(--form-border-hover-color);
+}
+
+.brightcove-video .bcvideo-container.bcvideo-playing .bcvideo-overlay {
+  display: none;
+}
+
+/* =====================================================
+   Player iframe
+   ===================================================== */
+
+.brightcove-video .bcvideo-player {
+  position: absolute;
+  inset: var(--spacing-00);
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* =====================================================
+   Overlay (pre-play state)
+   ===================================================== */
+
+.brightcove-video .bcvideo-overlay {
+  position: absolute;
+  inset: var(--spacing-00);
+  z-index: var(--z-index-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: var(--overlay-navy);
+}
+
+.brightcove-video .bcvideo-overlay-color {
+  background: none;
+}
+
+/* Custom poster image */
+.brightcove-video .bcvideo-poster {
+  position: absolute;
+  inset: var(--spacing-00);
+  z-index: var(--z-index-0);
+}
+
+.brightcove-video .bcvideo-poster picture,
+.brightcove-video .bcvideo-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Overlay content (title, description, play button) */
+.brightcove-video .bcvideo-overlay-content {
+  position: relative;
+  z-index: var(--z-index-1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--spacing-16);
+  min-width: 100%;
+}
+
+.brightcove-video .bcvideo-overlay-title {
+  color: var(--background-color);
+  font-family: var(--heading-font-family-bold);
+  font-size: var(--font-size-24);
+  line-height: var(--line-height-36);
+  margin: var(--spacing-00) var(--spacing-00) var(--spacing-15);
+}
+
+.brightcove-video .bcvideo-overlay-desc {
+  color: var(--background-color);
+  font-family: var(--body-font-family);
+  font-size: var(--font-size-16);
+  line-height: var(--line-height-22);
+  margin: var(--spacing-00) var(--spacing-00) var(--spacing-24);
+  display: none;
+}
+
+/* =====================================================
+   Play button
+   ===================================================== */
+
+.brightcove-video .bcvideo-play-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-08);
+  padding: var(--spacing-12) var(--spacing-32);
+  border: var(--border-01) solid var(--background-color);
+  background: transparent;
+  color: var(--background-color);
+  font-family: var(--roboto-bold-font-family);
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-700);
+  line-height: var(--line-height-20);
+  letter-spacing: var(--letter-spacing-wide-06);
+  text-transform: var(--font-uppercase);
+  cursor: pointer;
+  white-space: nowrap;
+  border-radius: var(--border-radius-00);
+  transition: background 0.2s ease;
+  min-width: fit-content;
+  margin: var(--spacing-00);
+}
+
+.brightcove-video .bcvideo-play-btn:hover {
+  background: rgb(255 255 255 / 15%);
+}
+
+.brightcove-video .bcvideo-play-btn:focus-visible {
+  outline: var(--border-02) solid var(--background-color);
+  outline-offset: var(--spacing-02);
+}
+
+@media (--bp-tablet) {
+.brightcove-video .bcvideo-overlay-content {
+    min-width: 80%;
+}
+
+  .brightcove-video .bcvideo-overlay-title {
+    font-size: var(--font-size-30);
+    line-height: var(--line-height-36);
+  }
+
+  .brightcove-video .bcvideo-overlay-desc {
+    display: block;
+    font-size: var(--font-size-18);
+    line-height: var(--line-height-24);
+    margin: var(--spacing-00) var(--spacing-00) var(--spacing-10);
+  }
+
+  .brightcove-video .bcvideo-play-btn {
+    font-size: var(--font-size-14);
+    line-height: var(--line-height-20);
+  }
+}
+
+@media (--bp-desktop) {
+    .brightcove-video .bcvideo-overlay-content {
+    min-width: 60%;
+    }
+
+  .brightcove-video .bcvideo-overlay-title {
+    font-size: var(--font-size-40);
+    line-height: var(--line-height-44);
+    margin: var(--spacing-00) var(--spacing-00) var(--spacing-24);
+  }
+
+  .brightcove-video .bcvideo-overlay-desc {
+    font-size: var(--font-size-20);
+    line-height: var(--line-height-24);
+    margin: var(--spacing-00) var(--spacing-00) var(--spacing-24);
+  }
+}
+
+/* =====================================================
+   Icon styles (font and image)
+   ===================================================== */
+
+.brightcove-video .bcvideo-icon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: var(--spacing-00);
+}
+
+.brightcove-video .bcvideo-icon-font::before {
+  font-family: var(--icon-font-family);
+  font-size: var(--font-size-12);
+}
+
+.brightcove-video .bcvideo-icon-font.icon-play::before {
+  content: '';
+  display: inline-block;
+  width: var(--spacing-00);
+  height: var(--spacing-00);
+  border-style: solid;
+  border-width: var(--spacing-05) var(--spacing-00) var(--spacing-05) var(--spacing-08);
+  border-color: transparent transparent transparent currentcolor;
+}
+
+.brightcove-video .bcvideo-icon-image picture,
+.brightcove-video .bcvideo-icon-image img {
+  width: var(--spacing-16);
+  height: var(--spacing-16);
+  object-fit: contain;
+}
+
+/* =====================================================
+   Content area (below/beside video)
+   ===================================================== */
+
+.brightcove-video .bcvideo-content-area {
+  padding: var(--spacing-00);
+}
+
+.brightcove-video .bcvideo-content-title {
+  color: var(--text-color);
+  font-family: var(--heading-font-family-bold);
+  font-size: var(--font-size-14);
+  line-height: var(--line-height-20);
+  font-weight: var(--font-weight-700);
+  margin: var(--spacing-00) var(--spacing-00) var(--spacing-10);
+}
+
+.brightcove-video .bcvideo-content-desc {
+  color: var(--text-color);
+  font-family: var(--body-font-family);
+  font-size: var(--font-size-13);
+  line-height: var(--line-height-20);
+  margin: var(--spacing-00) var(--spacing-00) var(--spacing-10);
+}
+
+.brightcove-video .bcvideo-content-desc p {
+  margin: var(--spacing-00) var(--spacing-00) var(--spacing-08);
+}
+
+@media (--bp-tablet) {
+.brightcove-video .bcvideo-content-title {
+  font-size: var(--font-size-18);
+  line-height: var(--line-height-24);
+}
+
+.brightcove-video .bcvideo-content-desc {
+  font-size: var(--font-size-16);
+  line-height: var(--line-height-22);
+}
+}
+
+@media (--bp-desktop) {
+.brightcove-video .bcvideo-content-title {
+  font-size: var(--font-size-20);
+  line-height: var(--line-height-24);
+}
+
+.brightcove-video .bcvideo-content-desc {
+  font-size: var(--font-size-18);
+  line-height: var(--line-height-24);
+}
+}
+
+/* =====================================================
+   Video caption
+   ===================================================== */
+
+.brightcove-video .bcvideo-caption {
+  color: var(--text-color-gray);
+  font-family: var(--body-font-family);
+  font-size: var(--font-size-14);
+  line-height: var(--line-height-18);
+  margin: var(--spacing-08) var(--spacing-00) var(--spacing-00);
+  font-style: italic;
+}
+
+/* =====================================================
+   Transcript
+   ===================================================== */
+
+.brightcove-video .bcvideo-transcript {
+  margin-top: var(--spacing-16);
+}
+
+.brightcove-video .bcvideo-transcript-toggle,
+.brightcove-video .bcvideo-transcript-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-06);
+  background: none;
+  border: none;
+  padding: var(--spacing-00);
+  color: var(--color-accent-blue);
+  font-family: var(--roboto-bold-font-family);
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-700);
+  text-transform: var(--font-uppercase);
+  letter-spacing: var(--letter-spacing-wide-06);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.brightcove-video .bcvideo-transcript-toggle:hover,
+.brightcove-video .bcvideo-transcript-link:hover {
+  text-decoration: underline;
+}
+
+.brightcove-video .bcvideo-transcript-toggle:focus-visible,
+.brightcove-video .bcvideo-transcript-link:focus-visible {
+  outline: var(--border-02) solid var(--color-accent-blue);
+  outline-offset: var(--spacing-02);
+}
+
+.brightcove-video .bcvideo-transcript-show-label,
+.brightcove-video .bcvideo-transcript-hide-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-06);
+}
+
+.brightcove-video .bcvideo-transcript-panel {
+  margin-top: var(--spacing-12);
+  padding: var(--spacing-16);
+  background: var(--highlight-background-color);
+  border-radius: var(--border-radius-base);
+  font-family: var(--body-font-family);
+  font-size: var(--font-size-16);
+  line-height: var(--line-height-22);
+  color: var(--text-color);
+  max-height: var(--spacing-300);
+  overflow-y: auto;
+}
+
+/* =====================================================
+   Playlist layouts
+   ===================================================== */
+
+.brightcove-video.bcvideo-player-playlist .bcvideo-main {
+  flex-direction: column;
+}
+
+@media (--bp-desktop) {
+  .brightcove-video.bcvideo-playlist-layout-left .bcvideo-main,
+  .brightcove-video.bcvideo-playlist-layout-right .bcvideo-main {
+    flex-direction: row;
+  }
+
+  .brightcove-video.bcvideo-playlist-layout-left .bcvideo-container {
+    order: var(--order-2);
+    flex: var(--order-2);
+  }
+
+  .brightcove-video.bcvideo-playlist-layout-right .bcvideo-container {
+    order: var(--order-1);
+    flex: var(--order-2);
+  }
+}

@@ -93,6 +93,58 @@
               }
             }
           }
+        },
+        {
+          "title": "Flex Section",
+          "id": "flex-section",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/section/v1/section",
+                "template": {
+                  "model": "flex-section",
+                  "filter": "flex-section",
+                  "name": "Flex Section",
+                  "identifier": "Flex Section",
+                  "section-type": "flex-section"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Grid Section",
+          "id": "grid-section",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/section/v1/section",
+                "template": {
+                  "model": "grid-section",
+                  "filter": "grid-section",
+                  "name": "Grid Section",
+                  "identifier": "Grid Section"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Grid Container",
+          "id": "grid-container",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/section/v1/section",
+                "template": {
+                  "model": "grid-container",
+                  "filter": "grid-container",
+                  "name": "Grid Container",
+                  "identifier": "Grid Container"
+                }
+              }
+            }
+          }
         }
       ]
     },
@@ -126,7 +178,7 @@
                 "template": {
                   "name": "Accordion Item",
                   "model": "accordion-item",
-                  "summary": "Lorem Ipsum",
+                  "summary": "Lorem Ipsum doloer sit",
                   "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur volutpat consequat dui, sit amet ...</p>"
                 }
               }
@@ -149,30 +201,84 @@
           }
         },
         {
-          "title": "Cards Leader",
-          "id": "cards-leader",
+          "title": "Brightcove Podcast Player",
+          "id": "brightcove-podcast-player",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "name": "Cards Leader",
-                  "filter": "cards-leader"
+                  "name": "Brightcove Podcast Player",
+                  "model": "brightcove-podcast-player",
+                  "filter": "brightcove-podcast-player",
+                  "videoId": "",
+                  "accountId": "corporate",
+                  "playerId": "",
+                  "podcastTitle": "",
+                  "podcastThumbnail": "",
+                  "analyticsInteractionId": "",
+                  "language": "lang:none",
+                  "blockId": "id:"
                 }
               }
             }
           }
         },
         {
-          "title": "Card",
-          "id": "card",
+          "title": "Brightcove Video",
+          "id": "brightcove-video",
           "plugins": {
             "xwalk": {
               "page": {
-                "resourceType": "core/franklin/components/block/v1/block/item",
+                "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "name": "Card",
-                  "model": "card"
+                  "name": "Brightcove Video",
+                  "model": "brightcove-video",
+                  "filter": "brightcove-video",
+                  "projectNumber": "",
+                  "overlayTitle": "",
+                  "overlayDescription": "",
+                  "playerType": "single",
+                  "accountId": "2157889325001",
+                  "playerId": "",
+                  "videoId": "",
+                  "playlistId": "",
+                  "defaultPlaylistVideoId": "",
+                  "posterType": "brightcove",
+                  "posterImage": "",
+                  "posterAlt": "",
+                  "colorOverlay": "",
+                  "overlayButtonText": "Watch Video",
+                  "overlayButtonIconType": "icon-font",
+                  "overlayButtonFontIcon": "play",
+                  "overlayButtonImageIcon": "",
+                  "iconPosition": "left",
+                  "videoContentLayout": "bottom",
+                  "playlistLayout": "right",
+                  "playlistType": "carousel",
+                  "enablePlaylistThumbnailMetadata": false,
+                  "enableAutoplay": false,
+                  "enableLoop": false,
+                  "enableCaptions": false,
+                  "enableVideoChapters": false,
+                  "enableRecommendedVideo": false,
+                  "enablePlayerControls": true,
+                  "enableSocialShare": false,
+                  "enableTranscript": false,
+                  "transcriptType": "brightcove",
+                  "showTranscriptLabel": "transcript",
+                  "hideTranscriptLabel": "transcript",
+                  "transcriptButtonIconType": "icon-font",
+                  "transcriptShowFontIcon": "play",
+                  "transcriptShowImageIcon": "",
+                  "transcriptHideFontIcon": "play",
+                  "transcriptHideImageIcon": "",
+                  "transcriptClickBehavior": "new-tab",
+                  "modalHiddenPanelId": "",
+                  "transcriptLink": "",
+                  "transcriptLinkIconPosition": "after",
+                  "playButtonAriaLabel": "",
+                  "videoCaption": ""
                 }
               }
             }
@@ -255,19 +361,27 @@
           }
         },
         {
-          "title": "CTA",
+          "title": "Cta",
           "id": "cta",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "name": "CTA",
+                  "name": "Cta",
                   "model": "cta",
                   "link": "/link",
                   "linkText": "Button",
-                  "newTab": false,
-                  "linkAriaLabel": ""
+                  "linkAriaLabel": "",
+                  "ctaTarget": "_self",
+                  "iconType": "none",
+                  "iconFont": "",
+                  "iconImage": "",
+                  "ariaHidden": false,
+                  "iconPosition": "after",
+                  "classes": "default-cta",
+                  "language": "lang:none",
+                  "blockId": "id:"
                 }
               }
             }
@@ -332,6 +446,23 @@
                 "template": {
                   "name": "Embed",
                   "model": "embed"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Fact Card",
+          "id": "fact-card",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Fact Card",
+                  "model": "fact-card",
+                  "language": "lang:none",
+                  "blockId": "id:"
                 }
               }
             }
@@ -449,8 +580,16 @@
                 "template": {
                   "name": "Quote",
                   "model": "quote",
+                  "id": "",
+                  "customClass": "",
                   "quoteType": "basic",
-                  "language": "en"
+                  "backgroundImageAlt": "",
+                  "classes_theme": "quote-none",
+                  "classes_contentAlignment": "quote-align-none",
+                  "classes_contentWidth": "quote-content-col-none",
+                  "language": "lang:none",
+                  "blockId": "id:",
+                  "analyticsInteractionId": ""
                 }
               }
             }
@@ -542,22 +681,59 @@
                 "template": {
                   "name": "Story Card",
                   "model": "story-card",
-                  "filter": "story-card"
+                  "storyCardType": "cardInfo",
+                  "hidePublicationDate": false,
+                  "hideReadTime": false,
+                  "hideTitle": false,
+                  "hideDescription": false,
+                  "hideImage": false,
+                  "page": "",
+                  "openInNewTab": false,
+                  "imagePreset": "",
+                  "imageModifiers": "",
+                  "analyticsInteractionId": "",
+                  "language": "lang:none",
+                  "blockId": "id:"
                 }
               }
             }
           }
         },
         {
-          "title": "Story Card Item",
+          "title": "Story Cards",
+          "id": "story-cards",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Story Cards",
+                  "model": "story-cards",
+                  "filter": "story-cards"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Story Card",
           "id": "story-card-item",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "Card Content",
-                  "model": "story-card-item"
+                  "name": "Story Card",
+                  "model": "story-card",
+                  "page": "",
+                  "openInNewTab": false,
+                  "hideImage": false,
+                  "imagePreset": "",
+                  "imageModifiers": "",
+                  "ctaText": "",
+                  "analyticsInteractionId": "",
+                  "language": "lang:none",
+                  "blockId": "id:"
                 }
               }
             }
@@ -682,6 +858,47 @@
           }
         },
         {
+          "title": "Tag Utility Nav",
+          "id": "tag-utility-nav",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Tag Utility Nav",
+                  "model": "tag-utility-nav",
+                  "filter": "tag-utility-nav",
+                  "classes_searchIconType": "no-icon",
+                  "searchFontIcon": "",
+                  "searchIcon": "",
+                  "searchPlaceholder": "Search",
+                  "searchInID": "",
+                  "browseCategories": "",
+                  "clearCategories": ""
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Category",
+          "id": "tag-utility-nav-category",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Category",
+                  "model": "tag-utility-nav-category",
+                  "categoryTag": "",
+                  "categoryLink": "",
+                  "categoryTitle": ""
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Teaser",
           "id": "teaser",
           "plugins": {
@@ -707,7 +924,8 @@
                   "name": "Text Container",
                   "model": "text-container",
                   "filter": "text-container",
-                  "language": "lang:none"
+                  "language": "lang:none",
+                  "blockId": "id:"
                 }
               }
             }

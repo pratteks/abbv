@@ -8,10 +8,10 @@ import { getConfigValue } from './config.js';
  *                        (e.g., "/content/dam/abbvie-dev/dashboard-cards/belonging-&-inclusion")
  * @returns {Promise<Object>} - The raw dashboard card data from the API
  */
-export const fetchDashboardCardData = async (path) => {
+export const fetchDashboardCardData = async (path, baseUrl) => {
   try {
     // Get the base URL from configuration
-    const cfBaseUrl = await getConfigValue('cfBaseUrl');
+    const cfBaseUrl = await getConfigValue(baseUrl);
     if (!cfBaseUrl) {
       throw new Error('Content Fragment base URL not found in configuration');
     }

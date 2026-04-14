@@ -1,0 +1,31 @@
+{
+  "common-prop": [
+    {
+      "component": "tab",
+      "label": "Common Properties",
+      "name": "commonProperties"
+    },
+    {
+      "component": "text",
+      "valueType": "string",
+      "name": "blockId",
+      "valueFormat": "regexp",
+      "label": "ID",
+      "description": "Unique identifier for this block",
+      "validation": {
+        "regExp": "^id:\\S*$",
+        "customErrorMsg": "ID must start with 'id:' and contain no spaces"
+      }
+    },
+    {
+      "component": "text",
+      "valueType": "string",
+      "name": "classes_commonCustomClass",
+      "label": "Custom Class",
+      "description": "Custom CSS class to apply to this block"
+    },
+    {
+      "...": "_language.json#/language-field"
+    }
+  ]
+}

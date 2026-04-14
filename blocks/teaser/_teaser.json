@@ -59,6 +59,23 @@
         },
         {
           "component": "select",
+          "name": "buttonType",
+          "valueType": "string",
+          "value": "",
+          "label": "Type",
+          "options": [
+            {
+              "name": "Internal",
+              "value": "link-internal"
+            },
+            {
+              "name": "External",
+              "value": "link-external"
+            }
+          ]
+        },
+        {
+          "component": "select",
           "valueType": "string",
           "name": "clickType",
           "value": "_self",

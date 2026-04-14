@@ -4,6 +4,7 @@
   --nav-logo-size-mobile: 8.8rem;
   --nav-height: 88px;
   --nav-height-mobile: 72px;
+  --nav-sections-bottom-gap: 17.6rem;
 }
 
 /* Header and nav layout */
@@ -23,7 +24,7 @@ header nav {
   gap: var(--gap-0);
   margin: auto;
   height: var(--nav-height);
-  padding: var(--spacing-00) var(--spacing-55);
+  padding: var(--spacing-00) var(--spacing-35);
   font-family: var(--body-font-family);
 }
 
@@ -258,6 +259,8 @@ input[type="search"]::-webkit-search-results-decoration {
   position: relative;
   text-align: left;
   width: 100%;
+  margin: 0;
+  font-weight: var(--font-weight-400);
 }
 
 .navigation-item-level-1 .level-two-menu>.root-two-dropdown-btn .accordion-icon {
@@ -271,10 +274,11 @@ input[type="search"]::-webkit-search-results-decoration {
   margin: var(--spacing-00);
 }
 
-header nav .nav-item-level-0 .default-content-wrapper ul li button.selected,
 header nav .nav-item-level-0 .default-content-wrapper ul li button:hover,
-header nav .nav-item-level-0 .default-content-wrapper ul li a:hover {
+header nav .nav-item-level-0 .default-content-wrapper ul li a:hover,
+header nav .nav-item-level-0 .default-content-wrapper ul li button.active {
   font-weight: var(--font-weight-700);
+  font-family: var(--roboto-bold-font-family);
 }
 
 header nav .nav-item-level-0 .back-btn {
@@ -331,7 +335,7 @@ header nav .nav-item-level-0 .back-btn::before {
   display: flex;
   flex-direction: column;
   gap: var(--gap-0);
-  margin-left: var(--spacing-62);
+  margin-left: var(--spacing-70);
 }
 
 .navigation-item-level-1 .level-two-menu .level-two-menu-items .go-to-page-btn {
@@ -347,7 +351,8 @@ header nav .nav-item-level-0 .back-btn::before {
   padding: var(--spacing-00);
   position: relative;
   text-decoration: none;
-  text-transform: uppercase
+  text-transform: uppercase;
+  font-family: var(--roboto-bold-font-family);
 }
 
 .menu-quick-links .navigation-item-level-1 .level-two-menu .level-two-menu-items .go-to-page-btn,
@@ -388,10 +393,12 @@ header nav .nav-item-level-0 .back-btn::before {
   font-size: var(--font-size-20);
   line-height: var(--line-height-24);
   text-decoration: none;
+  font-weight: var(--font-weight-400);
 }
 
 .navigation-item-level-1 .level-two-menu .level-two-menu-items>.navigation-group .navigation-item-level-2 .navigation-item-link:hover {
   font-weight: var(--font-weight-700);
+  font-family: var(--roboto-bold-font-family);
 }
 
 .navigation-item-level-1 .level-two-menu .level-two-menu-items>.navigation-group .navigation-item-level-2:not(:last-child) {
@@ -440,7 +447,7 @@ header nav .external-link::after {
   grid-template-columns: repeat(12, 1fr);
   padding-right: var(--spacing-55);
   padding-top: var(--spacing-80);
-  padding-left: calc(7.67% + .1667rem);
+  padding-left: calc(6.5% + .1667rem);
   border-top-left-radius: var(--border-top-left-radius-40);
   margin-left: var(--spacing-55);
   order: var(--order-1);
@@ -453,7 +460,7 @@ header nav .external-link::after {
 
 .mega-menu-left .mega-menu-title {
   margin-bottom: var(--spacing-24);
-  font-family: var(--heading-font-family);
+  font-family: var(--heading-font-family-bold);
   font-weight: var(--font-weight-800);
   font-size: var(--font-size-40);
   line-height: var(--line-height-44);
@@ -464,6 +471,7 @@ header nav .external-link::after {
   font-size: var(--font-size-18);
   line-height: var(--line-height-24);
   margin-bottom: var(--spacing-24);
+  font-weight: var(--font-weight-400);
 }
 
 .mega-menu-left .button-container {
@@ -783,6 +791,10 @@ header nav .mega-menu-minimize .mega-menu-wrapper .mega-menu-card {
     padding-right: var(--spacing-10);
   }
 
+  header nav .nav-item-level-0 .default-content-wrapper ul li button.selected {
+    font-weight: var(--font-weight-700);
+  }
+
   header nav .nav-item-level-0 .default-content-wrapper>ul>li>button:hover,
   header nav .nav-item-level-0 .default-content-wrapper>ul>li>button:focus,
   header nav .nav-item-level-0 .default-content-wrapper>ul>li>button:focus-visible,
@@ -817,6 +829,7 @@ header nav .mega-menu-minimize .mega-menu-wrapper .mega-menu-card {
     position: relative;
     top: var(--spacing-20);
     border: none;
+    line-height: var(--line-height-20);
   }
 
   header nav .nav-item-level-0 .close-btn-wrapper .close-btn:hover {
@@ -1055,7 +1068,7 @@ header nav .mega-menu-minimize .mega-menu-wrapper .mega-menu-card {
     grid-template:
       'brand tools hamburger' var(--nav-height-mobile) 'sections sections sections' / 1fr auto auto;
     height: var(--nav-height-mobile);
-    padding: var(--spacing-00) var(--spacing-70);
+    padding: var(--spacing-00) var(--spacing-55);
   }
 
   header nav.second-level-active .nav-brand {
@@ -1083,7 +1096,6 @@ header nav .mega-menu-minimize .mega-menu-wrapper .mega-menu-card {
   }
 
   header nav .nav-sections .default-content-wrapper>ul {
-    margin-top: var(--spacing-24);
     height: calc(100vh - 27.2rem);
     flex-direction: column;
     display: flex;
@@ -1116,7 +1128,7 @@ header nav .mega-menu-minimize .mega-menu-wrapper .mega-menu-card {
     position: absolute;
     top: var(--nav-height-mobile);
     width: 100%;
-    padding: 0 7rem 17.6rem;
+    padding: var(--spacing-24) var(--spacing-55) var(--nav-sections-bottom-gap);
     left: var(--spacing-00);
     overflow: auto;
     height: calc(100vh - 10rem);
@@ -1301,9 +1313,9 @@ header nav .mega-menu-minimize .mega-menu-wrapper .mega-menu-card {
 
 /* Mobile style */
 @media (width <=743px) {
-  header nav {
+  /* header nav {
     padding: var(--spacing-00) var(--spacing-35);
-  }
+  } */
 
   .nav-tools .search-main-wrapper {
     display: grid;
@@ -1342,7 +1354,7 @@ header nav .mega-menu-minimize .mega-menu-wrapper .mega-menu-card {
   }
 
   header nav[aria-expanded='true'] .nav-sections {
-    padding: var(--spacing-00) var(--spacing-35);
+    padding: var(--spacing-24) var(--spacing-35);
   }
 
   .navigation-item-level-1>a,

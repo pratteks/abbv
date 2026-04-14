@@ -17,8 +17,8 @@
         {
           "component": "text",
           "valueType": "string",
-          "name": "pageTitle",
-          "label": "pageTitle"
+          "name": "navTitle",
+          "label": "Nav Title"
         },
         {
           "component": "text",
@@ -82,17 +82,69 @@
           "label": "CTA Text"
         },
         {
-          "component": "date",
+          "component": "text",
           "valueType": "string",
           "name": "publicationDate",
-          "label": "Publication Date"
+          "label": "Publication Date",
+          "description": "e.g. DECEMBER 15, 2025"
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "readWatchTime",
+          "label": "Read/Watch Time",
+          "description": "Select the estimated time required to read or watch the story content.",
+          "value": "readTime",
+          "options": [
+            {
+              "name": "Read Time",
+              "value": "readTime"
+            },
+            {
+              "name": "Watch Time",
+              "value": "watchTime"
+            }
+          ]
+        },
+        {
+          "component": "number",
+          "valueType": "number",
+          "name": "storyReadTime",
+          "label": "Story Read Time",
+          "description": "Read time for written stories. This field is required.",
+          "value": 5,
+          "condition": {
+            "===": [
+              {
+                "var": "readWatchTime"
+              },
+              "readTime"
+            ]
+          }
+        },
+        {
+          "component": "number",
+          "valueType": "number",
+          "name": "storyWatchTime",
+          "label": "Story Watch Time",
+          "description": "Define the number of minutes required to watch the story.",
+          "value": 5,
+          "condition": {
+            "===": [
+              {
+                "var": "readWatchTime"
+              },
+              "watchTime"
+            ]
+          }
         },
         {
           "component": "text",
           "valueType": "string",
-          "name": "readTime",
-          "label": "Read Time",
-          "description": "e.g. 5 min read"
+          "name": "ctaAltText",
+          "label": "CTA Alt Text",
+          "value": "",
+          "description": "Alternative text for the card CTA."
         }
       ]
     }

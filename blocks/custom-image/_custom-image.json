@@ -1,0 +1,283 @@
+{
+  "definitions": [
+    {
+      "title": "Custom Image",
+      "id": "custom-image",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Custom Image",
+              "model": "custom-image",
+              "presetType": "",
+              "imagePreset": "",
+              "rendition": "",
+              "imageModifiers": "",
+              "imageAlt": "",
+              "getAltFromDAM": false,
+              "imageIsDecorative": false,
+              "caption": "",
+              "getCaptionFromDAM": false,
+              "displayCaptionBelowImage": false,
+              "enableLink": false,
+              "target": "",
+              "clickBehavior": "_self",
+              "modalPanelId": "",
+              "enableWarnOnLeave": false,
+              "warnOnLeavePath": "",
+              "linkAriaLabel": "",
+              "analyticsInteractionId": ""
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "custom-image",
+      "fields": [
+        {
+          "component": "tab",
+          "label": "Overview",
+          "name": "overview"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Image",
+          "multi": false
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "presetType",
+          "value": "",
+          "label": "Preset Type",
+          "description": "Choose how the image preset or smart crop is applied",
+          "options": [
+            { "name": "None",          "value": "" },
+            { "name": "Image Preset",  "value": "image-preset" },
+            { "name": "Smart Crop",    "value": "smart-crop" }
+          ]
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "imagePreset",
+          "value": "",
+          "label": "Image Preset",
+          "description": "Select an image preset from the available preset renditions",
+          "condition": {
+            "===": [{ "var": "presetType" }, "image-preset"]
+          },
+          "options": [
+            { "name": "None",            "value": "" },
+            { "name": "Feature",         "value": "Feature" },
+            { "name": "Hero",            "value": "Hero" },
+            { "name": "Responsive",      "value": "Responsive" },
+            { "name": "Square",          "value": "Square" },
+            { "name": "Tall",            "value": "Tall" },
+            { "name": "VideoThumbnail",  "value": "VideoThumbnail" }
+          ]
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "rendition",
+          "value": "",
+          "label": "Rendition",
+          "description": "Select a smart crop rendition for the image",
+          "condition": {
+            "===": [{ "var": "presetType" }, "smart-crop"]
+          },
+          "options": [
+            { "name": "None",    "value": "" },
+            { "name": "Auto",    "value": "Auto" },
+            { "name": "Square",  "value": "Square" },
+            { "name": "Tall",    "value": "Tall" },
+            { "name": "Taller",  "value": "Taller" },
+            { "name": "Tallest", "value": "Tallest" }
+          ]
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "imageModifiers",
+          "value": "",
+          "label": "Image Modifiers",
+          "description": "Specify additional image modifier parameters (e.g. wid=500&hei=300)"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "imageAlt",
+          "value": "",
+          "label": "Alternative Text",
+          "description": "Provide alternative text for your image",
+          "required": true
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "getAltFromDAM",
+          "value": false,
+          "label": "Get alternative text from DAM"
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "imageIsDecorative",
+          "value": false,
+          "label": "Image is decorative"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "caption",
+          "value": "",
+          "label": "Caption",
+          "description": "Text displayed as a caption for the image"
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "getCaptionFromDAM",
+          "value": false,
+          "label": "Get caption from DAM"
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "displayCaptionBelowImage",
+          "value": false,
+          "label": "Enable caption as text under image"
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "enableLink",
+          "value": false,
+          "label": "Enable Link",
+          "description": "Enable linking from the image to another target"
+        },
+        {
+          "component": "aem-content",
+          "valueType": "string",
+          "name": "target",
+          "value": "",
+          "label": "Target",
+          "description": "Provide your target path or URL",
+          "condition": {
+            "===": [{ "var": "enableLink" }, true]
+          }
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "clickBehavior",
+          "value": "_self",
+          "label": "Click Behavior",
+          "description": "Select the behavior of this button",
+          "condition": {
+            "===": [{ "var": "enableLink" }, true]
+          },
+          "options": [
+            { "name": "Same Tab",     "value": "_self" },
+            { "name": "New Tab",      "value": "_blank" },
+            { "name": "Modal",        "value": "modal" },
+            { "name": "Hidden Panel", "value": "hidden-panel" }
+          ]
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "modalPanelId",
+          "value": "",
+          "label": "Modal/Hidden Panel ID",
+          "description": "ID of the modal or hidden panel to trigger",
+          "condition": {
+            "and": [
+              { "===": [{ "var": "enableLink" }, true] },
+              {
+                "or": [
+                  { "===": [{ "var": "clickBehavior" }, "modal"] },
+                  { "===": [{ "var": "clickBehavior" }, "hidden-panel"] }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "enableWarnOnLeave",
+          "value": false,
+          "label": "Enable Warn on Leave Modal",
+          "description": "Show a warning modal when the user navigates away",
+          "condition": {
+            "===": [{ "var": "enableLink" }, true]
+          }
+        },
+        {
+          "component": "aem-content",
+          "valueType": "string",
+          "name": "warnOnLeavePath",
+          "value": "",
+          "label": "Warn on leave modal path",
+          "condition": {
+            "and": [
+              { "===": [{ "var": "enableLink" }, true] },
+              { "===": [{ "var": "enableWarnOnLeave" }, true] }
+            ]
+          }
+        },
+        {
+          "component": "tab",
+          "label": "Accessibility",
+          "name": "accessibility"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "linkAriaLabel",
+          "value": "",
+          "label": "Link Aria Label",
+          "description": "Provide an aria-label for the image target link"
+        },
+        {
+          "component": "tab",
+          "label": "Analytics",
+          "name": "analytics"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "analyticsInteractionId",
+          "value": "",
+          "label": "Analytics Interaction ID",
+          "description": "Analytics interaction identifier for tracking"
+        },
+        {
+          "component": "tab",
+          "label": "Styles",
+          "name": "styles"
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "classes_shape",
+          "label": "Shape",
+          "options": [
+            { "name": "Default", "value": "" },
+            { "name": "Circle", "value": "circle" },
+            { "name": "Logo", "value": "logo" }
+          ]
+        }
+      ]
+    }
+  ],
+  "filters": []
+}

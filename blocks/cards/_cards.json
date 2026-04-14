@@ -51,20 +51,20 @@
               "name": "Card Width Style",
               "children": [
                 {
-                  "name": "Width 4",
-                  "value": "col-widht-4"
+                  "name": "Small Card (4 Columns)",
+                  "value": "col-width-4"
                 },
                 {
-                  "name": "Width 5",
-                  "value": "col-widht-5"
+                  "name": "Medium Card (5 Columns)",
+                  "value": "col-width-5"
                 },
                 {
-                  "name": "Width 6",
-                  "value": "col-widht-6"
+                  "name": "Large Card (6 Columns)",
+                  "value": "col-width-6"
                 },
                 {
-                  "name": "Width 7",
-                  "value": "col-widht-7"
+                  "name": "Extra Large Card (7 Columns)",
+                  "value": "col-width-7"
                 }
               ]
             }

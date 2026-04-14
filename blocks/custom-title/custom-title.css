@@ -15,7 +15,7 @@
   margin: 0;
   padding: 0;
   margin-bottom: var(--spacing-20);
-  font-weight: inherit;
+  font-weight: var(--font-weight-800);
 }
 
 /* Heading sizes — base (mobile) */
@@ -137,15 +137,15 @@
 }
 
 /* Format: Outdented — first letter changes to brand accent blue */
-.custom-title.format-outdented .custom-title-heading::first-letter {
+.format-outdented .custom-title-heading::first-letter {
   color: var(--custom-title-accent-color);
   display: inline;
 }
 
 /* Format: Raised Cap — first letter scales up, sits raised on the baseline */
-.custom-title.format-raised .custom-title-heading::first-letter {
-  font-size: 2em;
-  line-height: 0.75;
+.format-raised .custom-title-heading::first-letter {
+  font-size: var(--font-size-32);
+  line-height: var(--line-height-36);
   font-weight: inherit;
   color: inherit;
   vertical-align: baseline;
@@ -160,5 +160,11 @@
 
 /* Theme: Dark — no background, text changes to white */
 .custom-title.theme-dark .custom-title-heading {
-  color: var(--bg-ffffff);
+  color: var(--color-white);
+}
+
+/* Former heading section — center H2 with bold weight */
+.former-heading .custom-title h2 {
+  text-align: center;
+  font-weight: 800;
 }

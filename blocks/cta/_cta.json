@@ -1,19 +1,27 @@
 {
   "definitions": [
     {
-      "title": "CTA",
+      "title": "Cta",
       "id": "cta",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
-              "name": "CTA",
+              "name": "Cta",
               "model": "cta",
               "link": "/link",
               "linkText": "Button",
-              "newTab": false,
-              "linkAriaLabel": ""
+              "linkAriaLabel": "",
+              "ctaTarget": "_self",
+              "iconType": "none",
+              "iconFont": "",
+              "iconImage": "",
+              "ariaHidden": false,
+              "iconPosition": "after",
+              "classes": "default-cta",
+              "language": "lang:none",
+              "blockId": "id:"
             }
           }
         }
@@ -26,31 +34,134 @@
       "fields": [
         {
           "component": "tab",
-          "label": "Properties",
-          "name": "properties"
-        },
-        {
-          "component": "aem-content",
-          "name": "link",
-          "label": "Link"
+          "label": "Overview",
+          "name": "overview"
         },
         {
           "component": "text",
           "name": "linkText",
-          "label": "Text"
+          "label": "Button Text"
+        },
+        {
+          "component": "aem-content",
+          "name": "link",
+          "label": "Target"
         },
         {
           "component": "text",
-          "name": "linkTitle",
-          "label": "Title"
+          "name": "aria-label",
+          "label": "ARIA Label",
+          "valueType": "string",
+          "attribute": "data-aria-label"
+        },
+        {
+          "component": "select",
+          "label": "Click Behavior",
+          "name": "ctaTarget",
+          "value": "_self",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Same Tab",
+              "value": "_self"
+            },
+            {
+              "name": "New Tab",
+              "value": "_blank"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "iconType",
+          "value": "none",
+          "label": "Icon Type",
+          "description": "Icon type for the button",
+          "options": [
+            {
+              "name": "None",
+              "value": "none"
+            },
+            {
+              "name": "Icon Font",
+              "value": "icon-font"
+            },
+            {
+              "name": "Image",
+              "value": "image"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "iconFont",
+          "value": "",
+          "label": "Button Font Icon",
+          "description": "Font icon name for button",
+          "condition": {
+            "===": [
+              {
+                "var": "iconType"
+              },
+              "icon-font"
+            ]
+          }
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "iconImage",
+          "label": "Button Image Icon",
+          "description": "Image icon for button",
+          "multi": false,
+          "condition": {
+            "===": [
+              {
+                "var": "iconType"
+              },
+              "image"
+            ]
+          }
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "iconPosition",
+          "value": "after",
+          "label": "Icon Position",
+          "description": "Select whether the icon is placed before your button text or after your button text",
+          "options": [
+            {
+              "name": "Before",
+              "value": "before"
+            },
+            {
+              "name": "After",
+              "value": "after"
+            }
+          ],
+          "condition": {
+            "in": [
+              {
+                "var": "iconType"
+              },
+              [
+                "icon-font",
+                "image"
+              ]
+            ]
+          }
         },
         {
           "component": "boolean",
-          "label": "Open in New Tab",
-          "name": "classes_newTab",
+          "label": "Prevent screen readers from announcing this CTA",
+          "name": "ariaHidden",
           "value": false,
           "valueType": "boolean"
         },
+
         {
           "component": "tab",
           "label": "Styles",
@@ -60,11 +171,8 @@
           "component": "select",
           "name": "classes",
           "label": "Type",
+          "value": "default-cta",
           "options": [
-            {
-              "name": "None",
-              "value": ""
-            },
             {
               "name": "default",
               "value": "default-cta"
@@ -99,17 +207,8 @@
           ]
         },
         {
-          "component": "tab",
-          "label": "Accessibility",
-          "name": "accessibility"
-        },
-        {
-          "component": "text",
-          "name": "aria-label",
-          "label": "ARIA Label",
-          "valueType": "string",
-          "attribute": "data-aria-label"
-          }
+          "...": "../../models/_common-properties.json#/common-prop"
+        }
       ]
     }
   ],

@@ -16,6 +16,19 @@
       }
     }
   ],
-   "models": [],
+  "models": [
+    {
+      "id": "separator",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "id",
+          "value": "",
+          "label": "Id"
+        }
+      ]
+    }
+  ],
   "filters": []
 }

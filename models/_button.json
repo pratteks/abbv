@@ -51,6 +51,10 @@
             {
               "name": "secondary",
               "value": "secondary"
+            },
+            {
+              "name": "external",
+              "value": "link-external"
             }
           ]
         }

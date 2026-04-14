@@ -1,0 +1,909 @@
+{
+  "definitions": [
+    {
+      "title": "Brightcove Video",
+      "id": "brightcove-video",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Brightcove Video",
+              "model": "brightcove-video",
+              "filter": "brightcove-video",
+              "projectNumber": "",
+              "overlayTitle": "",
+              "overlayDescription": "",
+              "playerType": "single",
+              "accountId": "2157889325001",
+              "playerId": "",
+              "videoId": "",
+              "playlistId": "",
+              "defaultPlaylistVideoId": "",
+              "posterType": "brightcove",
+              "posterImage": "",
+              "posterAlt": "",
+              "colorOverlay": "",
+              "overlayButtonText": "Watch Video",
+              "overlayButtonIconType": "icon-font",
+              "overlayButtonFontIcon": "play",
+              "overlayButtonImageIcon": "",
+              "iconPosition": "left",
+              "videoContentLayout": "bottom",
+              "playlistLayout": "right",
+              "playlistType": "carousel",
+              "enablePlaylistThumbnailMetadata": false,
+              "enableAutoplay": false,
+              "enableLoop": false,
+              "enableCaptions": false,
+              "enableVideoChapters": false,
+              "enableRecommendedVideo": false,
+              "enablePlayerControls": true,
+              "enableSocialShare": false,
+              "enableTranscript": false,
+              "transcriptType": "brightcove",
+              "showTranscriptLabel": "transcript",
+              "hideTranscriptLabel": "transcript",
+              "transcriptButtonIconType": "icon-font",
+              "transcriptShowFontIcon": "play",
+              "transcriptShowImageIcon": "",
+              "transcriptHideFontIcon": "play",
+              "transcriptHideImageIcon": "",
+              "transcriptClickBehavior": "new-tab",
+              "modalHiddenPanelId": "",
+              "transcriptLink": "",
+              "transcriptLinkIconPosition": "after",
+              "playButtonAriaLabel": "",
+              "videoCaption": ""
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "brightcove-video",
+      "fields": [
+        {
+          "component": "tab",
+          "label": "Overview",
+          "name": "overview"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "projectNumber",
+          "value": "",
+          "label": "Project Number",
+          "description": "Project number for this video"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "overlayTitle",
+          "value": "",
+          "label": "Overlay Title",
+          "description": "Title shown atop the video before play"
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "overlayDescription",
+          "value": "",
+          "label": "Overlay Description",
+          "description": "Description shown atop the video before play"
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "posterType",
+          "value": "brightcove",
+          "label": "Poster Type",
+          "description": "Brightcove poster or define a custom/color poster",
+          "options": [
+            {
+              "name": "Brightcove",
+              "value": "brightcove"
+            },
+            {
+              "name": "Color",
+              "value": "color"
+            },
+            {
+              "name": "Custom",
+              "value": "custom"
+            }
+          ]
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "posterImage",
+          "label": "Poster Image",
+          "description": "Image overlay shown before play",
+          "multi": false,
+          "condition": {
+            "===": [
+              {
+                "var": "posterType"
+              },
+              "custom"
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "posterAlt",
+          "value": "",
+          "label": "Poster Alt Text",
+          "description": "Alt text for poster image. Falls back to asset alt text, then asset title metadata.",
+          "condition": {
+            "===": [
+              {
+                "var": "posterType"
+              },
+              "custom"
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "colorOverlay",
+          "value": "",
+          "label": "Color Overlay",
+          "description": "Solid background color overlay before play (e.g. #071d49)",
+          "condition": {
+            "===": [
+              {
+                "var": "posterType"
+              },
+              "color"
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "overlayButtonText",
+          "value": "Watch Video",
+          "label": "Overlay Button Text",
+          "description": "Button label for button shown atop the video before play"
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "overlayButtonIconType",
+          "value": "icon-font",
+          "label": "Overlay Button Icon Type",
+          "description": "Icon type for the button",
+          "options": [
+            {
+              "name": "Icon Font",
+              "value": "icon-font"
+            },
+            {
+              "name": "Image",
+              "value": "image"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "overlayButtonFontIcon",
+          "value": "play",
+          "label": "Overlay Button Font Icon",
+          "description": "Font icon name for overlay button",
+          "condition": {
+            "===": [
+              {
+                "var": "overlayButtonIconType"
+              },
+              "icon-font"
+            ]
+          }
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "overlayButtonImageIcon",
+          "label": "Overlay Button Image Icon",
+          "description": "Image used for overlay button",
+          "multi": false,
+          "condition": {
+            "===": [
+              {
+                "var": "overlayButtonIconType"
+              },
+              "image"
+            ]
+          }
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "iconPosition",
+          "value": "left",
+          "label": "Icon Position",
+          "description": "Position of icon relative to button text",
+          "options": [
+            {
+              "name": "Left",
+              "value": "left"
+            },
+            {
+              "name": "Right",
+              "value": "right"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "playerType",
+          "value": "single",
+          "label": "Player Type",
+          "description": "Type of video",
+          "options": [
+            {
+              "name": "Single",
+              "value": "single"
+            },
+            {
+              "name": "Playlist",
+              "value": "playlist"
+            },
+            {
+              "name": "3D Video",
+              "value": "3d-video"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "accountId",
+          "value": "2157889325001",
+          "label": "Brightcove Account ID",
+          "description": "Account of the video. Only one account can be used on a single page.",
+          "options": [
+            {
+              "name": "Corporate",
+              "value": "2157889325001"
+            },
+            {
+              "name": "Public",
+              "value": "public"
+            },
+            {
+              "name": "Commercial",
+              "value": "commercial"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "playerId",
+          "value": "",
+          "label": "Brightcove Player ID",
+          "description": "Player ID for the video",
+          "condition": {
+            "in": [
+              {
+                "var": "accountId"
+              },
+              [
+                "2157889325001",
+                "public"
+              ]
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "videoId",
+          "value": "",
+          "label": "Brightcove Video ID",
+          "description": "Video ID for the video",
+          "condition": {
+            "in": [
+              {
+                "var": "playerType"
+              },
+              [
+                "single",
+                "3d-video"
+              ]
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "playlistId",
+          "value": "",
+          "label": "Brightcove Playlist ID",
+          "description": "Playlist ID for the playlist",
+          "condition": {
+            "===": [
+              {
+                "var": "playerType"
+              },
+              "playlist"
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "defaultPlaylistVideoId",
+          "value": "",
+          "label": "Default Playlist Video ID (Optional)",
+          "description": "Video ID within this playlist as the default active video",
+          "condition": {
+            "===": [
+              {
+                "var": "playerType"
+              },
+              "playlist"
+            ]
+          }
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "playlistType",
+          "value": "carousel",
+          "label": "Playlist Type",
+          "description": "Layout type for your playlist",
+          "condition": {
+            "===": [
+              {
+                "var": "playerType"
+              },
+              "playlist"
+            ]
+          },
+          "options": [
+            {
+              "name": "Carousel",
+              "value": "carousel"
+            },
+            {
+              "name": "Cards",
+              "value": "cards"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "videoContentLayout",
+          "value": "bottom",
+          "label": "Video Content Layout",
+          "description": "Layout for title/description relative to video",
+          "options": [
+            {
+              "name": "None",
+              "value": "none"
+            },
+            {
+              "name": "Bottom",
+              "value": "bottom"
+            },
+            {
+              "name": "Left",
+              "value": "left"
+            },
+            {
+              "name": "Right",
+              "value": "right"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "playlistLayout",
+          "value": "right",
+          "label": "Playlist Layout",
+          "description": "Placement of playlist items relative to video",
+          "condition": {
+            "===": [
+              {
+                "var": "playerType"
+              },
+              "playlist"
+            ]
+          },
+          "options": [
+            {
+              "name": "None",
+              "value": "none"
+            },
+            {
+              "name": "Top",
+              "value": "top"
+            },
+            {
+              "name": "Left",
+              "value": "left"
+            },
+            {
+              "name": "Bottom",
+              "value": "bottom"
+            },
+            {
+              "name": "Right",
+              "value": "right"
+            }
+          ]
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "enablePlaylistThumbnailMetadata",
+          "value": false,
+          "label": "Enable Playlist Thumbnail Metadata",
+          "description": "If selected, playlist video thumbnails include title and time",
+          "condition": {
+            "===": [
+              {
+                "var": "playerType"
+              },
+              "playlist"
+            ]
+          }
+        },
+        {
+          "component": "tab",
+          "label": "Video Features",
+          "name": "videoFeatures"
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "enableAutoplay",
+          "value": false,
+          "label": "Enable Autoplay",
+          "description": "If selected, this video will auto play when in view"
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "enableLoop",
+          "value": false,
+          "label": "Enable Loop",
+          "description": "If selected, a video/playlist will start again when completed"
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "enableCaptions",
+          "value": false,
+          "label": "Enable Captions",
+          "description": "If selected, captions will be displayed"
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "enableVideoChapters",
+          "value": false,
+          "label": "Enable Video Chapters",
+          "description": "If selected, a chapter's selection area will be viewable"
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "enableRecommendedVideo",
+          "value": false,
+          "label": "Enable Recommended Video",
+          "description": "If selected, on completion a list of recommended videos displays"
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "enablePlayerControls",
+          "value": true,
+          "label": "Enable Player Controls",
+          "description": "If selected a video toolbar will be available (play, pause, etc.)"
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "enableSocialShare",
+          "value": false,
+          "label": "Enable Social Share",
+          "description": "If selected, a social share button and overlay will appear"
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "enableTranscript",
+          "value": false,
+          "label": "Enable Transcript",
+          "description": "If selected, a transcript button will be displayed"
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "transcriptType",
+          "value": "brightcove",
+          "label": "Transcript Type",
+          "description": "Select whether transcript is pulled from Brightcove or an authored link",
+          "condition": {
+            "===": [
+              {
+                "var": "enableTranscript"
+              },
+              true
+            ]
+          },
+          "options": [
+            {
+              "name": "Brightcove",
+              "value": "brightcove"
+            },
+            {
+              "name": "Custom",
+              "value": "custom"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "showTranscriptLabel",
+          "value": "transcript",
+          "label": "Show Transcript Link Label",
+          "description": "Define the show transcript button text",
+          "condition": {
+            "===": [
+              {
+                "var": "enableTranscript"
+              },
+              true
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "hideTranscriptLabel",
+          "value": "transcript",
+          "label": "Hide Transcript Link Label",
+          "description": "Define the hide transcript button text",
+          "condition": {
+            "and": [
+              {
+                "===": [
+                  {
+                    "var": "enableTranscript"
+                  },
+                  true
+                ]
+              },
+              {
+                "===": [
+                  {
+                    "var": "transcriptType"
+                  },
+                  "brightcove"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "transcriptClickBehavior",
+          "value": "new-tab",
+          "label": "Transcript Click Behavior",
+          "description": "Select what happens when the transcript button is clicked",
+          "condition": {
+            "and": [
+              {
+                "===": [
+                  {
+                    "var": "enableTranscript"
+                  },
+                  true
+                ]
+              },
+              {
+                "===": [
+                  {
+                    "var": "transcriptType"
+                  },
+                  "custom"
+                ]
+              }
+            ]
+          },
+          "options": [
+            {
+              "name": "New Tab",
+              "value": "new-tab"
+            },
+            {
+              "name": "Modal",
+              "value": "modal"
+            },
+            {
+              "name": "Hidden Panel",
+              "value": "hidden-panel"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "modalHiddenPanelId",
+          "value": "",
+          "label": "Modal/Hidden Panel ID",
+          "description": "Provide an ID for a modal or hidden panel",
+          "condition": {
+            "and": [
+              {
+                "===": [
+                  {
+                    "var": "enableTranscript"
+                  },
+                  true
+                ]
+              },
+              {
+                "===": [
+                  {
+                    "var": "transcriptType"
+                  },
+                  "custom"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "aem-content",
+          "valueType": "string",
+          "name": "transcriptLink",
+          "label": "Transcript Link",
+          "description": "Provide a URL to a page containing the transcript",
+          "condition": {
+            "and": [
+              {
+                "===": [
+                  {
+                    "var": "enableTranscript"
+                  },
+                  true
+                ]
+              },
+              {
+                "===": [
+                  {
+                    "var": "transcriptType"
+                  },
+                  "custom"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "transcriptButtonIconType",
+          "value": "icon-font",
+          "label": "Transcript Button Icon Type",
+          "description": "Select Icon type for the transcript button",
+          "condition": {
+            "===": [
+              {
+                "var": "enableTranscript"
+              },
+              true
+            ]
+          },
+          "options": [
+            {
+              "name": "Icon Font",
+              "value": "icon-font"
+            },
+            {
+              "name": "Image",
+              "value": "image"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "transcriptShowFontIcon",
+          "value": "play",
+          "label": "Transcript Show Font Icon",
+          "description": "Font icon for show transcript action",
+          "condition": {
+            "and": [
+              {
+                "===": [
+                  {
+                    "var": "enableTranscript"
+                  },
+                  true
+                ]
+              },
+              {
+                "===": [
+                  {
+                    "var": "transcriptButtonIconType"
+                  },
+                  "icon-font"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "transcriptShowImageIcon",
+          "label": "Transcript Show Image Icon",
+          "description": "Image for show transcript action",
+          "multi": false,
+          "condition": {
+            "and": [
+              {
+                "===": [
+                  {
+                    "var": "enableTranscript"
+                  },
+                  true
+                ]
+              },
+              {
+                "===": [
+                  {
+                    "var": "transcriptButtonIconType"
+                  },
+                  "image"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "transcriptHideFontIcon",
+          "value": "play",
+          "label": "Transcript Hide Font Icon",
+          "description": "Font icon for hide transcript (Brightcove)",
+          "condition": {
+            "and": [
+              {
+                "===": [
+                  {
+                    "var": "enableTranscript"
+                  },
+                  true
+                ]
+              },
+              {
+                "===": [
+                  {
+                    "var": "transcriptButtonIconType"
+                  },
+                  "icon-font"
+                ]
+              },
+              {
+                "===": [
+                  {
+                    "var": "transcriptType"
+                  },
+                  "brightcove"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "transcriptHideImageIcon",
+          "label": "Transcript Hide Image Icon",
+          "description": "Image for hide transcript (Brightcove)",
+          "multi": false,
+          "condition": {
+            "and": [
+              {
+                "===": [
+                  {
+                    "var": "enableTranscript"
+                  },
+                  true
+                ]
+              },
+              {
+                "===": [
+                  {
+                    "var": "transcriptButtonIconType"
+                  },
+                  "image"
+                ]
+              },
+              {
+                "===": [
+                  {
+                    "var": "transcriptType"
+                  },
+                  "brightcove"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "transcriptLinkIconPosition",
+          "value": "after",
+          "label": "Transcript Link Icon Position",
+          "description": "Select whether icon is placed before or after the link label",
+          "condition": {
+            "===": [
+              {
+                "var": "enableTranscript"
+              },
+              true
+            ]
+          },
+          "options": [
+            {
+              "name": "Before",
+              "value": "before"
+            },
+            {
+              "name": "After",
+              "value": "after"
+            }
+          ]
+        },
+        {
+          "component": "tab",
+          "label": "Accessibility",
+          "name": "accessibility"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "playButtonAriaLabel",
+          "value": "",
+          "label": "Play Button ARIA Label",
+          "description": "Applies to the play button in overlay as aria-label"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "videoCaption",
+          "value": "",
+          "label": "Video Caption",
+          "description": "Caption for video"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "brightcove-video",
+      "components": []
+    }
+  ]
+}

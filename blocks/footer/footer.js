@@ -1,6 +1,6 @@
 import { getMetadata } from '../../scripts/aem.js';
-import { loadFragment } from '../fragment/fragment.js';
 import decorateExternalLinksUtility from '../../scripts/utils.js';
+import { loadFragment } from '../fragment/fragment.js';
 
 function createColumn(className, children) {
   const column = document.createElement('div');

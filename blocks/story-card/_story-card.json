@@ -10,81 +10,207 @@
             "template": {
               "name": "Story Card",
               "model": "story-card",
-              "filter": "story-card"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Story Card Item",
-      "id": "story-card-item",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block/item",
-            "template": {
-              "name": "Card Content",
-              "model": "story-card-item"
+              "storyCardType": "cardInfo",
+              "hidePublicationDate": false,
+              "hideReadTime": false,
+              "hideTitle": false,
+              "hideDescription": false,
+              "hideImage": false,
+              "page": "",
+              "openInNewTab": false,
+              "imagePreset": "",
+              "imageModifiers": "",
+              "analyticsInteractionId": "",
+              "language": "lang:none",
+              "blockId": "id:"
             }
           }
         }
       }
     }
   ],
-
   "models": [
     {
       "id": "story-card",
       "fields": [
         {
-          "component": "select",
-          "valueType": "string",
-          "name": "size-style",
-          "label": "Size",
-          "options": [
-            {"name": "Medium Title", "value": "medium-title" },
-            { "name": "Large Title", "value": "large-title" }
-          ]
+          "component": "tab",
+          "label": "Overview",
+          "name": "overview"
         },
         {
           "component": "select",
           "valueType": "string",
-          "name": "standard-style",
-          "label": "Standard Layout",
+          "name": "storyCardType",
+          "label": "Story Card Type",
+          "value": "cardInfo",
+          "description": "Select the card variant to apply different layouts and information display.",
           "options": [
-            {"name": "Show Description", "value": "show-description" },
-            { "name": "Hide Description", "value": "hide-description" }
+            {
+              "name": "Card Info",
+              "value": "cardInfo"
+            },
+            {
+              "name": "Story Card Info",
+              "value": "storyCardInfo"
+            },
+            {
+              "name": "Leader Info",
+              "value": "leaderInfo"
+            }
           ]
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "hidePublicationDate",
+          "label": "Hide Publication Date",
+          "value": false,
+          "description": "If checked, suppresses the display of the publication date in the card layout."
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "hideReadTime",
+          "label": "Hide Read/Watch Time",
+          "value": false,
+          "description": "If checked, suppresses the display of the read/watch time in the card layout."
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "hideTitle",
+          "label": "Hide Title",
+          "value": false,
+          "description": "If checked, suppresses the display of title in the card layout."
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "hideDescription",
+          "label": "Hide Description",
+          "value": false,
+          "description": "If checked, suppresses the display of description in the card layout."
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "hideImage",
+          "label": "Hide Image",
+          "value": false,
+          "description": "If checked, suppresses the display of the image in the card layout."
+        },
+        {
+          "component": "tab",
+          "label": "Properties",
+          "name": "properties"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "id",
+          "label": "Id",
+          "value": "",
+          "description": "Optional anchor ID for deep linking to this Story Card."
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "customClass",
+          "label": "Custom Class",
+          "value": "",
+          "description": "Optional CSS class names for styling overrides."
         },
         {
           "component": "aem-content",
           "valueType": "string",
-          "name": "page-path",
-          "label": "Page Path",
+          "name": "page",
+          "label": "Page",
           "required": true
-        }
-      ]
-    },
-    {
-      "id": "story-card-item",
-      "fields": [
+        },
         {
-          "component": "richtext",
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "openInNewTab",
+          "label": "Open in New Tab",
+          "value": false
+        },
+        {
+          "component": "select",
           "valueType": "string",
-          "name": "text",
-          "label": "Text"
+          "name": "imagePreset",
+          "label": "Image Preset",
+          "value": "",
+          "description": "Optional layout preset used for responsive sizing and aspect-ratio styling.",
+          "condition": {
+            "===": [
+              {
+                "var": "hideImage"
+              },
+              false
+            ]
+          },
+          "options": [
+            {
+              "name": "Default",
+              "value": ""
+            },
+            {
+              "name": "Landscape",
+              "value": "landscape"
+            },
+            {
+              "name": "Wide",
+              "value": "wide"
+            },
+            {
+              "name": "Square",
+              "value": "square"
+            },
+            {
+              "name": "Portrait",
+              "value": "portrait"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "imageModifiers",
+          "label": "Image Modifiers",
+          "value": "",
+          "condition": {
+            "===": [
+              {
+                "var": "hideImage"
+              },
+              false
+            ]
+          },
+          "description": "Optional Dynamic Media URL modifiers or CSS tokens such as quality=85, rounded, shadow, or contain."
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "ctaText",
+          "label": "CTA Text",
+          "value": "",
+          "description": "Custom call-to-action label (e.g. \"Meet Roopal\"). Overrides the default from the story page."
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "analyticsInteractionId",
+          "label": "Analytics Interaction ID",
+          "value": "",
+          "readOnly": true,
+          "description": "Generated automatically from the block resource path at render time."
+        },
+        {
+          "...": "../../models/_common-properties.json#/common-prop"
         }
       ]
     }
   ],
-
-  "filters": [
-    {
-      "id": "story-card",
-      "components": [
-        "story-card-item"
-      ]
-    }
-  ]
+  "filters": []
 }

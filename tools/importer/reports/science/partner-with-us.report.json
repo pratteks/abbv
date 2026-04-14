@@ -1,0 +1,16 @@
+{
+  "status": "success",
+  "url": "https://www.abbvie.com/science/partner-with-us.html",
+  "path": "science/partner-with-us",
+  "timestamp": "2026-03-28T17:50:22.443Z",
+  "title": "Partner with Us | AbbVie",
+  "template": "partner-with-us",
+  "blocks": [
+    "hero",
+    "cta",
+    "accordion",
+    "accordion",
+    "accordion",
+    "accordion"
+  ]
+}

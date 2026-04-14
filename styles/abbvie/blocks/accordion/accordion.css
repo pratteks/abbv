@@ -1,136 +1,170 @@
 /* Alignment Classes */
-.accordion, .accordion.accordion-center {
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: var(--spacing-56);
+.accordion,
+.accordion.accordion-center {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: var(--spacing-56);
 }
-.accordion.margin-0 {
-  margin: var(--spacing-00);
+.accordion.margin-0,
+.accordion.no-margin {
+    margin: var(--spacing-00);
 }
 .accordion.margin-bottom-0 {
-  margin-bottom: var(--spacing-00);
+    margin-bottom: var(--spacing-00);
+}
+.accordion-block-heading-wrapper {
+ display: flex;
+ flex-direction: column;
+}
+/* block heading */
+.accordion-block-heading {
+    color: var(--bg-666b7a);
+    font-family: var(--roboto-bold-font-family);
+    font-size: var(--body-font-size-s);
+    font-weight: var(--font-weight-700);
+    letter-spacing: var(--letter-spacing-wide-06);
+    line-height: var(--line-height-20);
+    text-transform: var(--font-uppercase);
+    margin-bottom: var(--spacing-10);
 }
 /* Expand All / Collapse All button */
 .accordion .accordion-expand-all {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-04);
-  margin-left: var(--spacing-00);
-  margin-bottom: var(--spacing-08);
-  padding: var(--spacing-00);
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-family: var(--roboto-bold-font-family);
-  font-size: var(--font-size-16);
-  font-weight: var(--font-weight-700);
-  color: var(--highlight-dark-background-color);
-  text-transform: var(--font-uppercase);
-  letter-spacing: var(--letter-spacing-wide-06);
-  line-height: var(--line-height-20);
-  overflow: visible;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-10);
+    margin: var(--spacing-00);
+    padding: var(--spacing-00);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--roboto-bold-font-family);
+    font-size: var(--font-size-16);
+    font-weight: var(--font-weight-700);
+    color: var(--highlight-dark-background-color);
+    text-transform: var(--font-uppercase);
+    letter-spacing: var(--letter-spacing-wide-06);
+      overflow: visible;
 }
-.accordion .accordion-expand-all::after {
-  content: '';
-  display: inline-block;
-  width: var(--accordion-icon-width);
-  height: var(--accordion-icon-height);
-  border-color: var(--highlight-dark-background-color);
-  border-right: var(--accordion-border-02) solid;
-  border-bottom: var(--accordion-border-02) solid;
-  transform: rotate(45deg);
-  margin-top: calc(-1 * var(--spacing-03));
-  transition: transform 0.2s;
-  color: inherit;
+.accordion-expand-all-wrapper picture {
+    margin: auto var(--spacing-00);
 }
-.accordion .expanded::after {
-  border-left: var(--accordion-border-02) solid;
-  border-top: var(--accordion-border-02) solid;
-  border-right: none;
-  border-bottom: none;
-  margin-top: var(--spacing-03);
+.accordion-expand-all-wrapper picture img {
+    max-height: var(--icon-size-010);
 }
-.accordion .accordion-expand-all:hover:not(:focus) {
-  text-decoration: none;
-  color: var(--text-color);
+.expanded ~ .accordion-expand-all-image-icon {
+    display: none;
+}
+.accordion-collapse-all-image-icon {
+    display: none;
+}
+.expanded ~ .accordion-collapse-all-image-icon {
+    display: block;
+}
+.accordion-expand-all-wrapper {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-10);
+}
+.accordion-icon-font .icon-minus::after {
+    content: "";
+    display: inline-block;
+    font-family: var(--icon-font-family);
+    font-size: var(--icon-size-010);
+    margin-left: var(--spacing-03);
+    color: inherit;
+}
+.accordion-icon-font .icon-plus::after {
+    content: "";
+        display: inline-block;
+        font-family: var(--icon-font-family);
+        font-size: var(--icon-size-010);
+        margin-left: var(--spacing-03);
+        color: inherit;
+}
+.accordion-expand-all:hover:not(:focus) {
+    text-decoration: none;
+    color: var(--text-color);
 }
 .accordion .accordion-expand-all:focus {
-  border: var(--border-02) solid var(--form-border-hover-color);
-  border-radius: var(--border-radius-00);
-  color: var(--text-color);
+    border: var(--border-02) solid var(--form-border-hover-color);
+    border-radius: var(--border-radius-00);
+    color: var(--text-color);
 }
 .accordion .accordion-item {
-  border-bottom: var(--accordion-border-01) solid var(--footer-seperator-color);
+    border-bottom: var(--accordion-border-01) solid
+        var(--footer-seperator-color);
 }
 .accordion .accordion-item-label p {
-  color: var(--text-color);
-  cursor: pointer;
-  font-family: var(--heading-font-family);
-  font-size: var(--font-size-20);
-  font-weight: var(--font-weight-650);
-  line-height: var(--line-height-24);
-  padding-right: var(--spacing-30);
+    color: var(--text-color);
+    cursor: pointer;
+    font-family: var(--heading-font-family);
+    font-size: var(--font-size-20);
+    font-weight: var(--font-weight-650);
+    line-height: var(--line-height-24);
+    padding-right: var(--spacing-30);
+    margin-bottom: var(--spacing-00);
 }
 .accordion .accordion-item-body .accordion-item-body-text {
-  font-size: var(--font-size-16);
-  line-height: var(--line-height-22);
-  color: var(--text-color);
+    font-size: var(--font-size-16);
+    line-height: var(--line-height-22);
+    color: var(--text-color);
 }
-.accordion-item-body a  {
-   background: linear-gradient(180deg, var(--highlight-dark-background-color) 50%, var(--highlight-dark-background-color) 0);
-   background-position: 0 100%;
-   background-repeat: repeat-x;
-   background-size: var(--spacing-02) var(--spacing-02);
-   color: inherit;
-   padding: var(--spacing-00) var(--spacing-02) var(--spacing-03);
-   text-decoration: none;
-   transition: background-size .1s ease, color .1s ease;
+.accordion-item-body p:last-child {
+    margin-bottom: var(--spacing-00);
+}
+.accordion-item-body a, .accordion-item-body a.button  {
+    background: linear-gradient(
+        180deg,
+        var(--highlight-dark-background-color) 50%,
+        var(--highlight-dark-background-color) 0
+    );
+    background-position: 0 100%;
+    background-repeat: repeat-x;
+    background-size: var(--spacing-02) var(--spacing-02);
+    color: inherit;
+    border-radius: var(--border-radius-00);
+    padding: var(--spacing-00) var(--spacing-02) var(--spacing-03);
+    margin: var(--spacing-00);
+    text-decoration: none;
+    transition:
+        background-size 0.1s ease,
+        color 0.1s ease;
 }
 .accordion-item-body a:hover {
-   background-size: 100% 100%;
-   color: var(--background-color);
-   }
+    background-size: 100% 100%;
+    color: var(--background-color);
+}
+.accordion-item-body .external-link::after {
+    color: inherit;
+    content: "";
+    display: inline-block;
+    font-family: var(--icon-font-family);
+    margin-left: var(--spacing-02);
+    transform: scale(.8);
+    transition: color .1s ease;
+}
+.accordion-item-body strong a.button {
+    font-family: var(--roboto-bold-font-family);
+    font-weight: var(--font-weight-700);
+    margin: var(--spacing-00);
+}
 .accordion summary {
-  position: relative;
-  padding: var(--spacing-32) var(--spacing-00);
-  cursor: pointer;
-  list-style: none;
-  overflow: auto;
-  font-family: var(--heading-font-family);
-  font-size: var(--font-size-18);
-  line-height: var(--line-height-24);
-  font-weight: var(--font-weight-500);
-  color: var(--text-color);
-  transition: background-color 0.2s;
-  padding-right: var(--spacing-30);
+    position: relative;
+    padding: var(--spacing-32) var(--spacing-00);
+    cursor: pointer;
+    list-style: none;
+    overflow: auto;
+    font-family: var(--heading-font-family);
+    font-size: var(--font-size-18);
+    line-height: var(--line-height-24);
+    font-weight: var(--font-weight-500);
+    color: var(--text-color);
+    transition: background-color 0.2s;
+    display: flex;
+    justify-content: space-between;
 }
 .accordion-container .custom-title .custom-title-heading {
-  margin-bottom: var(--spacing-52);
-}
-.accordion .accordion-item-label h2 {
-  font-size: var(--font-size-28);
-  font-weight: var(--font-weight-700);
-  line-height: var(--line-height-32);
-}
-.accordion .accordion-item-label h3 {
-  font-size: var(--font-size-26);
-  font-weight: var(--font-weight-700);
-  line-height: var(--line-height-30);
-}
-.accordion .accordion-item-label h4 {
-  font-size: var(--font-size-24);
-  font-weight: var(--font-weight-700);
-  line-height: var(--line-height-28);
-}
-.accordion .accordion-item-label h5 {
-  font-size: var(--font-size-20);
-  font-weight: var(--font-weight-700);
-  line-height: var(--line-height-24);
-}
-.accordion .accordion-item-label h6 {
-  font-size: var(--font-size-18);
-  font-weight: var(--font-weight-700);
-  line-height: var(--line-height-20);
+    margin-bottom: var(--spacing-52);
 }
 .accordion-dark .accordion-item-label p,
 .accordion-dark .accordion-item-label h2,
@@ -138,277 +172,371 @@
 .accordion-dark .accordion-item-label h4,
 .accordion-dark .accordion-item-label h5,
 .accordion-dark .accordion-item-label h6 {
-  color: var(--light-color);
+    color: var(--light-color);
 }
 .accordion-item-label.open .accordion-item-label-text,
 .accordion-item-label .accordion-item-label-text:hover {
-  font-family: var(--heading-font-family-bold);
-  font-weight: var(--font-weight-800);
+    font-family: var(--heading-font-family-bold);
+    font-weight: var(--font-weight-800);
 }
 .accordion summary::-webkit-details-marker {
-  display: none;
+    display: none;
 }
-.accordion .accordion-item-label::after {
-  content: "";
-  position: absolute;
-  top: 37%;
-  right: 0;
-  font-size: var(--font-size-20);
-  font-family: var(--icon-font-family);
-  font-weight: var(--font-weight-800);
-  transform: scale(.75);
+.open .accordion-collapse-image-icon , .accordion-expand-image-icon {
+    display: block;
 }
-.accordion-item-label.open::after {
-  content: "";
+.accordion-collapse-image-icon , .open .accordion-expand-image-icon {
+    display: none;
+}
+.accordion-icon-font .item-icon-plus::after {
+    content: "";
+    position: absolute;
+    top: 37%;
+    right: 0;
+    font-size: var(--font-size-20);
+    font-family: var(--icon-font-family);
+    font-weight: var(--font-weight-800);
+    transform: scale(0.75);
+}
+.accordion-icon-font .item-icon-minus::after {
+    content: "";
+    position: absolute;
+    top: 37%;
+    right: 0;
+    font-size: var(--font-size-20);
+    font-family: var(--icon-font-family);
+    font-weight: var(--font-weight-800);
+    transform: scale(0.75);
 }
 .accordion-dark .accordion-item-label {
-  color: var(--light-color);
+    color: var(--light-color);
 }
-.accordion  .accordion-item-label:focus,
-.accordion  .accordion-item-label:hover {
-  background-color: transparent;
+.accordion .accordion-item-label:focus,
+.accordion .accordion-item-label:hover {
+    background-color: transparent;
 }
 .accordion .accordion-item-body {
-  padding: var(--spacing-00) var(--spacing-00) var(--spacing-24);
+    padding: var(--spacing-24) var(--spacing-00) var(--spacing-24);
 }
 .accordion-item:not([open]) .accordion-item-body {
-  display: none;
+    display: none;
 }
 .accordion-item[open] .accordion-item-body {
-  background-color: transparent;
-  border-top: none;
+    background-color: transparent;
+    border-top: none;
 }
+/* ---- Theme: Dark ---- */
 .accordion.accordion-dark {
-  color: var(--light-color);
+    color: var(--light-color);
+}
+.accordion-dark .accordion-item {
+    border-bottom-color: rgb(255 255 255 / 30%);
 }
 .accordion-dark .accordion-item-body .accordion-item-body-text {
-  color: var(--light-color);
+    color: var(--light-color);
+}
+.accordion-dark .accordion-expand-all {
+    color: var(--light-color);
+}
+.accordion-dark .accordion-expand-all::after {
+    border-color: var(--light-color);
+}
+.accordion-dark .accordion-expand-all:hover {
+    color: rgb(255 255 255 / 70%);
+}
+.accordion-dark .accordion-item-label::after {
+    color: var(--light-color);
+}
+.accordion-dark .accordion-item-body a {
+    background-image: linear-gradient(
+        180deg,
+        var(--light-color) 50%,
+        var(--light-color) 0
+    );
+}
+.accordion-dark .accordion-item-body :where(a:hover) {
+  color: var(--text-color);
+}
+/* ---- Theme: Light ---- */
+.accordion.accordion-light {
+    color: var(--text-color);
+}
+.accordion-light .accordion-item-label p,
+.accordion-light .accordion-item-label h2,
+.accordion-light .accordion-item-label h3,
+.accordion-light .accordion-item-label h4,
+.accordion-light .accordion-item-label h5,
+.accordion-light .accordion-item-label h6 {
+    color: var(--text-color);
+}
+.accordion-light .accordion-item-body .accordion-item-body-text {
+    color: var(--text-color);
+}
+.accordion-light .accordion-expand-all {
+    color: var(--highlight-dark-background-color);
+}
+.accordion-light .accordion-expand-all::after {
+    border-color: var(--highlight-dark-background-color);
+}
+.accordion-light .accordion-item-label {
+    color: var(--text-color);
+}
+.accordion-light .accordion-item-label::after {
+    color: var(--text-color);
 }
 .section.accordion-container {
-  padding-left: var(--spacing-55);
-  padding-right: var(--spacing-55);
-  padding-top: var(--spacing-32);
-}
-@media (min-width: 744px) {
-.section.accordion-container {
-    padding-left: var(--spacing-100);
-    padding-right: var(--spacing-100);
-    padding-top: var(--spacing-56);
-  }
-
-.accordion {
-  margin-bottom: var(--spacing-80);
-}
-
-.accordion .accordion-expand-all {
-  margin-left: auto;
-  font-size: var(--font-size-14);
-}
-
-.accordion .accordion-item-label::after {
-  font-size: var(--font-size-28);
-}
-
-.accordion .accordion-item-label p {
-  font-size: var(--font-size-28);
-  line-height: var(--line-height-32);
-}
-
-.accordion .accordion-item-label h2 {
-  font-size: var(--font-size-36);
-  line-height: var(--line-height-32);
-}
-
-.accordion .accordion-item-label h3 {
-  font-size: var(--font-size-32);
-  line-height: var(--line-height-36);
-}
-
-.accordion .accordion-item-label h4 {
-  font-size: var(--font-size-30);
-  line-height: var(--line-height-34);
-}
-
-.accordion .accordion-item-label h5 {
-  font-size: var(--font-size-28);
-  line-height: var(--line-height-32);
-}
-
-.accordion .accordion-item-label h6 {
-  font-size: var(--font-size-24);
-  line-height: var(--line-height-18);
-}
-
-.accordion .accordion-item-body .accordion-item-body-text  {
-  font-size: var(--font-size-16);
-  line-height: var(--line-height-22);
-}
-
-}
-@media (min-width: 1024px) {
-  .section.accordion-container {
     padding-left: var(--spacing-55);
     padding-right: var(--spacing-55);
-    padding-top: var(--spacing-80);
-  }
-
-  .accordion-wrapper {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    width: 100%;
-    margin-top: var(--spacing-40);
-    gap: var(--gap-20)
-  }
-
-  /* Default (centered) grid columns for each size */
-  .accordion, .accordion.accordion-xxl {
-    grid-column: 1 / -1;
-  }
-
-  .accordion.accordion-xl {
-    grid-column: 3 / 11;
-  }
-
-  .accordion.accordion-l {
-    grid-column: 4 / 11;
-  }
-
-  .accordion.accordion-m {
-    grid-column: 4 / 10;
-  }
-
-  .accordion.accordion-s {
-    grid-column: 5 / 10;
-  }
-
-  .accordion.accordion-xs {
-    grid-column: 5 / 9;
-  }
-
-  /* Alignment overrides for grid layout */
-
-  /* LEFT aligned: start at 1 */
-  .accordion.accordion-xxl.accordion-left {
-    grid-column: 1 / -1;
-  }
-
-  .accordion.accordion-xl.accordion-left {
-    grid-column: 1 / 9;
-  }
-
-  .accordion.accordion-l.accordion-left {
-    grid-column: 1 / 8;
-  }
-
-  .accordion.accordion-m.accordion-left {
-    grid-column: 1 / 7;
-  }
-
-  .accordion.accordion-s.accordion-left {
-    grid-column: 1 / 6;
-  }
-
-  .accordion.accordion-xs.accordion-left {
-    grid-column: 1 / 5;
-  }
-
-  /* RIGHT aligned: end at -1 */
-  .accordion.accordion-xxl.accordion-right {
-    grid-column: 1 / -1;
-  }
-
-  .accordion.accordion-xl.accordion-right {
-    grid-column: 5 / -1;
-  }
-
-  .accordion.accordion-l.accordion-right {
-    grid-column: 6 / -1;
-  }
-
-  .accordion.accordion-m.accordion-right {
-    grid-column: 7 / -1;
-  }
-
-  .accordion.accordion-s.accordion-right {
-    grid-column: 8 / -1;
-  }
-
-  .accordion.accordion-xs.accordion-right {
-    grid-column: 9 / -1;
-  }
-
-  .accordion-l.accordion-center, .accordion-s.accordion-center {
-    transform: translateX(calc(-1 * 100% / 14));
-  }
-
-  .accordion, .accordion.accordion-center {
-    margin-left: unset;
-    margin-right: unset;
-  }
-
-  .accordion .accordion-item-label::after {
-  font-size: var(--font-size-32);
+    padding-top: var(--spacing-32);
 }
+.abbvie-accoridian.accordion-container{
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+.section.abbvie-accordian-no-title {
+    padding: 0;
+}
+.abbvie-container.abbvie-accoridian-col .accordion,
+.abbvie-container.abbvie-accoridian .accordion {
+    grid-column: 1 / -1;
+}
+@media (min-width: 744px) {
+    .section.accordion-container {
+        /* padding-left: var(--spacing-100);
+        padding-right: var(--spacing-100); */
+        padding-top: var(--spacing-56);
+    }
+
+    .accordion {
+        margin-bottom: var(--spacing-80);
+    }
+
+
+.accordion-block-heading-wrapper {
+ flex-direction: row;
+ justify-content: space-between;
+}
+
+/* block heading */
+.accordion-block-heading {
+    font-size: var(--body-font-size-xs);
+    margin-bottom: var(--spacing-00);
+}
+
+    .accordion .accordion-expand-all {
+        margin-left: auto;
+        font-size: var(--font-size-14);
+    }
+
+    .accordion .accordion-item-label::after {
+        font-size: var(--font-size-28);
+    }
+
+    .accordion .accordion-item-label p {
+        font-size: var(--font-size-28);
+        line-height: var(--line-height-32);
+    }
+
+    .accordion .accordion-item-label h2 {
+        font-size: var(--font-size-36);
+        line-height: var(--line-height-32);
+    }
+
+    .accordion .accordion-item-label h3 {
+        font-size: var(--font-size-32);
+        line-height: var(--line-height-36);
+    }
+
+    .accordion .accordion-item-label h4 {
+        font-size: var(--font-size-30);
+        line-height: var(--line-height-34);
+    }
+
+    .accordion .accordion-item-label h5 {
+        font-size: var(--font-size-28);
+        line-height: var(--line-height-32);
+    }
+
+    .accordion .accordion-item-label h6 {
+        font-size: var(--font-size-24);
+        line-height: var(--line-height-18);
+    }
+
+    .accordion .accordion-item-body .accordion-item-body-text {
+        font-size: var(--font-size-16);
+        line-height: var(--line-height-22);
+    }
+}
+@media (min-width: 1024px) {
+    .section.accordion-container {
+        padding-left: var(--spacing-55);
+        padding-right: var(--spacing-55);
+        padding-top: var(--spacing-80);
+    }
+
+    .accordion-wrapper {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        width: 100%;
+        margin-top: var(--spacing-40);
+        gap: var(--gap-20);
+    }
+
+    /* Default (centered) grid columns for each size */
+    .accordion,
+    .accordion.accordion-xxl {
+        grid-column: 1 / -1;
+    }
+
+    .accordion.accordion-xl {
+        grid-column: 3 / 11;
+    }
+
+    .accordion.accordion-l {
+        grid-column: 4 / 11;
+    }
+
+    .accordion.accordion-m {
+        grid-column: 4 / 10;
+    }
+
+    .accordion.accordion-s {
+        grid-column: 5 / 10;
+    }
+
+    .accordion.accordion-xs {
+        grid-column: 5 / 9;
+    }
+
+    /* Alignment overrides for grid layout */
+
+    /* LEFT aligned: start at 1 */
+    .accordion.accordion-xxl.accordion-left {
+        grid-column: 1 / -1;
+    }
+
+    .accordion.accordion-xl.accordion-left {
+        grid-column: 1 / 9;
+    }
+
+    .accordion.accordion-l.accordion-left {
+        grid-column: 1 / 8;
+    }
+
+    .accordion.accordion-m.accordion-left {
+        grid-column: 1 / 7;
+    }
+
+    .accordion.accordion-s.accordion-left {
+        grid-column: 1 / 6;
+    }
+
+    .accordion.accordion-xs.accordion-left {
+        grid-column: 1 / 5;
+    }
+
+    /* RIGHT aligned: end at -1 */
+    .accordion.accordion-xxl.accordion-right {
+        grid-column: 1 / -1;
+    }
+
+    .accordion.accordion-xl.accordion-right {
+        grid-column: 5 / -1;
+    }
+
+    .accordion.accordion-l.accordion-right {
+        grid-column: 6 / -1;
+    }
+
+    .accordion.accordion-m.accordion-right {
+        grid-column: 7 / -1;
+    }
+
+    .accordion.accordion-s.accordion-right {
+        grid-column: 8 / -1;
+    }
+
+    .accordion.accordion-xs.accordion-right {
+        grid-column: 9 / -1;
+    }
+
+    /* CENTER aligned: explicit centered grid-column for each size */
+    .accordion.accordion-xxl.accordion-center {
+        grid-column: 1 / -1;
+    }
+
+    .accordion.accordion-xl.accordion-center {
+        grid-column: 3 / 11;
+    }
+
+    .accordion.accordion-l.accordion-center {
+        grid-column: 4 / 11;
+    }
+
+    .accordion.accordion-m.accordion-center {
+        grid-column: 4 / 10;
+    }
+
+    .accordion.accordion-s.accordion-center {
+        grid-column: 4 / 9;
+    }
+
+    .accordion.accordion-xs.accordion-center {
+        grid-column: 5 / 9;
+    }
+
+    .accordion-l.accordion-center, .accordion-s.accordion-center {
+        transform: translateX(calc(-1 * 100% / 14));
+    }
+
+    .accordion,
+    .accordion.accordion-center {
+        margin-left: unset;
+        margin-right: unset;
+    }
+
+    .accordion .accordion-item-label::after {
+        font-size: var(--font-size-32);
+    }
 
   .accordion .accordion-item-label p {
-    font-size: var(--font-size-26);
-    line-height: var(--line-height-32);
-}
-
-.accordion .accordion-item-label h2 {
-    font-size: var(--font-size-56);
-    line-height: var(--line-height-68);
-}
-
-.accordion .accordion-item-label h3 {
-    font-size: var(--font-size-48);
-    line-height: var(--line-height-52);
-}
-
-.accordion .accordion-item-label h4 {
-    font-size: var(--font-size-40);
-    line-height: var(--line-height-44);
-}
-
-.accordion .accordion-item-label h5 {
     font-size: var(--font-size-32);
     line-height: var(--line-height-36);
 }
 
-.accordion .accordion-item-label h6 {
-    font-size: var(--font-size-28);
-    line-height: var(--line-height-30);
-}
+    .accordion .accordion-item-label h2 {
+        font-size: var(--font-size-56);
+        line-height: var(--line-height-68);
+    }
 
-.accordion .accordion-item-body .accordion-item-body-text  {
-  font-size: var(--font-size-18);
-  line-height: var(--line-height-24);
-}
-}
-/* Accordion in cards+accordion section — constrain width to match original (768px centered) */
-@media (min-width: 1024px) {
-  .section.cards-container.accordion-container .accordion {
-    max-width: var(--spacing-480);
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-/* FAQ standalone section — constrain accordion to 7/12 columns centered (matching original cmp-accordion-large align-center) */
-@media (min-width: 1024px) {
-  .section.accordion-container:not(.navy, .cards-container, .embed-container) .accordion {
-    grid-column: 3 / span 7;
-  }
+    .accordion .accordion-item-label h3 {
+        font-size: var(--font-size-48);
+        line-height: var(--line-height-52);
+    }
 
-  .section.accordion-container:not(.navy, .cards-container, .embed-container) .accordion .accordion-item-label p {
-    font-size: var(--font-size-32);
-    font-weight: var(--font-weight-650);
-    line-height: var(--line-height-36);
-  }
+    .accordion .accordion-item-label h4 {
+        font-size: var(--font-size-40);
+        line-height: var(--line-height-44);
+    }
+
+    .accordion .accordion-item-label h5 {
+        font-size: var(--font-size-32);
+        line-height: var(--line-height-36);
+    }
+
+    .accordion .accordion-item-label h6 {
+        font-size: var(--font-size-28);
+        line-height: var(--line-height-30);
+    }
+
+    .accordion .accordion-item-body .accordion-item-body-text {
+        font-size: var(--font-size-18);
+        line-height: var(--line-height-24);
+    }
 }
-/* FAQ section heading — 48px centered to match original */
-.section.accordion-container .default-content-wrapper h2 {
-  font-size: var(--heading-font-size-l);
-  line-height: var(--line-height-52);
-  letter-spacing: var(--letter-spacing-n96);
-  text-align: center;
+@media (min-width: 1440px) {
+    .section.accordion-container {
+        padding-left: var(--spacing-00);
+        padding-right: var(--spacing-00);
+    }
 }

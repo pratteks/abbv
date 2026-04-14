@@ -1,8 +1,7 @@
-main > .section.embed-container {
+.section.embed-container {
+  margin: auto;
   max-width: var(--content-max-width-wide);
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: var(--spacing-56);
+  margin-bottom: 5.6rem;
   padding-top: var(--spacing-56);
 }
 
@@ -30,7 +29,7 @@ main > .section.embed-container {
   align-items: center;
   justify-content: center;
   position: absolute;
-  inset: var(--spacing-00);
+  inset: 0;
 }
 
 .embed .embed-placeholder picture img {
@@ -48,11 +47,11 @@ main > .section.embed-container {
   position: relative;
   display: block;
   transform: scale(3);
-  width: calc(22 * var(--px-to-rem));
-  height: calc(22 * var(--px-to-rem));
-  border: var(--border-02) solid;
-  border-radius: var(--spacing-20);
-  padding: var(--spacing-00);
+  width: 22px;
+  height: 22px;
+  border: 2px solid;
+  border-radius: 20px;
+  padding: 0;
   background: transparent;
   color: var(--background-color);
 }
@@ -62,13 +61,13 @@ main > .section.embed-container {
   display: block;
   box-sizing: border-box;
   position: absolute;
-  width: var(--spacing-00);
-  height: var(--spacing-10);
-  border-top: var(--spacing-05) solid transparent;
-  border-bottom: var(--spacing-05) solid transparent;
-  border-left: var(--spacing-06) solid;
-  top: var(--spacing-04);
-  left: calc(7 * var(--px-to-rem));
+  width: 0;
+  height: 10px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 6px solid;
+  top: 4px;
+  left: 7px;
 }
 
 .embed .embed-placeholder-play button:hover {
@@ -82,15 +81,17 @@ main > .section.embed-container {
    ===================================================== */
 
 /* Dark navy overlay via ::after — only when overlay content exists (same as columns-video-col::after) */
+
 .embed .embed-placeholder:has(.embed-placeholder-overlay)::after {
   content: '';
   position: absolute;
   inset: var(--spacing-00);
-  background: var(--overlay-navy);
+  background: var(--overlay-navy, rgb(7 29 73 / 70%));
   pointer-events: none;
 }
 
 /* Overlay content — transparent, sits above ::after */
+
 .embed .embed-placeholder-overlay {
   position: absolute;
   inset: var(--spacing-00);
@@ -104,6 +105,7 @@ main > .section.embed-container {
 }
 
 /* Title — matches columns-video-title */
+
 .embed .embed-placeholder-title {
   color: var(--background-color);
   font-family: var(--heading-font-family-bold);
@@ -113,33 +115,44 @@ main > .section.embed-container {
 }
 
 /* Description — embed-specific, hidden on mobile */
+
 .embed .embed-placeholder-desc {
   color: var(--background-color);
   font-family: var(--body-font-family);
   font-size: var(--font-size-16);
   line-height: var(--line-height-22);
   margin: 0 0 var(--spacing-24);
-  max-width: calc(600 * var(--px-to-rem));
+  max-width: 60rem;
   display: none;
 }
 
 /* Watch button — matches columns-video-play */
+
 .embed .embed-placeholder-watch {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-08);
-  padding: var(--spacing-16) var(--spacing-40);
-  border: var(--border-01) solid var(--background-color);
+  padding: var(--spacing-12) var(--spacing-32);
+  border: 1px solid var(--background-color);
   background: transparent;
   color: var(--background-color);
   font-family: var(--roboto-bold-font-family);
-  font-size: var(--font-size-14);
+  font-size: var(--font-size-16);
   font-weight: var(--font-weight-700);
   letter-spacing: var(--letter-spacing-wide-06);
-  text-transform: var(--font-uppercase);
+  text-transform: uppercase;
   cursor: pointer;
   white-space: nowrap;
   border-radius: var(--spacing-00);
+}
+
+.embed .embed-placeholder-watch::before {
+  color: inherit;
+  content: "";
+  font-family: var(--icon-font-family);
+  margin-left: var(--spacing-03);
+  margin-right: var(--spacing-12);
+  transform: scale(.8);
+  transition: color .1s ease;
 }
 
 .embed .embed-placeholder-watch:hover {
@@ -152,8 +165,9 @@ main > .section.embed-container {
 }
 
 /* Play icon triangle — matches columns-video-play-icon */
+
 .embed .embed-placeholder-watch-icon {
-  display: inline-block;
+  display: none;
   width: var(--spacing-00);
   height: var(--spacing-00);
   border-style: solid;
@@ -161,11 +175,9 @@ main > .section.embed-container {
   border-color: transparent transparent transparent var(--background-color);
 }
 
-@media (--bp-tablet) {
-  main > .section.embed-container {
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: calc(var(--spacing-74) + var(--spacing-02));
+@media (width >= 744px) {
+  .section.embed-container {
+  margin-bottom: 7.6rem;
 }
 
   .embed .embed-placeholder-title {
@@ -177,16 +189,25 @@ main > .section.embed-container {
     display: block;
     font-size: var(--font-size-18);
     line-height: var(--line-height-24);
-    margin-bottom: var(--spacing-00);
+    margin-bottom: var(--spacing-18);
   }
 
   .embed .embed-placeholder-overlay {
     width: 80%;
     left: 10%;
   }
+
+  .embed .embed-placeholder-watch {
+    padding: var(--spacing-12) var(--spacing-32);
+    font-size: var(--font-size-14);
+  }
 }
 
-@media (--bp-desktop) {
+@media (width >= 1024px) {
+  .section.embed-container {
+    margin-bottom: var(--spacing-56);
+  }
+
   .embed .embed-placeholder-title {
     font-size: var(--font-size-40);
     line-height: var(--line-height-44);
@@ -201,6 +222,11 @@ main > .section.embed-container {
   .embed .embed-placeholder-overlay {
     width: 60%;
     left: 20%;
+  }
+
+  .embed .embed-placeholder-watch {
+    padding: var(--spacing-16) var(--spacing-40);
+    font-size: var(--font-size-14);
   }
 }
 

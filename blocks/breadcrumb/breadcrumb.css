@@ -1,50 +1,108 @@
 /* Breadcrumb Block — standalone section-level block */
 
 .breadcrumb-wrapper {
-  padding: 0;
+  padding: var(--spacing-00);
 }
 
 .breadcrumb {
-  margin-bottom: var(--spacing-32, 3.2rem);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-24);
+}
+
+/* =====================================================
+   Mobile dropdown toggle button (< 744px)
+   Shows current page title with chevron, taps to expand
+   ===================================================== */
+
+.breadcrumb .breadcrumb-drop-title {
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border: none;
+  padding: var(--spacing-00);
+  margin: var(--spacing-00);
+  font-family: var(--roboto-bold-font-family);
+  font-size: var(--font-size-12);
+  font-weight: var(--font-weight-700);
+  color: var(--text-color);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide-06);
+  cursor: pointer;
+  line-height: var(--line-height-20);
+}
+
+/* Chevron icon after button text (icon font) */
+.breadcrumb .breadcrumb-drop-title::after {
+  content: "";
+  font-family: var(--icon-font-family);
+  font-size: var(--font-size-12);
+  margin-left: var(--spacing-06);
+  width: var(--icon-size);
+  height: var(--icon-size);
+  transform: rotate(90deg);
+  transition: transform 0.3s ease-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Expanded state — chevron flips up, button turns blue */
+.breadcrumb.open-breadcrumb .breadcrumb-drop-title {
+  color: var(--link-color);
+}
+
+.breadcrumb.open-breadcrumb .breadcrumb-drop-title::after {
+  transform: rotate(-90deg);
+}
+
+/* =====================================================
+   Nav trail — collapsed on mobile, visible on tablet+
+   ===================================================== */
+
+.breadcrumb .breadcrumb-nav {
+  max-height: 0;
+  opacity: var(--opacity-00);
+  overflow: hidden;
+  transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+}
+
+/* Expanded mobile nav */
+.breadcrumb.open-breadcrumb .breadcrumb-nav {
+  max-height: 100vh;
+  opacity: var(--opacity-1);
 }
 
 .breadcrumb .breadcrumb-nav ol {
   display: flex;
-  flex-flow: wrap;
+  flex-direction: column;
   list-style: none;
-  padding: 0;
-  margin: 0;
-  gap: 0.8rem;
-  align-items: baseline;
+  padding: var(--spacing-00);
+  margin: var(--spacing-28) var(--spacing-00) var(--spacing-00);
+  gap: var(--spacing-16);
 }
 
 .breadcrumb .breadcrumb-nav ol li {
-  font-family: var(--roboto-bold-font-family, 'Roboto', sans-serif);
-  font-size: var(--font-size-14, 1.4rem);
-  font-weight: var(--font-weight-700, 700);
-  letter-spacing: 0.06em;
-  line-height: var(--line-height-20, 2rem);
+  font-family: var(--roboto-bold-font-family);
+  font-size: var(--font-size-12);
+  font-weight: var(--font-weight-700);
+  letter-spacing: var(--letter-spacing-wide-06);
+  line-height: var(--line-height-20);
   text-transform: uppercase;
-  color: var(--text-color, #071d49);
+  color: var(--text-color);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
 }
 
-/* Chevron separator */
+/* Hide chevron separators on mobile */
 .breadcrumb .breadcrumb-nav ol li:not(:last-child)::after {
-  color: inherit;
-  content: "";
-  font-family: var(--icon-font-family);
-  padding-left: var(--spacing-08);
-  height: var(--icon-height);
-  margin: var(--spacing-00) var(--spacing-05);
-  width: var(--icon-width);
-  padding-top: var(--spacing-02);
+  display: none;
 }
 
 .breadcrumb .breadcrumb-nav ol li a {
-  color: var(--text-color, #071d49);
-  font-weight: var(--font-weight-700, 700);
+  color: var(--text-color);
+  font-weight: var(--font-weight-700);
   font-size: inherit;
   text-decoration: none;
 }
@@ -57,5 +115,54 @@
 /* Current page — muted gray, no link */
 .breadcrumb .breadcrumb-nav ol li[aria-current] {
   color: var(--bg-666b7a, #666b7a);
-  font-weight: var(--font-weight-700, 700);
+  font-weight: var(--font-weight-700);
+}
+
+/* =====================================================
+   Tablet+ (>= 744px) — horizontal breadcrumb trail
+   ===================================================== */
+
+@media (--bp-tablet) {
+  .breadcrumb {
+    flex-direction: row;
+    margin-bottom: var(--spacing-32);
+  }
+
+  /* Hide mobile dropdown button */
+  .breadcrumb .breadcrumb-drop-title {
+    display: none;
+  }
+
+  /* Show nav trail inline */
+  .breadcrumb .breadcrumb-nav {
+    max-height: none;
+    opacity: var(--opacity-1);
+    overflow: visible;
+    display: inline;
+  }
+
+  .breadcrumb .breadcrumb-nav ol {
+    flex-flow: row wrap;
+    margin: var(--spacing-00);
+    gap: var(--spacing-08);
+    align-items: baseline;
+  }
+
+  .breadcrumb .breadcrumb-nav ol li {
+    font-size: var(--font-size-14);
+    display: flex;
+    align-items: flex-end;
+  }
+
+  /* Chevron separator between items */
+  .breadcrumb .breadcrumb-nav ol li:not(:last-child)::after {
+    display: flex;
+    content: "";
+    font-family: var(--icon-font-family);
+    padding-left: var(--spacing-08);
+    height: var(--icon-height);
+    margin: var(--spacing-00) var(--spacing-05);
+    width: var(--icon-width);
+    padding-top: var(--spacing-02);
+  }
 }

@@ -1,12 +1,12 @@
-import {
-  loadGoogleMapsAPI,
-  initializeMap,
-  getMap,
-  updateMapMarkers,
-  getMarkers,
-} from './maps.js';
-import { loadRecaptcha, getRecaptchaToken } from './recaptcha.js';
 import { getConfigValue } from '../../scripts/config.js';
+import {
+  getMap,
+  getMarkers,
+  initializeMap,
+  loadGoogleMapsAPI,
+  updateMapMarkers,
+} from './maps.js';
+import { getRecaptchaToken, loadRecaptcha } from './recaptcha.js';
 
 const RECAPTCHA_SITE_KEY = await getConfigValue('grecaptchaKey');
 const GOOGLE_MAPS_API_KEY = await getConfigValue('gmapsKey');
@@ -128,7 +128,7 @@ function createProviderListItem(provider, index) {
       <span>${cityState} </span>
       ${phone ? `<a href="tel:${phone}" class="dr-com-link">${phone}</a>` : ''}
       <span class="miles-to">${distanceText}</span>
-      <a class="bbv-icon-directions_car i-b abbv-modal-open directions-to" 
+      <a class="bbv-icon-directions_car i-b abbv-modal-open directions-to"
          href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
     `${address} ${cityState}`,
   )}"

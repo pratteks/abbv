@@ -48,22 +48,22 @@
   --overlay-navy-light: rgb(7 29 73 / 50%);
 
   /* Background Colors for Style Field Values */
-  --bg-ffffff: #fff;
-  --bg-071d49: #071d49;
-  --bg-a6b5e0: #a6b5e0;
-  --bg-f1f3ff: #f1f3ff;
-  --bg-fafbff: #fafbff;
-  --bg-666b7a: #666b7a;
-  --bg-b9b4b4: #b9b4b4;
-  --bg-f4f4f4: #f4f4f4;
-  --bg-fafafa: #fafafa;
-  --bg-8a2ecc: #8a2ecc;
-  --bg-a86bde: #a86bde;
-  --bg-0066f5: #0066f5;
-  --bg-479ff8: #479ff8;
-  --bg-cf451c: #cf451c;
-  --bg-f7634f: #f7634f;
-  --bg-338700: #338700;
+  --color-white: #fff;
+  --color-navy-dark: #071d49;
+  --color-blue-light: #a6b5e0;
+  --color-blue-very-light: #f1f3ff;
+  --color-blue-ultra-light: #fafbff;
+  --color-gray-dark: #666b7a;
+  --color-gray-medium: #b9b4b4;
+  --color-gray-light: #f4f4f4;
+  --color-gray-extra-light: #fafafa;
+  --color-purple-primary: #8a2ecc;
+  --color-purple-light: #a86bde;
+  --color-blue-primary: #0066f5;
+  --color-blue-secondary: #479ff8;
+  --color-orange-dark: #cf451c;
+  --color-orange-light: #f7634f;
+  --color-green-primary: #338700;
 
   /* Alerts */
   --error-color: #cf451c;
@@ -71,13 +71,13 @@
   --success-color: #2f9ece;
 
   /* Fonts */
-  --body-font-family: 'Roboto Regular', helvetica, Arial, sans-serif;
-  --heading-font-family: 'F37 Lineca Book', helvetica, Arial, sans-serif;
-  --heading-font-family-bold: 'F37 Lineca Medium', helvetica, Arial, sans-serif;
+  --body-font-family: 'Roboto Regular', Helvetica, Arial, sans-serif;
+  --heading-font-family: 'F37 Lineca Book', Helvetica, Arial, sans-serif;
+  --heading-font-family-bold: 'F37 Lineca Medium', Helvetica, Arial, sans-serif;
   --icon-font-family: 'Abbvie Icon';
-  --roboto-small-font-family: 'Roboto Small', helvetica, Arial, sans-serif;
-  --roboto-bold-font-family: 'Roboto Bold', helvetica, Arial, sans-serif;
-  --roboto-medium-font-family: 'Roboto Medium', helvetica, Arial, sans-serif;
+  --roboto-small-font-family: 'Roboto Small', Helvetica, Arial, sans-serif;
+  --roboto-bold-font-family: 'Roboto Bold', Helvetica, Arial, sans-serif;
+  --roboto-medium-font-family: 'Roboto Medium', Helvetica, Arial, sans-serif;
   --roboto-light-font-family: 'Roboto Light', Helvetica, Arial, sans-serif;
   --form-font-family: "Open Sans", sans-serif;
 
@@ -87,6 +87,7 @@
   --body-font-size-xs: 1.4rem;
 
   /* Granular font sizes */
+  --font-size-10: 1rem;
   --font-size-11: 1.1rem;
   --font-size-12: 1.2rem;
   --font-size-13: 1.3rem;
@@ -106,6 +107,7 @@
   --font-size-38: 3.8rem;
   --font-size-40: 4rem;
   --font-size-42: 4.2rem;
+  --font-size-48: 4.8rem;
   --font-size-50: 5rem;
   --font-size-56: 5.6rem;
   --font-size-64: 6.4rem;
@@ -159,6 +161,7 @@
   --spacing-04: 0.4rem;
   --spacing-05: 0.5rem;
   --spacing-06: 0.6rem;
+  --spacing-07: 0.7rem;
   --spacing-08: 0.8rem;
   --spacing-10: 1rem;
   --spacing-13: 1.3rem;
@@ -176,6 +179,7 @@
   --spacing-26: 2.6rem;
   --spacing-27: 2.7rem;
   --spacing-275: 2.75rem;
+  --spacing-28: 2.8rem;
   --spacing-30: 3rem;
   --spacing-31: 3.1rem;
   --spacing-32: 3.2rem;
@@ -245,11 +249,11 @@
   --spacing-025: 0.25rem;
   --spacing-055: 0.55rem;
   --spacing-00: 0;
-  --spacing-00: 0;
 
   /* negative spacing variables */
   --spacing-n15: -1.5rem;
   --spacing-n40: -4rem;
+  --spacing-n50: -5rem;
   --spacing-n20: -2rem;
   --spacing-n80: -8rem;
   --spacing-n64: -6.4rem;
@@ -261,6 +265,7 @@
   /* Line Heights */
   --line-height-00: 0;
   --line-height-16: 1.6rem;
+  --line-height-18: 1.8rem;
   --line-height-20: 2rem;
   --line-height-22: 2.2rem;
   --line-height-24: 2.4rem;
@@ -271,8 +276,10 @@
   --line-height-34: 3.4rem;
   --line-height-35: 3.5rem;
   --line-height-36: 3.6rem;
+  --line-height-38: 3.8rem;
   --line-height-40: 4rem;
   --line-height-44: 4.4rem;
+  --line-height-45: 4.5rem;
   --line-height-46: 4.6rem;
   --line-height-68: 6.8rem;
   --line-height-84: 8.4rem;
@@ -286,6 +293,7 @@
   --gap-04: 0.4rem;
   --gap-10: 1rem;
   --gap-15: 1.5rem;
+  --gap-16: 1.6rem;
   --gap-18: 1.8rem;
   --gap-20: 2rem;
   --gap-24: 2.4rem;
@@ -294,12 +302,17 @@
   --gap-42: 4.2rem;
 
   /* Letter spacing */
-  --letter-spacing-n03: -.03em;
-  --letter-spacing-n96: -0.96px;
-  --letter-spacing-tight: -0.02em;
-  --letter-spacing-wide-04: 0.04em;
-  --letter-spacing-wide-06: 0.06em;
+  --letter-spacing-n03: -.03rem;
+  --letter-spacing-tight: -0.02rem;
+  --letter-spacing-tight-xl: -2.4px;
+  --letter-spacing-tight-lg: -1.68px;
+  --letter-spacing-tight-md: -1.28px;
+  --letter-spacing-wide-04: 0.04rem;
+  --letter-spacing-wide-06: 0.06rem;
+  --letter-spacing-wide-08: 0.08rem;
+  --letter-spacing-wide-84: 0.84px;
   --letter-spacing-wide-86: 0.86px;
+  --letter-spacing-wide-96: 0.96px;
   --letter-spacing-wide-72: 0.72px;
 
   /* Scroll margin */
@@ -319,7 +332,7 @@
   --hero-button-color: #479ff8;
   --hero-button-hover-color: var(--container-border-color);
   --hero-image-container-height: 21.6rem;
-  --hero-image-container-height-tall: 25.6rem;
+  --hero-tall-image-container-height: 25.6rem;
   --hero-profile-container-height: 12rem;
   --hero-landing-container-height: 41.8rem;
 
@@ -397,7 +410,7 @@
   --story-card-text-color: var(--footer-link-color);
   --story-card-link-color: #0066f5;
   --story-card-hover-bg: #f1f3ff;
-  
+
    /* z-index */
   --z-index-negative: -1;
   --z-index-0 : 0;
@@ -455,7 +468,7 @@
     --hero-section-height: 26rem;
     --border-top-radius-medium: 4rem;
     --hero-image-container-height: 36.8rem;
-    --hero-image-container-height-tall: 41.6rem;
+    --hero-tall-image-container-height: 41.6rem;
     --hero-landing-container-height: 57.6rem;
   }
 }
@@ -465,7 +478,7 @@
     --border-top-radius: 8rem;
     --hero-section-height: 28.8rem;
     --hero-image-container-height: 44.8rem;
-    --hero-image-container-height-tall: 60.8rem;
+    --hero-tall-image-container-height: 60.8rem;
     --hero-landing-container-height: 81rem;
   }
 }
@@ -508,6 +521,7 @@ body {
   margin: 0;
   background-color: var(--background-color);
   color: var(--text-color);
+  text-rendering: optimizespeed;
 }
 
 body.appear {
@@ -527,7 +541,7 @@ header {
 @media (width >= 1024px) {
   header {
     height: var(--header-height);
-  } 
+  }
 }
 
 header .header,
@@ -546,27 +560,37 @@ footer .footer[data-block-status="loaded"] {
    Typography
    ======================================================================== */
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin-top: 0.8em;
-  margin-bottom: 0.25em;
+h1, h2, h3, h4, h5, h6 {
   font-family: var(--heading-font-family-bold);
-  font-weight: 800;
-  line-height: 1.25;
-  scroll-margin: 40px;
+  font-weight: var(--font-weight-800);
+  margin-bottom: var(--spacing-24);
   color: var(--text-color);
 }
 
-h1 { font-size: var(--heading-font-size-xxl); }
-h2 { font-size: var(--heading-font-size-xl); }
-h3 { font-size: var(--heading-font-size-l); }
-h4 { font-size: var(--heading-font-size-m); }
-h5 { font-size: var(--heading-font-size-s); }
-h6 { font-size: var(--heading-font-size-xs); }
+h1 { font-size: var(--font-size-30); line-height: var(--line-height-34); }
+h2 { font-size: var(--font-size-28); line-height: var(--line-height-32); }
+h3 { font-size: var(--font-size-26); line-height: var(--line-height-30); }
+h4 { font-size: var(--font-size-24); line-height: var(--line-height-28); }
+h5 { font-size: var(--font-size-20); line-height: var(--line-height-24); }
+h6 { font-size: var(--font-size-28); line-height: var(--line-height-32); }
+
+@media (width >= 744px) {
+  h1 { font-size: var(--font-size-40); line-height: var(--line-height-44); }
+  h2 { font-size: var(--font-size-36); line-height: var(--spacing-40); }
+  h3 { font-size: var(--font-size-32); line-height: var(--line-height-36); }
+  h4 { font-size: var(--font-size-30); line-height: var(--line-height-34); }
+  h5 { font-size: var(--font-size-28); line-height: var(--line-height-32); }
+  h6 { font-size: var(--font-size-28); line-height: var(--line-height-32); }
+}
+
+@media (width >= 1024px) {
+  h1 { font-size: var(--font-size-64); line-height: var(--line-height-68); letter-spacing: -0.02em; }
+  h2 { font-size: var(--font-size-56); line-height: var(--spacing-64); letter-spacing: -0.02em; }
+  h3 { font-size: var(--heading-font-size-l); line-height: var(--line-height-46); }
+  h4 { font-size: var(--font-size-40); line-height: var(--line-height-44); }
+  h5 { font-size: var(--font-size-32); line-height: var(--line-height-36); }
+  h6 { font-size: var(--font-size-24); line-height: var(--line-height-28); }
+}
 
 p,
 dl,
@@ -594,6 +618,10 @@ p {
 
 p:not(.button-container):last-child {
   margin-bottom: 0;
+}
+
+#stories-behind-science p:not(.button-container):last-child {
+  margin-bottom: var(--spacing-20);
 }
 
 @media (width >= 744px) {
@@ -727,22 +755,12 @@ main img {
 }
 
 /* ========================================================================
-   Section Metadata — hidden from display (processed by JS)
-   ======================================================================== */
-
-.section-metadata {
-  display: none;
-}
-
-/* ========================================================================
    Sections — Layout
    ======================================================================== */
 
 main > .section {
   max-width: 133rem;
   margin-bottom: 8rem;
-  /* margin-left: auto;
-  margin-right: auto; */
 }
 
 main > .section:first-of-type {
@@ -753,10 +771,21 @@ main > .section > div {
   max-width: 100%;
 }
 
+main > .section.columns-container.section-wide, main > .section.section-wide, main > .section-wide{
+    max-width: var(--content-max-width-wide);
+    margin-left: auto;
+    margin-right: auto;
+}
+
 @media (width >= 744px) {
   main > .section {
     margin-left: 7rem;
     margin-right: 7rem;
+  }
+
+  main > .section-wide .hero > div:first-child{
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
@@ -771,6 +800,7 @@ main > .section > div {
   main > .section {
     margin-left: auto;
     margin-right: auto;
+    max-width: var(--content-max-width);
   }
 
   main > .section.embed-container:not(.navy) {
@@ -778,9 +808,9 @@ main > .section > div {
   }
 
   main > .section.columns-container:not(.dark):not(.navy):not(.purple):not(.highlight) {
-    max-width: var(--content-max-width);
     padding-left: var(--spacing-55);
     padding-right: var(--spacing-55);
+    margin: 0 auto;
   }
 
   main > .section.accordion-container:not(.navy) {
@@ -792,7 +822,7 @@ main > .section > div {
 main .section.navy-overlap,
 main .section.navy,
 main .section.purple {
-  border-top-left-radius: var(--spacing-40);
+  border-top-left-radius: var(--border-top-radius);
   overflow: hidden;
 }
 
@@ -803,7 +833,7 @@ main .section.purple {
 /* navy-overlap: Light blue/lavender background (hero overlap area) */
 main .section.navy-overlap {
   background-color: var(--highlight-background-color);
-  max-width: var(--content-max-width-wide);
+  max-width: var(--content-max-width);
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 0;
@@ -833,122 +863,9 @@ main .section.navy-overlap {
   }
 }
 
-/* Pretitle label — first paragraph in section following hero overlay */
-main > .section.navy-overlap + .section > .default-content-wrapper > p:first-child {
-  font-family: var(--roboto-bold-font-family);
-  font-size: var(--font-size-12);
-  font-weight: var(--font-weight-700);
-  letter-spacing: var(--letter-spacing-wide-06);
-  line-height: var(--line-height-16);
-  text-transform: uppercase;
-  color: var(--text-color);
-  margin-bottom: var(--spacing-24);
-}
-
-/* =====================================================
-   AbbVie Science intro — two-column teaser layout
-   Section immediately after the hero navy-overlap section
-   ===================================================== */
-
-/* Section container — full-width like the original AEM teaser;
-   horizontal spacing comes from padding only (not stacked with global section margins) */
-main > .section.navy-overlap + .section {
-  max-width: none;
-  margin: 0;
-  padding: var(--spacing-40) var(--spacing-35);
-}
-
-/* Grid wrapper — stacked on mobile, 12-col on tablet+ */
-main > .section.navy-overlap + .section > .default-content-wrapper {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--spacing-00);
-  max-width: var(--content-max-width);
-  margin: 0 auto;
-}
-
-/* Title: "At a glance: R&D highlights" — mobile base */
-main > .section.navy-overlap + .section > .default-content-wrapper > p:nth-child(2) {
-  font-family: var(--heading-font-family-bold);
-  font-size: var(--font-size-32);
-  font-weight: var(--font-weight-800);
-  line-height: var(--line-height-36);
-  letter-spacing: var(--letter-spacing-tight);
-  color: var(--text-color);
-  margin: 0 0 var(--spacing-24);
-}
-
-/* Description — mobile base */
-main > .section.navy-overlap + .section > .default-content-wrapper > p:nth-child(3) {
-  font-family: var(--body-font-family);
-  font-size: var(--font-size-18);
-  font-weight: var(--font-weight-400);
-  line-height: var(--line-height-24);
-  color: var(--text-color);
-  margin: 0;
-}
-
-/* Title accent color — "R&D highlights" in blue via <em> */
-main > .section.navy-overlap + .section > .default-content-wrapper > p:nth-child(2) em {
-  color: var(--highlight-dark-background-color);
-  font-style: normal;
-}
-
-/* Tablet: switch to two-column grid */
-@media (width >= 744px) {
-  main > .section.navy-overlap + .section {
-    padding: var(--spacing-56) var(--spacing-70);
-  }
-
-  main > .section.navy-overlap + .section > .default-content-wrapper {
-    grid-template-columns: repeat(12, 1fr);
-    gap: 0 var(--gap-20);
-  }
-
-  main > .section.navy-overlap + .section > .default-content-wrapper > p:first-child {
-    grid-column: 1 / -1;
-  }
-
-  main > .section.navy-overlap + .section > .default-content-wrapper > p:nth-child(2) {
-    grid-column: 1 / span 6;
-    grid-row: 2;
-    font-size: var(--font-size-40);
-    line-height: var(--line-height-44);
-    letter-spacing: var(--letter-spacing-tight);
-    margin: 0;
-  }
-
-  main > .section.navy-overlap + .section > .default-content-wrapper > p:nth-child(3) {
-    grid-column: 1 / -1;
-    font-size: var(--font-size-20);
-    line-height: var(--line-height-26);
-  }
-}
-
-/* Desktop: full-size typography + side-by-side layout */
-@media (width >= 1024px) {
-  main > .section.navy-overlap + .section {
-    padding: var(--spacing-80) var(--spacing-55);
-  }
-
-  main > .section.navy-overlap + .section > .default-content-wrapper > p:nth-child(2) {
-    grid-row: 2 / span 2;
-    font-size: var(--font-size-56);
-    line-height: var(--line-height-64);
-    letter-spacing: var(--letter-spacing-tight);
-  }
-
-  main > .section.navy-overlap + .section > .default-content-wrapper > p:nth-child(3) {
-    grid-column: 8 / span 5;
-    grid-row: 2;
-    font-size: var(--font-size-24);
-    line-height: var(--line-height-32);
-  }
-}
-
 /* dark: Navy blue background with white text */
 main .section.dark {
-  background-color: var(--bg-071d49);
+  background-color: var(--color-navy-dark);
   color: var(--background-color);
   margin: 0 auto;
   padding: 4rem 3.5rem 8rem;
@@ -978,7 +895,7 @@ main .section.dark a.button:any-link {
 
 main .section.dark a.button:hover {
   background-color: var(--background-color);
-  color: var(--bg-071d49);
+  color: var(--color-navy-dark);
 }
 
 @media (width >= 744px) {
@@ -993,44 +910,6 @@ main .section.dark a.button:hover {
   }
 }
 
-/* Stats dashboard — when dark columns section starts with a single image,
-   position it as a background behind the stats content */
-main .section.dark.columns-container {
-  position: relative;
-  overflow: hidden;
-  border-top-left-radius: var(--spacing-80);
-  padding-bottom: 0;
-}
-
-main .section.dark.columns-container > .default-content-wrapper:first-child:has(> p:only-child > img) {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  margin: 0;
-  padding: 0;
-  max-width: none;
-}
-
-main .section.dark.columns-container > .default-content-wrapper:first-child:has(> p:only-child > img) p {
-  margin: 0;
-  height: 100%;
-}
-
-main .section.dark.columns-container > .default-content-wrapper:first-child:has(> p:only-child > img) img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.7;
-}
-
-main .section.dark.columns-container > .columns-wrapper {
-  position: relative;
-  z-index: 1;
-}
-
 @media (width >= 1440px) {
   main .section.dark > div {
     max-width: 133rem;
@@ -1040,7 +919,7 @@ main .section.dark.columns-container > .columns-wrapper {
 
 /* navy: Navy blue background with white text */
 main .section.navy {
-  background-color: var(--bg-071d49);
+  background-color: var(--color-navy-dark);
   color: var(--background-color);
   margin: 0 auto;
   padding: 4rem 3.5rem 8rem;
@@ -1069,7 +948,7 @@ main .section.navy a.button:any-link {
 
 main .section.navy a.button:hover {
   background-color: var(--background-color);
-  color: var(--bg-071d49);
+  color: var(--color-navy-dark);
 }
 
 @media (width >= 744px) {
@@ -1091,372 +970,9 @@ main .section.navy a.button:hover {
   }
 }
 
-/* Navy section: Core focus areas — white card with 2-column link grid */
-
-main .section.navy.cards-container > .default-content-wrapper {
-  background-color: var(--background-color);
-  padding: 2rem 4.375rem 3.5rem;
-  border-radius: 0;
-  margin-top: 16px;
-  position: relative;
-  z-index: 1;
-}
-
-main .section.navy.cards-container > .default-content-wrapper h4 {
-  color: var(--bg-071d49);
-  font-family: var(--heading-font-family);
-  font-size: var(--font-size-30, 3rem);
-  font-weight: 650;
-  line-height: 3.4rem;
-  margin-bottom: 0;
-}
-
-/* PRIORITIES label — first p child with strong */
-main .section.navy.cards-container > .default-content-wrapper > p:first-child {
-  font-family: var(--roboto-bold-font-family);
-  font-size: var(--font-size-14, 1.4rem);
-  font-weight: var(--font-weight-700);
-  text-transform: uppercase;
-  letter-spacing: var(--letter-spacing-wide-04);
-  color: var(--text-color);
-  margin-bottom: 0;
-}
-
-/* Description paragraph */
-main .section.navy.cards-container > .default-content-wrapper > p:nth-of-type(2) {
-  color: var(--bg-071d49);
-  margin-bottom: 2rem;
-}
-
-main .section.navy.cards-container > .default-content-wrapper ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-main .section.navy.cards-container > .default-content-wrapper ul li {
-  border: none;
-  padding: 0;
-  margin: 0 0 1.2rem;
-}
-
-main .section.navy.cards-container > .default-content-wrapper ul li a {
-  font-family: var(--body-font-family);
-  font-size: var(--font-size-18, 1.8rem);
-  font-weight: 400;
-  text-decoration: none;
-  color: var(--bg-071d49);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 0 1.6rem;
-  border-bottom: 1px solid rgb(185 180 180);
-}
-
-main .section.navy.cards-container > .default-content-wrapper ul li a::after {
-  content: '\e905';
-  font-family: var(--icon-font-family);
-  font-size: var(--font-size-16, 1.6rem);
-  color: var(--bg-071d49);
-  flex-shrink: 0;
-  margin-left: 1.6rem;
-}
-
-@media (width >= 744px) {
-  main .section.navy.cards-container > .default-content-wrapper {
-    padding: 2rem 4.375rem 4rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0 2rem;
-  }
-
-  main .section.navy.cards-container > .default-content-wrapper > p:first-child,
-  main .section.navy.cards-container > .default-content-wrapper h4,
-  main .section.navy.cards-container > .default-content-wrapper > p:nth-of-type(2) {
-    grid-column: 1 / -1;
-  }
-}
-
-@media (width >= 1024px) {
-  main .section.navy.cards-container > .default-content-wrapper {
-    padding: 2rem 4.375rem 4rem;
-    grid-template-columns: 5fr 3fr 3fr;
-    gap: 0 4rem;
-  }
-
-  main .section.navy.cards-container > .default-content-wrapper > p:first-child,
-  main .section.navy.cards-container > .default-content-wrapper h4,
-  main .section.navy.cards-container > .default-content-wrapper > p:nth-of-type(2) {
-    grid-column: 1;
-  }
-
-  main .section.navy.cards-container > .default-content-wrapper ul:first-of-type {
-    grid-column: 2;
-    grid-row: 1 / span 3;
-    align-self: start;
-  }
-
-  main .section.navy.cards-container > .default-content-wrapper ul:last-of-type {
-    grid-column: 3;
-    grid-row: 1 / span 3;
-    align-self: start;
-  }
-}
-
-/* =====================================================
-   Navy section: Gray inner panel — matches live site
-   .cmp-container (bg: #f4f4f4, radius: 64px top-left)
-   wrapping both dashboard cards and priorities
-   ===================================================== */
-
-/* Cards-wrapper — transparent to let section background image show through (matches original) */
-.section.navy.cards-container .cards-wrapper {
-  background-color: transparent;
-  border-top-left-radius: 0;
-  padding: 0;
-  position: relative;
-  z-index: 1;
-}
-
-/* =====================================================
-   Navy section: Dashboard cards — 4-column grid
-   matching live site .dashboardcards layout
-   ===================================================== */
-
-/* Hide empty image placeholder divs on text-only cards */
-.section.navy .cards > ul > li > .cards-card-body:first-child {
-  display: none;
-}
-
-/* Remove default border/bg, set white as default card bg */
-.section.navy .cards > ul > li {
-  border: none;
-  background-color: var(--background-color);
-}
-
-/* Cards 1 & 6: lavender background */
-.section.navy .cards > ul > li:nth-child(1),
-.section.navy .cards > ul > li:nth-child(6) {
-  background-color: var(--bg-f1f3ff, #f1f3ff);
-}
-
-/* Card content padding */
-.section.navy .cards .cards-card-body {
-  padding: 2.4rem 3.2rem;
-  flex: 0 0 auto;
-}
-
-/* Eyebrow title: uppercase, bold, 14px */
-.section.navy .cards .cards-card-body p strong {
-  font-family: var(--roboto-bold-font-family);
-  font-size: var(--font-size-14, 1.4rem);
-  font-weight: var(--font-weight-700);
-  line-height: var(--line-height-20, 2rem);
-  text-transform: uppercase;
-  letter-spacing: 0.084rem;
-  color: var(--bg-071d49);
-  display: block;
-  margin-bottom: 3.8rem;
-}
-
-/* Stat number: large blue */
-.section.navy .cards .cards-card-body p:nth-child(2),
-.section.cards-container:has(.cards-wrapper:first-child) .cards .cards-card-body p:nth-child(2) {
-  font-family: var(--heading-font-family);
-  font-size: 6.4rem;
-  font-weight: var(--font-weight-650, 650);
-  line-height: 6.8rem;
-  letter-spacing: -0.128rem;
-  color: var(--bg-0066f5, #0066f5);
-  margin: 0 0 0.8rem;
-}
-
-/* Description: small dark text */
-.section.navy .cards .cards-card-body p:nth-child(3) {
-  font-size: var(--font-size-14, 1.4rem);
-  font-weight: var(--font-weight-400, 400);
-  line-height: var(--line-height-20, 2rem);
-  color: var(--bg-071d49);
-  margin: 0;
-}
-
-/* Image cards: full-height image */
-.section.navy .cards > ul > li:nth-child(3),
-.section.navy .cards > ul > li:nth-child(6) {
-  display: flex;
-  flex-direction: column;
-}
-
-.section.navy .cards > ul > li .cards-card-image {
-  flex: 1;
-  overflow: hidden;
-}
-
-.section.navy .cards > ul > li .cards-card-image img {
-  aspect-ratio: auto;
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-}
-
-/* Tablet: 2-column layout */
-@media (width >= 744px) {
-  .section.navy .cards > ul {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto;
-    gap: var(--spacing-20, 2rem);
-  }
-}
-
-/* Desktop: 4-column grid with stacked pairs */
-@media (width >= 1024px) {
-  .section.navy .cards > ul {
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 1fr 1fr;
-    column-gap: var(--spacing-20, 2rem);
-    row-gap: var(--spacing-16);
-  }
-
-  /* Card 1 (Programs): col 1, row 1 */
-  .section.navy .cards > ul > li:nth-child(1) {
-    grid-column: 1;
-    grid-row: 1;
-  }
-
-  /* Card 2 (Pioneering Progress): col 1, row 2 */
-  .section.navy .cards > ul > li:nth-child(2) {
-    grid-column: 1;
-    grid-row: 2;
-  }
-
-  /* Card 3 (Cutting-edge facilities): col 2, rows 1-2 */
-  .section.navy .cards > ul > li:nth-child(3) {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-  }
-
-  /* Card 4 (PATIENT impact): col 3, row 1 */
-  .section.navy .cards > ul > li:nth-child(4) {
-    grid-column: 3;
-    grid-row: 1;
-  }
-
-  /* Card 5 (Global Reach): col 3, row 2 */
-  .section.navy .cards > ul > li:nth-child(5) {
-    grid-column: 3;
-    grid-row: 2;
-  }
-
-  /* Card 6 (investment): col 4, rows 1-2 */
-  .section.navy .cards > ul > li:nth-child(6) {
-    grid-column: 4;
-    grid-row: 1 / span 2;
-  }
-}
-
-/* =====================================================
-   Explore Tenacity section — lavender card with
-   heading + description row, then video + quote row
-   ===================================================== */
-
-main .section.explore-tenacity {
-  background-color: var(--bg-f1f3ff, #f1f3ff);
-  border-radius: 1.6rem;
-  max-width: var(--content-max-width-wide, 1330px);
-  margin: 0 auto;
-  padding: 6.4rem 5.5rem;
-}
-
-/* Row 2: quote icon */
-.section.explore-tenacity .columns.video-block > div > div:not(.columns-video-col) > p:first-child::before {
-  content: '\e909';
-  font-family: var(--icon-font-family);
-  font-size: var(--font-size-33);
-  line-height: 1;
-  color: var(--highlight-dark-background-color);
-  display: block;
-  margin-bottom: var(--spacing-24);
-}
-
-/* Row 1: heading + description — override video-block quote styling */
-.section.explore-tenacity .columns.video-block > div:first-child > div:not(.columns-video-col) > p:first-child::before {
-  display: none;
-}
-
-.section.explore-tenacity .columns.video-block > div:first-child > div:not(.columns-video-col) > p:first-child {
-  font-family: var(--body-font-family);
-  font-size: var(--font-size-18);
-  line-height: var(--line-height-24);
-  font-weight: var(--font-weight-400);
-  color: var(--text-color);
-}
-
-/* Row 1: heading styling */
-.section.explore-tenacity .columns h3 {
-  font-family: var(--heading-font-family-bold);
-  font-size: var(--font-size-30);
-  line-height: var(--line-height-34);
-  font-weight: var(--font-weight-800);
-  margin-top: 0;
-}
-
-/* Row 2: attribution — container for name + location */
-.section.explore-tenacity .columns.video-block > div:last-child > div:not(.columns-video-col) > p:last-child {
-  margin-top: var(--spacing-40);
-}
-
-/* Row 2: attribution name — bold "Ambily Abraham, Discovery Research" */
-.section.explore-tenacity .columns.video-block > div:last-child > div:not(.columns-video-col) .attribution-name {
-  display: block;
-  font-family: var(--roboto-bold-font-family);
-  font-size: var(--font-size-18);
-  font-weight: var(--font-weight-700);
-  line-height: var(--line-height-24);
-}
-
-/* Row 2: attribution location — "Worcester, MA" */
-.section.explore-tenacity .columns.video-block > div:last-child > div:not(.columns-video-col) .attribution-location {
-  display: block;
-  font-family: var(--body-font-family);
-  font-size: var(--font-size-16);
-  font-weight: var(--font-weight-400);
-  line-height: var(--line-height-20);
-}
-
-@media (width >= 1024px) {
-  .section.explore-tenacity .columns h3 {
-    font-size: var(--heading-font-size-l);
-    line-height: var(--line-height-52);
-  }
-
-  /* Row 1: heading column takes 7/12, description takes 4/12 */
-  .section.explore-tenacity .columns .columns-img-grid-col {
-    grid-column: 1 / span 7;
-  }
-
-  .section.explore-tenacity .columns > div:first-child > div:last-child {
-    grid-column: 9 / span 4;
-  }
-
-  /* Row 2: video col needs full 7-span */
-  .section.explore-tenacity .columns .columns-video-col {
-    grid-column: 1 / span 7;
-  }
-
-  /* Row 2: quote column */
-  .section.explore-tenacity .columns.video-block > div:last-child > div:not(.columns-video-col) {
-    grid-column: 9 / span 4;
-  }
-
-  /* Row 2: quote icon height at desktop */
-  .section.explore-tenacity .columns.video-block > div > div:not(.columns-video-col) > p:first-child::before {
-    height: var(--spacing-36);
-  }
-}
-
 /* purple: Purple background with white text */
 main .section.purple {
-  background-color: var(--bg-8a2ecc);
+  background-color: var(--color-purple-primary);
   color: var(--background-color);
   margin: 0 auto;
   padding: 4rem 3.5rem 8rem;
@@ -1485,7 +1001,7 @@ main .section.purple a.button:any-link {
 
 main .section.purple a.button:hover {
   background-color: var(--background-color);
-  color: var(--bg-8a2ecc);
+  color: var(--color-purple-primary);
 }
 
 @media (width >= 744px) {
@@ -1521,7 +1037,7 @@ main .section.highlight {
   margin: 0 auto;
   padding: var(--spacing-40) var(--spacing-35) var(--spacing-16) ;
   max-width: var(--content-max-width-wide);
-  margin-bottom: var(--spacing-80);
+  margin-bottom: var(--spacing-32);
 }
 
 @media (width >= 744px) {
@@ -1529,6 +1045,10 @@ main .section.highlight {
   main .section.highlight {
     padding: 5.6rem 7rem 1.6rem;
   }
+
+  main .section.highlight {
+  margin-bottom: var(--spacing-80);
+}
 }
 
 @media (width >= 1024px) {
@@ -1538,6 +1058,66 @@ main .section.highlight {
   }
 }
 
+/* light-blue: Light lavender/blue background */
+main .section.light-blue {
+  background-color: var(--highlight-background-color);
+  margin: 0 auto;
+  padding: 4rem 3.5rem;
+  max-width: var(--content-max-width-wide);
+}
+
+@media (width >= 744px) {
+  main .section.light-blue {
+    padding: 5.6rem 7rem 1.6rem;
+  }
+}
+
+@media (width >= 1024px) {
+  main .section.light-blue {
+    padding: 8rem 5.5rem 5.8rem;
+  }
+}
+
+/* Text CTA style for accordion section default content */
+main .section.accordion-container > .default-content-wrapper .button-container a.button {
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  margin: var(--spacing-16) 0 var(--spacing-24);
+  color: var(--highlight-dark-background-color);
+  font-family: var(--roboto-bold-font-family);
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-700);
+  text-transform: uppercase;
+  letter-spacing: 0.84px;
+  line-height: var(--line-height-20);
+  display: inline-flex;
+  align-items: center;
+  white-space: normal;
+  overflow: visible;
+  transition: color 0.2s ease;
+}
+
+main .section.accordion-container > .default-content-wrapper .button-container a.button::after {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-top: 2px solid var(--highlight-dark-background-color);
+  border-right: 2px solid var(--highlight-dark-background-color);
+  transform: rotate(45deg);
+  margin-left: 8px;
+  flex-shrink: 0;
+}
+
+main .section.accordion-container > .default-content-wrapper .button-container a.button:hover {
+  color: var(--link-hover-color);
+}
+
+main .section.accordion-container > .default-content-wrapper .button-container a.button:hover::after {
+  border-color: var(--link-hover-color);
+}
 /* CTA highlight section — h2 matches original 48px */
 main .section.highlight:not([data-background]) > .default-content-wrapper h2 {
   font-size: var(--heading-font-size-l);
@@ -1636,6 +1216,13 @@ main .section.radius-default {
   border-top-left-radius: var(--spacing-20);
 }
 
+/*
+ * none: Remove border-top-left-radius (author selected "None" for Border Radius)
+ */
+main .section.none {
+  /* border-top-left-radius: var(--spacing-00); */
+}
+
 /* ========================================================================
    Section Modifier Variants
    Maps AEM container modifiers to EDS section-metadata styles.
@@ -1655,6 +1242,13 @@ main .section.overlap {
   main .section.overlap {
     margin-top: -8rem;
   }
+
+  /*
+ * no-padding: Removes section padding (like AEM no-padding)
+ */
+main .section.no-padding, main > .section.no-padding.columns-container:not(.dark):not(.navy):not(.purple):not(.highlight) {
+  padding: 0;
+}
 }
 
 @media (width >= 1024px) {
@@ -1663,12 +1257,7 @@ main .section.overlap {
   }
 }
 
-/*
- * no-padding: Removes section padding (like AEM no-padding)
- */
-main .section.no-padding {
-  padding: 0;
-}
+
 
 /*
  * no-margin: Removes section bottom margin (like AEM no-bottom-margin)
@@ -1721,7 +1310,7 @@ main .section.navy-overlap:not(.hero-container)::before {
   left: 0;
   right: 0;
   height: 14rem;
-  background-color: var(--bg-071d49);
+  background-color: var(--color-navy-dark);
   border-top-left-radius: 4rem;
   z-index: 0;
 }
@@ -1808,7 +1397,7 @@ main .section.navy-overlap:not(.hero-container) > .default-content-wrapper {
 }
 
 .section-breadcrumbs ol li[aria-current] {
-  color: var(--bg-666b7a);
+  color: var(--color-gray-dark);
   font-weight: var(--font-weight-700);
 }
 
@@ -1872,7 +1461,7 @@ main .section.highlight[data-background] .columns h2 {
 }
 
 /* main .section.highlight[data-background] .columns p {
-  
+
 } */
 
 main .section.highlight[data-background] .columns p strong {
@@ -1970,7 +1559,7 @@ main > .section.dark.cards-container {
 
 /* Content-series dark section: light gray (#F4F4F4) matches original AbbVie */
 main > .section.dark.cards-container:not(.hero-container) {
-  background-color: var(--bg-f4f4f4);
+  background-color: var(--color-gray-light);
 }
 
 /* Content-series card tiles: light blue on gray background */
@@ -2323,7 +1912,7 @@ main > .section.navy.embed-container a.button:hover {
 
 /* Embed: full-bleed navy background with video overlay */
 main > .section.navy.embed-container .embed-wrapper {
-  background-color: var(--bg-071d49);
+  background-color: var(--color-navy-dark);
   margin: 0 -3.5rem;
   padding: 0;
   position: relative;
@@ -2506,7 +2095,7 @@ main > .section.navy.embed-container .embed-wrapper:has(.embed-is-loaded)::after
 /* FAQ heading: full-bleed light gray background */
 /* stylelint-disable-next-line no-descending-specificity */
 main > .section.navy.embed-container > .default-content-wrapper {
-  background-color: var(--bg-fafafa);
+  background-color: var(--color-gray-extra-light);
   margin: 0 -3.5rem;
   padding: 4rem 3.5rem 0;
   text-align: center;
@@ -2522,7 +2111,7 @@ main > .section.navy.embed-container > .default-content-wrapper h2 {
 
 /* Accordion: full-bleed light gray background */
 main > .section.navy.embed-container .accordion-wrapper {
-  background-color: var(--bg-fafafa);
+  background-color: var(--color-gray-extra-light);
   margin: 0 -3.5rem;
   padding: 0 3.5rem 4rem;
   max-width: none;
@@ -2710,111 +2299,6 @@ main > .section.navy.embed-container .columns-wrapper:last-child h4 {
 }
 
 /* ========================================================================
-   FAQ section — CTA band ("Where bold science meets real-world results")
-   Original AEM: cmp-container full-width, bg rgb(241,243,255),
-   grid-row 5:1:5 (image | spacer | text+CTA), padding 80px 55px
-   ======================================================================== */
-
-/* Full-bleed light blue background */
-main > .section.accordion-container > .accordion-wrapper ~ .default-content-wrapper {
-  background-color: rgb(241 243 255);
-  width: 100vw;
-  margin-left: 50%;
-  transform: translateX(-50%);
-  padding: 4rem 3.5rem;
-  max-width: none;
-  border-radius: 0;
-}
-
-/* Image: full width of its container */
-main > .section.accordion-container > .accordion-wrapper ~ .default-content-wrapper > p:first-child img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 0;
-  object-fit: cover;
-}
-
-/* H2: F37 Lineca Medium, 48px at desktop */
-main > .section.accordion-container > .accordion-wrapper ~ .default-content-wrapper h2 {
-  font-family: var(--heading-font-family-bold);
-  font-size: var(--font-size-30);
-  font-weight: 800;
-  line-height: var(--line-height-34);
-  color: var(--text-color);
-  text-align: left;
-  letter-spacing: normal;
-  margin-bottom: var(--spacing-16);
-}
-
-/* Description */
-main > .section.accordion-container > .accordion-wrapper ~ .default-content-wrapper > p:nth-child(3) {
-  color: var(--text-color);
-  margin-bottom: var(--spacing-24);
-}
-
-/* CTA button: outlined style (transparent bg, blue border) */
-main > .section.accordion-container > .accordion-wrapper ~ .default-content-wrapper a.button:any-link {
-  background-color: transparent;
-  border: 1px solid rgb(0 102 245);
-  color: rgb(0 102 245);
-  font-family: var(--roboto-bold-font-family);
-  font-size: var(--font-size-14);
-  font-weight: var(--font-weight-700);
-  text-transform: uppercase;
-  padding: 1.6rem 4rem;
-  border-radius: 0;
-}
-
-main > .section.accordion-container > .accordion-wrapper ~ .default-content-wrapper a.button:hover {
-  background-color: rgb(0 102 245);
-  color: var(--background-color);
-}
-
-@media (width >= 744px) {
-  main > .section.accordion-container > .accordion-wrapper ~ .default-content-wrapper {
-    padding: 5.6rem 7rem;
-  }
-
-  main > .section.accordion-container > .accordion-wrapper ~ .default-content-wrapper h2 {
-    font-size: var(--font-size-40);
-    line-height: var(--line-height-44);
-  }
-}
-
-@media (width >= 1024px) {
-  main > .section.accordion-container > .accordion-wrapper ~ .default-content-wrapper {
-    padding: 8rem max(5.5rem, calc((100vw - 133rem) / 2));
-    display: grid;
-    grid-template-columns: 5fr 5fr;
-    gap: 0 8rem;
-  }
-
-  /* Image in left column, spanning all rows */
-  main > .section.accordion-container > .accordion-wrapper ~ .default-content-wrapper > p:first-child {
-    grid-column: 1;
-    grid-row: 1 / span 3;
-    margin: 0;
-  }
-
-  /* Text elements in right column */
-  main > .section.accordion-container > .accordion-wrapper ~ .default-content-wrapper h2 {
-    grid-column: 2;
-    font-size: var(--heading-font-size-l);
-    line-height: var(--line-height-52);
-  }
-
-  main > .section.accordion-container > .accordion-wrapper ~ .default-content-wrapper > p:nth-child(3) {
-    grid-column: 2;
-  }
-
-  main > .section.accordion-container > .accordion-wrapper ~ .default-content-wrapper > .button-container {
-    grid-column: 2;
-    align-self: start;
-  }
-}
-
-/* ========================================================================
    Content-Series Pages — Section Spacing
    Reduces gaps between sections for pages where the hero is in its own
    section (not combined with columns/cards like the landing page).
@@ -2953,10 +2437,11 @@ main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) ul 
 main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) ul li a::after {
   content: '\e905';
   font-family: var(--icon-font-family);
-  font-size: var(--font-size-18);
+  font-size: var(--font-size-16);
   color: var(--text-color);
   flex-shrink: 0;
   margin-left: var(--spacing-16);
+  line-height: var(--line-height-20);
 }
 
 @media (width >= 1024px) {
@@ -2976,15 +2461,15 @@ main > .section.navy.columns-container h4,
 main > .section.purple.columns-container h4 {
   font-family: var(--heading-font-family);
   font-weight: 650;
-  font-size: var(--font-size-30);
-  line-height: var(--line-height-34);
+  font-size: var(--font-size-24);
+  line-height: var(--line-height-28);
 }
 
 @media (width >= 744px) {
   main > .section.navy.columns-container h4,
   main > .section.purple.columns-container h4 {
-    font-size: var(--font-size-36);
-    line-height: var(--line-height-44);
+    font-size: var(--font-size-30);
+    line-height: var(--line-height-34);
   }
 }
 
@@ -3025,56 +2510,75 @@ main > .section.purple.columns-container h4 {
   .section .large-radius {
     border-top-left-radius: var(--border-top-left-radius-tablet);
   }
+
+  main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) ul li a::after {
+    line-height: var(--line-height-22);
+  }
 }
 
 @media (width >= 1024px) {
   .section .large-radius {
     border-top-left-radius: var(--border-top-left-radius-desktop);
   } 
+
+  main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) ul li a::after {
+    line-height: var(--line-height-24);
+  }
 }
 
 .bg-f4f4f4 {
-  background-color: var(--bg-f4f4f4);
+  background-color: var(--color-gray-light);
 }
 
-/* ========================================================================
-   Stories Cards Section — "The stories behind our science"
-   Scoped via :has(#the-stories-behind-our-science) to avoid affecting
-   cards on other pages (e.g. our-people)
-   ======================================================================== */
 
-/* Section padding — match default section spacing */
-main > .section.cards-container:has(#the-stories-behind-our-science) {
-  padding: var(--spacing-32) var(--spacing-35);
+/* rte body unica custom classes */
+
+.body-unica-32-reg p {
+    color: var(--text-color);
+    font-family: var(--roboto-small-font-family);
+    font-size: var(--font-size-20);
+    font-weight: var(--font-weight-400);
+    line-height: var(--line-height-26);
 }
 
-/* Remove card background and border — live site has transparent cards */
-main > .section.cards-container:has(#the-stories-behind-our-science) .cards > ul > li {
-  background-color: transparent;
-  border: none;
+.body-unica-26-reg p {
+    color: var(--text-color);
+    font-family: var(--body-font-family);
+    font-size: var(--font-size-16);
+    font-weight: var(--font-weight-400);
+    line-height: var(--line-height-22);
 }
 
-/* Grid gap — live site uses 20px */
-main > .section.cards-container:has(#the-stories-behind-our-science) .cards > ul {
-  gap: var(--spacing-20);
+.body-unica-24-reg p {
+    color: var(--text-color);
+    font-family: var(--body-font-family);
+    font-size: var(--font-size-18);
+    font-weight: var(--font-weight-400);
+    line-height: var(--line-height-24);
 }
 
-/* Card title — Roboto Bold, 14px, uppercase, letter-spacing 0.56px */
-main > .section.cards-container:has(#the-stories-behind-our-science) .cards .cards-card-body p strong {
-  font-family: var(--roboto-bold-font-family);
-  font-size: var(--font-size-14);
-  line-height: var(--line-height-16);
-  font-weight: var(--font-weight-700);
-  text-transform: uppercase;
-  letter-spacing: var(--letter-spacing-wide-04);
+.body-unica-20-reg p {
+    color: var(--text-color);
+    font-family: var(--body-font-family);
+    font-size: var(--font-size-14);
+    font-weight: var(--font-weight-400);
+    line-height: var(--line-height-20);
 }
 
-/* Card description — Roboto Regular, 18px, 400 */
-main > .section.cards-container:has(#the-stories-behind-our-science) .cards .cards-card-body > p:not(:first-child):not(:last-child) {
-  font-family: var(--body-font-family);
-  font-size: var(--font-size-18);
-  font-weight: var(--font-weight-400);
-  line-height: var(--line-height-24);
+.body-unica-18-reg p {
+    color: var(--text-color);
+    font-family: var(--body-font-family);
+    font-size: var(--font-size-13);
+    font-weight: var(--font-weight-400);
+    line-height: var(--line-height-20);
+}
+
+.body-unica-16-reg p {
+    color: var(--text-color);
+    font-family: var(--body-font-family);
+    font-size: var(--font-size-12);
+    font-weight: var(--font-weight-400);
+    line-height: var(--line-height-16);
 }
 
 /* CTA link — blue, Roboto Bold, 14px, uppercase, letter-spacing 0.84px */
@@ -3094,14 +2598,196 @@ main > .section.cards-container:has(#the-stories-behind-our-science) .cards .car
   padding: var(--spacing-16) 0 var(--spacing-24);
 }
 
-@media (width >= 1024px) {
-  main > .section.cards-container:has(#the-stories-behind-our-science) {
-    padding: var(--spacing-48) var(--spacing-55);
+
+/* rte body unica custom classes */
+
+.body-unica-32-reg p {
+    color: var(--text-color);
+    font-family: var(--roboto-small-font-family);
+    font-size: var(--font-size-20);
+    font-weight: var(--font-weight-400);
+    line-height: var(--line-height-26);
+}
+
+.body-unica-26-reg p {
+    color: var(--text-color);
+    font-family: var(--body-font-family);
+    font-size: var(--font-size-16);
+    font-weight: var(--font-weight-400);
+    line-height: var(--line-height-22);
+}
+
+.body-unica-24-reg p {
+    color: var(--text-color);
+    font-family: var(--body-font-family);
+    font-size: var(--font-size-18);
+    font-weight: var(--font-weight-400);
+    line-height: var(--line-height-24);
+}
+
+.body-unica-20-reg p {
+    color: var(--text-color);
+    font-family: var(--body-font-family);
+    font-size: var(--font-size-14);
+    font-weight: var(--font-weight-400);
+    line-height: var(--line-height-20);
+}
+
+.body-unica-18-reg p {
+    color: var(--text-color);
+    font-family: var(--body-font-family);
+    font-size: var(--font-size-13);
+    font-weight: var(--font-weight-400);
+    line-height: var(--line-height-20);
+}
+
+.body-unica-16-reg p {
+    color: var(--text-color);
+    font-family: var(--body-font-family);
+    font-size: var(--font-size-12);
+    font-weight: var(--font-weight-400);
+    line-height: var(--line-height-16);
+}
+
+.body-unica-14-reg p {
+    color: var(--text-color);
+    font-family: var(--body-font-family);
+    font-size: var(--font-size-12);
+    font-weight: var(--font-weight-400);
+    line-height: var(--line-height-16);
+}
+
+.section-padding {
+  padding-left: 3.5rem;
+  padding-right: 3.5rem;
+  padding-top: 3.2rem;
+}
+
+.section.section-bottom-margin {
+  margin-bottom: 8rem !important;
+}
+
+@media(width >= 744px) {
+    .body-unica-32-reg p {
+        font-size: var(--font-size-24);
+        line-height: var(--line-height-30);
+    }
+
+    .body-unica-26-reg p {
+        font-size: var(--font-size-22);
+        line-height: var(--line-height-30);
+    }
+
+    .body-unica-24-reg p {
+        font-size: var(--font-size-20);
+        line-height: var(--line-height-26);
+    }
+
+    .body-unica-20-reg p {
+        font-size: var(--font-size-18);
+        line-height: var(--line-height-24);
+    }
+
+    .body-unica-18-reg p {
+        font-size: var(--font-size-16);
+        line-height: var(--line-height-22);
+    }
+
+    .body-unica-16-reg p {
+        font-size: var(--font-size-14);
+        line-height: var(--line-height-20);
+    }
+
+    .section-padding {
+      padding-left: 7rem;
+      padding-right: 7rem;
+      padding-top: 5.6rem;
+    }
+}
+
+@media(width >= 1024px) {
+    .body-unica-32-reg p {
+        font-size: var(--font-size-32);
+        line-height: var(--line-height-40);
+    }
+
+    .body-unica-26-reg p {
+        font-size: var(--font-size-26);
+        line-height: var(--line-height-32);
+    }
+
+    .body-unica-24-reg p {
+        font-size: var(--font-size-24);
+        line-height: var(--line-height-32);
+    }
+
+    .body-unica-20-reg p {
+        font-size: var(--font-size-20);
+        line-height: var(--line-height-24);
+    }
+
+    .body-unica-18-reg p {
+        font-size: var(--font-size-18);
+        line-height: var(--line-height-24);
+    }
+
+    .body-unica-16-reg p {
+        font-size: var(--font-size-16);
+        line-height: var(--line-height-20);
+    }
+
+    .body-unica-14-reg p {
+        font-size: var(--font-size-14);
+        line-height: var(--line-height-20);
+    }
+
+    .section-padding {
+      padding-left: 5.5rem;
+      padding-right: 5.5rem;
+      padding-top: 8rem;
+    }
+}
+
+/* body unica custom classes - end */
+
+/* abbvie container styles */
+.abbvie-container {
+  display: grid;
+  column-gap: var(--spacing-15);
+  grid-template-columns: repeat(6, 1fr);
+  margin-left: var(--spacing-20);
+  margin-right: var(--spacing-20);
+}
+
+/* inner cmp-container base setup */ .abbvie-container div {
+  grid-column: 1 / span 6;
+}
+
+.abbvie-separator hr {
+    border: var(--border-01) solid var(--footer-seperator-color);
+}
+
+@media (width >=744px) {
+  .abbvie-container {
+    column-gap: var(--spacing-20);
+    grid-template-columns: repeat(8, 1fr);
+    margin-left: var(--spacing-70);
+    margin-right: var(--spacing-70);
   }
 
+  .abbvie-container div {
+  grid-column: 1 / span 8;
+}
+}
+
+@media (width >= 1024px) {
   /* 4-column grid at desktop — matches live site 4x .grid-row__col-with-3 */
   main > .section.cards-container:has(#the-stories-behind-our-science) .cards > ul {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .abbvie-container div {
+    grid-column: 1 / span 8;   
   }
 }
 
@@ -3112,6 +2798,18 @@ main > .section.cards-container:has(#the-stories-behind-our-science) .cards .car
   }
 }
 
+@media (width >=1024px) {
+  .abbvie-container {
+    grid-template-columns: repeat(12, 1fr);
+    margin-left: var(--spacing-55);
+    margin-right: var(--spacing-55);
+  }
+
+  .abbvie-container div {
+    grid-column: 1 / span 12;   
+  }
+}
+
 /* =====================================================
    Priorities / Core focus areas section
    Part of the dashboard — lab background image with
@@ -3119,13 +2817,13 @@ main > .section.cards-container:has(#the-stories-behind-our-science) .cards .car
    ===================================================== */
 
 main .section.dark:has(#core-focus-areas) {
-  background-color: var(--bg-f4f4f4, #f4f4f4);
+  background-color: var(--color-gray-light);
   background-image: url('https://abbvie.scene7.com/is/image/abbviecorp/abbvie-src-scout?$Hero$');
   background-size: cover;
   background-position: center bottom;
-  color: var(--bg-071d49, #071d49);
-  padding: 0 5.5rem 8rem;
-  margin-top: -5rem;
+  color: var(--color-navy-dark);
+  padding: var(--spacing-00) var(--spacing-55) var(--spacing-80);
+  margin-top: var(--spacing-n50);
   position: relative;
   z-index: 1;
   overflow: hidden;
@@ -3140,7 +2838,7 @@ main .section.dark:has(#core-focus-areas) > .default-content-wrapper {
 }
 
 main .section.dark:has(#core-focus-areas) h4 {
-  color: var(--bg-071d49, #071d49);
+  color: var(--color-navy-dark);
   font-family: var(--heading-font-family);
   font-size: 4rem;
   font-weight: 650;
@@ -3161,7 +2859,7 @@ main .section.dark:has(#core-focus-areas) > .default-content-wrapper > p:first-c
 
 /* Description paragraph */
 main .section.dark:has(#core-focus-areas) p {
-  color: var(--bg-071d49, #071d49);
+  color: var(--color-navy-dark);
   font-size: 1.8rem;
   line-height: 2.4rem;
 }
@@ -3173,30 +2871,110 @@ main .section.dark:has(#core-focus-areas) ul {
   margin: 0;
 }
 
-main .section.dark:has(#core-focus-areas) ul li {
-  border: none;
-  padding: 0;
-  margin: 0 0 1.2rem;
+.body-unica-14-reg p {
+    color: var(--text-color);
+    font-family: var(--body-font-family);
+    font-size: var(--font-size-12);
+    font-weight: var(--font-weight-400);
+    line-height: var(--line-height-16);
 }
 
-main .section.dark:has(#core-focus-areas) ul li a {
-  font-family: var(--body-font-family);
-  font-size: 1.8rem;
-  font-weight: 400;
-  text-decoration: none;
-  color: var(--bg-071d49, #071d49);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 0 1.6rem;
-  border-bottom: 1px solid rgb(185 180 180);
+.section-padding {
+  padding-left: 3.5rem;
+  padding-right: 3.5rem;
+  padding-top: 3.2rem;
 }
 
+.section.section-bottom-margin {
+  margin-bottom: 8rem !important;
+}
+
+@media(width >= 744px) {
+    .body-unica-32-reg p {
+        font-size: var(--font-size-24);
+        line-height: var(--line-height-30);
+    }
+
+    .body-unica-26-reg p {
+        font-size: var(--font-size-22);
+        line-height: var(--line-height-30);
+    }
+
+    .body-unica-24-reg p {
+        font-size: var(--font-size-20);
+        line-height: var(--line-height-26);
+    }
+
+    .body-unica-20-reg p {
+        font-size: var(--font-size-18);
+        line-height: var(--line-height-24);
+    }
+
+    .body-unica-18-reg p {
+        font-size: var(--font-size-16);
+        line-height: var(--line-height-22);
+    }
+
+    .body-unica-16-reg p {
+        font-size: var(--font-size-14);
+        line-height: var(--line-height-20);
+    }
+
+    .section-padding {
+      padding-left: 7rem;
+      padding-right: 7rem;
+      padding-top: 5.6rem;
+    }
+}
+
+@media(width >= 1024px) {
+    .body-unica-32-reg p {
+        font-size: var(--font-size-32);
+        line-height: var(--line-height-40);
+    }
+
+    .body-unica-26-reg p {
+        font-size: var(--font-size-26);
+        line-height: var(--line-height-32);
+    }
+
+    .body-unica-24-reg p {
+        font-size: var(--font-size-24);
+        line-height: var(--line-height-32);
+    }
+
+    .body-unica-20-reg p {
+        font-size: var(--font-size-20);
+        line-height: var(--line-height-24);
+    }
+
+    .body-unica-18-reg p {
+        font-size: var(--font-size-18);
+        line-height: var(--line-height-24);
+    }
+
+    .body-unica-16-reg p {
+        font-size: var(--font-size-16);
+        line-height: var(--line-height-20);
+    }
+
+    .body-unica-14-reg p {
+        font-size: var(--font-size-14);
+        line-height: var(--line-height-20);
+    }
+
+    .section-padding {
+      padding-left: 5.5rem;
+      padding-right: 5.5rem;
+      padding-top: 8rem;
+    }
+  }
+    
 main .section.dark:has(#core-focus-areas) ul li a::after {
   content: '\e905';
   font-family: var(--icon-font-family);
   font-size: var(--font-size-16, 1.6rem);
-  color: var(--bg-071d49, #071d49);
+  color: var(--color-navy-dark);
   flex-shrink: 0;
   margin-left: 1.6rem;
 }
@@ -3226,6 +3004,16 @@ main .section.dark:has(#core-focus-areas) ul li a::after {
     grid-row: 1 / span 3;
     align-self: start;
   }
+
+  .abbvie-container {
+    grid-template-columns: repeat(12, 1fr);
+    margin-left: var(--spacing-55);
+    margin-right: var(--spacing-55);
+  }
+
+  .abbvie-container div {
+    grid-column: 1 / span 12;   
+  }
 }
 
 /* =====================================================
@@ -3239,7 +3027,7 @@ main .section.columns-container:has(#explore-our-science) h3 {
   font-weight: 800;
   line-height: 5.2rem;
   letter-spacing: -0.096rem;
-  color: var(--bg-071d49, #071d49);
+  color: var(--color-navy-dark);
 }
 
 /* F8: Link list arrows in Explore section */
@@ -3258,7 +3046,7 @@ main .section.columns-container:has(#explore-our-science) ul li a {
   font-size: 1.8rem;
   font-weight: 400;
   text-decoration: none;
-  color: var(--bg-071d49, #071d49);
+  color: var(--color-navy-dark);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -3270,7 +3058,7 @@ main .section.columns-container:has(#explore-our-science) ul li a::after {
   content: '\e905';
   font-family: var(--icon-font-family);
   font-size: var(--font-size-16, 1.6rem);
-  color: var(--bg-071d49, #071d49);
+  color: var(--color-navy-dark);
   flex-shrink: 0;
   margin-left: 1.6rem;
 }
@@ -3283,7 +3071,7 @@ main .section:has(#the-tenacity-to-take-on-the-toughest-challenges) .columns > d
   font-size: 4rem;
   font-weight: 650;
   line-height: 4.4rem;
-  color: var(--bg-071d49, #071d49);
+  color: var(--color-navy-dark);
   font-style: normal;
   padding-top: 2rem;
 }
@@ -3304,7 +3092,7 @@ main .section:has(#the-tenacity-to-take-on-the-toughest-challenges) .columns > d
   font-size: 1.8rem;
   font-weight: 700;
   line-height: 2.4rem;
-  color: var(--bg-071d49, #071d49);
+  color: var(--color-navy-dark);
 }
 
 /* =====================================================
@@ -3318,7 +3106,7 @@ main .section:has(#the-stories-behind-our-science) h1 {
   font-weight: 800;
   line-height: 5.2rem;
   letter-spacing: -0.096rem;
-  color: var(--bg-071d49, #071d49);
+  color: var(--color-navy-dark);
 }
 
 /* F14: Blue separator below stories heading */
@@ -3371,7 +3159,7 @@ main:has(#core-focus-areas) .section:has(#frequently-asked-questions) h2 {
   font-weight: 800;
   line-height: 5.2rem;
   letter-spacing: -0.096rem;
-  color: var(--bg-071d49, #071d49);
+  color: var(--color-navy-dark);
   text-align: center;
 }
 
@@ -3381,7 +3169,7 @@ main:has(#core-focus-areas) .section:has(#frequently-asked-questions) .accordion
   font-size: 2.6rem;
   font-weight: 700;
   line-height: 3.2rem;
-  color: var(--bg-071d49, #071d49);
+  color: var(--color-navy-dark);
 }
 
 /* F15: Expand All button — blue, bold */
@@ -3415,114 +3203,42 @@ main .section.highlight:has(#where-bold-science-meets-real-world-results) a {
   border-radius: 0;
 }
 
-/* =====================================================
-   Science page — Video / Embed section (F6)
-   Scoped via main:has(#core-focus-areas) .embed-container
-   The HTML already contains overlay elements:
-   - .embed-placeholder-overlay with H2, desc paragraph, watch button
-   We only add the gradient overlay via CSS
-   ===================================================== */
+/* body unica custom classes - end */
 
-/* F6: Video embed — position the embed block as the overlay anchor */
-main:has(#core-focus-areas) .section.embed-container .embed.block {
-  position: relative;
+/* abbvie container styles */
+.abbvie-container {
+  display: grid;
+  column-gap: var(--spacing-15);
+  grid-template-columns: repeat(6, 1fr);
+  margin-left: var(--spacing-20);
+  margin-right: var(--spacing-20);  
 }
 
-/* F6: Video embed — make placeholder a relative container for overlay */
-main:has(#core-focus-areas) .section.embed-container .embed-placeholder {
-  position: relative;
-  cursor: pointer;
+/* inner cmp-container base setup */ .abbvie-container div {
+  grid-column: 1 / span 6; 
 }
 
-/* F6: Video embed — dark gradient overlay on right half */
-main:has(#core-focus-areas) .section.embed-container .embed-placeholder::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 50%;
-  background: linear-gradient(to right, rgba(7, 29, 73, 0) 0%, rgba(7, 29, 73, 0.85) 30%, rgba(7, 29, 73, 0.95) 100%);
-  z-index: 1;
-  pointer-events: none;
+@media (width >=744px) {
+  .abbvie-container {
+    column-gap: var(--spacing-20);
+    grid-template-columns: repeat(8, 1fr);
+    margin-left: var(--spacing-70);
+    margin-right: var(--spacing-70);
+  }
+
+  .abbvie-container div {
+    grid-column: 1 / span 8;   
+  }
 }
 
-/* F6: Video embed — overlay container positioning */
-main:has(#core-focus-areas) .section.embed-container .embed-placeholder-overlay {
-  position: absolute;
-  top: 50%;
-  right: 6rem;
-  transform: translateY(-50%);
-  z-index: 2;
-  max-width: 40%;
-  pointer-events: none;
-}
+@media (width >=1024px) {
+  .abbvie-container {
+    grid-template-columns: repeat(12, 1fr);
+    margin-left: var(--spacing-55);
+    margin-right: var(--spacing-55);
+  }
 
-/* F6: Video embed — overlay heading */
-main:has(#core-focus-areas) .section.embed-container .embed-placeholder-title {
-  color: #fff;
-  font-family: var(--heading-font-family);
-  font-size: 4rem;
-  font-weight: 800;
-  line-height: 4.4rem;
-  margin: 0 0 1.2rem;
-}
-
-/* F6: Video embed — overlay description */
-main:has(#core-focus-areas) .section.embed-container .embed-placeholder-desc {
-  color: #fff;
-  font-family: var(--body-font-family);
-  font-size: 2rem;
-  font-weight: 400;
-  line-height: 2.8rem;
-  margin: 0 0 2rem;
-}
-
-/* F6: Video embed — overlay watch button */
-main:has(#core-focus-areas) .section.embed-container .embed-placeholder-watch {
-  color: #fff;
-  font-family: var(--roboto-bold-font-family);
-  font-size: 1.4rem;
-  font-weight: 700;
-  line-height: 2rem;
-  text-transform: uppercase;
-  letter-spacing: 0.084rem;
-  border: 1px solid #fff;
-  padding: 1.6rem 4rem;
-  background: transparent;
-  cursor: pointer;
-}
-
-/* F6: Video embed — watch button play icon */
-main:has(#core-focus-areas) .section.embed-container .embed-placeholder-watch-icon::before {
-  content: '\25B6';
-  margin-right: 0.8rem;
-}
-
-/* F6: Video embed — full-width image */
-main:has(#core-focus-areas) .section.embed-container .embed-placeholder img {
-  width: 100%;
-  height: auto;
-  display: block;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-}
-
-/* =====================================================
-   Science page — Story Cards headings (F7)
-   Scoped via :has(#the-stories-behind-our-science)
-   Styles the <p><strong> heading labels in each card
-   Live site: 14px, Roboto Bold, uppercase, letter-spacing 0.56px
-   ===================================================== */
-
-/* F7: Story card heading — style the <p><strong> category label */
-main .section:has(#the-stories-behind-our-science) .cards-card-body > p:first-child {
-  font-family: var(--roboto-bold-font-family);
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: rgb(0, 0, 0);
-  text-transform: uppercase;
-  letter-spacing: 0.056rem;
-  line-height: 1.6rem;
-  margin-bottom: 1.6rem;
+  .abbvie-container div {
+    grid-column: 1 / span 12;   
+  }
 }

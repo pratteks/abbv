@@ -65,3 +65,40 @@ export function decorateLangAttribute(block) {
     }
   });
 }
+
+// Prefix-to-attribute mapping — easy to extend with new prefixes
+const COMMON_PROP_HANDLERS = {
+  'lang:': (block, val) => {
+    const lang = val.slice(5);
+    if (lang && lang !== 'none') block.setAttribute('lang', lang);
+  },
+  'id:': (block, val) => {
+    const id = val.slice(3);
+    if (id && id !== 'none') block.setAttribute('id', id);
+  },
+};
+
+/**
+ * Process common authorable properties encoded as prefixed text rows.
+ * Supported prefixes: lang:<code>, id:<value>
+ *
+ * Note: customClass uses classes_ prefix and is handled automatically
+ * by the framework — no JS needed.
+ *
+ * @param {Element} block - The block element
+ */
+export function applyCommonProps(block) {
+  [...block.children].forEach((row) => {
+    const p = row.querySelector('[data-aue-prop]') || row.querySelector('p');
+    if (!p) return;
+
+    const val = p.textContent.trim();
+    if (!val || val === 'none') return;
+
+    const prefix = Object.keys(COMMON_PROP_HANDLERS).find((k) => val.startsWith(k));
+    if (prefix) {
+      COMMON_PROP_HANDLERS[prefix](block, val);
+      row.remove();
+    }
+  });
+}

@@ -10,8 +10,16 @@
             "template": {
               "name": "Quote",
               "model": "quote",
+              "id": "",
+              "customClass": "",
               "quoteType": "basic",
-              "language": "en"
+              "backgroundImageAlt": "",
+              "classes_theme": "quote-none",
+              "classes_contentAlignment": "quote-align-none",
+              "classes_contentWidth": "quote-content-col-none",
+              "language": "lang:none",
+              "blockId": "id:",
+              "analyticsInteractionId": ""
             }
           }
         }
@@ -23,6 +31,11 @@
       "id": "quote",
       "fields": [
         {
+          "component": "tab",
+          "label": "Overview",
+          "name": "overview"
+        },
+        {
           "component": "select",
           "valueType": "string",
           "name": "quoteType",
@@ -31,23 +44,13 @@
           "required": true,
           "options": [
             {
-              "name": "Regular quote",
+              "name": "Basic",
               "value": "basic"
             },
             {
-              "name": "Quote from CF",
+              "name": "Content Fragment",
               "value": "content-fragment"
             }
-          ]
-        },
-        {
-          "component": "select",
-          "name": "classes_theme",
-          "label": "Theme",
-          "options": [
-            { "name": "None", "value": "quote-none" },
-            { "name": "Light Theme", "value": "quote-light" },
-            { "name": "Dark Theme", "value": "quote-dark" }
           ]
         },
         {
@@ -57,7 +60,6 @@
           "value": "",
           "label": "Quote Text",
           "description": "Provide the quote",
-          "required": true,
           "condition": {
             "in": [
               {
@@ -145,6 +147,66 @@
           "value": "",
           "label": "Background Image Alt Text",
           "description": "Provide alt text for the background image"
+        },
+        {
+          "component": "tab",
+          "label": "Styles",
+          "name": "styles"
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "classes_theme",
+          "label": "Theme",
+          "options": [
+            { "name": "None", "value": "quote-none" },
+            { "name": "Light Theme", "value": "quote-light" },
+            { "name": "Dark Theme", "value": "quote-dark" }
+          ]
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "classes_contentAlignment",
+          "label": "Content Alignment",
+          "value": "quote-align-none",
+          "options": [
+            { "name": "None", "value": "quote-align-none" },
+            { "name": "Left", "value": "quote-align-left" },
+            { "name": "Center", "value": "quote-align-center" },
+            { "name": "Right", "value": "quote-align-right" }
+          ]
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "classes_contentWidth",
+          "label": "Content Width",
+          "value": "quote-content-col-none",
+          "options": [
+            { "name": "None", "value": "quote-content-col-none" },
+            { "name": "1 Column", "value": "quote-content-col-1" },            
+            { "name": "3 Columns", "value": "quote-content-col-3" },    
+            { "name": "6 Columns", "value": "quote-content-col-6" },           
+            { "name": "9 Columns", "value": "quote-content-col-9" },           
+            { "name": "12 Columns", "value": "quote-content-col-12" }
+          ]
+        },       
+        {
+          "...": "../../models/_common-properties.json#/common-prop"
+        },
+        {
+          "component": "tab",
+          "label": "Analytics",
+          "name": "analytics"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "analyticsInteractionId",
+          "value": "",
+          "label": "Analytics Interaction ID",
+          "description": "Identifier used to tag this component's interactions for analytics and reporting"
         }
       ]
     }

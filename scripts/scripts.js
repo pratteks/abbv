@@ -1,16 +1,16 @@
 import {
-  loadHeader,
-  loadFooter,
+  decorateBlocks,
   decorateButtons,
   decorateIcons,
   decorateSections,
-  decorateBlocks,
   decorateTemplateAndTheme,
   getMetadata,
-  waitForFirstImage,
+  loadCSS,
+  loadFooter,
+  loadHeader,
   loadSection,
   loadSections,
-  loadCSS,
+  waitForFirstImage,
 } from './aem.js';
 
 /**
@@ -64,25 +64,7 @@ export function resolveImageReference(container) {
     && !href.includes('/is/image/')) return;
   const img = document.createElement('img');
   img.src = href;
-  const text = link.textContent.trim();
-  // When EDS backend converts <img> to <a>, the alt text may be preserved as link
-  // text. But sometimes the link text is the URL itself — detect that and derive a
-  // human-readable alt from the URL path instead.
-  const isUrl = /^https?:\/\//.test(text);
-  if (link.title) {
-    img.alt = link.title;
-  } else if (text && !isUrl) {
-    img.alt = text;
-  } else {
-    // Extract filename from URL path and convert to readable text
-    try {
-      const { pathname } = new URL(href);
-      const filename = pathname.split('/').pop().split('.')[0];
-      img.alt = filename.replace(/[-_]+/g, ' ').trim();
-    } catch {
-      img.alt = '';
-    }
-  }
+  img.alt = link.title || link.textContent || '';
   img.loading = 'lazy';
   const wrapper = link.closest('.button-container') || link.closest('p') || link;
   wrapper.replaceWith(img);
@@ -175,16 +157,56 @@ function a11yLinks(main) {
       label = icon ? icon.classList[1]?.split('-')[1] : label;
     }
     link.setAttribute('aria-label', label);
+
+    // Remove title attribute if any ancestor has button-container class
+    if (link.hasAttribute('title') && link.closest('.button-container')) {
+      link.removeAttribute('title');
+    }
   });
+}
+
+/**
+ * Moves consecutive grid-section elements into the preceding grid-container
+ * section, making them direct children of that container.
+ * @param {Element} main The main element
+ */
+function addGridSectionsWrapper(main) {
+  let group = [];
+  let currentContainer = null;
+
+  const flush = () => {
+    if (!group.length) return;
+    if (currentContainer) {
+      group.forEach((s) => currentContainer.append(s));
+    }
+    group = [];
+    currentContainer = null;
+  };
+
+  [...main.children].forEach((child) => {
+    if (child.matches('.section[class*="grid-container"]')) {
+      flush();
+      currentContainer = child;
+    } else if (child.matches('.section[class*="grid-cols-"]')) {
+      group.push(child);
+    } else {
+      flush();
+    }
+  });
+  flush();
 }
 
 /**
  * Apply background images from section-metadata data-background attributes.
  * Uses a <style> tag so backgrounds persist even if UE resets inline styles.
+ * Automatically derives fetchPriority and loading from section position:
+ * first 2 sections = above fold (eager, high priority), rest = lazy.
  * @param {Element} main The main element
  */
 function decorateSectionBackgrounds(main) {
   const rules = [];
+  const allSections = [...main.querySelectorAll('.section')];
+
   main.querySelectorAll('.section[data-background]').forEach((section, idx) => {
     const bg = section.dataset.background;
     if (bg) {
@@ -192,6 +214,15 @@ function decorateSectionBackgrounds(main) {
       section.id = section.id || id;
       section.style.backgroundImage = `url('${bg}')`;
       rules.push(`#${section.id} { background-image: url('${bg}'); }`);
+
+      // Auto-derive loading strategy from section position
+      const sectionIndex = allSections.indexOf(section);
+      const isAboveFold = sectionIndex < 2;
+      const bgImg = section.querySelector('img[data-background]');
+      if (bgImg) {
+        bgImg.loading = isAboveFold ? 'eager' : 'lazy';
+        bgImg.fetchPriority = isAboveFold ? 'high' : 'auto';
+      }
     }
   });
   if (rules.length) {
@@ -245,8 +276,10 @@ export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
+  addGridSectionsWrapper(main);
   decorateSectionBackgrounds(main);
   decorateBlocks(main);
+  addGridSectionsWrapper(main);
   // Run after decorateBlocks (which assigns fragment-wrapper class) but before loadSection
   decorateFragmentRotation(main);
   // add aria-label to links
@@ -293,10 +326,32 @@ async function loadEager(doc) {
   }
 }
 
+function wrapFlexContainers(main) {
+  // Find all elements with abbvie-container,data-section-type="flex-section"
+  const flexContainers = main.querySelectorAll('.section[data-section-type="flex-section"]');
+
+  // Create wrapper div
+  const wrapper = document.createElement('div');
+  wrapper.className = 'flex-container-wrapper';
+  flexContainers.forEach((container) => {
+    // Skip if already wrapped
+    if (container.parentElement?.classList.contains('flex-container-wrapper')) {
+      return;
+    }
+
+    // Insert wrapper before the container
+    container.parentNode.insertBefore(wrapper, container);
+
+    // Move container into wrapper
+    wrapper.appendChild(container);
+  });
+}
+
 /**
  * Loads everything that doesn't need to be delayed.
  * @param {Element} doc The container element
  */
+
 async function loadLazy(doc) {
   autolinkModals(doc);
 
@@ -312,6 +367,7 @@ async function loadLazy(doc) {
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
+  wrapFlexContainers(main);
 }
 
 /**

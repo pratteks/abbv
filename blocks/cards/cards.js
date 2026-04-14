@@ -154,13 +154,10 @@ export default function decorate(block) {
     const li = document.createElement('li');
     moveInstrumentation(row, li);
     while (row.firstElementChild) li.append(row.firstElementChild);
-    [...li.children].forEach((div, index) => {
+    [...li.children].forEach((div) => {
       resolveImageReference(div);
       const pic = div.querySelector('picture, img');
       if (pic && div.children.length === 1) {
-        div.className = 'cards-card-image';
-      } else if (index === 0 && !div.textContent.trim()) {
-        // Empty image placeholder (e.g. <!-- field:image --> wrapped in <p>)
         div.className = 'cards-card-image';
       } else {
         div.className = 'cards-card-body';

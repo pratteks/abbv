@@ -1,0 +1,564 @@
+.section.story-cards-container {
+  max-width: var(--content-max-width-wide);
+  margin: auto;
+}
+
+.story-cards:not(.story-card-wide)>ul,
+.story-cards.leader-cards-grid>ul {
+  list-style: none;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  margin: 0 var(--spacing-20);
+  gap: var(--spacing-20);
+}
+
+.story-cards:not(.story-card-wide)>ul>li,
+.story-cards.leader-cards-grid>ul>li {
+  overflow: hidden;
+  margin-bottom: var(--spacing-35);
+}
+
+:where(.story-cards:not(.story-card-wide) > ul > li):last-child,
+:where(.story-cards.leader-cards-grid > ul > li):last-child {
+  margin-bottom: var(--spacing-190);
+}
+
+.story-cards:not(.story-card-wide) > :where(ul) > :where(li) > .story-cards-card-link,
+.story-cards.leader-cards-grid > :where(ul) > :where(li) > .story-cards-card-link {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-20);
+}
+
+.story-cards .story-cards-card-image {
+  line-height: 0;
+}
+
+.story-cards:not(.story-card-wide) > :where(ul) > :where(li) :where(img),
+.story-cards.leader-cards-grid > :where(ul) > :where(li) :where(img) {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  transition: all 0.3s ease-out;
+}
+
+:where(.story-cards:not(.story-card-wide) > ul > li > .story-cards-card-link):hover :where(img),
+:where(.story-cards.leader-cards-grid > ul > li > .story-cards-card-link):hover :where(img) {
+  transform: scale(1.05);
+}
+
+.story-cards .story-cards-card-body {
+  color: var(--text-color);
+  margin: var(--spacing-16) 0 0;
+}
+
+.story-cards .story-cards-card-body h4 {
+  margin-top: 0;
+  margin-bottom: var(--spacing-08);
+  font-size: var(--spacing-18);
+  font-weight: var(--font-weight-400);
+  line-height: var(--line-height-24);
+  font-family: var(--body-font-family);
+}
+
+.story-cards .story-cards-card-body p {
+  margin: 0;
+  font-size: var(--font-size-16);
+  line-height: var(--line-height-20);
+}
+
+.story-cards .story-cards-card-body p strong {
+  font-size: var(--font-size-28);
+  font-weight: var(--font-weight-650);
+  line-height: var(--line-height-32);
+  display: block;
+  margin-bottom: var(--spacing-08);
+}
+
+.story-cards .story-cards-card-body :where(p):nth-of-type(2) {
+  font-size: var(--font-size-14);
+  color: var(--text-color);
+  line-height: var(--line-height-20);
+}
+
+.story-cards p.button-container {
+  margin-top: var(--spacing-16);
+  padding: 0;
+}
+
+.story-cards .button,
+.story-cards a.button {
+  background-color: transparent;
+  border: none;
+  color: var(--color-accent-blue);
+  font-size: var(--font-size-16);
+  font-family: var(--roboto-bold-font-family);
+  font-weight: var(--font-weight-700);
+  text-transform: uppercase;
+  white-space: nowrap;
+  letter-spacing: var(--spacing-01);
+  line-height: var(--line-height-20);
+  text-decoration: none;
+}
+
+.story-cards .button::after,
+.story-cards a.button::after {
+  content: "\e901";
+  font-family: var(--icon-font-family);
+  font-size: var(--font-size-12);
+  color: inherit;
+  margin-left: var(--spacing-12);
+  margin-right: var(--spacing-30);
+  transition: color 0.1s ease;
+}
+
+.story-cards:not(:where(.story-card-wide)) > :where(ul) > :where(li) > :where(.story-cards-card-link):hover .button,
+.story-cards:where(.leader-cards-grid) > :where(ul) > :where(li) > :where(.story-cards-card-link):hover .button,
+.story-cards :where(a).button:hover {
+  color: var(--text-color);
+}
+
+.story-cards.story-card-wide > ul {
+  list-style: none;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  margin: 0;
+  gap: var(--spacing-24);
+}
+
+.story-cards.story-card-wide > :where(ul) > :where(li) {
+  margin: 0;
+}
+
+/* Wide variant: bordered panel + side-by-side layout at tablet+ */
+.story-cards.story-card-wide .story-card-panel {
+  background-color: var(--surface-background-default);
+  border: var(--border-subtle);
+}
+
+.story-cards.story-card-wide .story-card-content {
+  display: grid;
+  padding: var(--spacing-24) var(--spacing-32);
+  min-height: var(--story-card-content-min-height-tablet);
+}
+
+.story-cards.story-card-wide .story-card-title {
+  font-size: var(--font-size-28);
+  line-height: var(--line-height-32);
+}
+
+.story-cards.story-card-wide .story-card-link {
+  flex-direction: column-reverse;
+}
+
+.story-cards .story-cards-grid-item .story-card-link {
+  flex-direction: column;
+}
+
+.story-cards .story-cards-grid-item .story-card-image,
+.story-cards .story-cards-grid-item .story-card-content {
+  max-width: 100%;
+  width: 100%;
+}
+
+.story-cards .story-cards-grid-item .story-card-content {
+  min-height: auto;
+}
+
+.story-cards .story-cards-grid-item .story-card-image :where(picture, img) {
+  height: auto;
+}
+
+.story-cards .story-cards-grid-item .story-card-title {
+  font-size: var(--font-size-20);
+  line-height: var(--line-height-24);
+}
+
+.story-cards .story-cards-grid-item .story-card-description {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  font-size: var(--font-size-14);
+  line-height: var(--line-height-20);
+}
+
+/* =====================================================
+   Portfolio variant — 4-column logo card grid
+   Used on Ventures Portfolio page with section classes:
+   .portfolio-card-section (active) and .investment-card-section (former)
+   ===================================================== */
+
+/* Center H2 above active portfolio cards */
+.section.portfolio-card-section > .default-content-wrapper :where(h2) {
+  text-align: center;
+  margin-bottom: var(--spacing-32);
+}
+
+.story-cards.portfolio > ul {
+  gap: var(--spacing-24);
+  margin: var(--spacing-00);
+}
+
+.story-cards.portfolio > :where(ul) > :where(li) {
+  background-color: transparent;
+  border: var(--spacing-01) solid transparent;
+  padding: var(--spacing-00);
+  cursor: default;
+  transition: 0.3s ease-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-20);
+
+}
+
+/* Active portfolio section — light-blue card bg + hover removed */
+
+.story-cards.portfolio > :where(ul) > :where(li) > .story-cards-card-link {
+  align-items: center;
+  width: 100%;
+}
+
+.story-cards.portfolio .story-cards-card-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--spacing-80);
+  margin-bottom: var(--spacing-00);
+}
+
+.story-cards.portfolio > :where(ul) > :where(li) :where(img) {
+  aspect-ratio: auto;
+  object-fit: contain;
+  max-height: var(--spacing-100);
+  width: auto;
+  max-width: 100%;
+}
+
+.story-cards.portfolio .story-cards-card-body {
+  margin: var(--spacing-00);
+  text-align: left;
+}
+
+.story-cards.portfolio .story-cards-card-body :where(p strong) {
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-700);
+  font-family: var(--roboto-bold-font-family);
+  line-height: var(--line-height-22);
+  margin-bottom: var(--spacing-04);
+}
+
+.story-cards.portfolio .story-cards-card-body :where(hr) {
+  border: none;
+  border-top: var(--border-01) solid var(--bg-a6b5e0);
+  margin: var(--spacing-12) 0;
+  width: 100%;
+}
+
+.story-cards.portfolio .button,
+.story-cards.portfolio :where(a).button {
+  font-size: var(--font-size-14);
+  letter-spacing: var(--letter-spacing-wide-06);
+}
+
+.section.investment-card-section > .default-content-wrapper :where(h2) {
+  text-align: center;
+  margin-bottom: var(--spacing-32);
+}
+
+/* =====================================================
+   Leader cards grid — people/leadership profile cards
+   Selectors use .story-cards-grid-item to
+   match or exceed the specificity of the generic
+   grid-item rules above (0,3,0).
+   ===================================================== */
+
+/* Hide the topic/category eyebrow */
+.story-cards.leader-cards-grid .story-card-eyebrow {
+  display: none;
+}
+
+/* Leader grid: panel — borderless transparent */
+.story-cards.leader-cards-grid .story-card-panel {
+  background-color: transparent;
+  border: none;
+  overflow: visible;
+}
+
+/* Leader grid: card link — stacked vertically with gap */
+.story-cards:where(.leader-cards-grid) .story-cards-grid-item .story-card-link {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-35);
+}
+
+.is-leader-card .story-card-cta-container{
+  margin-top: var(--spacing-14);
+}
+
+/* Leader grid: hover — image zoom + CTA color shift */
+.story-cards.leader-cards-grid .story-card {
+  cursor: pointer;
+}
+
+.story-cards:where(.leader-cards-grid) .story-card .story-card-image :where(img) {
+  transition: all 0.3s ease-out;
+}
+
+.story-cards:where(.leader-cards-grid) :where(.story-card):hover .story-card-image :where(img) {
+  transform: scale(1.05);
+}
+
+.story-cards:where(.leader-cards-grid) .story-card .story-card-cta {
+  transition: all 0.3s ease-out;
+}
+
+.story-cards:where(.leader-cards-grid) :where(.story-card):hover .story-card-cta {
+  --leader-cta-border-color: var(--text-color);
+
+  color: var(--text-color);
+}
+
+/* Leader grid: image + content full width */
+.story-cards:where(.leader-cards-grid) .story-cards-grid-item .story-card-image,
+.story-cards:where(.leader-cards-grid) .story-cards-grid-item .story-card-content {
+  max-width: 100%;
+  width: 100%;
+}
+
+/* Leader grid: image — 16:9 with overflow hidden */
+.story-cards:where(.leader-cards-grid) .story-cards-grid-item .story-card-image {
+  overflow: hidden;
+}
+
+.story-cards:where(.leader-cards-grid) .story-cards-grid-item .story-card-image :where(img) {
+  aspect-ratio: var(--story-card-image-ratio, 16 / 9);
+  height: auto;
+}
+
+/* Leader grid: content — no padding, no min-height */
+.story-cards:where(.leader-cards-grid) .story-cards-grid-item .story-card-content {
+  display: block;
+  padding: var(--spacing-00);
+  min-height: auto;
+}
+
+/* Leader grid: title — Roboto Regular, 18px */
+.story-cards:where(.leader-cards-grid) .story-cards-grid-item .story-card-title {
+  font-family: var(--body-font-family);
+  font-size: var(--font-size-18);
+  font-weight: var(--font-weight-400);
+  line-height: var(--line-height-24);
+  color: var(--text-color);
+  margin: 0 0 var(--spacing-08) 0;
+  display: block;
+}
+
+/* Leader grid: description — 12px navy */
+.story-cards:where(.leader-cards-grid) .story-cards-grid-item .story-card-description {
+  font-family: var(--body-font-family);
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-400);
+  line-height: var(--line-height-20);
+  color: var(--text-color);
+  display: block;
+}
+
+/* Leader grid: CTA — uppercase bold blue with chevron arrow */
+.story-cards.leader-cards-grid .story-card-cta {
+  align-items: center;
+  display: inline-flex;
+  font-family: var(--roboto-bold-font-family);
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-700);
+  text-transform: var(--font-uppercase);
+  letter-spacing: var(--letter-spacing-wide-06);
+  line-height: var(--line-height-20);
+  color: var(--color-accent-blue);
+  padding-right: var(--spacing-18);
+  position: relative;
+}
+
+.story-cards:where(.leader-cards-grid) .story-card-cta::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%) rotate(-45deg);
+  width: calc(7 * var(--px-to-rem));
+  height: calc(7 * var(--px-to-rem));
+  border-right: var(--spacing-02) solid var(--leader-cta-border-color, currentcolor);
+  border-bottom: var(--spacing-02) solid var(--leader-cta-border-color, currentcolor);
+}
+
+/* Leader grid: hide meta elements */
+.story-cards.leader-cards-grid .story-card-meta,
+.story-cards.leader-cards-grid .story-card-date,
+.story-cards.leader-cards-grid .story-card-read-time {
+  display: none;
+}
+
+@media (--bp-tablet) {
+  .story-cards.portfolio > ul {
+    grid-template-columns: repeat(2, 1fr);
+    margin: var(--spacing-00);
+  }
+
+  .story-cards:not(.story-card-wide)>ul>li,
+  .story-cards.leader-cards-grid>ul>li {
+    margin-bottom: var(--spacing-00);
+  }
+
+  .story-cards:where(.leader-cards-grid) .story-cards-grid-item .story-card-link {
+    flex-direction: column;
+  }
+
+  .story-cards:where(.leader-cards-grid) .story-cards-grid-item .story-card-image,
+  .story-cards:where(.leader-cards-grid) .story-cards-grid-item .story-card-content {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .story-cards:where(.leader-cards-grid) .story-cards-grid-item .story-card-content {
+    min-height: auto;
+  }
+
+  .story-cards:where(.leader-cards-grid) .story-cards-grid-item .story-card-image :where(img) {
+    aspect-ratio: var(--story-card-image-ratio, 16 / 9);
+    height: auto;
+  }
+
+  .story-cards:where(.leader-cards-grid) .story-cards-grid-item .story-card-title {
+    font-family: var(--body-font-family);
+    font-size: var(--font-size-18);
+    font-weight: var(--font-weight-400);
+    line-height: var(--line-height-24);
+    display: block;
+    line-clamp: unset;
+    -webkit-line-clamp: unset;
+  }
+
+  .story-cards:where(.leader-cards-grid) .story-cards-grid-item .story-card-description {
+    font-size: var(--font-size-12);
+    line-height: var(--line-height-16);
+    display: block;
+    line-clamp: unset;
+    -webkit-line-clamp: unset;
+  }
+
+  .story-cards.leader-cards-grid .story-card-cta {
+    font-size: var(--font-size-14);
+    letter-spacing: var(--letter-spacing-wide-86);
+  }
+
+  .story-cards:not(.story-card-wide)>ul,
+  .story-cards.leader-cards-grid>ul {
+    grid-template-columns: repeat(2, 1fr);
+    margin: 0 var(--spacing-70);
+  }
+
+  .story-cards .story-cards-card-body p {
+    font-size: var(--font-size-12);
+    line-height: var(--line-height-16);
+  }
+
+  .story-cards .button,
+  .story-cards a.button {
+    font-size: var(--font-size-14);
+    line-height: var(--line-height-20);
+  }
+
+  .story-cards.story-card-wide > ul {
+    gap: var(--spacing-32);
+  }
+
+  .story-cards.story-card-wide .story-card-link {
+    flex-direction: row;
+  }
+
+  .story-cards.story-card-wide .story-card-image,
+  .story-cards.story-card-wide .story-card-content {
+    max-width: 50%;
+    width: 50%;
+  }
+
+  .story-cards.story-card-wide .story-card-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
+  }
+
+  .story-cards.story-card-wide .story-card-image :where(img) {
+    aspect-ratio: auto;
+    height: 100%;
+  }
+}
+
+@media (--bp-desktop) {
+  .story-cards.portfolio > ul {
+    grid-template-columns: repeat(4, 1fr);
+    margin: var(--spacing-00);
+  }
+
+  .story-cards.portfolio > ul > li {
+    margin-bottom: var(--spacing-80);
+  }
+
+  .story-cards.portfolio .story-cards-card-body :where(p) {
+    font-size: var(--font-size-18);
+    line-height: var(--line-height-24);
+    color: var(--text-color);
+    text-align: left;
+    font-family: var(--body-font-family);
+  }
+
+  .story-cards:not(.story-card-wide)>ul,
+  .story-cards.leader-cards-grid>ul {
+    grid-template-columns: repeat(3, 1fr);
+    margin: 0 var(--spacing-55);
+  }
+
+  .story-cards:not(.story-card-wide)>ul>li,
+  .story-cards.leader-cards-grid>ul>li {
+    margin-bottom: var(--spacing-72);
+  }
+
+  .story-cards .story-cards-card-body h4 {
+    font-size: var(--spacing-20);
+    line-height: var(--line-height-24);
+  }
+
+  .story-cards .story-cards-card-body p {
+    font-size: var(--font-size-14);
+    line-height: var(--line-height-20);
+  }
+
+  .story-cards .button,
+  .story-cards a.button {
+    font-size: var(--font-size-14);
+    line-height: var(--line-height-20);
+  }
+
+  .story-cards.story-card-wide > ul {
+    gap: var(--spacing-40);
+  }
+
+  .story-cards:where(.leader-cards-grid) .story-cards-grid-item .story-card-content {
+    min-height: auto;
+  }
+
+  .story-cards:where(.leader-cards-grid) .story-cards-grid-item .story-card-title {
+    font-family: var(--body-font-family);
+    font-size: var(--font-size-20);
+    font-weight: var(--font-weight-400);
+    line-height: var(--line-height-24);
+  }
+
+  .story-cards:where(.leader-cards-grid) .story-cards-grid-item .story-card-description {
+    font-size: var(--font-size-14);
+    line-height: var(--line-height-20);
+  }
+}

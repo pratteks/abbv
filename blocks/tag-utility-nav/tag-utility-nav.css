@@ -1,0 +1,726 @@
+/* =========================================================
+   Tag Utility Nav – search + category filter block
+   AEM source: TagsUtilityNav component
+   ========================================================= */
+
+/* Block wrapper */
+
+.tag-utility-nav {
+  width: 100%;
+  margin-top: var(--spacing-24);
+  padding-bottom: var(--spacing-10);
+  margin-bottom: var(--spacing-40);
+}
+
+/* ── Eyebrow toolbar ──────────────────────────────────────── */
+
+.tag-utility-nav-eyebrow {
+  display: flex;
+  border-bottom: var(--border-01) solid var(--color-gray-dark);
+}
+
+/* ── Search container (icon + field) ──────────────────────── */
+
+.tag-utility-nav-search-container {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+  flex: 1;
+  padding-bottom: var(--spacing-08);
+  transition: border-color 0.2s;
+}
+
+/* Search icon */
+
+.tag-utility-nav-search-icon {
+  width: var(--icon-width);
+  max-width: var(--icon-width);
+  height: var(--icon-height);
+  flex-shrink: 0;
+  margin-bottom: var(--spacing-00);
+}
+
+/* Search field wrapper */
+
+.tag-utility-nav-search-field {
+  position: relative;
+  flex: 1;
+  overflow: visible;
+}
+
+/* Search input */
+
+.tag-utility-nav-search-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: var(--font-size-16);
+  font-family: inherit;
+  color: var(--text-color);
+  padding: var(--spacing-03) var(--spacing-00) var(--spacing-00);
+  width: 100%;
+  line-height: var(--line-height-16);
+  height: var(--spacing-22);
+}
+
+.tag-utility-nav-search-input::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+/* Floating label – overlaps input, moves up when focused / has value */
+
+.tag-utility-nav-search-label {
+  position: absolute;
+  top: var(--spacing-03);
+  left: 0;
+  width: 100%;
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-400);
+  color: var(--color-gray-dark);
+  pointer-events: none;
+  white-space: nowrap;
+  line-height: var(--line-height-20);
+  transition: font-size 0.5s, top 0.5s;
+}
+
+/* Label moves up + shrinks when input is focused or has a value */
+
+.tag-utility-nav-search-input:focus ~ .tag-utility-nav-search-label,
+.tag-utility-nav-search-field.has-value .tag-utility-nav-search-label {
+  top: var(--spacing-n15);
+  font-size: var(--font-size-12);
+}
+
+/* ── Results counter ──────────────────────────────────────── */
+
+.tag-utility-nav-results {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-06);
+  margin-top: var(--spacing-16);
+  font-size: var(--font-size-14);
+  color: #4a4f5a;
+}
+
+.tag-utility-nav-results[hidden],
+.tag-utility-nav-empty-results[hidden] {
+  display: none;
+}
+
+.tag-utility-nav-results-count {
+  font-weight: var(--font-weight-700);
+  color: var(--text-color);
+}
+
+.tag-utility-nav-eyebrow:has(div.tag-utility-nav-dropdown-container) .tag-utility-nav-search-container {
+  flex: unset;
+  margin-left: auto;
+}
+
+/* ── Category dropdown ────────────────────────────────────── */
+
+.tag-utility-nav-dropdown-container {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-08);
+  flex-shrink: 0;
+}
+
+.tag-utility-nav-title {
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-400);
+  color: #4a4f5a;
+  margin: var(--spacing-00);
+  white-space: nowrap;
+  line-height: var(--line-height-16);
+}
+
+.tag-utility-nav-dropdown {
+  position: relative;
+}
+
+.tag-utility-nav-dropdown button:hover, .tag-utility-nav-dropdown button:focus {
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.tag-utility-nav-dropdown-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-08);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-700);
+  color: var(--text-color);
+  padding: var(--spacing-04) var(--spacing-00);
+  margin: var(--spacing-00);
+  text-transform: var(--font-uppercase);
+}
+
+.tag-utility-nav-dropdown-btn::after {
+  content: "";
+  font-family: var(--icon-font-family);
+  font-size: var(--spacing-06);
+  transition: transform 0.2s;
+}
+
+.tag-utility-nav-dropdown-btn[aria-expanded="true"]::after {
+  transform: rotate(180deg);
+}
+
+.tag-utility-nav-dropdown-modal {
+  position: absolute;
+  top: 100%;
+  left: var(--spacing-00);
+  z-index: 10;
+  min-width: var(--spacing-180);
+  background: var(--background-color);
+  border: var(--border-01) solid #c4c8d0;
+  border-radius: var(--border-radius-base);
+  list-style: none;
+  padding:var(--spacing-00);
+  margin: var(--spacing-04) var(--spacing-00) var(--spacing-00);
+}
+
+.tag-utility-nav-dropdown-modal button {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: var(--spacing-10) var(--spacing-20);
+  text-align: left;
+  cursor: pointer;
+  font-size: var(--font-size-14);
+  color: var(--text-color);
+  border-radius: var(--spacing-00);
+  margin: var(--spacing-00);
+}
+
+.tag-utility-nav-dropdown-modal button:hover {
+  background: var(--color-gray-medium);
+}
+
+.tag-utility-nav-dropdown-modal button.option-selected {
+  font-weight: var(--font-weight-700);
+}
+
+/* ── Clear / Reset button ─────────────────────────────────── */
+
+.tag-utility-nav-clear-container {
+  margin-top: var(--spacing-12);
+}
+
+.tag-utility-nav-reset-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--story-card-link-color);
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-700);
+  text-transform: var(--font-uppercase);
+  letter-spacing: var(--letter-spacing-wide-06);
+  padding: var(--spacing-00);
+}
+
+.tag-utility-nav-reset-btn:hover {
+  text-decoration: underline;
+}
+
+/* ── Empty results message ───────────────────────────────── */
+
+.tag-utility-nav-empty-results {
+  width: 100%;
+  margin-top: var(--spacing-16);
+}
+
+.tag-utility-nav-empty-results-title {
+  color: var(--error-color);
+  font-family: var(--heading-font-family);
+  font-size: var(--font-size-20);
+  font-weight: var(--font-weight-650);
+  line-height: var(--line-height-24);
+}
+
+.tag-utility-nav-empty-results-quote {
+  color: var(--error-color);
+  font-family: var(--body-font-family);
+  font-size: var(--font-size-13);
+  font-weight: var(--font-weight-400);
+  line-height: var(--line-height-20);
+}
+
+/* =========================================================
+   Publication list styles
+   Decorated by tag-utility-nav JS on the adjacent <ul>.
+   Mobile-first approach matching live abbvie.com/science/publications
+   ========================================================= */
+
+ul.pub-list {
+  list-style: none;
+  padding: var(--spacing-00);
+  margin: var(--spacing-00);
+}
+
+ul.pub-list > li {
+  padding-bottom: var(--spacing-20);
+  margin-bottom: var(--spacing-20);
+  border-bottom: 1px solid var(--footer-seperator-color);
+}
+
+ul.pub-list > li:last-child {
+  border-bottom: none;
+  margin-bottom: var(--spacing-00);
+}
+
+ul.pub-list > li p {
+  margin: var(--spacing-00);
+}
+
+ul.pub-list > li .button-container {
+  margin: var(--spacing-00);
+}
+
+/* Link reset — remove default button / link styles */
+
+ul.pub-list > li a.pub-link {
+  display: block;
+  color: var(--text-color);
+  text-decoration: none;
+  padding: var(--spacing-00);
+  border: none;
+  background: none;
+  margin: var(--spacing-00);
+  white-space: normal;
+  text-align: left;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+ul.pub-list > li .pub-link::after {
+  content: none;
+  display: none;
+}
+
+/* Link hover */
+
+ul.pub-list > li .pub-link:hover {
+  background: none;
+}
+
+ul.pub-list > li .pub-link:hover .pub-title {
+  font-family: var(--heading-font-family-bold);
+}
+
+/* Title row: flex layout for title + icon side by side */
+
+ul.pub-list .pub-title-row {
+  display: flex;
+  align-items: flex-start;
+}
+
+/* Title text — F37 Lineca Book, navy */
+
+ul.pub-list .pub-title {
+  font-family: var(--heading-font-family);
+  font-size: var(--font-size-18);
+  line-height: var(--line-height-22);
+  font-weight: var(--font-weight-400);
+  color: var(--text-color);
+  margin-right: var(--spacing-16);
+}
+
+/* External link icon — Abbvie Icon font */
+
+ul.pub-list .pub-icon::after {
+  content: '\e900';
+  font-family: var(--icon-font-family);
+  font-size: var(--font-size-20);
+  font-weight: var(--font-weight-400);
+  color: inherit;
+  padding: var(--spacing-00) var(--spacing-04);
+}
+
+/* Icon hover: grows slightly */
+
+ul.pub-list > li .pub-link:hover .pub-icon::after {
+  font-size: var(--spacing-25);
+}
+
+/* Journal + DOI — Roboto italic */
+
+ul.pub-list .pub-journal {
+  display: block;
+  font-family: var(--body-font-family);
+  font-style: italic;
+  font-size: var(--font-size-16);
+  line-height: var(--line-height-20);
+  font-weight: var(--font-weight-400);
+  color: var(--text-color);
+  padding-top: var(--spacing-15);
+}
+
+/* Authors paragraph — Roboto Regular, navy */
+
+ul.pub-list > li > p:nth-child(2) {
+  font-family: var(--body-font-family);
+  font-size: var(--font-size-16);
+  line-height: var(--line-height-20);
+  color: var(--text-color);
+  margin-top: var(--spacing-08);
+}
+
+/* --- Desktop (>= 1024px) --- */
+
+@media (--bp-desktop) {
+  ul.pub-list {
+    margin-top: var(--spacing-00);
+  }
+
+  ul.pub-list .pub-title {
+    font-size: var(--font-size-32);
+    line-height: var(--line-height-38);
+  }
+
+  ul.pub-list .pub-journal {
+    font-size: var(--font-size-18);
+    line-height: var(--line-height-20);
+  }
+
+  ul.pub-list > li > p:nth-child(2) {
+    font-size: var(--font-size-18);
+    line-height: var(--line-height-24);
+    margin-top: var(--spacing-10);
+  }
+}
+
+/* =========================================================
+   Flex-section context — wrapper margins when tag-utility-nav
+   is present. Mobile 20px → Tablet 70px → Desktop auto
+   ========================================================= */
+
+   .section.abbvie-container[data-section-type="flex-section"] {
+   padding: var(--spacing-00);
+   }
+
+.flex-container-wrapper:has(.tag-utility-nav-container) {
+  margin-left: var(--spacing-20);
+  margin-right: var(--spacing-20);
+  margin-bottom: var(--spacing-80);
+}
+
+/* Reset padding on flex-sections inside the wrapper —
+   overrides the intro-section padding from section.css (specificity 0,8,0) */
+/* stylelint-disable-next-line selector-not-notation */
+.flex-container-wrapper .section.abbvie-container:not(.hero-container):not(.cards-container):not(.columns-container):not(.embed-container):not(.accordion-container) {
+padding: var(--spacing-00);
+}
+
+@media (--bp-tablet) {
+  .flex-container-wrapper:has(.tag-utility-nav-container) {
+    margin-left: var(--spacing-70);
+    margin-right: var(--spacing-70);
+  }
+}
+
+@media (--bp-desktop) {
+  /* Match live site 12-column grid: 2 (space) + 7 (main) + 1 (gutter) + 2 (sidebar) */
+  .flex-container-wrapper:has(.tag-utility-nav-container) {
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--spacing-20);
+    max-width: var(--content-max-width);
+  }
+
+  .flex-container-wrapper:has(.tag-utility-nav-container) > .tag-utility-nav-container {
+    grid-column: 3 / 10;
+    width: auto;
+    display: block;
+  }
+
+  .flex-container-wrapper:has(.tag-utility-nav-container) > .section:not(.tag-utility-nav-container) {
+    grid-column: 11 / 13;
+    width: auto;
+    display: block;
+  }
+}
+
+/* =========================================================
+   Flex-section context — default content surrounding the
+   tag-utility-nav block inside .tag-utility-nav-container
+   Mobile-first, matches spacing & typography from live site
+   ========================================================= */
+
+/* ── Mobile (default) ────────────────────────────────────── */
+
+.flex-container-wrapper .tag-utility-nav-container .default-content-wrapper h2 {
+  font-family: var(--heading-font-family-bold);
+  font-size: var(--font-size-26);
+  font-weight: var(--font-weight-800);
+  line-height: var(--line-height-30);
+  margin: var(--spacing-00) var(--spacing-00) var(--spacing-16);
+}
+
+.flex-container-wrapper .tag-utility-nav-container .default-content-wrapper p {
+  line-height: var(--line-height-20);
+  margin: var(--spacing-00) var(--spacing-00) var(--spacing-16);
+}
+
+/* Separator: invisible 48px spacer matching .separator-height-48 */
+.flex-container-wrapper .tag-utility-nav-container .default-content-wrapper hr {
+  border: none;
+  height: var(--separator-height-48);
+  margin: var(--spacing-00);
+  padding: var(--spacing-00);
+}
+
+.flex-container-wrapper .tag-utility-nav-container .default-content-wrapper h4 {
+  font-family: var(--heading-font-family);
+  font-size: var(--font-size-24);
+  font-weight: var(--font-weight-650);
+  line-height: var(--line-height-28);
+  margin: var(--spacing-00) var(--spacing-00) var(--spacing-16);
+  padding-top: var(--spacing-48);
+}
+
+.flex-container-wrapper .tag-utility-nav-container .default-content-wrapper ul {
+  margin-top: var(--spacing-30);
+  margin-bottom: var(--spacing-50);
+}
+
+/* tag-utility-nav block: reset margins inside flex context
+   (spacing is handled by surrounding elements) */
+.flex-container-wrapper .tag-utility-nav-container .tag-utility-nav {
+  margin-top: var(--spacing-00);
+  margin-bottom: var(--spacing-00);
+}
+
+/* ── Tablet (>= 768px) ──────────────────────────────────── */
+
+@media (--bp-tablet) {
+  .flex-container-wrapper .tag-utility-nav-container .default-content-wrapper h2 {
+    font-size: var(--font-size-32);
+    line-height: var(--line-height-36);
+  }
+
+  .flex-container-wrapper .tag-utility-nav-container .default-content-wrapper h4 {
+    font-size: var(--font-size-30);
+    line-height: var(--line-height-34);
+  }
+}
+
+/* ── Desktop (>= 1024px) ────────────────────────────────── */
+
+@media (--bp-desktop) {
+  .flex-container-wrapper .tag-utility-nav-container .default-content-wrapper h2 {
+    font-size: var(--font-size-48);
+    line-height: var(--line-height-52);
+    margin-bottom: var(--spacing-24);
+  }
+
+  .flex-container-wrapper .tag-utility-nav-container .default-content-wrapper p {
+    font-size: var(--font-size-18);
+    line-height: var(--line-height-24);
+    margin-bottom: var(--spacing-24);
+  }
+
+  .flex-container-wrapper .tag-utility-nav-container .default-content-wrapper h4 {
+    font-size: var(--font-size-40);
+    line-height: var(--line-height-44);
+    margin-bottom: var(--spacing-24);
+  }
+}
+
+/* =========================================================
+   Related content sidebar — second flex section
+   Only applies when first section is tag-utility-nav
+   ========================================================= */
+
+/* "Related content" h2 — uppercase eyebrow with 5px blue top border (first wrapper only) */
+.flex-container-wrapper:has(.tag-utility-nav-container) > .section:not(.tag-utility-nav-container) > .default-content-wrapper:first-of-type > h2:first-child {
+  font-family: var(--roboto-bold-font-family);
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-700);
+  line-height: var(--line-height-16);
+  text-transform: var(--font-uppercase);
+  letter-spacing: var(--letter-spacing-wide-04);
+  color: var(--form-border-hover-color);
+  padding-top: var(--spacing-21);
+  padding-bottom: var(--spacing-24);
+  margin-bottom: var(--spacing-00);
+}
+
+.flex-container-wrapper:has(.tag-utility-nav-container) > .section:not(.tag-utility-nav-container) > .default-content-wrapper {
+position: relative;
+}
+
+.flex-container-wrapper:has(.tag-utility-nav-container) > .section:not(.tag-utility-nav-container) > .default-content-wrapper:first-of-type > h2:first-child::before{
+content: "";
+position: absolute;
+top: var(--spacing-00);
+left: var(--spacing-00);
+width: 100%;
+height: var(--spacing-05);
+background-color: var(--story-card-link-color);
+}
+
+/* Card image — full width (first wrapper only) */
+.flex-container-wrapper:has(.tag-utility-nav-container) > .section:not(.tag-utility-nav-container) > .default-content-wrapper:first-of-type > p:nth-child(2) {
+  margin: var(--spacing-00);
+}
+
+.flex-container-wrapper:has(.tag-utility-nav-container) > .section:not(.tag-utility-nav-container) > .default-content-wrapper:first-of-type > p:nth-child(2) img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Card eyebrow "Join Us" */
+.flex-container-wrapper:has(.tag-utility-nav-container) > .section:not(.tag-utility-nav-container) > .default-content-wrapper:first-of-type > p:nth-child(3) {
+  margin: var(--spacing-20) var(--spacing-00) var(--spacing-00);
+}
+
+.flex-container-wrapper:has(.tag-utility-nav-container) > .section:not(.tag-utility-nav-container) > .default-content-wrapper:first-of-type > p:nth-child(3) em {
+  font-style: normal;
+  font-family: var(--roboto-bold-font-family);
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-700);
+  line-height: var(--line-height-20);
+  text-transform: var(--font-uppercase);
+  color: var(--text-color);
+}
+
+/* Card title "Postdoctoral Program" */
+.flex-container-wrapper:has(.tag-utility-nav-container) > .section:not(.tag-utility-nav-container) > .default-content-wrapper:first-of-type > p:nth-child(4) {
+  margin: var(--spacing-16) var(--spacing-00) var(--spacing-08);
+}
+
+.flex-container-wrapper:has(.tag-utility-nav-container) > .section:not(.tag-utility-nav-container) > .default-content-wrapper:first-of-type > p:nth-child(4) strong {
+  font-family: var(--body-font-family);
+  font-size: var(--font-size-18);
+  font-weight: var(--font-weight-400);
+  line-height: var(--line-height-22);
+  color: var(--text-color);
+}
+
+/* Card description */
+.flex-container-wrapper:has(.tag-utility-nav-container) > .section:not(.tag-utility-nav-container) > .default-content-wrapper:first-of-type > p:nth-child(5) {
+  font-family: var(--body-font-family);
+  font-size: var(--font-size-16);
+  line-height: var(--line-height-20);
+  color: var(--text-color);
+  margin: var(--spacing-00);
+  margin-bottom: var(--spacing-16);
+}
+
+/* Card CTA "Learn More" — reset button styles */
+.flex-container-wrapper:has(.tag-utility-nav-container) > .section:not(.tag-utility-nav-container) > .default-content-wrapper:first-of-type > p:nth-child(6),
+.flex-container-wrapper:has(.tag-utility-nav-container) > .section:not(.tag-utility-nav-container) > .default-content-wrapper:first-of-type > .button-container:nth-child(6) {
+  margin: var(--spacing-16) var(--spacing-00) var(--spacing-00);
+}
+
+.flex-container-wrapper:has(.tag-utility-nav-container) > .section:not(.tag-utility-nav-container) > .default-content-wrapper:first-of-type > p:nth-child(6) a,
+.flex-container-wrapper:has(.tag-utility-nav-container) > .section:not(.tag-utility-nav-container) > .default-content-wrapper:first-of-type > .button-container:nth-child(6) a {
+  display: inline;
+  background: none;
+  border: none;
+  padding: var(--spacing-00);
+  margin: var(--spacing-00);
+  font-family: var(--roboto-bold-font-family);
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-700);
+  line-height: var(--line-height-20);
+  text-transform: var(--font-uppercase);
+  letter-spacing: var(--letter-spacing-wide-06);
+  color: var(--story-card-link-color);
+  white-space: normal;
+  text-align: left;
+}
+
+.flex-container-wrapper:has(.tag-utility-nav-container) > .section:not(.tag-utility-nav-container) > .default-content-wrapper:first-of-type > .button-container:nth-child(6) a::after {
+  content: none;
+  display: none;
+}
+
+/* "Topics" h2 — smaller uppercase, no border, 56px separator gap above
+   Two selectors: one-wrapper case (h2:nth-of-type(2)) and
+   two-wrapper case (second default-content-wrapper > h2:first-child)
+   Uses ~ (general sibling) because separator-wrapper sits between the two wrappers */
+.flex-container-wrapper:has(.tag-utility-nav-container) > .section:not(.tag-utility-nav-container) > .default-content-wrapper > h2:nth-of-type(2),
+.flex-container-wrapper:has(.tag-utility-nav-container) > .section:not(.tag-utility-nav-container) > .default-content-wrapper ~ .default-content-wrapper > h2:first-child {
+  font-family: var(--body-font-family);
+  font-size: var(--font-size-12);
+  font-weight: var(--font-weight-400);
+  line-height: var(--line-height-16);
+  text-transform: var(--font-uppercase);
+  letter-spacing: var(--letter-spacing-wide-04);
+  color: var(--color-gray-dark);
+  border: none;
+  padding: var(--spacing-00);
+  margin: var(--spacing-16) var(--spacing-00) var(--spacing-16);
+}
+
+/* Topics list — works in both single and dual wrapper layouts */
+.flex-container-wrapper:has(.tag-utility-nav-container) > .section:not(.tag-utility-nav-container) > .default-content-wrapper:last-of-type > ul {
+  list-style: none;
+  padding: var(--spacing-00);
+  margin: var(--spacing-00);
+}
+
+.flex-container-wrapper:has(.tag-utility-nav-container) > .section:not(.tag-utility-nav-container) > .default-content-wrapper:last-of-type > ul li {
+  margin: var(--spacing-00) var(--spacing-00) var(--spacing-16);
+}
+
+.flex-container-wrapper:has(.tag-utility-nav-container) > .section:not(.tag-utility-nav-container) > .default-content-wrapper:last-of-type > ul li:last-child {
+  margin-bottom: var(--spacing-00);
+}
+
+.flex-container-wrapper:has(.tag-utility-nav-container) > .section:not(.tag-utility-nav-container) > .default-content-wrapper:last-of-type > ul li a {
+  font-family: var(--body-font-family);
+  font-size: var(--font-size-16);
+  line-height: var(--line-height-20);
+  font-weight: var(--font-weight-400);
+  color: var(--text-color);
+  text-decoration: none;
+  border: none;
+  padding: var(--spacing-00);
+  background: none;
+  text-transform: none;
+  letter-spacing: normal;
+  white-space: normal;
+}
+
+.flex-container-wrapper:has(.tag-utility-nav-container) > .section:not(.tag-utility-nav-container) > .default-content-wrapper:last-of-type > ul li a:hover {
+      font-family: var(--roboto-bold-font-family);
+      font-weight: var(--font-weight-700);
+}
+
+@media (--bp-tablet) {
+.flex-container-wrapper:has(.tag-utility-nav-container) > .section:not(.tag-utility-nav-container) > .default-content-wrapper:first-of-type > p:nth-child(3) em {
+font-size: var(--font-size-14);
+}
+
+.flex-container-wrapper:has(.tag-utility-nav-container) > .section:not(.tag-utility-nav-container) > .default-content-wrapper:first-of-type > p:nth-child(4) strong {
+  font-size: var(--font-size-20);
+  line-height: var(--line-height-24);
+}
+
+.flex-container-wrapper:has(.tag-utility-nav-container) > .section:not(.tag-utility-nav-container) > .default-content-wrapper:first-of-type > p:nth-child(5) {
+  font-size: var(--font-size-14);
+  line-height: var(--line-height-20);
+}
+
+.flex-container-wrapper:has(.tag-utility-nav-container) > .section:not(.tag-utility-nav-container) > .default-content-wrapper:last-of-type > ul li a {
+  font-family: var(--body-font-family);
+  font-size: var(--font-size-18);
+  line-height: var(--line-height-24);
+}
+
+.flex-container-wrapper:has(.tag-utility-nav-container) > .section:not(.tag-utility-nav-container) > .default-content-wrapper ~ .default-content-wrapper > h2:first-child {
+margin-bottom: var(--spacing-24);
+}
+}

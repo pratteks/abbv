@@ -10,3 +10,5 @@ helix-importer-ui
 localhost.pem
 localhost-key.pem
 .migration/
+/tmp
+/.claude

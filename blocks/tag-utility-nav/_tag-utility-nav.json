@@ -1,0 +1,159 @@
+{
+  "definitions": [
+    {
+      "title": "Tag Utility Nav",
+      "id": "tag-utility-nav",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Tag Utility Nav",
+              "model": "tag-utility-nav",
+              "filter": "tag-utility-nav",
+              "classes_searchIconType": "no-icon",
+              "searchFontIcon": "",
+              "searchIcon": "",
+              "searchPlaceholder": "Search",
+              "searchInID": "",
+              "browseCategories": "",
+              "clearCategories": ""
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Category",
+      "id": "tag-utility-nav-category",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Category",
+              "model": "tag-utility-nav-category",
+              "categoryTag": "",
+              "categoryLink": "",
+              "categoryTitle": ""
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "tag-utility-nav",
+      "fields": [
+        {
+          "component": "tab",
+          "label": "Overview",
+          "name": "Overview"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "searchPlaceholder",
+          "label": "Search Placeholder Text"
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "classes_searchIconType",
+          "label": "Search Icon Type",
+          "value": "no-icon",
+          "description": "Controls whether the search field shows no icon, a font icon, or an image icon.",
+          "options": [
+            { "name": "None", "value": "no-icon" },
+            { "name": "Icon Font", "value": "icon-font" },
+            { "name": "Image", "value": "image" }
+          ]
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "searchFontIcon",
+          "label": "Search Font Icon",
+          "description": "Font icon name to display for the search input.",
+          "condition": {
+            "===": [
+              { "var": "classes_searchIconType" },
+              "icon-font"
+            ]
+          }
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "searchIcon",
+          "label": "Search Image Icon",
+          "multi": false,
+          "condition": {
+            "===": [
+              {
+                "var": "classes_searchIconType"
+              },
+              "image"
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "searchInID",
+          "label": "Search in ID",
+          "description": "Enter the ID of the container to search in. If left empty, searches the next sibling list."
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "browseCategories",
+          "label": "Browse Categories Placeholder Text",
+          "description": "Default label for the category dropdown. Leave empty to disable."
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "clearCategories",
+          "label": "Reset Categories Placeholder Text",
+          "description": "Enter text to enable the clear/reset button. Leave empty to disable."
+        }
+      ]
+    },
+    {
+      "id": "tag-utility-nav-category",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "categoryTag",
+          "label": "Category Tag",
+          "description": "Tag value used to filter list items (matched against item text content)."
+        },
+        {
+          "component": "aem-content",
+          "valueType": "string",
+          "name": "categoryLink",
+          "label": "Category Link",
+          "description": "Page path for this category."
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "categoryTitle",
+          "label": "Category Title",
+          "description": "Display title override. If empty, uses the Category Tag value."
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "tag-utility-nav",
+      "components": [
+        "tag-utility-nav-category"
+      ]
+    }
+  ]
+}

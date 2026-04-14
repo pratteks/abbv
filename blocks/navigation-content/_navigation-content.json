@@ -21,7 +21,9 @@
               "megamenucard_link": "",
               "megamenucard_linkText": "",
               "megamenudashboardcard": "",
-              "dashboardcardType": "light"
+              "dashboardcardType": "light",
+              "language": "lang:none",
+              "blockId": "id:"
             }
           }
         }
@@ -32,6 +34,11 @@
     {
       "id": "navigation-content",
       "fields": [
+        {
+          "component": "tab",
+          "label": "Overview",
+          "name": "overview"
+        },
         {
           "component": "select",
           "name": "classes",
@@ -342,6 +349,9 @@
               "value": "light"
             }
           ]
+        },
+        {
+           "...": "../../models/_common-properties.json#/common-prop"
         }
       ]
     }

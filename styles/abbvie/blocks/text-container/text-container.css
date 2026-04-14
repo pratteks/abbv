@@ -170,7 +170,8 @@ p.text-container-text:last-child,
 .text-container.h3-size h2 {
   font-size: var(--font-size-26);
   line-height: var(--line-height-30);
-  padding-bottom: var(--spacing-20);
+  padding-bottom: var(--spacing-00);
+  font-weight: var(--font-weight-800);
 }
 
 @media (min-width: 744px) {
@@ -206,13 +207,10 @@ p.text-container-text:last-child,
      margin-bottom : var(--spacing-12);
     }
 
-    .text-container.h3-size h2 {
-      font-size: var(--font-size-32);
-      line-height: var(--line-height-36);
-      margin: var(--spacing-00);
-      margin-bottom: var(--spacing-24);
-      padding-bottom: var(--spacing-32);
-    }
+  .text-container.h3-size h2 {
+    font-size: var(--font-size-32);
+    line-height: var(--line-height-36);
+  }
 }
 
 @media (min-width: 1024px) {
@@ -249,7 +247,19 @@ p.text-container-text:last-child,
 
     .text-container.h3-size h2 {
       font-size: var(--heading-font-size-l);
-      line-height: var(--line-height-52); 
+      line-height: var(--line-height-52);
       padding-bottom: var(--spacing-00);
+      letter-spacing: var(--letter-spacing-wide-96);
     }
 }
+
+/* text container custom class content-center style */
+
+.text-container-wrapper:has(.text-container.content-center) {
+   display: grid;
+   grid-template-columns: repeat(12, 1fr);
+ }
+
+.text-container.content-center {
+   grid-column: 3 / 10;
+ }

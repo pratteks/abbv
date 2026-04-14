@@ -3,7 +3,10 @@
     "id": "main",
     "components": [
       "section",
-      "hero-section"
+      "hero-section",
+      "flex-section",
+      "grid-section",
+      "grid-container"
     ]
   },
   {
@@ -12,6 +15,7 @@
       "accordion",
       "breadcrumb",
       "button",
+      "story-cards",
       "cards",
       "carousel",
       "social-media",
@@ -37,7 +41,11 @@
       "video",
       "custom-title",
       "text-container",
-      "cta"
+      "cta",
+      "brightcove-video",
+      "tag-utility-nav",
+      "fact-card",
+      "brightcove-podcast-player"
     ]
   },
   {
@@ -47,16 +55,55 @@
     ]
   },
   {
+    "id": "flex-section",
+    "components": [
+      "accordion",
+      "breadcrumb",
+      "button",
+      "story-cards",
+      "cards",
+      "carousel",
+      "social-media",
+      "columns",
+      "embed",
+      "fragment",
+      "press-releases",
+      "separator",
+      "story-card",
+      "form",
+      "hero",
+      "navigation-content",
+      "stock-ticker",
+      "eds-form",
+      "embed-form",
+      "image",
+      "quote",
+      "search",
+      "tabs",
+      "table",
+      "text",
+      "title",
+      "video",
+      "custom-title",
+      "text-container",
+      "cta",
+      "tag-utility-nav",
+      "brightcove-podcast-player"
+    ]
+  },
+  {
     "id": "accordion",
     "components": [
       "accordion-item"
     ]
   },
   {
-    "id": "cards-leader",
-    "components": [
-      "card"
-    ]
+    "id": "brightcove-podcast-player",
+    "components": []
+  },
+  {
+    "id": "brightcove-video",
+    "components": []
   },
   {
     "id": "cards",
@@ -82,13 +129,15 @@
       "text",
       "image",
       "button",
-      "title"
+      "title",
+      "custom-title"
     ]
   },
   {
     "id": "custom-title",
     "components": []
   },
+  {},
   {
     "id": "press-releases",
     "components": [
@@ -108,7 +157,7 @@
     ]
   },
   {
-    "id": "story-card",
+    "id": "story-cards",
     "components": [
       "story-card-item"
     ]
@@ -141,6 +190,12 @@
     "id": "tabs",
     "components": [
       "tabs-item"
+    ]
+  },
+  {
+    "id": "tag-utility-nav",
+    "components": [
+      "tag-utility-nav-category"
     ]
   },
   {

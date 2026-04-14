@@ -5,10 +5,10 @@
  * class will be added to the block, and the row will be removed from the DOM.
  * Future enhancements may include support for other properties, such as "id:myid".
  */
-import { decorateLangAttribute } from '../../scripts/utils.js';
+import { applyCommonProps } from '../../scripts/utils.js';
 
 export default function decorate(block) {
-  decorateLangAttribute(block);
+  applyCommonProps(block);
   // Unwrap extra div wrapper from each row
   [...block.children].forEach((row) => {
     const child = row.querySelector('div');

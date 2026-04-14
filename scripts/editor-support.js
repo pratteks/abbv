@@ -158,6 +158,23 @@ function handleSelection(event) {
   }
 }
 
+/**
+ * Updates the AEM Universal Editor label on each grid-section to show
+ * the selected column count (e.g. "Grid: 3 Columns"), so authors can
+ * identify sections at a glance in the content tree and on-canvas.
+ * @param {Element} [scope=document] Root element to search within
+ */
+function showGridColumnLabel(scope = document) {
+  scope.querySelectorAll('.section[class*="grid-cols-"]').forEach((section) => {
+    const match = [...section.classList].find((c) => /^grid-cols-\d+$/.test(c));
+    if (match) {
+      const count = match.replace('grid-cols-', '');
+      const label = `Grid: ${count} Column${count === '1' ? '' : 's'}`;
+      section.setAttribute('data-aue-label', label);
+    }
+  });
+}
+
 function attachEventListners(main) {
   [
     'aue:content-patch',
@@ -170,12 +187,15 @@ function attachEventListners(main) {
     event.stopPropagation();
     const applied = await applyChanges(event);
     if (!applied) window.location.reload();
+    showGridColumnLabel(main);
   }));
 
   main?.addEventListener('aue:ui-select', handleSelection);
 }
 
-attachEventListners(document.querySelector('main'));
+const main = document.querySelector('main');
+attachEventListners(main);
+showGridColumnLabel(main);
 
 // decorate rich text
 // this has to happen after decorateMain(), and everythime decorateBlocks() is called
