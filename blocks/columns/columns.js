@@ -1,6 +1,5 @@
 import { resolveImageReference } from '../../scripts/scripts.js';
 import decorateExternalLinksUtility from '../../scripts/utils.js';
-import decorateCustomTitle from '../custom-title/custom-title.js';
 
 /**
  * Parse a video URL to extract provider and video info.
@@ -45,12 +44,6 @@ function getPlayerUrl(info) {
 }
 
 export default function decorate(block) {
-  // Call the custom-title decorator on any custom-title block found within columns
-  const customTitleBlock = block.querySelector('.custom-title');
-  if (customTitleBlock) {
-    decorateCustomTitle(customTitleBlock);
-  }
-
   const cols = [...block.firstElementChild.children];
   block.classList.add(`columns-${cols.length}-cols`);
 

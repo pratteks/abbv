@@ -504,7 +504,6 @@
 .section.grid-container > .section {
   grid-column: span 12;
   margin: 0 !important;
-  border-radius: 0;
   padding: 0;
   min-width: 0;
   overflow: clip;
@@ -1537,96 +1536,10 @@ main .section.explore-tenacity:has(#the-tenacity-to-take-on-the-toughest-challen
   }
 }
 
-/* flex section designs */
-
-.flex-container-wrapper {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin: var(--spacing-00) auto;
-}
-
-/* Mobile: stack vertically */
-.section.flxsection-col-1,
-.section.flxsection-col-2,
-.section.flxsection-col-3,
-.section.flxsection-col-4,
-.section.flxsection-col-5,
-.section.flxsection-col-6,
-.section.flxsection-col-7,
-.section.flxsection-col-8,
-.section.flxsection-col-9,
-.section.flxsection-col-10 {
-  display: block;
-  width: 100%;
-}
-
-/* portfolio style starts for section */
 
 .section.portfolio-card-section {
   padding-top: var(--spacing-00);
   padding-bottom: var(--spacing-00);
-}
-
-/* Desktop: side-by-side with percentage widths */
-@media (width >=1024px) {
-  .flex-container-wrapper {
-    flex-direction: row;
-  }
-
-  .section.flxsection-col-1,
-  .section.flxsection-col-2,
-  .section.flxsection-col-3,
-  .section.flxsection-col-4,
-  .section.flxsection-col-5,
-  .section.flxsection-col-6,
-  .section.flxsection-col-7,
-  .section.flxsection-col-8,
-  .section.flxsection-col-9,
-  .section.flxsection-col-10 {
-    display: inline-block;
-    vertical-align: top;
-  }
-
-  .section.flxsection-col-1 {
-    width: 10%;
-  }
-
-  .section.flxsection-col-2 {
-    width: 20%;
-  }
-
-  .section.flxsection-col-3 {
-    width: 30%;
-  }
-
-  .section.flxsection-col-4 {
-    width: 40%;
-  }
-
-  .section.flxsection-col-5 {
-    width: 50%;
-  }
-
-  .section.flxsection-col-6 {
-    width: 60%;
-  }
-
-  .section.flxsection-col-7 {
-    width: 70%;
-  }
-
-  .section.flxsection-col-8 {
-    width: 80%;
-  }
-
-  .section.flxsection-col-9 {
-    width: 90%;
-  }
-
-  .section.flxsection-col-10 {
-    width: 100%;
-  }
 }
 
 /* partnering page highlight section */

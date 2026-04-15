@@ -33,6 +33,17 @@
         "label": "Keywords"
       },
       {
+        "component": "aem-tag",
+        "name": "cq:tags",
+        "label": "Tags"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "pageSubtitle",
+        "label": "Page Subtitle"
+      },
+      {
         "component": "boolean",
         "valueType": "boolean",
         "name": "hideFromNavigation",
@@ -832,6 +843,33 @@
         ]
       },
       {
+        "component": "select",
+        "name": "classes_borderRadius",
+        "label": "Border Radius",
+        "options": [
+          {
+            "name": "None",
+            "value": "no-radius"
+          },
+          {
+            "name": "Large Radius",
+            "value": "radius-large"
+          },
+          {
+            "name": "Medium Radius",
+            "value": "radius-medium"
+          },
+          {
+            "name": "Small Radius",
+            "value": "radius-small"
+          },
+          {
+            "name": "Medium Radius (Hero)",
+            "value": "medium-radius"
+          }
+        ]
+      },
+      {
         "component": "text",
         "name": "sectionId",
         "label": "Section ID",
@@ -1074,235 +1112,6 @@
         "label": "Show the first fragment only",
         "value": false,
         "description": "When checked, only the first fragment is shown. When unchecked, fragments rotate in authored order on each page visit."
-      }
-    ]
-  },
-  {
-    "id": "flex-section",
-    "fields": [
-      {
-        "component": "text",
-        "name": "section-type",
-        "value": "flex-section",
-        "valueType": "string",
-        "hidden": true
-      },
-      {
-        "component": "tab",
-        "label": "Properties",
-        "name": "properties"
-      },
-      {
-        "component": "text",
-        "name": "name",
-        "label": "Section Name",
-        "description": "The label shown for this section in the Content Tree"
-      },
-      {
-        "component": "text",
-        "name": "sectionId",
-        "label": "Section ID",
-        "value": "",
-        "valueType": "string"
-      },
-      {
-        "component": "tab",
-        "label": "Styles",
-        "name": "styles"
-      },
-      {
-        "component": "select",
-        "name": "classes_alignment",
-        "label": "Alignment",
-        "options": [
-          {
-            "name": "None",
-            "value": "no-align"
-          },
-          {
-            "name": "Left",
-            "value": "align-left"
-          },
-          {
-            "name": "Right",
-            "value": "align-right"
-          },
-          {
-            "name": "Center",
-            "value": "align-center"
-          }
-        ]
-      },
-      {
-        "component": "select",
-        "name": "classes_width",
-        "label": "Select Width",
-        "options": [
-          {
-            "name": "Full Width",
-            "value": "flxsection-col-10"
-          },
-          {
-            "name": "Extra Large (90%)",
-            "value": "flxsection-col-9"
-          },
-          {
-            "name": "Very Large (80%)",
-            "value": "flxsection-col-8"
-          },
-          {
-            "name": "Large (70%)",
-            "value": "flxsection-col-7"
-          },
-          {
-            "name": "Medium Large (60%)",
-            "value": "flxsection-col-6"
-          },
-          {
-            "name": "Half width (50%)",
-            "value": "flxsection-col-5"
-          },
-          {
-            "name": "Medium Small (40%)",
-            "value": "flxsection-col-4"
-          },
-          {
-            "name": "Small (30%)",
-            "value": "flxsection-col-3"
-          },
-          {
-            "name": "Very Small (20%)",
-            "value": "flxsection-col-2"
-          },
-          {
-            "name": "Extra Small (10%)",
-            "value": "flxsection-col-1"
-          },
-          {
-            "name": "None",
-            "value": "none"
-          }
-        ]
-      },
-      {
-        "component": "tab",
-        "label": "Accessibility",
-        "name": "accessibility"
-      },
-      {
-        "component": "select",
-        "name": "language",
-        "label": "Language",
-        "options": [
-          {
-            "name": "None",
-            "value": "lang:none"
-          },
-          {
-            "name": "Bulgarian",
-            "value": "lang:bg"
-          },
-          {
-            "name": "Chinese",
-            "value": "lang:zh"
-          },
-          {
-            "name": "Chinese (Taiwan)",
-            "value": "lang:zh-TW"
-          },
-          {
-            "name": "Czech",
-            "value": "lang:cs"
-          },
-          {
-            "name": "Danish",
-            "value": "lang:da"
-          },
-          {
-            "name": "Dutch",
-            "value": "lang:nl"
-          },
-          {
-            "name": "English",
-            "value": "lang:en"
-          },
-          {
-            "name": "Finnish",
-            "value": "lang:fi"
-          },
-          {
-            "name": "French",
-            "value": "lang:fr"
-          },
-          {
-            "name": "German",
-            "value": "lang:de"
-          },
-          {
-            "name": "Greek",
-            "value": "lang:el"
-          },
-          {
-            "name": "Hebrew",
-            "value": "lang:he"
-          },
-          {
-            "name": "Hungarian",
-            "value": "lang:hu"
-          },
-          {
-            "name": "Italian",
-            "value": "lang:it"
-          },
-          {
-            "name": "Japanese",
-            "value": "lang:ja"
-          },
-          {
-            "name": "Korean",
-            "value": "lang:ko"
-          },
-          {
-            "name": "Norwegian",
-            "value": "lang:no"
-          },
-          {
-            "name": "Polish",
-            "value": "lang:pl"
-          },
-          {
-            "name": "Portuguese",
-            "value": "lang:pt"
-          },
-          {
-            "name": "Russian",
-            "value": "lang:ru"
-          },
-          {
-            "name": "Slovak",
-            "value": "lang:sk"
-          },
-          {
-            "name": "Slovenian",
-            "value": "lang:sl"
-          },
-          {
-            "name": "Spanish",
-            "value": "lang:es"
-          },
-          {
-            "name": "Swedish",
-            "value": "lang:sv"
-          },
-          {
-            "name": "Turkish",
-            "value": "lang:tr"
-          },
-          {
-            "name": "Ukrainian",
-            "value": "lang:uk"
-          }
-        ]
       }
     ]
   },
@@ -1589,7 +1398,11 @@
             "value": "accordion-base"
           },
           {
-            "name": "XX-Large (12 column)",
+            "name": "XXX-Large (12 column)",
+            "value": "accordion-xxxl"
+          },
+          {
+            "name": "XX-Large (10 column)",
             "value": "accordion-xxl"
           },
           {
@@ -3415,6 +3228,517 @@
     ]
   },
   {
+    "id": "custom-image",
+    "fields": [
+      {
+        "component": "tab",
+        "label": "Overview",
+        "name": "overview"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "presetType",
+        "value": "",
+        "label": "Preset Type",
+        "description": "Choose how the image preset or smart crop is applied",
+        "options": [
+          {
+            "name": "None",
+            "value": ""
+          },
+          {
+            "name": "Image Preset",
+            "value": "image-preset"
+          },
+          {
+            "name": "Smart Crop",
+            "value": "smart-crop"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "imagePreset",
+        "value": "",
+        "label": "Image Preset",
+        "description": "Select an image preset from the available preset renditions",
+        "condition": {
+          "===": [
+            {
+              "var": "presetType"
+            },
+            "image-preset"
+          ]
+        },
+        "options": [
+          {
+            "name": "None",
+            "value": ""
+          },
+          {
+            "name": "Feature",
+            "value": "Feature"
+          },
+          {
+            "name": "Hero",
+            "value": "Hero"
+          },
+          {
+            "name": "Responsive",
+            "value": "Responsive"
+          },
+          {
+            "name": "Square",
+            "value": "Square"
+          },
+          {
+            "name": "Tall",
+            "value": "Tall"
+          },
+          {
+            "name": "VideoThumbnail",
+            "value": "VideoThumbnail"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "rendition",
+        "value": "",
+        "label": "Rendition",
+        "description": "Select a smart crop rendition for the image",
+        "condition": {
+          "===": [
+            {
+              "var": "presetType"
+            },
+            "smart-crop"
+          ]
+        },
+        "options": [
+          {
+            "name": "None",
+            "value": ""
+          },
+          {
+            "name": "Auto",
+            "value": "Auto"
+          },
+          {
+            "name": "Square",
+            "value": "Square"
+          },
+          {
+            "name": "Tall",
+            "value": "Tall"
+          },
+          {
+            "name": "Taller",
+            "value": "Taller"
+          },
+          {
+            "name": "Tallest",
+            "value": "Tallest"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageModifiers",
+        "value": "",
+        "label": "Image Modifiers",
+        "description": "Specify additional image modifier parameters (e.g. wid=500&hei=300)"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "value": "",
+        "label": "Alternative Text",
+        "description": "Provide alternative text for your image",
+        "required": true
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "getAltFromDAM",
+        "value": false,
+        "label": "Get alternative text from DAM"
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "imageIsDecorative",
+        "value": false,
+        "label": "Image is decorative"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "caption",
+        "value": "",
+        "label": "Caption",
+        "description": "Text displayed as a caption for the image"
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "getCaptionFromDAM",
+        "value": false,
+        "label": "Get caption from DAM"
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "displayCaptionBelowImage",
+        "value": false,
+        "label": "Enable caption as text under image"
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "enableLink",
+        "value": false,
+        "label": "Enable Link",
+        "description": "Enable linking from the image to another target"
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "target",
+        "value": "",
+        "label": "Target",
+        "description": "Provide your target path or URL",
+        "condition": {
+          "===": [
+            {
+              "var": "enableLink"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "clickBehavior",
+        "value": "_self",
+        "label": "Click Behavior",
+        "description": "Select the behavior of this button",
+        "condition": {
+          "===": [
+            {
+              "var": "enableLink"
+            },
+            true
+          ]
+        },
+        "options": [
+          {
+            "name": "Same Tab",
+            "value": "_self"
+          },
+          {
+            "name": "New Tab",
+            "value": "_blank"
+          },
+          {
+            "name": "Modal",
+            "value": "modal"
+          },
+          {
+            "name": "Hidden Panel",
+            "value": "hidden-panel"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "modalPanelId",
+        "value": "",
+        "label": "Modal/Hidden Panel ID",
+        "description": "ID of the modal or hidden panel to trigger",
+        "condition": {
+          "and": [
+            {
+              "===": [
+                {
+                  "var": "enableLink"
+                },
+                true
+              ]
+            },
+            {
+              "or": [
+                {
+                  "===": [
+                    {
+                      "var": "clickBehavior"
+                    },
+                    "modal"
+                  ]
+                },
+                {
+                  "===": [
+                    {
+                      "var": "clickBehavior"
+                    },
+                    "hidden-panel"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "enableWarnOnLeave",
+        "value": false,
+        "label": "Enable Warn on Leave Modal",
+        "description": "Show a warning modal when the user navigates away",
+        "condition": {
+          "===": [
+            {
+              "var": "enableLink"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "warnOnLeavePath",
+        "value": "",
+        "label": "Warn on leave modal path",
+        "condition": {
+          "and": [
+            {
+              "===": [
+                {
+                  "var": "enableLink"
+                },
+                true
+              ]
+            },
+            {
+              "===": [
+                {
+                  "var": "enableWarnOnLeave"
+                },
+                true
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "tab",
+        "label": "Accessibility",
+        "name": "accessibility"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "linkAriaLabel",
+        "value": "",
+        "label": "Link Aria Label",
+        "description": "Provide an aria-label for the image target link"
+      },
+      {
+        "component": "tab",
+        "label": "Analytics",
+        "name": "analytics"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "analyticsInteractionId",
+        "value": "",
+        "label": "Analytics Interaction ID",
+        "description": "Analytics interaction identifier for tracking"
+      },
+      {
+        "component": "tab",
+        "label": "Styles",
+        "name": "styles"
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "classes_shape",
+        "label": "Shape",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Circle",
+            "value": "circle"
+          },
+          {
+            "name": "Logo",
+            "value": "logo"
+          }
+        ]
+      },
+      {
+        "component": "tab",
+        "label": "Common Properties",
+        "name": "commonProperties"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "blockId",
+        "valueFormat": "regexp",
+        "label": "ID",
+        "description": "Unique identifier for this block",
+        "validation": {
+          "regExp": "^id:\\S*$",
+          "customErrorMsg": "ID must start with 'id:' and contain no spaces"
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "classes_commonCustomClass",
+        "label": "Custom Class",
+        "description": "Custom CSS class to apply to this block"
+      },
+      {
+        "component": "select",
+        "name": "language",
+        "label": "Language",
+        "options": [
+          {
+            "name": "None",
+            "value": "lang:none"
+          },
+          {
+            "name": "Bulgarian",
+            "value": "lang:bg"
+          },
+          {
+            "name": "Chinese",
+            "value": "lang:zh"
+          },
+          {
+            "name": "Chinese (Taiwan)",
+            "value": "lang:zh-TW"
+          },
+          {
+            "name": "Czech",
+            "value": "lang:cs"
+          },
+          {
+            "name": "Danish",
+            "value": "lang:da"
+          },
+          {
+            "name": "Dutch",
+            "value": "lang:nl"
+          },
+          {
+            "name": "English",
+            "value": "lang:en"
+          },
+          {
+            "name": "Finnish",
+            "value": "lang:fi"
+          },
+          {
+            "name": "French",
+            "value": "lang:fr"
+          },
+          {
+            "name": "German",
+            "value": "lang:de"
+          },
+          {
+            "name": "Greek",
+            "value": "lang:el"
+          },
+          {
+            "name": "Hebrew",
+            "value": "lang:he"
+          },
+          {
+            "name": "Hungarian",
+            "value": "lang:hu"
+          },
+          {
+            "name": "Italian",
+            "value": "lang:it"
+          },
+          {
+            "name": "Japanese",
+            "value": "lang:ja"
+          },
+          {
+            "name": "Korean",
+            "value": "lang:ko"
+          },
+          {
+            "name": "Norwegian",
+            "value": "lang:no"
+          },
+          {
+            "name": "Polish",
+            "value": "lang:pl"
+          },
+          {
+            "name": "Portuguese",
+            "value": "lang:pt"
+          },
+          {
+            "name": "Russian",
+            "value": "lang:ru"
+          },
+          {
+            "name": "Slovak",
+            "value": "lang:sk"
+          },
+          {
+            "name": "Slovenian",
+            "value": "lang:sl"
+          },
+          {
+            "name": "Spanish",
+            "value": "lang:es"
+          },
+          {
+            "name": "Swedish",
+            "value": "lang:sv"
+          },
+          {
+            "name": "Turkish",
+            "value": "lang:tr"
+          },
+          {
+            "name": "Ukrainian",
+            "value": "lang:uk"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "custom-title",
     "fields": [
       {
@@ -3814,6 +4138,10 @@
             "value": ""
           },
           {
+            "name": "Light (Light With Stroke)",
+            "value": "light-theme-stroke"
+          },
+          {
             "name": "Medium (Light Blue)",
             "value": "medium-theme"
           },
@@ -4100,6 +4428,851 @@
     ]
   },
   {
+    "id": "linklist",
+    "fields": [
+      {
+        "component": "tab",
+        "label": "Overview",
+        "name": "tab-overview-linklist"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "id",
+        "label": "Id",
+        "value": "",
+        "description": "Unique anchor ID used for deep-linking to this block."
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "customClass",
+        "label": "Custom Class",
+        "value": "",
+        "description": "CSS class name(s) for the component wrapper."
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "variant",
+        "label": "Variant",
+        "value": "standard",
+        "description": "Structural and visual variant of the link list.",
+        "options": [
+          {
+            "name": "Standard",
+            "value": "standard"
+          },
+          {
+            "name": "Rows with Arrows",
+            "value": "rows-with-arrows"
+          },
+          {
+            "name": "Icons",
+            "value": "icons"
+          },
+          {
+            "name": "Footer - primary",
+            "value": "footer-primary"
+          },
+          {
+            "name": "Footer - legal",
+            "value": "footer-legal"
+          },
+          {
+            "name": "Detailed list",
+            "value": "detailed-list"
+          },
+          {
+            "name": "Carousel",
+            "value": "carousel"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "linkSource",
+        "label": "Link Source",
+        "value": "custom",
+        "description": "Child Pages: auto-list from site index. Icons / Custom: add Link List Item blocks.",
+        "options": [
+          {
+            "name": "Child Pages",
+            "value": "child-pages"
+          },
+          {
+            "name": "Icons",
+            "value": "icons"
+          },
+          {
+            "name": "Custom",
+            "value": "custom"
+          }
+        ]
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "parentPage",
+        "label": "Parent Page",
+        "value": "",
+        "description": "Root page path; child links are resolved from the site index under this path.",
+        "condition": {
+          "===": [
+            {
+              "var": "linkSource"
+            },
+            "child-pages"
+          ]
+        }
+      },
+      {
+        "component": "number",
+        "valueType": "number",
+        "name": "childDepth",
+        "label": "Child Depth",
+        "value": 1,
+        "description": "How many levels of descendants to include (1 = direct children only).",
+        "validation": {
+          "numberMin": 1,
+          "numberMax": 10
+        },
+        "condition": {
+          "===": [
+            {
+              "var": "linkSource"
+            },
+            "child-pages"
+          ]
+        }
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "excludeCurrentPage",
+        "label": "Exclude Current Page",
+        "value": true,
+        "description": "Omit the active page from the generated list.",
+        "condition": {
+          "===": [
+            {
+              "var": "linkSource"
+            },
+            "child-pages"
+          ]
+        }
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "enableDescription",
+        "label": "Enable Description",
+        "value": false,
+        "description": "Show page description below each link (from index metadata).",
+        "condition": {
+          "===": [
+            {
+              "var": "linkSource"
+            },
+            "child-pages"
+          ]
+        }
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "enableTags",
+        "label": "Enable Tags",
+        "value": false,
+        "description": "Display tags from the index when available.",
+        "condition": {
+          "===": [
+            {
+              "var": "linkSource"
+            },
+            "child-pages"
+          ]
+        }
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "enableSubtitle",
+        "label": "Enable Subtitle",
+        "value": false,
+        "description": "Show subtitle field from the index when available.",
+        "condition": {
+          "===": [
+            {
+              "var": "linkSource"
+            },
+            "child-pages"
+          ]
+        }
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "enableDate",
+        "label": "Enable Date",
+        "value": false,
+        "description": "Show published or last modified date from the index.",
+        "condition": {
+          "===": [
+            {
+              "var": "linkSource"
+            },
+            "child-pages"
+          ]
+        }
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "orderBy",
+        "label": "Order By",
+        "value": "content-tree",
+        "description": "Sort field for generated links.",
+        "options": [
+          {
+            "name": "Content Tree",
+            "value": "content-tree"
+          },
+          {
+            "name": "Title",
+            "value": "title"
+          },
+          {
+            "name": "Last Modified",
+            "value": "last-modified"
+          },
+          {
+            "name": "Published",
+            "value": "published"
+          }
+        ],
+        "condition": {
+          "===": [
+            {
+              "var": "linkSource"
+            },
+            "child-pages"
+          ]
+        }
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "sortOrder",
+        "label": "Sort Order",
+        "value": "asc",
+        "options": [
+          {
+            "name": "Ascending",
+            "value": "asc"
+          },
+          {
+            "name": "Descending",
+            "value": "desc"
+          }
+        ],
+        "condition": {
+          "===": [
+            {
+              "var": "linkSource"
+            },
+            "child-pages"
+          ]
+        }
+      },
+      {
+        "component": "number",
+        "valueType": "number",
+        "name": "maxItems",
+        "label": "Max Items",
+        "value": 25,
+        "description": "Maximum number of links to output.",
+        "validation": {
+          "numberMin": 1,
+          "numberMax": 500
+        },
+        "condition": {
+          "===": [
+            {
+              "var": "linkSource"
+            },
+            "child-pages"
+          ]
+        }
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "layout",
+        "label": "Layout",
+        "value": "single-column",
+        "description": "Grid layout for list items.",
+        "options": [
+          {
+            "name": "Single Column",
+            "value": "single-column"
+          },
+          {
+            "name": "Two Columns – stack on mobile",
+            "value": "two-columns-stack"
+          },
+          {
+            "name": "Two columns – do not stack on mobile",
+            "value": "two-columns-nostack"
+          }
+        ],
+        "condition": {
+          "===": [
+            {
+              "var": "linkSource"
+            },
+            "child-pages"
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "fontIcon",
+        "label": "Icon",
+        "value": "",
+        "description": "Icon applied to every link when Variant is Icons. Works for all link sources — the only icon option when using Child Pages.",
+        "condition": {
+          "or": [
+            {
+              "===": [
+                {
+                  "var": "variant"
+                },
+                "icons"
+              ]
+            },
+            {
+              "===": [
+                {
+                  "var": "linkSource"
+                },
+                "child-pages"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "component": "tab",
+        "label": "Accessibility",
+        "name": "tab-accessibility-linklist"
+      },
+      {
+        "component": "select",
+        "name": "language",
+        "label": "Language",
+        "options": [
+          {
+            "name": "None",
+            "value": "lang:none"
+          },
+          {
+            "name": "Bulgarian",
+            "value": "lang:bg"
+          },
+          {
+            "name": "Chinese",
+            "value": "lang:zh"
+          },
+          {
+            "name": "Chinese (Taiwan)",
+            "value": "lang:zh-TW"
+          },
+          {
+            "name": "Czech",
+            "value": "lang:cs"
+          },
+          {
+            "name": "Danish",
+            "value": "lang:da"
+          },
+          {
+            "name": "Dutch",
+            "value": "lang:nl"
+          },
+          {
+            "name": "English",
+            "value": "lang:en"
+          },
+          {
+            "name": "Finnish",
+            "value": "lang:fi"
+          },
+          {
+            "name": "French",
+            "value": "lang:fr"
+          },
+          {
+            "name": "German",
+            "value": "lang:de"
+          },
+          {
+            "name": "Greek",
+            "value": "lang:el"
+          },
+          {
+            "name": "Hebrew",
+            "value": "lang:he"
+          },
+          {
+            "name": "Hungarian",
+            "value": "lang:hu"
+          },
+          {
+            "name": "Italian",
+            "value": "lang:it"
+          },
+          {
+            "name": "Japanese",
+            "value": "lang:ja"
+          },
+          {
+            "name": "Korean",
+            "value": "lang:ko"
+          },
+          {
+            "name": "Norwegian",
+            "value": "lang:no"
+          },
+          {
+            "name": "Polish",
+            "value": "lang:pl"
+          },
+          {
+            "name": "Portuguese",
+            "value": "lang:pt"
+          },
+          {
+            "name": "Russian",
+            "value": "lang:ru"
+          },
+          {
+            "name": "Slovak",
+            "value": "lang:sk"
+          },
+          {
+            "name": "Slovenian",
+            "value": "lang:sl"
+          },
+          {
+            "name": "Spanish",
+            "value": "lang:es"
+          },
+          {
+            "name": "Swedish",
+            "value": "lang:sv"
+          },
+          {
+            "name": "Turkish",
+            "value": "lang:tr"
+          },
+          {
+            "name": "Ukrainian",
+            "value": "lang:uk"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ariaLabel",
+        "label": "ARIA Label",
+        "value": "",
+        "description": "Accessible name for the link list landmark (nav)."
+      }
+    ]
+  },
+  {
+    "id": "linklist-item",
+    "fields": [
+      {
+        "component": "tab",
+        "label": "Overview",
+        "name": "tab-overview-linklist-item"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "id",
+        "label": "Id",
+        "value": "",
+        "description": "Unique anchor ID for this list item."
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "customClass",
+        "label": "Custom Class",
+        "value": "",
+        "description": "CSS class name(s) on the item container."
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "cookieConsentLink",
+        "label": "Cookie Consent Link",
+        "value": false,
+        "description": "When enabled, opens cookie consent instead of navigating. Link and tab fields below are ignored."
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "link",
+        "label": "Link",
+        "value": "",
+        "description": "Destination path or external URL.",
+        "condition": {
+          "!": [
+            {
+              "var": "cookieConsentLink"
+            }
+          ]
+        }
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "openInNewTab",
+        "label": "Open in a new tab",
+        "value": false,
+        "description": "When enabled, opens the link target in a new browser tab/window.",
+        "condition": {
+          "!": [
+            {
+              "var": "cookieConsentLink"
+            }
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "linkText",
+        "label": "Link Text",
+        "value": "",
+        "description": "Visible label; may default to target page title when blank."
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "subtitle",
+        "label": "Subtitle",
+        "value": "",
+        "description": "Optional subtitle below or beside the link."
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "value": "",
+        "valueType": "string",
+        "description": "Supporting summary for the item."
+      },
+      {
+        "component": "aem-tag",
+        "valueType": "string[]",
+        "name": "categoryTags",
+        "label": "Category Tags",
+        "value": [],
+        "description": "Select taxonomy tags to categorize this item."
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "iconType",
+        "label": "Icon Type",
+        "value": "none",
+        "description": "Chooses the icon source method for the item.",
+        "options": [
+          {
+            "name": "None",
+            "value": "none"
+          },
+          {
+            "name": "Icon Font",
+            "value": "font"
+          },
+          {
+            "name": "Image",
+            "value": "image"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "fontIcon",
+        "label": "Font Icon",
+        "value": "",
+        "description": "Name of the font icon (e.g., library glyph name); visible only when Icon Type = Icon Font.",
+        "condition": {
+          "===": [
+            {
+              "var": "iconType"
+            },
+            "font"
+          ]
+        }
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "imageIcon",
+        "label": "Image Icon",
+        "value": "",
+        "multi": false,
+        "accepts": [
+          "image/*"
+        ],
+        "condition": {
+          "===": [
+            {
+              "var": "iconType"
+            },
+            "image"
+          ]
+        }
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "iconPosition",
+        "label": "Icon Position",
+        "value": "before",
+        "options": [
+          {
+            "name": "Before",
+            "value": "before"
+          },
+          {
+            "name": "After",
+            "value": "after"
+          }
+        ],
+        "condition": {
+          "in": [
+            {
+              "var": "iconType"
+            },
+            [
+              "font",
+              "image"
+            ]
+          ]
+        }
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "iconLink",
+        "label": "Icon Link",
+        "value": "",
+        "description": "Optional separate target when clicking the icon.",
+        "condition": {
+          "in": [
+            {
+              "var": "iconType"
+            },
+            [
+              "font",
+              "image"
+            ]
+          ]
+        }
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "enableConfirmationModal",
+        "label": "Enable Confirmation Modal",
+        "value": false,
+        "description": "Prompts users with a modal before navigation (useful for warnings or external links)."
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "confirmationModalType",
+        "label": "Type of confirmation modal",
+        "value": "standard",
+        "description": "Exit modal applies a distinct dialog style.",
+        "options": [
+          {
+            "name": "Standard",
+            "value": "standard"
+          },
+          {
+            "name": "Exit modal",
+            "value": "exit-modal"
+          }
+        ],
+        "condition": {
+          "===": [
+            {
+              "var": "enableConfirmationModal"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "modalId",
+        "label": "Modal ID / Path",
+        "value": "",
+        "description": "Path to a modal fragment (e.g. /modals/warning).",
+        "condition": {
+          "===": [
+            {
+              "var": "enableConfirmationModal"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "tab",
+        "label": "Accessibility",
+        "name": "tab-accessibility-linklist-item"
+      },
+      {
+        "component": "select",
+        "name": "language",
+        "label": "Language",
+        "options": [
+          {
+            "name": "None",
+            "value": "lang:none"
+          },
+          {
+            "name": "Bulgarian",
+            "value": "lang:bg"
+          },
+          {
+            "name": "Chinese",
+            "value": "lang:zh"
+          },
+          {
+            "name": "Chinese (Taiwan)",
+            "value": "lang:zh-TW"
+          },
+          {
+            "name": "Czech",
+            "value": "lang:cs"
+          },
+          {
+            "name": "Danish",
+            "value": "lang:da"
+          },
+          {
+            "name": "Dutch",
+            "value": "lang:nl"
+          },
+          {
+            "name": "English",
+            "value": "lang:en"
+          },
+          {
+            "name": "Finnish",
+            "value": "lang:fi"
+          },
+          {
+            "name": "French",
+            "value": "lang:fr"
+          },
+          {
+            "name": "German",
+            "value": "lang:de"
+          },
+          {
+            "name": "Greek",
+            "value": "lang:el"
+          },
+          {
+            "name": "Hebrew",
+            "value": "lang:he"
+          },
+          {
+            "name": "Hungarian",
+            "value": "lang:hu"
+          },
+          {
+            "name": "Italian",
+            "value": "lang:it"
+          },
+          {
+            "name": "Japanese",
+            "value": "lang:ja"
+          },
+          {
+            "name": "Korean",
+            "value": "lang:ko"
+          },
+          {
+            "name": "Norwegian",
+            "value": "lang:no"
+          },
+          {
+            "name": "Polish",
+            "value": "lang:pl"
+          },
+          {
+            "name": "Portuguese",
+            "value": "lang:pt"
+          },
+          {
+            "name": "Russian",
+            "value": "lang:ru"
+          },
+          {
+            "name": "Slovak",
+            "value": "lang:sk"
+          },
+          {
+            "name": "Slovenian",
+            "value": "lang:sl"
+          },
+          {
+            "name": "Spanish",
+            "value": "lang:es"
+          },
+          {
+            "name": "Swedish",
+            "value": "lang:sv"
+          },
+          {
+            "name": "Turkish",
+            "value": "lang:tr"
+          },
+          {
+            "name": "Ukrainian",
+            "value": "lang:uk"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ariaLabel",
+        "label": "Aria Label",
+        "value": "",
+        "description": "Accessible name when link text is ambiguous."
+      }
+    ]
+  },
+  {
     "id": "modal",
     "fields": [
       {
@@ -4117,6 +5290,11 @@
   {
     "id": "navigation-content",
     "fields": [
+      {
+        "component": "tab",
+        "label": "Overview",
+        "name": "overview"
+      },
       {
         "component": "select",
         "name": "classes",
@@ -4425,6 +5603,145 @@
           {
             "name": "Light",
             "value": "light"
+          }
+        ]
+      },
+      {
+        "component": "tab",
+        "label": "Common Properties",
+        "name": "commonProperties"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "blockId",
+        "valueFormat": "regexp",
+        "label": "ID",
+        "description": "Unique identifier for this block",
+        "validation": {
+          "regExp": "^id:\\S*$",
+          "customErrorMsg": "ID must start with 'id:' and contain no spaces"
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "classes_commonCustomClass",
+        "label": "Custom Class",
+        "description": "Custom CSS class to apply to this block"
+      },
+      {
+        "component": "select",
+        "name": "language",
+        "label": "Language",
+        "options": [
+          {
+            "name": "None",
+            "value": "lang:none"
+          },
+          {
+            "name": "Bulgarian",
+            "value": "lang:bg"
+          },
+          {
+            "name": "Chinese",
+            "value": "lang:zh"
+          },
+          {
+            "name": "Chinese (Taiwan)",
+            "value": "lang:zh-TW"
+          },
+          {
+            "name": "Czech",
+            "value": "lang:cs"
+          },
+          {
+            "name": "Danish",
+            "value": "lang:da"
+          },
+          {
+            "name": "Dutch",
+            "value": "lang:nl"
+          },
+          {
+            "name": "English",
+            "value": "lang:en"
+          },
+          {
+            "name": "Finnish",
+            "value": "lang:fi"
+          },
+          {
+            "name": "French",
+            "value": "lang:fr"
+          },
+          {
+            "name": "German",
+            "value": "lang:de"
+          },
+          {
+            "name": "Greek",
+            "value": "lang:el"
+          },
+          {
+            "name": "Hebrew",
+            "value": "lang:he"
+          },
+          {
+            "name": "Hungarian",
+            "value": "lang:hu"
+          },
+          {
+            "name": "Italian",
+            "value": "lang:it"
+          },
+          {
+            "name": "Japanese",
+            "value": "lang:ja"
+          },
+          {
+            "name": "Korean",
+            "value": "lang:ko"
+          },
+          {
+            "name": "Norwegian",
+            "value": "lang:no"
+          },
+          {
+            "name": "Polish",
+            "value": "lang:pl"
+          },
+          {
+            "name": "Portuguese",
+            "value": "lang:pt"
+          },
+          {
+            "name": "Russian",
+            "value": "lang:ru"
+          },
+          {
+            "name": "Slovak",
+            "value": "lang:sk"
+          },
+          {
+            "name": "Slovenian",
+            "value": "lang:sl"
+          },
+          {
+            "name": "Spanish",
+            "value": "lang:es"
+          },
+          {
+            "name": "Swedish",
+            "value": "lang:sv"
+          },
+          {
+            "name": "Turkish",
+            "value": "lang:tr"
+          },
+          {
+            "name": "Ukrainian",
+            "value": "lang:uk"
           }
         ]
       }
@@ -4851,6 +6168,150 @@
         "name": "id",
         "value": "",
         "label": "Id"
+      }
+    ]
+  },
+  {
+    "id": "social-media",
+    "fields": [
+      {
+        "component": "tab",
+        "label": "Common Properties",
+        "name": "commonProperties"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "blockId",
+        "valueFormat": "regexp",
+        "label": "ID",
+        "description": "Unique identifier for this block",
+        "validation": {
+          "regExp": "^id:\\S*$",
+          "customErrorMsg": "ID must start with 'id:' and contain no spaces"
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "classes_commonCustomClass",
+        "label": "Custom Class",
+        "description": "Custom CSS class to apply to this block"
+      },
+      {
+        "component": "select",
+        "name": "language",
+        "label": "Language",
+        "options": [
+          {
+            "name": "None",
+            "value": "lang:none"
+          },
+          {
+            "name": "Bulgarian",
+            "value": "lang:bg"
+          },
+          {
+            "name": "Chinese",
+            "value": "lang:zh"
+          },
+          {
+            "name": "Chinese (Taiwan)",
+            "value": "lang:zh-TW"
+          },
+          {
+            "name": "Czech",
+            "value": "lang:cs"
+          },
+          {
+            "name": "Danish",
+            "value": "lang:da"
+          },
+          {
+            "name": "Dutch",
+            "value": "lang:nl"
+          },
+          {
+            "name": "English",
+            "value": "lang:en"
+          },
+          {
+            "name": "Finnish",
+            "value": "lang:fi"
+          },
+          {
+            "name": "French",
+            "value": "lang:fr"
+          },
+          {
+            "name": "German",
+            "value": "lang:de"
+          },
+          {
+            "name": "Greek",
+            "value": "lang:el"
+          },
+          {
+            "name": "Hebrew",
+            "value": "lang:he"
+          },
+          {
+            "name": "Hungarian",
+            "value": "lang:hu"
+          },
+          {
+            "name": "Italian",
+            "value": "lang:it"
+          },
+          {
+            "name": "Japanese",
+            "value": "lang:ja"
+          },
+          {
+            "name": "Korean",
+            "value": "lang:ko"
+          },
+          {
+            "name": "Norwegian",
+            "value": "lang:no"
+          },
+          {
+            "name": "Polish",
+            "value": "lang:pl"
+          },
+          {
+            "name": "Portuguese",
+            "value": "lang:pt"
+          },
+          {
+            "name": "Russian",
+            "value": "lang:ru"
+          },
+          {
+            "name": "Slovak",
+            "value": "lang:sk"
+          },
+          {
+            "name": "Slovenian",
+            "value": "lang:sl"
+          },
+          {
+            "name": "Spanish",
+            "value": "lang:es"
+          },
+          {
+            "name": "Swedish",
+            "value": "lang:sv"
+          },
+          {
+            "name": "Turkish",
+            "value": "lang:tr"
+          },
+          {
+            "name": "Ukrainian",
+            "value": "lang:uk"
+          }
+        ]
       }
     ]
   },
@@ -5623,6 +7084,75 @@
       },
       {
         "component": "select",
+        "name": "classes_textWidth",
+        "label": "Text Container Width",
+        "options": [
+          {
+            "name": "Full Width",
+            "value": "full-width"
+          },
+          {
+            "name": "Large Width",
+            "value": "large-width"
+          },
+          {
+            "name": "Content Width",
+            "value": "content-width"
+          },
+          {
+            "name": "Narrow Width",
+            "value": "narrow-width"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "classes_textTopSpacing",
+        "label": "Text Container Top Spacing",
+        "options": [
+          {
+            "name": "Tight",
+            "value": "mt-tight"
+          },
+          {
+            "name": "Compact",
+            "value": "mt-compact"
+          },
+          {
+            "name": "Comfortable",
+            "value": "mt-comfortable"
+          },
+          {
+            "name": "Spacious",
+            "value": "mt-spacious"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "classes_textBottomSpacing",
+        "label": "Text Container Bottom Spacing",
+        "options": [
+          {
+            "name": "Tight",
+            "value": "mb-tight"
+          },
+          {
+            "name": "Compact",
+            "value": "mb-compact"
+          },
+          {
+            "name": "Comfortable",
+            "value": "mb-comfortable"
+          },
+          {
+            "name": "Spacious",
+            "value": "mb-spacious"
+          }
+        ]
+      },
+      {
+        "component": "select",
         "name": "classes_textAlignment",
         "label": "Text Alignment",
         "options": [
@@ -5893,7 +7423,7 @@
         "valueType": "string",
         "name": "placeholderImage",
         "label": "Placeholder Image",
-        "multi": true
+        "multi": false
       },
       {
         "component": "text",
@@ -5965,8 +7495,27 @@
       },
       {
         "component": "tab",
-        "label": "Accessibility",
-        "name": "accessibility"
+        "label": "Common Properties",
+        "name": "commonProperties"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "blockId",
+        "valueFormat": "regexp",
+        "label": "ID",
+        "description": "Unique identifier for this block",
+        "validation": {
+          "regExp": "^id:\\S*$",
+          "customErrorMsg": "ID must start with 'id:' and contain no spaces"
+        }
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "classes_commonCustomClass",
+        "label": "Custom Class",
+        "description": "Custom CSS class to apply to this block"
       },
       {
         "component": "select",

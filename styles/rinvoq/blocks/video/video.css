@@ -6,12 +6,10 @@
 
 .video.video-stage {
   text-align: center;
-
-  /* max-width: var(--content-max-width-medium); */
   margin: var(--spacing-24) auto;
 }
 
-.video.video-stage[data-embed-loaded='false']:not(.has-poster) {
+.video-stage[data-embed-loaded='false']:not(.has-poster) {
   aspect-ratio: 16 / 9;
 }
 
@@ -44,19 +42,19 @@
 }
 
 .video.video-stage .video-poster,
-.video.video-stage .video-poster img,
+.video.video-stage .video-poster-img,
 .video.video-stage .video-iframe,
 .video.video-stage .video-native {
   width: 100%;
   height: 100%;
 }
 
-.video.video-stage .video-poster img,
+.video-stage .video-poster img,
 .video.video-stage .video-native {
   object-fit: cover;
 }
 
-.video.video-stage[data-embed-loaded='true'] .video-poster {
+.video-stage[data-embed-loaded='true'] .video-poster {
   opacity: var(--opacity-00);
   visibility: hidden;
   pointer-events: none;
@@ -78,19 +76,15 @@
   text-align: center;
 }
 
-/* Colour variants — EDS adds these classes directly on the block element
-   via classes_overlayColor. The overlay div reads them from block.classList
-   and applies them to itself in JS. */
-
-.video.video-stage .video-overlay.video-overlay-navy {
+.video.video-stage .video-overlay-navy {
   background: var(--overlay-navy);
 }
 
-.video.video-stage .video-overlay.video-overlay-gray {
+.video.video-stage .video-overlay-gray {
   background: var(--overlay-gray, rgb(80 80 80 / 68%));
 }
 
-.video.video-stage .video-overlay.video-overlay-purple {
+.video.video-stage .video-overlay-purple {
   background: var(--overlay-purple, rgb(138 46 204 / 66%));
 }
 
@@ -101,13 +95,12 @@ p.video-overlay-title {
 }
 
 .video.video-stage .video-overlay-title {
-    /* margin-bottom: var(--spacing-24); */
-    letter-spacing: var(--letter-spacing-tight);
-    color: var(--background-color);
-    font-weight: var(--font-weight-800);
-    font-family: var(--heading-font-family-bold);
-    font-size: var(--font-size-32);
-    line-height: var(--line-height-36);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--background-color);
+  font-weight: var(--font-weight-800);
+  font-family: var(--heading-font-family-bold);
+  font-size: var(--font-size-32);
+  line-height: var(--line-height-36);
 }
 
 .video.video-stage .video-overlay-description {
@@ -117,6 +110,14 @@ p.video-overlay-title {
   line-height: var(--line-height-20);
   font-family: var(--body-font-family);
 }
+
+/* .video.video-stage .video-overlay-description {
+  margin: var(--spacing-00);
+  color: var(--background-color);
+  font-size: var(--font-size-14);
+  line-height: var(--line-height-20);
+  font-family: var(--body-font-family);
+} */
 
 @media (min-width: 744px) {
   .video.video-stage .video-overlay-title {
@@ -128,7 +129,6 @@ p.video-overlay-title {
     font-size: var(--font-size-18);
     line-height: var(--line-height-24);
   }
-
 }
 
 @media (min-width: 1024px) {
@@ -202,16 +202,16 @@ p.video-overlay-title {
 
 /* ── Outline variant ─────────────────────────────────────────────────────── */
 
-.video.video-stage .video-play-btn.video-btn-outline {
+.video.video-stage .video-btn-outline {
   background-color: transparent;
   border: var(--border-01) solid rgb(255 255 255 / 72%);
   color: var(--background-color);
   margin: var(--spacing-00);
 }
 
-.video.video-stage .video-play-btn.video-btn-outline:hover,
-.video.video-stage .video-play-btn.video-btn-outline:focus-visible {
-  background-color: var(--color-white);
+.video-stage .video-btn-outline:hover,
+.video-stage .video-btn-outline:focus-visible {
+  background-color: var(--bg-ffffff);
   border: var(--border-01) solid var(--background-color);
   border-color: var(--background-color);
   color: var(--text-color);
@@ -219,35 +219,32 @@ p.video-overlay-title {
 
 /* ── Solid variant ───────────────────────────────────────────────────────── */
 
-.video.video-stage .video-play-btn.video-btn-solid {
+.video.video-stage .video-btn-solid {
   background-color: var(--background-color);
   border: var(--border-01) solid var(--background-color);
   color: var(--footer-text-color);
   margin: var(--spacing-00);
 }
 
-.video.video-stage .video-play-btn.video-btn-solid:hover,
-.video.video-stage .video-play-btn.video-btn-solid:focus-visible {
+.video-stage .video-btn-solid:hover,
+.video-stage .video-btn-solid:focus-visible {
   background-color: rgb(255 255 255 / 55%);
   border-color: rgb(255 255 255 / 55%);
   color: var(--footer-text-color);
-  
 }
 
 /* ── Ghost variant ───────────────────────────────────────────────────────── */
 
-.video.video-stage .video-play-btn.video-btn-ghost {
+.video.video-stage .video-btn-ghost {
   background-color: rgb(255 255 255 / 8%);
   border: var(--border-01) solid rgb(255 255 255 / 35%);
   color: var(--background-color);
   backdrop-filter: blur(var(--spacing-02));
   margin: var(--spacing-00);
-
-  /* -webkit-backdrop-filter: blur(var(--spacing-02)); */
 }
 
-.video.video-stage .video-play-btn.video-btn-ghost:hover,
-.video.video-stage .video-play-btn.video-btn-ghost:focus-visible {
+.video-stage .video-btn-ghost:hover,
+.video-stage .video-btn-ghost:focus-visible {
   background-color: rgb(255 255 255 / 18%);
   border-color: rgb(255 255 255 / 55%);
   color: var(--background-color);
@@ -264,7 +261,7 @@ p.video-overlay-title {
   justify-content: center;
 }
 
-.video.video-stage .video-fallback-play button {
+.video.video-stage .video-fallback-btn {
   position: relative;
   display: block;
   width: var(--spacing-44);
@@ -277,7 +274,7 @@ p.video-overlay-title {
   cursor: pointer;
 }
 
-.video.video-stage .video-fallback-play button::before {
+.video-stage .video-fallback-btn::before {
   content: '';
   position: absolute;
   top: 50%;
@@ -299,7 +296,6 @@ p.video-overlay-title {
     padding-left: var(--spacing-40);
     gap: var(--spacing-16);
   }
-
 }
 
 @media (min-width: 1024px) {
@@ -310,5 +306,20 @@ p.video-overlay-title {
   .video.video-stage .video-overlay {
     gap: var(--spacing-24);
   }
+}
 
+.video-stage .video-poster {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.video-stage .video-player-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.video-stage .video-overlay {
+  z-index: 2;
 }

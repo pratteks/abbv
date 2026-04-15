@@ -61,6 +61,75 @@
         },
         {
           "component": "select",
+          "name": "classes_textWidth",
+          "label": "Text Container Width",
+          "options": [
+            {
+              "name": "Full Width",
+              "value": "full-width"
+            },
+            {
+              "name": "Large Width",
+              "value": "large-width"
+            },
+            {
+              "name": "Content Width",
+              "value": "content-width"
+            },
+            {
+              "name": "Narrow Width",
+              "value": "narrow-width"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "classes_textTopSpacing",
+          "label": "Text Container Top Spacing",
+          "options": [
+            {
+              "name": "Tight",
+              "value": "mt-tight"
+            },
+            {
+              "name": "Compact",
+              "value": "mt-compact"
+            },
+            {
+              "name": "Comfortable",
+              "value": "mt-comfortable"
+            },
+            {
+              "name": "Spacious",
+              "value": "mt-spacious"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "classes_textBottomSpacing",
+          "label": "Text Container Bottom Spacing",
+          "options": [
+            {
+              "name": "Tight",
+              "value": "mb-tight"
+            },
+            {
+              "name": "Compact",
+              "value": "mb-compact"
+            },
+            {
+              "name": "Comfortable",
+              "value": "mb-comfortable"
+            },
+            {
+              "name": "Spacious",
+              "value": "mb-spacious"
+            }
+          ]
+        },
+        {
+          "component": "select",
           "name": "classes_textAlignment",
           "label": "Text Alignment",
           "options": [

@@ -34,6 +34,17 @@
           "label": "Keywords"
         },
         {
+          "component": "aem-tag",
+          "name": "cq:tags",
+          "label": "Tags"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "pageSubtitle",
+          "label": "Page Subtitle"
+        },
+        {
           "component": "boolean",
           "valueType": "boolean",
           "name": "hideFromNavigation",

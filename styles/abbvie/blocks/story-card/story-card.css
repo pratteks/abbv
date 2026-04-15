@@ -1,5 +1,5 @@
 /* ================================================================
-   Story Card — Mobile-first responsive styles (AbbVie brand)
+   Story Card — Mobile-first responsive styles
    Specificity: max 3 levels (e.g. .story-card .story-card-title)
    Variants: card-info (default), story-card-info, is-leader-card, large-title
    ================================================================ */
@@ -7,6 +7,7 @@
 /* ================================================================
    Token Fallbacks (when tokens.css is not loaded globally)
    ================================================================ */
+
 .story-card {
   --surface-background-default: var(--background-color, rgb(255 255 255));
   --border-subtle: var(--separator-height-1, 0.1rem) solid var(--container-border-color, rgb(166 181 224));
@@ -45,6 +46,7 @@
 /* ================================================================
    Panel
    ================================================================ */
+
 .story-card .story-card-panel {
   background-color: transparent;
   border: none;
@@ -55,6 +57,7 @@
 /* ================================================================
    Link (column-reverse on mobile/tablet, row-reverse on desktop)
    ================================================================ */
+
 .story-card .story-card-link {
   color: inherit;
   display: flex;
@@ -65,6 +68,7 @@
 /* ================================================================
    Placeholder (author-mode)
    ================================================================ */
+
 .story-card .story-card-placeholder {
   background-color: var(--surface-background-default);
   border: var(--border-subtle);
@@ -97,6 +101,7 @@
 /* ================================================================
    Image
    ================================================================ */
+
 .story-card .story-card-image {
   align-items: center;
   border-radius: 4rem 0 0;
@@ -129,6 +134,7 @@
 /* ================================================================
    Content
    ================================================================ */
+
 .story-card .story-card-content {
   display: flex;
   flex-direction: column;
@@ -144,6 +150,7 @@
 /* ================================================================
    Meta (date + eyebrow + read-time) — column on mobile
    ================================================================ */
+
 .story-card .story-card-meta {
   color: var(--story-card-text-color);
   display: flex;
@@ -164,6 +171,7 @@
 /* ================================================================
    Eyebrow — full width on mobile (own line)
    ================================================================ */
+
 .story-card .story-card-eyebrow {
   color: var(--story-card-text-color);
   flex-basis: 100%;
@@ -179,6 +187,7 @@
 /* ================================================================
    Date / Read-time
    ================================================================ */
+
 .story-card .story-card-date,
 .story-card .story-card-read-time {
   color: var(--text-subtle);
@@ -209,6 +218,7 @@
 /* ================================================================
    Text container
    ================================================================ */
+
 .story-card .card-text-container {
   display: flex;
   flex-direction: column;
@@ -219,6 +229,7 @@
 /* ================================================================
    Title — 30px on mobile
    ================================================================ */
+
 .story-card .story-card-title {
   color: var(--story-card-text-color);
   font-family: var(--heading-font-family);
@@ -239,6 +250,7 @@
 /* ================================================================
    Description
    ================================================================ */
+
 .story-card .story-card-description {
   color: var(--story-card-text-color);
   font-family: var(--roboto-regular-font-family);
@@ -259,6 +271,7 @@
 /* ================================================================
    CTA — no arrow, single line
    ================================================================ */
+
 .story-card .story-card-cta {
   align-items: center;
   color: var(--story-card-link-color);
@@ -282,6 +295,7 @@
 /* ================================================================
    CTA container — column on mobile, row on tablet+
    ================================================================ */
+
 .story-card .story-card-cta-container {
   align-items: flex-start;
   display: flex;
@@ -292,6 +306,7 @@
 /* ================================================================
    Inline read-time (next to CTA for Card Info variant)
    ================================================================ */
+
 .story-card .story-card-read-time-inline {
   align-items: center;
   color: var(--story-card-text-color);
@@ -313,6 +328,7 @@
 /* ================================================================
    Hover / Focus
    ================================================================ */
+
 .story-card:hover {
   cursor: pointer;
 }
@@ -321,16 +337,15 @@
   background-color: transparent;
 }
 
-.story-card .story-card-panel:hover {
+.story-card :where(.story-card-panel:hover) {
   box-shadow: none;
 }
 
-.story-card .story-card-panel:has(:where(.story-card-link:focus-visible)) {
+.story-card :where(.story-card-panel:has(.story-card-link:focus-visible)) {
   box-shadow: var(--focus-ring-default);
 }
 
-.story-card-panel:hover .story-card-image :where(img),
-.story-card-panel:has(:where(.story-card-link:focus-visible)) .story-card-image :where(img) {
+.story-card :where(.story-card-panel:hover) .story-card-image :where(img) {
   transform: scale(var(--motion-hover-scale));
 }
 
@@ -346,6 +361,7 @@
 /* ================================================================
    Variant: Story Card Info — compact meta-only layout
    ================================================================ */
+
 .story-card.story-card-info .story-card-cta-container {
   display: none;
 }
@@ -366,6 +382,7 @@
 }
 
 /* Story Card Info: eyebrow as link — hover uses custom property */
+
 .story-card.story-card-info .story-card-eyebrow {
   color: var(--story-card-eyebrow-color, var(--story-card-text-color));
   text-decoration: none;
@@ -376,6 +393,7 @@
 }
 
 /* Story Card Info: no pointer cursor on card itself */
+
 .story-card.story-card-info:hover {
   cursor: default;
 }
@@ -383,6 +401,7 @@
 /* ================================================================
    Variant: Leader Card — stacked vertical, people cards
    ================================================================ */
+
 .story-card.is-leader-card .story-card-panel {
   background-color: transparent;
   border: none;
@@ -447,6 +466,7 @@
 /* ================================================================
    Variant: Large Title
    ================================================================ */
+
 .story-card.large-title .story-card-eyebrow {
   margin-bottom: var(--spacing-74);
 }
@@ -479,6 +499,7 @@
 /* ================================================================
    Variant: Text-only
    ================================================================ */
+
 .story-card.is-text-only .story-card-link {
   min-height: 100%;
 }
@@ -486,6 +507,7 @@
 /* ================================================================
    Tablet (≥ 744px)
    ================================================================ */
+
 @media (min-width: 744px) {
   /* Placeholder */
   .story-card .story-card-placeholder {
@@ -657,6 +679,7 @@
 /* ================================================================
    Desktop (≥ 1024px)
    ================================================================ */
+
 @media (min-width: 1024px) {
   /* Layout — side-by-side: content left, image right */
   .story-card .story-card-link {

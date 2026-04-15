@@ -1,7 +1,16 @@
+/* ================================================================
+   Story Card — Mobile-first responsive styles
+   Specificity: max 3 levels (e.g. .story-card .story-card-title)
+   Variants: card-info (default), story-card-info, is-leader-card, large-title
+   ================================================================ */
+
+/* ================================================================
+   Token Fallbacks (when tokens.css is not loaded globally)
+   ================================================================ */
+
 .story-card {
-  /* Token fallbacks — resolve when tokens.css is not loaded globally */
-  --surface-background-default: var(--background-color, #fff);
-  --border-subtle: var(--separator-height-1, 0.1rem) solid var(--container-border-color, #a6b5e0);
+  --surface-background-default: var(--background-color, rgb(255 255 255));
+  --border-subtle: var(--separator-height-1, 0.1rem) solid var(--container-border-color, rgb(166 181 224));
   --transition-duration-fast: 0.2s;
   --transition-duration-medium: 0.3s;
   --transition-easing-standard: ease;
@@ -11,7 +20,7 @@
   --elevation-card: 0 var(--spacing-08, 0.8rem) var(--spacing-20, 2rem) rgb(7 29 73 / 10%);
   --focus-ring-default: 0 0 0 var(--spacing-02, 0.2rem) rgb(0 102 245 / 16%);
   --motion-hover-scale: 1.02;
-  --text-subtle: var(--bg-666b7a, #666b7a);
+  --text-subtle: var(--bg-666b7a, rgb(102 107 122));
 
   /* Story card design tokens */
   --story-card-image-ratio: 16 / 9;
@@ -35,7 +44,7 @@
 }
 
 /* ================================================================
-   Panel  (card container — hero-style: no border, no bg)
+   Panel
    ================================================================ */
 
 .story-card .story-card-panel {
@@ -46,7 +55,7 @@
 }
 
 /* ================================================================
-   Link  (layout container — stacked column-reverse like card-hero)
+   Link (column-reverse on mobile/tablet, row-reverse on desktop)
    ================================================================ */
 
 .story-card .story-card-link {
@@ -57,7 +66,7 @@
 }
 
 /* ================================================================
-   Placeholder  (author-mode empty state)
+   Placeholder (author-mode)
    ================================================================ */
 
 .story-card .story-card-placeholder {
@@ -94,11 +103,11 @@
    ================================================================ */
 
 .story-card .story-card-image {
-  border-radius: var(--border-top-left-radius, 4rem) 0 0 0;
-  display: flex;
   align-items: center;
-  justify-content: center;
+  border-radius: 4rem 0 0;
+  display: flex;
   flex: 1 1 0%;
+  justify-content: center;
   margin-left: var(--spacing-35, 3.5rem);
   overflow: hidden;
 }
@@ -114,12 +123,8 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
-  width: 100%;
   transition: all 0.3s ease-out;
-}
-
-.story-card.large-title img {
-  aspect-ratio: var(--story-card-image-ratio-large-title);
+  width: 100%;
 }
 
 .story-card .story-card-image.contain :where(img) {
@@ -127,15 +132,15 @@
 }
 
 /* ================================================================
-   Content  (text area — hero-style: flex column, generous padding)
+   Content
    ================================================================ */
 
 .story-card .story-card-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: var(--spacing-64, 6.4rem) var(--spacing-35, 3.5rem) var(--spacing-120, 12rem) var(--spacing-35, 3.5rem);
   min-height: auto;
+  padding: var(--spacing-64, 6.4rem) var(--spacing-35, 3.5rem) var(--spacing-120, 12rem) var(--spacing-35, 3.5rem);
 }
 
 .story-card .story-card-content * {
@@ -143,7 +148,7 @@
 }
 
 /* ================================================================
-   Meta  (eyebrow + date + read-time wrapper)
+   Meta (date + eyebrow + read-time) — column on mobile
    ================================================================ */
 
 .story-card .story-card-meta {
@@ -164,7 +169,7 @@
 }
 
 /* ================================================================
-   Eyebrow
+   Eyebrow — full width on mobile (own line)
    ================================================================ */
 
 .story-card .story-card-eyebrow {
@@ -188,8 +193,8 @@
   color: var(--text-subtle);
   font-family: var(--roboto-bold-font-family);
   font-size: var(--font-size-14);
-  font-weight: var(--font-weight-700);
   font-style: normal;
+  font-weight: var(--font-weight-700);
   letter-spacing: var(--tracking-wide-sm);
   line-height: var(--line-height-20);
 }
@@ -222,7 +227,7 @@
 }
 
 /* ================================================================
-   Title
+   Title — 30px on mobile
    ================================================================ */
 
 .story-card .story-card-title {
@@ -234,15 +239,8 @@
   margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: normal;
   transition: all 0.3s ease-out;
-}
-
-.story-card.large-title .story-card-title {
-  -webkit-line-clamp: 2;
-  font-size: var(--font-size-40);
-  height: var(--story-card-large-title-height);
-  line-height: var(--line-height-35);
+  white-space: normal;
 }
 
 .story-card.hide-description .story-card-title {
@@ -271,7 +269,7 @@
 }
 
 /* ================================================================
-   CTA
+   CTA — no arrow, single line
    ================================================================ */
 
 .story-card .story-card-cta {
@@ -295,88 +293,18 @@
 }
 
 /* ================================================================
-   Hover / Focus
-   ================================================================ */
-
-.story-card:hover {
-  cursor: pointer;
-}
-
-.story-card .story-card-panel:has(:where(.story-card-link:focus-visible)) {
-  box-shadow:
-    var(--focus-ring-default),
-    var(--elevation-card);
-}
-
-.story-card .story-card-panel:hover {
-  box-shadow: var(--elevation-card);
-}
-
-.story-card:hover .story-card-content {
-  background-color: transparent;
-}
-
-.story-card-panel:hover .story-card-image :where(img),
-.story-card-panel:has(:where(.story-card-link:focus-visible)) .story-card-image :where(img) {
-  transform: scale(var(--motion-hover-scale));
-}
-
-.story-card:hover *,
-.story-card:hover a {
-  color: var(--story-card-text-color);
-}
-
-.story-card:hover .story-card-cta {
-  --story-card-cta-arrow-color: var(--story-card-text-color);
-}
-
-.story-card .story-card-link:focus-visible {
-  outline: none;
-}
-
-/* ================================================================
-   Large-title variant
-   ================================================================ */
-
-.story-card.large-title .story-card-eyebrow {
-  margin-bottom: var(--spacing-74);
-}
-
-.story-card.large-title .story-card-description {
-  -webkit-line-clamp: 3;
-  color: var(--story-card-text-color);
-  font-family: var(--roboto-regular-font-family);
-  font-size: var(--font-size-16);
-  font-weight: var(--story-card-description-font-weight);
-  line-height: var(--line-height-22);
-}
-
-.story-card.large-title:not(.hide-description)
-  :where(.story-card-title, .story-card-description) {
-  margin-top: var(--spacing-32);
-}
-
-/* ================================================================
-   Text-only variant
-   ================================================================ */
-
-.story-card.is-text-only .story-card-link {
-  min-height: 100%;
-}
-
-/* ================================================================
-   CTA container (holds CTA + optional inline read-time)
+   CTA container — column on mobile, row on tablet+
    ================================================================ */
 
 .story-card .story-card-cta-container {
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   gap: var(--spacing-08);
 }
 
 /* ================================================================
-   Inline read-time (next to CTA — used by Card Info & Story Card Info)
+   Inline read-time (next to CTA for Card Info variant)
    ================================================================ */
 
 .story-card .story-card-read-time-inline {
@@ -397,55 +325,81 @@
   line-height: var(--story-card-read-time-icon-line-height);
 }
 
-/* In story-card-info variant, hide read-time from meta area
-   since it appears inline next to CTA instead */
+/* ================================================================
+   Hover / Focus
+   ================================================================ */
 
-/* Story Card Info: compact layout — only meta row shows */
+.story-card:hover {
+  cursor: pointer;
+}
 
-.story-card-info .story-card-cta-container {
+.story-card:hover .story-card-content {
+  background-color: transparent;
+}
+
+.story-card :where(.story-card-panel:hover) {
+  box-shadow: none;
+}
+
+.story-card :where(.story-card-panel:has(.story-card-link:focus-visible)) {
+  box-shadow: var(--focus-ring-default);
+}
+
+.story-card :where(.story-card-panel:hover) .story-card-image :where(img) {
+  transform: scale(var(--motion-hover-scale));
+}
+
+.story-card:where(:not(.story-card-info)):hover *,
+.story-card:where(:not(.story-card-info)):hover a {
+  color: var(--story-card-text-color);
+}
+
+.story-card .story-card-link:focus-visible {
+  outline: none;
+}
+
+/* ================================================================
+   Variant: Story Card Info — compact meta-only layout
+   ================================================================ */
+
+.story-card.story-card-info .story-card-cta-container {
   display: none;
 }
 
-.story-card-info .story-card-content {
+.story-card.story-card-info .story-card-content {
   padding: var(--spacing-24) var(--spacing-20);
 }
 
-.story-card-info .story-card-read-time {
+.story-card.story-card-info .story-card-read-time {
+  color: var(--story-card-text-color);
   flex-basis: auto;
   font-family: var(--body-font-family);
   font-size: var(--font-size-12);
   font-weight: var(--font-weight-400);
-  color: var(--story-card-text-color);
   letter-spacing: normal;
   margin-top: 0;
   width: auto;
 }
 
-@media (min-width: 744px) {
-  .story-card-info .story-card-content {
-    padding: var(--spacing-24) var(--spacing-70);
-  }
+/* Story Card Info: eyebrow as link — hover uses custom property */
 
-  .story-card-info .story-card-read-time {
-    margin-left: auto;
-  }
+.story-card.story-card-info .story-card-eyebrow {
+  color: var(--story-card-eyebrow-color, var(--story-card-text-color));
+  text-decoration: none;
 }
 
-@media (min-width: 1024px) {
-  .story-card-info .story-card-link {
-    flex-direction: row;
-  }
+.story-card.story-card-info :where(.story-card-eyebrow:hover) {
+  --story-card-eyebrow-color: var(--color-accent-blue);
+}
 
-  .story-card-info .story-card-content {
-    max-width: 100%;
-    width: 100%;
-    padding: var(--spacing-24) var(--spacing-70);
-  }
+/* Story Card Info: no pointer cursor on card itself */
+
+.story-card.story-card-info:hover {
+  cursor: default;
 }
 
 /* ================================================================
-   Leader-card variant (inside story-cards grid)
-   Cards stay stacked vertically and match original AEM styling.
+   Variant: Leader Card — stacked vertical, people cards
    ================================================================ */
 
 .story-card.is-leader-card .story-card-panel {
@@ -469,8 +423,8 @@
 
 .story-card.is-leader-card .story-card-content {
   display: block;
-  padding: var(--spacing-00);
   min-height: auto;
+  padding: var(--spacing-00);
 }
 
 .story-card.is-leader-card .story-card-title {
@@ -482,24 +436,24 @@
 }
 
 .story-card.is-leader-card .story-card-description {
+  -webkit-line-clamp: unset;
+  color: var(--story-card-text-color);
+  display: block;
   font-family: var(--body-font-family);
   font-size: var(--font-size-12);
   font-weight: var(--font-weight-400);
-  line-height: var(--line-height-16);
-  color: var(--story-card-text-color);
-  -webkit-line-clamp: unset;
   line-clamp: unset;
-  display: block;
+  line-height: var(--line-height-16);
 }
 
 .story-card.is-leader-card .story-card-cta {
+  color: var(--color-accent-blue);
   font-family: var(--roboto-bold-font-family);
   font-size: var(--font-size-14);
   font-weight: var(--font-weight-700);
-  text-transform: var(--font-uppercase);
   letter-spacing: var(--letter-spacing-wide-06);
   line-height: var(--line-height-20);
-  color: var(--color-accent-blue);
+  text-transform: var(--font-uppercase);
 }
 
 .story-card.is-leader-card .story-card-meta,
@@ -510,15 +464,58 @@
 }
 
 /* ================================================================
-   Tablet  (≥ 744px)
+   Variant: Large Title
+   ================================================================ */
+
+.story-card.large-title .story-card-eyebrow {
+  margin-bottom: var(--spacing-74);
+}
+
+.story-card.large-title .story-card-title {
+  -webkit-line-clamp: 2;
+  font-size: var(--font-size-40);
+  height: var(--story-card-large-title-height);
+  line-height: var(--line-height-35);
+}
+
+.story-card.large-title img {
+  aspect-ratio: var(--story-card-image-ratio-large-title);
+}
+
+.story-card.large-title .story-card-description {
+  -webkit-line-clamp: 3;
+  color: var(--story-card-text-color);
+  font-family: var(--roboto-regular-font-family);
+  font-size: var(--font-size-16);
+  font-weight: var(--story-card-description-font-weight);
+  line-height: var(--line-height-22);
+}
+
+.story-card.large-title:not(.hide-description)
+  :where(.story-card-title, .story-card-description) {
+  margin-top: var(--spacing-32);
+}
+
+/* ================================================================
+   Variant: Text-only
+   ================================================================ */
+
+.story-card.is-text-only .story-card-link {
+  min-height: 100%;
+}
+
+/* ================================================================
+   Tablet (≥ 744px)
    ================================================================ */
 
 @media (min-width: 744px) {
+  /* Placeholder */
   .story-card .story-card-placeholder {
     min-height: var(--story-card-placeholder-min-height-tablet);
     padding: var(--spacing-32);
   }
 
+  /* Layout */
   .story-card .story-card-link {
     flex-direction: column-reverse;
   }
@@ -529,13 +526,10 @@
     width: 100%;
   }
 
-  .story-card .story-card-content {
-    min-height: auto;
-    padding: var(--space-token-xxl, 8rem) var(--spacing-70) var(--spacing-120, 12rem) var(--spacing-00);
-  }
-
+  /* Image */
   .story-card .story-card-image {
     flex: 1 1 0%;
+    margin-left: var(--spacing-70);
   }
 
   .story-card .story-card-image img {
@@ -543,6 +537,13 @@
     height: 100%;
   }
 
+  /* Content */
+  .story-card .story-card-content {
+    min-height: auto;
+    padding: var(--space-token-xxl, 8rem) var(--spacing-70) var(--spacing-120, 12rem) var(--spacing-00);
+  }
+
+  /* Meta — row on tablet */
   .story-card .story-card-meta {
     flex-flow: row nowrap;
     font-size: var(--font-size-14);
@@ -554,11 +555,13 @@
     font-size: var(--font-size-14);
   }
 
+  /* Title — 40px on tablet */
   .story-card .story-card-title {
     font-size: var(--font-size-40);
     line-height: var(--line-height-44);
   }
 
+  /* Description / CTA */
   .story-card .story-card-description {
     font-size: var(--font-size-14);
     line-height: var(--line-height-20);
@@ -569,61 +572,21 @@
   }
 
   .story-card .story-card-cta-container {
-    flex-direction: row;
     align-items: center;
+    flex-direction: row;
     gap: var(--spacing-10);
   }
 
-  .story-card.large-title .story-card-link {
-    flex-direction: row;
+  /* Story Card Info — tablet */
+  .story-card.story-card-info .story-card-content {
+    padding: var(--spacing-24) var(--spacing-70);
   }
 
-  .story-card.large-title .story-card-content {
-    max-width: 66%;
-    width: 66%;
-    padding-right: var(--spacing-24);
+  .story-card.story-card-info .story-card-read-time {
+    margin-left: auto;
   }
 
-  .story-card.large-title .story-card-image {
-    max-width: 33%;
-    width: 33%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100%;
-  }
-
-  .story-card.large-title .story-card-image picture {
-    height: 100%;
-  }
-
-  .story-card.large-title .story-card-image img {
-    aspect-ratio: auto;
-    height: 100%;
-  }
-
-  .story-card.large-title .story-card-description {
-    font-size: var(--font-size-20);
-    line-height: var(--line-height-26);
-  }
-
-  .story-card.large-title:not(.hide-description) :where(.card-text-container) {
-    display: grid;
-    grid-template: repeat(2, auto) / 1fr 1fr;
-    column-gap: var(--spacing-32);
-  }
-
-  .story-card.large-title:not(.hide-description) :where(.story-card-eyebrow) {
-    grid-column: span 2;
-  }
-
-  .story-card.large-title:not(.hide-description)
-    :where(.story-card-title, .story-card-description) {
-    grid-column: span 1;
-    margin-top: 0;
-  }
-
-  /* Leader-card: keep stacked layout at tablet */
+  /* Leader card — tablet */
   .story-card.is-leader-card .story-card-link {
     flex-direction: column;
   }
@@ -644,22 +607,72 @@
   }
 
   .story-card.is-leader-card .story-card-title {
+    -webkit-line-clamp: unset;
+    display: block;
     font-family: var(--body-font-family);
     font-size: var(--font-size-18);
     font-weight: var(--font-weight-400);
     line-height: var(--line-height-24);
-    display: block;
-    -webkit-line-clamp: unset;
   }
 
   .story-card.is-leader-card .story-card-description {
+    display: block;
     font-size: var(--font-size-12);
     line-height: var(--line-height-16);
-    display: block;
   }
 
   .story-card.is-leader-card .story-card-cta {
     font-size: var(--font-size-14);
+  }
+
+  /* Large title — tablet */
+  .story-card.large-title .story-card-link {
+    flex-direction: row;
+  }
+
+  .story-card.large-title .story-card-content {
+    max-width: 66%;
+    padding-right: var(--spacing-24);
+    width: 66%;
+  }
+
+  .story-card.large-title .story-card-image {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    max-width: 33%;
+    min-height: 100%;
+    width: 33%;
+  }
+
+  .large-title .story-card-image :where(picture) {
+    height: 100%;
+  }
+
+  .large-title .story-card-image :where(img) {
+    aspect-ratio: auto;
+    height: 100%;
+  }
+
+  .story-card.large-title .story-card-description {
+    font-size: var(--font-size-20);
+    line-height: var(--line-height-26);
+  }
+
+  .story-card.large-title:not(.hide-description) :where(.card-text-container) {
+    column-gap: var(--spacing-32);
+    display: grid;
+    grid-template: repeat(2, auto) / 1fr 1fr;
+  }
+
+  .story-card.large-title:not(.hide-description) :where(.story-card-eyebrow) {
+    grid-column: span 2;
+  }
+
+  .story-card.large-title:not(.hide-description)
+    :where(.story-card-title, .story-card-description) {
+    grid-column: span 1;
+    margin-top: 0;
   }
 }
 
@@ -668,6 +681,7 @@
    ================================================================ */
 
 @media (min-width: 1024px) {
+  /* Layout — side-by-side: content left, image right */
   .story-card .story-card-link {
     flex-direction: row-reverse;
   }
@@ -678,12 +692,13 @@
     width: 50%;
   }
 
+  /* Image — desktop */
   .story-card .story-card-image {
-    margin-left: 0;
-    border-radius: var(--border-top-left-radius-40, 4rem) 0 0 0;
-    display: flex;
     align-items: center;
+    border-radius: 4rem 0 0;
+    display: flex;
     justify-content: center;
+    margin-left: 0;
     min-height: 100%;
   }
 
@@ -693,11 +708,13 @@
     object-fit: cover;
   }
 
+  /* Content — desktop */
   .story-card .story-card-content {
     min-height: auto;
     padding: 0 var(--spacing-120, 13rem) 0 0;
   }
 
+  /* Meta — single row, no wrap */
   .story-card .story-card-meta {
     flex-wrap: nowrap;
   }
@@ -706,6 +723,7 @@
     flex-basis: auto;
   }
 
+  /* Title — 64px on desktop */
   .story-card .story-card-title {
     font-size: var(--font-size-64, 6.4rem);
     line-height: var(--line-height-68, 6.8rem);
@@ -716,12 +734,18 @@
     line-height: var(--line-height-20);
   }
 
-  .story-card.large-title .story-card-description {
-    font-size: var(--font-size-24);
-    line-height: var(--line-height-32);
+  /* Story Card Info — desktop */
+  .story-card.story-card-info .story-card-link {
+    flex-direction: row;
   }
 
-  /* Leader-card: desktop sizing */
+  .story-card.story-card-info .story-card-content {
+    max-width: 100%;
+    padding: var(--spacing-24) var(--spacing-70);
+    width: 100%;
+  }
+
+  /* Leader card — desktop */
   .story-card.is-leader-card .story-card-content {
     min-height: auto;
   }
@@ -736,5 +760,11 @@
   .story-card.is-leader-card .story-card-description {
     font-size: var(--font-size-14);
     line-height: var(--line-height-20);
+  }
+
+  /* Large title — desktop */
+  .story-card.large-title .story-card-description {
+    font-size: var(--font-size-24);
+    line-height: var(--line-height-32);
   }
 }

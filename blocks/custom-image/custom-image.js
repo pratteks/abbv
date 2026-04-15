@@ -7,6 +7,8 @@
  * @param {string} modifiers - Raw query string modifiers (e.g. "wid=500&hei=300")
  * @returns {string} Final URL
  */
+import { applyCommonProps } from '../../scripts/utils.js';
+
 export function buildImageUrl(src, presetType, imagePreset, rendition, modifiers) {
   const baseUrl = src.includes('?') ? src.split('?')[0] : src;
 
@@ -55,6 +57,9 @@ const ROW = {
   WARN_ON_LEAVE_PATH: 15,
   LINK_ARIA_LABEL: 16,
   ANALYTICS_INTERACTION_ID: 17,
+  // Row 18: blockId                (handled by applyCommonProps)
+  // Row 19: classes_commonCustomClass (handled by framework — no JS needed)
+  // Row 20: language               (handled by applyCommonProps)
 };
 
 /**
@@ -137,10 +142,26 @@ function applyLink(picture, {
  * @param {HTMLElement} block
  */
 export default function decorate(block) {
-  const img = block.querySelector('img');
-  if (!img) return;
-
   const rows = [...block.querySelectorAll(':scope > div')];
+  const imageRow = rows[ROW.IMAGE];
+
+  // Case 2: image directly authored — picture/img tags already present in DOM
+  let picture = imageRow?.querySelector('picture');
+  let img = picture?.querySelector('img') ?? imageRow?.querySelector('img');
+
+  // Case 1: image authored as URL — available as an anchor tag
+  if (!img) {
+    const anchor = imageRow?.querySelector('a');
+    if (!anchor) return;
+
+    img = document.createElement('img');
+    img.src = anchor.href;
+    img.alt = anchor.textContent?.trim() ?? '';
+    img.loading = 'lazy';
+
+    picture = document.createElement('picture');
+    picture.appendChild(img);
+  }
 
   // --- Image config ---
   const presetType = getRowText(rows, ROW.PRESET_TYPE);
@@ -167,8 +188,18 @@ export default function decorate(block) {
   img.src = buildImageUrl(img.src, presetType, imagePreset, rendition, imageModifiers);
   if (imageIsDecorative) img.alt = '';
 
-  const picture = document.createElement('picture');
-  picture.appendChild(img);
+  // Apply preset/crop to existing source srcsets (Case 2 responsive sources)
+  picture.querySelectorAll('source').forEach((source) => {
+    if (source.srcset) {
+      source.srcset = buildImageUrl(
+        source.srcset,
+        presetType,
+        imagePreset,
+        rendition,
+        imageModifiers,
+      );
+    }
+  });
 
   // --- Optionally wrap in link ---
   const imageContent = enableLink && target
@@ -181,6 +212,9 @@ export default function decorate(block) {
       ariaLabel: linkAriaLabel,
     })
     : picture;
+
+  // --- Apply common props (blockId → id, language → lang) ---
+  applyCommonProps(block);
 
   // --- Build final DOM ---
   block.innerHTML = '';

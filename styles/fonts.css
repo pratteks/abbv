@@ -81,3 +81,34 @@
   ascent-override: 95%;
   src: local('Arial');
 }
+
+
+[class^='icon-abbvie'],
+[class*=' icon-abbvie'] {
+    font-family: 'Abbvie Icon' !important;
+    speak: never;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-abbvie-external-link::before  { content: '\e900'; }
+.icon-abbvie-chevron-right::before  { content: '\e901'; }
+.icon-abbvie-arrow-left::before     { content: '\e902'; }
+.icon-abbvie-chevron-left::before   { content: '\e903'; }
+.icon-abbvie-clock::before          { content: '\e904'; }
+.icon-abbvie-arrow-right::before    { content: '\e905'; }
+.icon-abbvie-plus::before           { content: '\e906'; }
+.icon-abbvie-minus::before          { content: '\e907'; }
+.icon-abbvie-cross::before          { content: '\e908'; }
+.icon-abbvie-quote::before          { content: '\e909'; }
+.icon-abbvie-arrow-top::before      { content: '\e90a'; }
+.icon-abbvie-play::before           { content: '\e90b'; }
+.icon-abbvie-chevron-down::before   { content: '\e90c'; }
+.icon-abbvie-pause::before          { content: '\e90d'; }
+.icon-abbvie-sound::before          { content: '\e90e'; }
+.icon-abbvie-link::before           { content: '\e90f'; }

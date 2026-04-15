@@ -33,24 +33,6 @@
       }
     },
     {
-      "title": "Flex Section",
-      "id": "flex-section",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/section/v1/section",
-            "template": {
-              "model": "flex-section",
-              "filter": "flex-section",
-              "name": "Flex Section",
-              "identifier": "Flex Section",
-              "section-type": "flex-section"
-            }
-          }
-        }
-      }
-    },
-    {
       "title": "Grid Section",
       "id": "grid-section",
       "plugins": {
@@ -131,13 +113,34 @@
           "name": "classes_desktopWidth",
           "label": "Desktop Width",
           "options": [
-            { "name": "None", "value": "section-base" },
-            { "name": "XX-Large (12 column)", "value": "section-xxl" },
-            { "name": "X-Large (8 column)", "value": "section-xl" },
-            { "name": "Large (7 column)", "value": "section-l" },
-            { "name": "Medium (6 column)", "value": "section-m" },
-            { "name": "Small (5 column)", "value": "section-s" },
-            { "name": "X-Small (4 column)", "value": "section-xs" }
+            {
+              "name": "None",
+              "value": "section-base"
+            },
+            {
+              "name": "XX-Large (12 column)",
+              "value": "section-xxl"
+            },
+            {
+              "name": "X-Large (8 column)",
+              "value": "section-xl"
+            },
+            {
+              "name": "Large (7 column)",
+              "value": "section-l"
+            },
+            {
+              "name": "Medium (6 column)",
+              "value": "section-m"
+            },
+            {
+              "name": "Small (5 column)",
+              "value": "section-s"
+            },
+            {
+              "name": "X-Small (4 column)",
+              "value": "section-xs"
+            }
           ]
         },
         {
@@ -411,18 +414,54 @@
           "required": true,
           "description": "Number of equal-width columns in this grid section",
           "options": [
-            { "name": "1 Column", "value": "grid-cols-1" },
-            { "name": "2 Columns", "value": "grid-cols-2" },
-            { "name": "3 Columns", "value": "grid-cols-3" },
-            { "name": "4 Columns", "value": "grid-cols-4" },
-            { "name": "5 Columns", "value": "grid-cols-5" },
-            { "name": "6 Columns", "value": "grid-cols-6" },
-            { "name": "7 Columns", "value": "grid-cols-7" },
-            { "name": "8 Columns", "value": "grid-cols-8" },
-            { "name": "9 Columns", "value": "grid-cols-9" },
-            { "name": "10 Columns", "value": "grid-cols-10" },
-            { "name": "11 Columns", "value": "grid-cols-11" },
-            { "name": "12 Columns", "value": "grid-cols-12" }
+            {
+              "name": "1 Column",
+              "value": "grid-cols-1"
+            },
+            {
+              "name": "2 Columns",
+              "value": "grid-cols-2"
+            },
+            {
+              "name": "3 Columns",
+              "value": "grid-cols-3"
+            },
+            {
+              "name": "4 Columns",
+              "value": "grid-cols-4"
+            },
+            {
+              "name": "5 Columns",
+              "value": "grid-cols-5"
+            },
+            {
+              "name": "6 Columns",
+              "value": "grid-cols-6"
+            },
+            {
+              "name": "7 Columns",
+              "value": "grid-cols-7"
+            },
+            {
+              "name": "8 Columns",
+              "value": "grid-cols-8"
+            },
+            {
+              "name": "9 Columns",
+              "value": "grid-cols-9"
+            },
+            {
+              "name": "10 Columns",
+              "value": "grid-cols-10"
+            },
+            {
+              "name": "11 Columns",
+              "value": "grid-cols-11"
+            },
+            {
+              "name": "12 Columns",
+              "value": "grid-cols-12"
+            }
           ]
         },
         {
@@ -430,23 +469,101 @@
           "name": "classes_bg-color",
           "label": "Background Color",
           "options": [
-            { "name": "Not Set", "value": "" },
-            { "name": "White", "value": "bg-ffffff" },
-            { "name": "Dark Navy Blue", "value": "bg-071d49" },
-            { "name": "Light Periwinkle Blue", "value": "bg-a6b5e0" },
-            { "name": "Very Light Lavender", "value": "bg-f1f3ff" },
-            { "name": "Soft Off White", "value": "bg-fafbff" },
-            { "name": "Slate Gray", "value": "bg-666b7a" },
-            { "name": "Warm Gray", "value": "bg-b9b4b4" },
-            { "name": "Light Gray", "value": "bg-f4f4f4" },
-            { "name": "Snow White", "value": "bg-fafafa" },
-            { "name": "Royal Purple", "value": "bg-8a2ecc" },
-            { "name": "Soft Purple", "value": "bg-a86bde" },
-            { "name": "Bright Blue", "value": "bg-0066f5" },
-            { "name": "Sky Blue", "value": "bg-479ff8" },
-            { "name": "Burnt Orange", "value": "bg-cf451c" },
-            { "name": "Coral Red", "value": "bg-f7634f" },
-            { "name": "Forest Green", "value": "bg-338700" }
+            {
+              "name": "Not Set",
+              "value": ""
+            },
+            {
+              "name": "White",
+              "value": "bg-ffffff"
+            },
+            {
+              "name": "Dark Navy Blue",
+              "value": "bg-071d49"
+            },
+            {
+              "name": "Light Periwinkle Blue",
+              "value": "bg-a6b5e0"
+            },
+            {
+              "name": "Very Light Lavender",
+              "value": "bg-f1f3ff"
+            },
+            {
+              "name": "Soft Off White",
+              "value": "bg-fafbff"
+            },
+            {
+              "name": "Slate Gray",
+              "value": "bg-666b7a"
+            },
+            {
+              "name": "Warm Gray",
+              "value": "bg-b9b4b4"
+            },
+            {
+              "name": "Light Gray",
+              "value": "bg-f4f4f4"
+            },
+            {
+              "name": "Snow White",
+              "value": "bg-fafafa"
+            },
+            {
+              "name": "Royal Purple",
+              "value": "bg-8a2ecc"
+            },
+            {
+              "name": "Soft Purple",
+              "value": "bg-a86bde"
+            },
+            {
+              "name": "Bright Blue",
+              "value": "bg-0066f5"
+            },
+            {
+              "name": "Sky Blue",
+              "value": "bg-479ff8"
+            },
+            {
+              "name": "Burnt Orange",
+              "value": "bg-cf451c"
+            },
+            {
+              "name": "Coral Red",
+              "value": "bg-f7634f"
+            },
+            {
+              "name": "Forest Green",
+              "value": "bg-338700"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "classes_borderRadius",
+          "label": "Border Radius",
+          "options": [
+            {
+              "name": "None",
+              "value": "no-radius"
+            },
+            {
+              "name": "Large Radius",
+              "value": "radius-large"
+            },
+            {
+              "name": "Medium Radius",
+              "value": "radius-medium"
+            },
+            {
+              "name": "Small Radius",
+              "value": "radius-small"
+            },
+            {
+              "name": "Medium Radius (Hero)",
+              "value": "medium-radius"
+            }
           ]
         },
         {
@@ -485,23 +602,74 @@
           "name": "classes_bg-color",
           "label": "Background Color",
           "options": [
-            { "name": "Not Set", "value": "" },
-            { "name": "White", "value": "bg-ffffff" },
-            { "name": "Dark Navy Blue", "value": "bg-071d49" },
-            { "name": "Light Periwinkle Blue", "value": "bg-a6b5e0" },
-            { "name": "Very Light Lavender", "value": "bg-f1f3ff" },
-            { "name": "Soft Off White", "value": "bg-fafbff" },
-            { "name": "Slate Gray", "value": "bg-666b7a" },
-            { "name": "Warm Gray", "value": "bg-b9b4b4" },
-            { "name": "Light Gray", "value": "bg-f4f4f4" },
-            { "name": "Snow White", "value": "bg-fafafa" },
-            { "name": "Royal Purple", "value": "bg-8a2ecc" },
-            { "name": "Soft Purple", "value": "bg-a86bde" },
-            { "name": "Bright Blue", "value": "bg-0066f5" },
-            { "name": "Sky Blue", "value": "bg-479ff8" },
-            { "name": "Burnt Orange", "value": "bg-cf451c" },
-            { "name": "Coral Red", "value": "bg-f7634f" },
-            { "name": "Forest Green", "value": "bg-338700" }
+            {
+              "name": "Not Set",
+              "value": ""
+            },
+            {
+              "name": "White",
+              "value": "bg-ffffff"
+            },
+            {
+              "name": "Dark Navy Blue",
+              "value": "bg-071d49"
+            },
+            {
+              "name": "Light Periwinkle Blue",
+              "value": "bg-a6b5e0"
+            },
+            {
+              "name": "Very Light Lavender",
+              "value": "bg-f1f3ff"
+            },
+            {
+              "name": "Soft Off White",
+              "value": "bg-fafbff"
+            },
+            {
+              "name": "Slate Gray",
+              "value": "bg-666b7a"
+            },
+            {
+              "name": "Warm Gray",
+              "value": "bg-b9b4b4"
+            },
+            {
+              "name": "Light Gray",
+              "value": "bg-f4f4f4"
+            },
+            {
+              "name": "Snow White",
+              "value": "bg-fafafa"
+            },
+            {
+              "name": "Royal Purple",
+              "value": "bg-8a2ecc"
+            },
+            {
+              "name": "Soft Purple",
+              "value": "bg-a86bde"
+            },
+            {
+              "name": "Bright Blue",
+              "value": "bg-0066f5"
+            },
+            {
+              "name": "Sky Blue",
+              "value": "bg-479ff8"
+            },
+            {
+              "name": "Burnt Orange",
+              "value": "bg-cf451c"
+            },
+            {
+              "name": "Coral Red",
+              "value": "bg-f7634f"
+            },
+            {
+              "name": "Forest Green",
+              "value": "bg-338700"
+            }
           ]
         },
         {
@@ -509,9 +677,18 @@
           "name": "classes_padding",
           "label": "Padding",
           "options": [
-            { "name": "None", "value": "" },
-            { "name": "Small", "value": "small-padding" },
-            { "name": "Regular", "value": "regular-padding" }
+            {
+              "name": "None",
+              "value": ""
+            },
+            {
+              "name": "Small",
+              "value": "small-padding"
+            },
+            {
+              "name": "Regular",
+              "value": "regular-padding"
+            }
           ]
         },
         {
@@ -634,123 +811,6 @@
           "description": "When checked, only the first fragment is shown. When unchecked, fragments rotate in authored order on each page visit."
         }
       ]
-    },
-    {
-      "id": "flex-section",
-      "fields": [
-        {
-          "component": "text",
-          "name": "section-type",
-          "value": "flex-section",
-          "valueType": "string",
-          "hidden": true
-        },
-        {
-          "component": "tab",
-          "label": "Properties",
-          "name": "properties"
-        },
-        {
-          "component": "text",
-          "name": "name",
-          "label": "Section Name",
-          "description": "The label shown for this section in the Content Tree"
-        },
-        {
-          "component": "text",
-          "name": "sectionId",
-          "label": "Section ID",
-          "value": "",
-          "valueType": "string"
-        },
-        {
-          "component": "tab",
-          "label": "Styles",
-          "name": "styles"
-        },
-        {
-          "component": "select",
-          "name": "classes_alignment",
-          "label": "Alignment",
-          "options": [
-            {
-              "name": "None",
-              "value": "no-align"
-            },
-            {
-              "name": "Left",
-              "value": "align-left"
-            },
-            {
-              "name": "Right",
-              "value": "align-right"
-            },
-            {
-              "name": "Center",
-              "value": "align-center"
-            }
-          ]
-        },
-        {
-          "component": "select",
-          "name": "classes_width",
-          "label": "Select Width",
-          "options": [
-            {
-              "name": "Full Width",
-              "value": "flxsection-col-10"
-            },
-            {
-              "name": "Extra Large (90%)",
-              "value": "flxsection-col-9"
-            },
-            {
-              "name": "Very Large (80%)",
-              "value": "flxsection-col-8"
-            },
-            {
-              "name": "Large (70%)",
-              "value": "flxsection-col-7"
-            },
-            {
-              "name": "Medium Large (60%)",
-              "value": "flxsection-col-6"
-            },
-            {
-              "name": "Half width (50%)",
-              "value": "flxsection-col-5"
-            },
-            {
-              "name": "Medium Small (40%)",
-              "value": "flxsection-col-4"
-            },
-            {
-              "name": "Small (30%)",
-              "value": "flxsection-col-3"
-            },
-            {
-              "name": "Very Small (20%)",
-              "value": "flxsection-col-2"
-            },
-            {
-              "name": "Extra Small (10%)",
-              "value": "flxsection-col-1"
-            },
-            {
-              "name": "None",
-              "value": "none"
-            }
-          ]
-        },
-        {
-          "component": "tab",
-          "label": "Accessibility",
-          "name": "accessibility"
-        },
-        {
-          "...": "_language.json#/language-field"
-        }
-      ]
     }
   ],
   "filters": [
@@ -787,51 +847,18 @@
         "custom-title",
         "text-container",
         "cta",
+        "linklist",
         "brightcove-video",
         "tag-utility-nav",
         "fact-card",
-        "brightcove-podcast-player"
+        "brightcove-podcast-player",
+        "custom-image"
       ]
     },
     {
       "id": "hero-section",
-      "components": ["fragment"]
-    },
-    {
-      "id": "flex-section",
       "components": [
-        "accordion",
-        "breadcrumb",
-        "button",
-        "story-cards",
-        "cards",
-        "carousel",
-        "social-media",
-        "columns",
-        "embed",
-        "fragment",
-        "press-releases",
-        "separator",
-        "story-card",
-        "form",
-        "hero",
-        "navigation-content",
-        "stock-ticker",
-        "eds-form",
-        "embed-form",
-        "image",
-        "quote",
-        "search",
-        "tabs",
-        "table",
-        "text",
-        "title",
-        "video",
-        "custom-title",
-        "text-container",
-        "cta",
-        "tag-utility-nav",
-        "brightcove-podcast-player"
+        "fragment"
       ]
     }
   ]

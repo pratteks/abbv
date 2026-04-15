@@ -444,8 +444,12 @@
 
     /* Default (centered) grid columns for each size */
     .accordion,
-    .accordion.accordion-xxl {
+    .accordion.accordion-xxxl {
         grid-column: 1 / -1;
+    }
+
+    .accordion.accordion-xxl {
+        grid-column: 2 / 12;
     }
 
     .accordion.accordion-xl {
@@ -471,8 +475,12 @@
     /* Alignment overrides for grid layout */
 
     /* LEFT aligned: start at 1 */
-    .accordion.accordion-xxl.accordion-left {
+    .accordion.accordion-xxxl.accordion-left {
         grid-column: 1 / -1;
+    }
+
+    .accordion.accordion-xxl.accordion-left {
+        grid-column: 1 / 11;
     }
 
     .accordion.accordion-xl.accordion-left {
@@ -496,8 +504,12 @@
     }
 
     /* RIGHT aligned: end at -1 */
-    .accordion.accordion-xxl.accordion-right {
+    .accordion.accordion-xxxl.accordion-right {
         grid-column: 1 / -1;
+    }
+
+    .accordion.accordion-xxl.accordion-right {
+        grid-column: 3 / -1;
     }
 
     .accordion.accordion-xl.accordion-right {
@@ -521,8 +533,12 @@
     }
 
     /* CENTER aligned: explicit centered grid-column for each size */
-    .accordion.accordion-xxl.accordion-center {
+    .accordion.accordion-xxxl.accordion-center {
         grid-column: 1 / -1;
+    }
+
+    .accordion.accordion-xxl.accordion-center {
+        grid-column: 2 / 12;
     }
 
     .accordion.accordion-xl.accordion-center {

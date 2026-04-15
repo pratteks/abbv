@@ -10,7 +10,9 @@
             "template": {
               "name": "Video",
               "model": "video",
-              "filter": "video"
+              "filter": "video",
+              "language": "lang:none",
+              "blockId": "id:"
             }
           }
         }
@@ -50,7 +52,7 @@
           "valueType": "string",
           "name": "placeholderImage",
           "label": "Placeholder Image",
-          "multi": true
+          "multi": false
         },
         {
           "component": "text",
@@ -121,12 +123,7 @@
           ]
         },
         {
-          "component": "tab",
-          "label": "Accessibility",
-          "name": "accessibility"
-        },
-        {
-          "...": "../../models/_language.json#/language-field"
+          "...": "../../models/_common-properties.json#/common-prop"
         }
       ]
     }

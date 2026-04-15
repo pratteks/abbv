@@ -286,7 +286,8 @@
           "label": "Desktop Width",
           "options": [
             { "name": "None", "value": "accordion-base" },
-            { "name": "XX-Large (12 column)", "value": "accordion-xxl" },
+            { "name": "XXX-Large (12 column)", "value": "accordion-xxxl" },
+            { "name": "XX-Large (10 column)", "value": "accordion-xxl" },
             { "name": "X-Large (8 column)", "value": "accordion-xl" },
             { "name": "Large (7 column)", "value": "accordion-l" },
             { "name": "Medium (6 column)", "value": "accordion-m" },

@@ -27,7 +27,10 @@
               "enableWarnOnLeave": false,
               "warnOnLeavePath": "",
               "linkAriaLabel": "",
-              "analyticsInteractionId": ""
+              "analyticsInteractionId": "",
+              "blockId": "id:",
+              "classes_commonCustomClass": "",
+              "language": "lang:none"
             }
           }
         }
@@ -275,6 +278,9 @@
             { "name": "Circle", "value": "circle" },
             { "name": "Logo", "value": "logo" }
           ]
+        },
+        {
+          "...": "../../models/_common-properties.json#/common-prop"
         }
       ]
     }

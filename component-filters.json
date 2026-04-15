@@ -4,7 +4,6 @@
     "components": [
       "section",
       "hero-section",
-      "flex-section",
       "grid-section",
       "grid-container"
     ]
@@ -42,10 +41,12 @@
       "custom-title",
       "text-container",
       "cta",
+      "linklist",
       "brightcove-video",
       "tag-utility-nav",
       "fact-card",
-      "brightcove-podcast-player"
+      "brightcove-podcast-player",
+      "custom-image"
     ]
   },
   {
@@ -55,12 +56,12 @@
     ]
   },
   {
-    "id": "flex-section",
+"id": "grid-section",
     "components": [
       "accordion",
       "breadcrumb",
       "button",
-      "story-cards",
+"story-cards",
       "cards",
       "carousel",
       "social-media",
@@ -87,9 +88,15 @@
       "custom-title",
       "text-container",
       "cta",
+"brightcove-video",
       "tag-utility-nav",
-      "brightcove-podcast-player"
+      "brightcove-podcast-player",
+      "custom-image"
     ]
+  },
+  {
+    "id": "grid-container",
+    "components": []
   },
   {
     "id": "accordion",
@@ -129,8 +136,7 @@
       "text",
       "image",
       "button",
-      "title",
-      "custom-title"
+      "title"
     ]
   },
   {
@@ -138,6 +144,16 @@
     "components": []
   },
   {},
+  {
+    "id": "linklist",
+    "components": [
+      "linklist-item"
+    ]
+  },
+  {
+    "id": "linklist-child-pages",
+    "components": []
+  },
   {
     "id": "press-releases",
     "components": [

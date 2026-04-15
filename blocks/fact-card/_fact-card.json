@@ -51,6 +51,7 @@
           "value": "",
           "options": [
             { "name": "Default", "value": "" },
+            { "name": "Light (Light With Stroke)", "value": "light-theme-stroke" },
             { "name": "Medium (Light Blue)", "value": "medium-theme" },
             { "name": "Dark (Navy)", "value": "dark-theme" }
           ]

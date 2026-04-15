@@ -168,9 +168,13 @@ function a11yLinks(main) {
 /**
  * Moves consecutive grid-section elements into the preceding grid-container
  * section, making them direct children of that container.
+ * Only runs in author (UE editor) mode, detected by the presence of an iframe
+ * with "author" in its src.
  * @param {Element} main The main element
  */
 function addGridSectionsWrapper(main) {
+  if (document.querySelector('iframe[src*="author"]')) return;
+
   let group = [];
   let currentContainer = null;
 
@@ -276,7 +280,6 @@ export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
-  addGridSectionsWrapper(main);
   decorateSectionBackgrounds(main);
   decorateBlocks(main);
   addGridSectionsWrapper(main);
@@ -326,27 +329,6 @@ async function loadEager(doc) {
   }
 }
 
-function wrapFlexContainers(main) {
-  // Find all elements with abbvie-container,data-section-type="flex-section"
-  const flexContainers = main.querySelectorAll('.section[data-section-type="flex-section"]');
-
-  // Create wrapper div
-  const wrapper = document.createElement('div');
-  wrapper.className = 'flex-container-wrapper';
-  flexContainers.forEach((container) => {
-    // Skip if already wrapped
-    if (container.parentElement?.classList.contains('flex-container-wrapper')) {
-      return;
-    }
-
-    // Insert wrapper before the container
-    container.parentNode.insertBefore(wrapper, container);
-
-    // Move container into wrapper
-    wrapper.appendChild(container);
-  });
-}
-
 /**
  * Loads everything that doesn't need to be delayed.
  * @param {Element} doc The container element
@@ -367,7 +349,6 @@ async function loadLazy(doc) {
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
-  wrapFlexContainers(main);
 }
 
 /**

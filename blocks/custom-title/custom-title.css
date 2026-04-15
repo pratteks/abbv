@@ -144,13 +144,45 @@
 
 /* Format: Raised Cap — first letter scales up, sits raised on the baseline */
 .format-raised .custom-title-heading::first-letter {
-  font-size: var(--font-size-32);
-  line-height: var(--line-height-36);
   font-weight: inherit;
   color: inherit;
   vertical-align: baseline;
   float: none;
   display: inline;
+}
+
+.format-raised h1::first-letter {
+  font-size: var(--font-size-80);
+  line-height: var(--line-height-84);
+}
+ 
+/* h2 — same size as h1 drop cap */
+.format-raised h2::first-letter {
+  font-size: var(--font-size-80);
+  line-height: var(--line-height-84);
+}
+
+.format-raised h3::first-letter {
+  font-size: var(--font-size-56);
+  line-height: var(--line-height-60);
+}
+ 
+/* h4 — first letter larger than the h4 text, proportionally scaled */
+.format-raised h4::first-letter {
+  font-size: var(--font-size-48);
+  line-height: var(--line-height-52);
+}
+ 
+/* h5 — first letter visibly bigger than surrounding h5 text */
+.format-raised h5::first-letter {
+  font-size: var(--font-size-40);
+  line-height: var(--line-height-44);
+}
+ 
+/* h6 — subtler lift; still larger than the h6 text */
+.format-raised h6::first-letter {
+  font-size: var(--font-size-32);
+  line-height: var(--line-height-36);
 }
 
 /* Theme: Light — no background, navy text (inherits from project default) */

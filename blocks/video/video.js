@@ -4,7 +4,8 @@
  * https://www.hlx.live/developer/block-collection/video
  */
 
-import { decorateLangAttribute } from '../../scripts/utils.js';
+import { resolveImageReference } from '../../scripts/scripts.js';
+import { applyCommonProps } from '../../scripts/utils.js';
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -46,13 +47,39 @@ function getVideoConfig(block) {
   }
 
   return {
-    placeholderAlt, // NEW
+    placeholderAlt,
     overlayTitle,
     overlayDescription,
     overlayBtnText,
     overlayColor: [...block.classList].find((c) => c.startsWith('video-overlay-')) || 'video-overlay-navy',
     overlayBtnStyle: [...block.classList].find((c) => c.startsWith('video-btn-')) || 'video-btn-outline',
   };
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Placeholder image resolver
+// Mirrors the pattern used by brightcove-podcast-player: explicitly call
+// resolveImageReference on the row that holds the placeholderImage reference
+// field so that EDS converts the content reference into a <picture> element
+// before we attempt to clone it.
+// ─────────────────────────────────────────────────────────────────────────────
+
+function resolvePlaceholder(block) {
+  // The placeholderImage reference field renders as a block row whose first
+  // cell contains only an <a> or unresolved image reference — no visible text.
+  // resolveImageReference replaces that with a proper <picture> element.
+  const rows = [...block.querySelectorAll(':scope > div')];
+  rows.forEach((row) => {
+    const cell = row.querySelector(':scope > div') || row;
+    // Only process rows that do not already have a picture/img and are not
+    // pure text rows (i.e. the image reference row).
+    if (!cell.querySelector('picture, img') && cell.querySelector('a[href*="/content/dam"], a[href*="media_"]')) {
+      resolveImageReference(cell);
+    }
+  });
+
+  // After resolution, find the resulting picture or img anywhere in the block
+  return block.querySelector('picture') || block.querySelector('img') || null;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -258,7 +285,7 @@ function buildOverlay(config, onPlay) {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default async function decorate(block) {
-  decorateLangAttribute(block);
+  applyCommonProps(block);
   const config = getVideoConfig(block);
   const section = block.closest('.section');
 
@@ -269,10 +296,21 @@ export default async function decorate(block) {
 
   if (section) section.classList.add('video-section');
 
-  const placeholder = block.querySelector('picture') || block.querySelector('img');
+  // Explicitly resolve the placeholderImage reference field into a <picture>
+  // element before querying for it. Without this step, EDS does not convert
+  // the content reference link into an image node, so querySelector returns
+  // null and the poster is never rendered — matching the brightcove-podcast-player
+  // pattern which calls resolveImageReference before reading the thumbnail.
+  const rawPlaceholder = resolvePlaceholder(block);
+
+  // Clone before clearing the block so the resolved image node survives the
+  // textContent wipe below.
+  const placeholderClone = rawPlaceholder ? rawPlaceholder.cloneNode(true) : null;
+
   const linkEl = block.querySelector('a');
   const link = linkEl?.href || '';
 
+  // Guard: nothing to build without a video link
   if (!link) return;
 
   block.textContent = '';
@@ -284,18 +322,24 @@ export default async function decorate(block) {
   media.className = 'video-media';
   shell.append(media);
 
-  if (placeholder) {
-    const poster = placeholder.tagName === 'PICTURE'
-      ? placeholder
-      : (() => { const p = document.createElement('picture'); p.append(placeholder); return p; })();
+  if (placeholderClone) {
+    const poster = placeholderClone.tagName === 'PICTURE'
+      ? placeholderClone
+      : (() => {
+        const p = document.createElement('picture');
+        p.append(placeholderClone);
+        return p;
+      })();
 
-    // ✅ ALT TEXT LOGIC (added only)
+    // Apply alt text from the Placeholder Alt Text field if provided
     if (config.placeholderAlt) {
       const img = poster.querySelector('img');
-      if (img) {
-        img.alt = config.placeholderAlt;
-      }
+      if (img) img.alt = config.placeholderAlt;
     }
+
+    // Add class to inner img for CSS object-fit targeting
+    const posterImg = poster.querySelector('img');
+    if (posterImg) posterImg.classList.add('video-poster-img');
 
     poster.classList.add('video-poster');
     media.append(poster);
@@ -315,7 +359,9 @@ export default async function decorate(block) {
 
   block.append(shell);
 
-  if (!placeholder || autoplay) {
+  // Set up lazy-load observer when there is no poster (video loads on scroll),
+  // or when autoplay is enabled (video starts on viewport entry).
+  if (!placeholderClone || autoplay) {
     const observer = new IntersectionObserver((entries) => {
       if (entries.some((entry) => entry.isIntersecting)) {
         observer.disconnect();

@@ -196,8 +196,7 @@
         "text",
         "image",
         "button",
-        "title",
-        "custom-title"
+        "title"
       ]
     }
   ]

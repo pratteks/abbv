@@ -251,6 +251,51 @@ p.text-container-text:last-child,
       padding-bottom: var(--spacing-00);
       letter-spacing: var(--letter-spacing-wide-96);
     }
+
+     /* Text Container widht variation */
+
+    .text-container.full-width,
+    .text-container.large-width,
+    .text-container.content-width,
+    .text-container.narrow-width {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 2rem;
+    }
+
+    .text-container.full-width > div {
+      grid-column: 1 / span 12;
+    }
+
+    .text-container.large-width > div {
+      grid-column: 2 / span 10;
+    }
+
+    .text-container.content-width > div {
+      grid-column: 3 / span 8;
+    }
+
+    .text-container.narrow-width > div {
+      grid-column: 4 / span 6;
+    }
+
+    /* Spacing for Text Container */
+
+    .mb-tight { margin-bottom: var(--spacing-24); }
+
+    .mb-compact { margin-bottom: var(--spacing-30); }
+
+    .mb-comfortable { margin-bottom: var(--spacing-48); }
+
+    .mb-spacious { margin-bottom: var(--spacing-80); }
+
+    .mt-tight { margin-top: var(--spacing-24); }
+
+    .mt-compact { margin-top: var(--spacing-30); }
+    
+    .mt-comfortable { margin-top: var(--spacing-48); }
+
+    .mt-spacious { margin-top: var(--spacing-80); }
 }
 
 /* text container custom class content-center style */
