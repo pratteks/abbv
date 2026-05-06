@@ -4,11 +4,6 @@
    Custom properties — desktop grid defaults
    ===================================================== */
 
-.quote-wrapper {
-  margin-left: var(--spacing-15);
-  margin-right: var(--spacing-15);
-}
-
 .quote {
   --quote-content-span-desktop: 6;
   --quote-col-start-desktop: 1;
@@ -53,13 +48,11 @@
 
 .quote blockquote {
   margin: 0;
-  padding: var(--spacing-35);
-  padding-top: var(--spacing-55);
   max-width: 100%;
   width: 100%;
   position: relative;
-  z-index: var(--z-index-1);
-  margin-bottom: var(--spacing-80);
+  z-index: var(--corp-z-index-base);
+  margin-bottom: var(--corp-spacing-80);
 }
 
 /* =====================================================
@@ -68,12 +61,12 @@
 
 .quote blockquote::before {
   content: '\e909';
-  font-family: var(--icon-font-family);
-  font-size: var(--font-size-33);
+  font-family: var(--corp-icon-font-family);
+  font-size: var(--corp-font-size-33);
   line-height: 1;
-  color: var(--highlight-dark-background-color);
+  color: var(--color-surface-highlight-inverse);
   display: block;
-  padding-left: var(--spacing-06);
+  padding-left: var(--corp-spacing-6);
 }
 
 /* =====================================================
@@ -82,16 +75,16 @@
 
 .quote blockquote .quote-quotation {
   font-family: var(--heading-font-family);
-  font-weight: var(--font-weight-650);
-  line-height: var(--line-height-32);
-  color: var(--text-color);
-  padding-top: var(--spacing-44);
+  font-weight: var(--corp-font-weight-semibold-alt);
+  line-height: var(--corp-typography-lineheight-relaxed-lg);
+  color: var(--corp-color-text-default);
+  padding-top: var(--corp-spacing-44);
 }
 
 .quote blockquote .quote-quotation p,
 .quote blockquote.quote-fragment {
-  font-size: var(--font-size-20);
-  line-height: var(--line-height-24);
+  font-size: var(--corp-font-size-20);
+  line-height: var(--corp-typography-lineheight-body-lg);
 }
 
 /* =====================================================
@@ -101,15 +94,15 @@
 .quote blockquote .quote-attribution {
   display: flex;
   align-items: center;
-  gap: var(--spacing-16);
+  gap: var(--corp-spacing-16);
   text-align: left;
-  margin-top: var(--spacing-40);
+  margin-top: var(--corp-spacing-40);
 }
 
 .quote .quote-attribution-image {
   flex-shrink: 0;
-  width: var(--spacing-56);
-  height: var(--spacing-56);
+  width: var(--corp-spacing-56);
+  height: var(--corp-spacing-56);
   border-radius: 50%;
   overflow: hidden;
 }
@@ -134,21 +127,21 @@
 
 .quote .quote-attribution-name {
   font-family: var(--roboto-bold-font-family);
-  font-size: var(--font-size-16);
-  font-weight: var(--font-weight-700);
-  line-height: var(--line-height-20);
-  color: var(--text-color);
-  margin: var(--spacing-00);
+  font-size: var(--corp-font-size-16);
+  font-weight: var(--corp-font-weight-bold);
+  line-height: var(--corp-typography-lineheight-body-sm);
+  color: var(--corp-color-text-default);
+  margin: 0;
 }
 
 .quote .quote-attribution-title {
   font-family: var(--body-font-family);
-  font-size: var(--font-size-16);
-  font-weight: var(--font-weight-400);
+  font-size: var(--corp-font-size-16);
+  font-weight: var(--corp-font-weight-regular);
   font-style: normal;
-  line-height: var(--line-height-20);
-  color: var(--text-color);
-  margin: var(--spacing-00);
+  line-height: var(--corp-typography-lineheight-body-sm);
+  color: var(--corp-color-text-default);
+  margin: 0;
 }
 
 /* =====================================================
@@ -157,14 +150,14 @@
 
 .quote blockquote.quote-fragment {
   font-family: var(--heading-font-family);
-  font-size: var(--font-size-24);
-  font-weight: var(--font-weight-650);
-  line-height: var(--line-height-32);
-  color: var(--text-color);
+  font-size: var(--corp-font-size-24);
+  font-weight: var(--corp-font-weight-semibold-alt);
+  line-height: var(--corp-typography-lineheight-relaxed-lg);
+  color: var(--corp-color-text-default);
 }
 
 .quote blockquote.quote-fragment p {
-  margin: var(--spacing-00);
+  margin: 0;
 }
 
 /* =====================================================
@@ -179,7 +172,7 @@
 .quote .quote-background-image {
   position: absolute;
   inset: 0;
-  z-index: var(--z-index-0);
+  z-index: 0;
 }
 
 .quote .quote-background-image picture::before,
@@ -187,8 +180,8 @@
   content: "";
   position: absolute;
   inset: 0;
-  background-color: var(--overlay-navy);
-  border-top-left-radius: var(--spacing-32);
+  background-color: var(--color-overlay-navy);
+  border-top-left-radius: var(--corp-spacing-32);
 }
 
 .quote .quote-background-image picture,
@@ -196,14 +189,26 @@
   display: block;
   width: 100%;
   height: 100%;
-  left: var(--spacing-00);
-  top: var(--spacing-00);
+  left: 0;
+  top: 0;
   object-fit: cover;
   object-position: center;
   pointer-events: none;
   position: absolute;
-  z-index: var(--z-index-negative);
-  border-top-left-radius: var(--spacing-32);
+  z-index: var(--corp-z-index-negative);
+  border-top-left-radius: var(--corp-spacing-32);
+}
+
+.quote.quote-has-background blockquote {
+  padding: var(--corp-spacing-35);
+  padding-top: var(--corp-spacing-55);
+}
+
+/* custom class for extra large quote text mobile view */
+
+.quote.quote-xx-large .quote-quotation :where(p) {
+  font-size: var(--corp-font-size-24);
+  line-height: var(--corp-typography-lineheight-relaxed-sm);
 }
 
 /* =====================================================
@@ -214,14 +219,14 @@
 .dark .quote .quote-attribution-name,
 .dark .quote .quote-attribution-title,
 .dark .quote .quote-fragment {
-  color: var(--background-color);
+  color: var(--color-surface-default);
 }
 
 .quote.quote-dark  .quote-quotation,
 .quote.quote-dark .quote-attribution-name,
 .quote.quote-dark .quote-attribution-title,
 .quote.quote-dark .quote-fragment {
-  color: var(--light-color);
+  color: var(--corp-color-surface-subtle);
 }
 
 /* =====================================================
@@ -230,50 +235,56 @@
 
 @media (min-width: 744px) {
   .quote-wrapper {
-    margin-left: var(--spacing-00);
-    margin-right: var(--spacing-00);
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .quote blockquote .quote-quotation p,
   .quote blockquote.quote-fragment {
-    font-size: var(--font-size-28);
-    line-height: var(--line-height-32);
+    font-size: var(--corp-font-size-28);
+    line-height: var(--corp-typography-lineheight-relaxed-lg);
   }
 
   .quote .quote-attribution-image {
-    width: var(--spacing-64);
-    height: var(--spacing-64);
+    width: var(--corp-spacing-64);
+    height: var(--corp-spacing-64);
   }
 
   .quote .quote-attribution-name {    
-    line-height: var(--line-height-22);
+    line-height: var(--corp-typography-lineheight-body-md);
   }
 
   .quote .quote-attribution-title { 
-  font-size: var(--font-size-14);
+  font-size: var(--corp-font-size-14);
   }
 
   .quote .quote-background-image picture::before,
   .quote .quote-background-image img::before {
-    border-top-left-radius: var(--spacing-64);
+    border-top-left-radius: var(--corp-spacing-64);
   }
 
   .quote .quote-background-image picture,
   .quote .quote-background-image img {
-    border-top-left-radius: var(--spacing-64);
+    border-top-left-radius: var(--corp-spacing-64);
   }
 
   .quote.quote-has-background {
-    min-height: var(--spacing-400);
+    min-height: var(--corp-spacing-400);
     display: flex;
     align-items: center;
     justify-content: flex-end;
   }
 
   .quote.quote-has-background blockquote {
-    padding: var(--spacing-56) var(--spacing-70) var(--spacing-00);
-    padding-top: var(--spacing-81);
-    padding-right: var(--spacing-46);
+    padding: var(--corp-spacing-56) var(--corp-spacing-70) 0;
+    padding-top: var(--corp-spacing-81);
+    padding-right: var(--corp-spacing-46);
+  }
+
+  /* custom class for extra large quote text */
+  .quote.quote-xx-large .quote-quotation :where(p) {
+    font-size: var(--corp-font-size-30);
+    line-height: var(--corp-typography-lineheight-relaxed-xl);
   }
 }
 
@@ -285,8 +296,8 @@
   .quote-innercontainer {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    gap: var(--gap-20);
-    margin-bottom: var(--spacing-18);
+    gap: var(--corp-gap-lg);
+    margin-bottom: var(--corp-spacing-18);
   }
 
   /* Grid placement — left/center use col-start variable, right anchors to end */
@@ -300,46 +311,52 @@
   }
 
   .quote blockquote::before {
-    height: var(--spacing-36);
+    height: var(--corp-spacing-36);
   }
 
   .quote blockquote .quote-quotation p,
   .quote blockquote.quote-fragment {
-    font-size: var(--font-size-32);
-    line-height: var(--line-height-36);
-    font-weight: var(--font-weight-650);
+    font-size: var(--corp-font-size-32);
+    line-height: var(--corp-typography-lineheight-relaxed-3xl);
+    font-weight: var(--corp-font-weight-semibold-alt);
   }
 
   .quote .quote-attribution-image {
-    width: var(--spacing-72);
-    height: var(--spacing-72);
+    width: var(--corp-spacing-72);
+    height: var(--corp-spacing-72);
   }
 
   .quote .quote-background-image picture::before,
   .quote .quote-background-image img::before {
-    border-top-left-radius: var(--spacing-80);
+    border-top-left-radius: var(--corp-spacing-80);
   }
 
   .quote .quote-background-image picture,
   .quote .quote-background-image img {
-    border-top-left-radius: var(--spacing-80);
+    border-top-left-radius: var(--corp-spacing-80);
   }
 
   .quote .quote-attribution-name {    
-    font-size: var(--font-size-18);
-    font-weight: var(--font-weight-700);
-    line-height: var(--line-height-24);
+    font-size: var(--corp-font-size-18);
+    font-weight: var(--corp-font-weight-bold);
+    line-height: var(--corp-typography-lineheight-body-lg);
   }
 
   .quote .quote-attribution-title { 
-  font-size: var(--font-size-16);
+  font-size: var(--corp-font-size-16);
   }
 
   .quote.quote-has-background {
-    min-height: var(--spacing-480);
+    min-height: var(--corp-spacing-480);
   }
 
   .quote.quote-has-background blockquote {
-    padding: var(--spacing-80) var(--spacing-60) var(--spacing-64) var(--spacing-00);
+    padding: var(--corp-spacing-80) var(--corp-spacing-60) var(--corp-spacing-64) 0;
+  }
+
+  /* custom class for extra large quote text */
+  .quote.quote-xx-large .quote-quotation :where(p){
+    font-size: var(--corp-font-size-40);
+    line-height: var(--corp-typography-lineheight-heading-md);
   }
 }

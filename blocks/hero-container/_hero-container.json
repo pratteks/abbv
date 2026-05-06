@@ -1,0 +1,200 @@
+{
+  "definitions": [
+    {
+      "title": "Hero Container",
+      "id": "hero-container",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Hero Container",
+              "model": "hero-container",
+              "filter": "hero-container"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Hero Container Item",
+      "id": "hero-container-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Hero Container Item",
+              "model": "hero-container-item",
+              "image": "",
+              "imageAlt": "",
+              "videoUrl": "",
+              "text": "",
+              "bgColor": "",
+              "ctaLabel": "",
+              "ctaUrl": ""
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "hero-container",
+      "fields": [
+        {
+          "component": "multiselect",
+          "name": "classes",
+          "value": "",
+          "label": "Style",
+          "description": "Select a height variant and optional style. Height variants are mutually exclusive — select only one.",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Landing (full-bleed, extra tall + bottom padding)",
+              "value": "landing"
+            },
+            {
+              "name": "Height: Short",
+              "value": "height-short"
+            },
+            {
+              "name": "Height: Default",
+              "value": "height-default"
+            },
+            {
+              "name": "Height: Tall",
+              "value": "height-tall"
+            },
+            {
+              "name": "Height: XX-Tall",
+              "value": "height-xx-tall"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "classes_overlayHeight",
+          "value": "",
+          "label": "Overlay Content Height",
+          "description": "Sets the minimum height of the overlay content section independently from the hero image height.",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Default (content height)",
+              "value": ""
+            },
+            {
+              "name": "Short",
+              "value": "overlay-height-short"
+            },
+            {
+              "name": "Default Height",
+              "value": "overlay-height-default"
+            },
+            {
+              "name": "Tall",
+              "value": "overlay-height-tall"
+            },
+            {
+              "name": "XX-Tall",
+              "value": "overlay-height-xx-tall"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hero-container-item",
+      "fields": [
+        {
+          "component": "custom-asset-namespace:custom-asset",
+          "valueType": "string",
+          "name": "image",
+          "label": "Image",
+          "configUrl": "https://dm--dev-abbvie-corporate-us-en--abbvie.aem.live/tools/assets-selector/image.config.json"
+        },
+        {
+          "component": "custom-asset-namespace:custom-asset-mimetype",
+          "valueType": "string",
+          "name": "imageMimeType"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "imageAlt",
+          "label": "Image Alt Text",
+          "value": ""
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "videoUrl",
+          "label": "Background Video URL (.mp4)",
+          "description": "Optional. When present, video is used instead of the background image.",
+          "value": ""
+        },
+        {
+          "component": "richtext",
+          "name": "text",
+          "value": "",
+          "label": "Overlay Text (title, description, CTA)",
+          "valueType": "string"
+        },
+        {
+          "component": "select",
+          "name": "bgColor",
+          "label": "Background Color / Style",
+          "description": "Controls the selected item's visual treatment on the hero container.",
+          "value": "",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "None (image only)",
+              "value": ""
+            },
+            {
+              "name": "Dark (gradient overlay)",
+              "value": "dark"
+            },
+            {
+              "name": "Navy (solid dark blue)",
+              "value": "navy"
+            },
+            {
+              "name": "Purple",
+              "value": "purple"
+            },
+            {
+              "name": "Light (transparent)",
+              "value": "light"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "name": "ctaLabel",
+          "label": "Anchor Link Label",
+          "value": "",
+          "valueType": "string"
+        },
+        {
+          "component": "aem-content",
+          "name": "ctaUrl",
+          "label": "Anchor Link URL",
+          "value": "",
+          "valueType": "string"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "hero-container",
+      "components": [
+        "hero-container-item"
+      ]
+    }
+  ]
+}

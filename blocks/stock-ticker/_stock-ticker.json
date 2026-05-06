@@ -16,6 +16,60 @@
       }
     }
   ],
-  "models": [],
-   "filters": []
+  "models": [
+    {
+      "id": "stock-ticker",
+      "fields": [
+        {
+          "component": "tab",
+          "name": "tab-common",
+          "label": "Common"
+        },
+        {
+          "component": "text",
+          "name": "id",
+          "label": "Id",
+          "valueType": "string",
+          "description": "Provide an ID to be used to deep link to this content.",
+          "tooltip": "HTML ID attribute to apply to the component."
+        },
+        {
+          "component": "text",
+          "name": "classes",
+          "label": "Custom Class",
+          "valueType": "string",
+          "description": "Provide a CSS class to customize this component."
+        },
+        {
+          "component": "text",
+          "name": "sourceLabel",
+          "label": "Source Label",
+          "valueType": "string",
+          "description": "Provide label name for the stock. Example: \"Source\".",
+          "tooltip": "Provide label name for the stock."
+        },
+        {
+          "component": "tab",
+          "name": "tab-analytics",
+          "label": "Analytics"
+        },
+        {
+          "component": "text",
+          "name": "analyticsInteractionId",
+          "label": "Analytics Interaction ID",
+          "valueType": "string",
+          "description": "Identifier used to track interactions for analytics reporting."
+        },
+        {
+          "component": "tab",
+          "name": "tab-accessibility",
+          "label": "Accessibility"
+        },
+        {
+          "...": "../../models/_language.json#/language-field"
+        }
+      ]
+    }
+  ],
+  "filters": []
 }

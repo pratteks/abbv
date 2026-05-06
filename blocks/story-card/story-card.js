@@ -2,10 +2,11 @@ import { createOptimizedPicture, toClassName } from '../../scripts/aem.js';
 import { getConfigValue } from '../../scripts/config.js';
 import indexUtils from '../../scripts/index-utils.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
-import { isUniversalEditor, applyCommonProps } from '../../scripts/utils.js';
+import { isUniversalEditor } from '../../scripts/utils.js';
+import { buildImageUrl } from '../custom-image/custom-image.js';
+import { fetchPlaceholders, detectLanguage } from '../../scripts/placeholders.js';
 
 const DEFAULT_CTA_TEXT = 'Read Story';
-const DEFAULT_AEM_PUBLISH_URL = 'https://publish-p157365-e1665798.adobeaemcloud.com';
 const IMAGE_BREAKPOINTS = {
   default: [
     { media: '(min-width: 1024px)', width: '1200' },
@@ -34,7 +35,6 @@ const IMAGE_BREAKPOINTS = {
   ],
 };
 const metadataCache = new Map();
-const assetDeliveryCache = new Map();
 
 function toDisplayUppercase(value) {
   return `${value || ''}`.trim().toUpperCase();
@@ -88,20 +88,6 @@ function buildOpenApiAssetUrl(value) {
   const seoName = nameParts.join('.') || name;
 
   return `${safeHost}/adobe/assets/${assetId}/as/${encodeURIComponent(seoName)}${format ? `.${encodeURIComponent(format)}` : ''}`;
-}
-
-function buildOpenApiAssetUrlFromParts(deliveryOrigin, assetId, name) {
-  const safeOrigin = `${deliveryOrigin || ''}`.trim().replace(/\/+$/, '');
-  const normalizedAssetId = assetId.startsWith('urn:') ? assetId : `urn:aaid:aem:${assetId}`;
-  const nameParts = `${name || ''}`.trim().split('.');
-  const format = nameParts.length > 1 ? nameParts.pop() : '';
-  const seoName = nameParts.join('.') || `${name || ''}`.trim();
-
-  if (!safeOrigin || !normalizedAssetId || !seoName) {
-    return '';
-  }
-
-  return `${safeOrigin}/adobe/assets/${normalizedAssetId}/as/${encodeURIComponent(seoName)}${format ? `.${encodeURIComponent(format)}` : ''}`;
 }
 
 function extractPathLikeReference(value, depth = 0) {
@@ -184,6 +170,13 @@ function parseBoolean(value, fallback = false) {
   if (['true', 'yes', 'on', '1'].includes(normalized)) return true;
   if (['false', 'no', 'off', '0'].includes(normalized)) return false;
   return fallback;
+}
+
+function getFieldBoolean(source, name, fallback = false) {
+  const el = getFieldElement(source, name);
+  if (!el) return fallback;
+  const value = el.getAttribute('data-aue-value') ?? el.textContent?.trim() ?? '';
+  return parseBoolean(value, fallback);
 }
 
 function normalizeLang(value) {
@@ -326,158 +319,6 @@ function isDamAssetUrl(url) {
   return url.pathname.startsWith('/content/dam/');
 }
 
-function deriveDeliveryOrigin(origin) {
-  if (!origin) return '';
-
-  try {
-    const url = new URL(origin, window.location.href);
-    url.hostname = url.hostname.replace(/^(author|publish)-/i, 'delivery-');
-    return url.origin;
-  } catch {
-    return '';
-  }
-}
-
-function getAssetNameFromPath(path) {
-  return `${path || ''}`.split('/').pop() || '';
-}
-
-function getAssetMetadataValue(source, keys, depth = 0) {
-  if (!source || depth > 4) return '';
-
-  if (typeof source === 'string') {
-    return keys.includes('__self__') ? source.trim() : '';
-  }
-
-  if (Array.isArray(source)) {
-    return source.map((entry) => getAssetMetadataValue(entry, keys, depth + 1)).find(Boolean) || '';
-  }
-
-  if (typeof source === 'object') {
-    const direct = keys.reduce((value, key) => {
-      if (value) return value;
-      return toTrimmedString(source[key]);
-    }, '');
-    if (direct) return direct;
-
-    return Object.values(source)
-      .map((entry) => getAssetMetadataValue(entry, keys, depth + 1))
-      .find(Boolean) || '';
-  }
-
-  return '';
-}
-
-async function fetchAssetMetadata(candidates, index = 0) {
-  if (index >= candidates.length) {
-    return null;
-  }
-
-  try {
-    const response = await fetch(candidates[index]);
-    if (response.ok) {
-      return await response.json();
-    }
-  } catch {
-    // Try the next metadata candidate URL.
-  }
-
-  return fetchAssetMetadata(candidates, index + 1);
-}
-
-function buildAssetMetadataCandidates(src, aemPublishUrl = '') {
-  const candidates = [];
-  const publishOrigin = aemPublishUrl || DEFAULT_AEM_PUBLISH_URL;
-
-  const addCandidate = (baseOrigin) => {
-    try {
-      const assetUrl = new URL(src, baseOrigin || window.location.origin);
-      if (!isDamAssetUrl(assetUrl)) {
-        return;
-      }
-
-      const metadataUrls = [
-        new URL(`${assetUrl.pathname}.json`, assetUrl.origin).toString(),
-      ];
-
-      const assetsApiPath = assetUrl.pathname.replace(/^\/content\/dam/i, '/api/assets');
-      if (assetsApiPath !== assetUrl.pathname) {
-        metadataUrls.push(new URL(`${assetsApiPath}.json`, assetUrl.origin).toString());
-      }
-
-      metadataUrls.forEach((metadataUrl) => {
-        if (!candidates.includes(metadataUrl)) {
-          candidates.push(metadataUrl);
-        }
-      });
-    } catch {
-      // Ignore invalid candidate origins and keep trying the rest.
-    }
-  };
-
-  addCandidate(window.location.origin);
-
-  try {
-    const absoluteUrl = new URL(src, window.location.href);
-    addCandidate(absoluteUrl.origin);
-  } catch {
-    // Ignore invalid absolute URLs and keep using the remaining fallbacks.
-  }
-
-  if (publishOrigin) {
-    addCandidate(publishOrigin);
-  }
-
-  return candidates;
-}
-
-async function resolveDamAssetToOpenApi(src, aemPublishUrl = '') {
-  const normalized = normalizeStoryImageReference(src);
-  if (!normalized || assetDeliveryCache.has(normalized)) {
-    return assetDeliveryCache.get(normalized) || normalized;
-  }
-
-  const pending = (async () => {
-    try {
-      const publishOrigin = aemPublishUrl || DEFAULT_AEM_PUBLISH_URL;
-      const assetUrl = new URL(normalized, window.location.origin);
-      if (!isDamAssetUrl(assetUrl)) {
-        return normalized;
-      }
-
-      const metadataCandidates = buildAssetMetadataCandidates(normalized, publishOrigin);
-      const metadata = await fetchAssetMetadata(metadataCandidates);
-      if (!metadata) {
-        return normalized;
-      }
-
-      const repositoryId = getAssetMetadataValue(metadata, ['repo:repositoryId', 'repositoryId']);
-      const assetId = getAssetMetadataValue(metadata, ['repo:assetId', 'assetId', 'jcr:uuid']);
-
-      if (repositoryId && assetId) {
-        return buildOpenApiAssetUrlFromParts(repositoryId.startsWith('http') ? repositoryId : `https://${repositoryId}`, assetId, getAssetNameFromPath(assetUrl.pathname)) || normalized;
-      }
-
-      const uuid = getAssetMetadataValue(metadata, ['jcr:uuid', 'assetId', 'repo:assetId']);
-      const deliveryOrigin = deriveDeliveryOrigin(publishOrigin || assetUrl.origin);
-      if (uuid && deliveryOrigin) {
-        return buildOpenApiAssetUrlFromParts(
-          deliveryOrigin,
-          uuid,
-          getAssetNameFromPath(assetUrl.pathname),
-        ) || normalized;
-      }
-    } catch {
-      // Keep the original DAM path when asset metadata cannot be resolved.
-    }
-
-    return normalized;
-  })();
-
-  assetDeliveryCache.set(normalized, pending);
-  return pending;
-}
-
 function getStoryImagePreferenceScore(reference) {
   if (!reference) return 0;
 
@@ -503,24 +344,10 @@ function selectPreferredStoryImage(primary, secondary) {
   return primary || secondary || '';
 }
 
-function getMetaContent(doc, selectors) {
-  return selectors.reduce((value, selector) => {
-    if (value) return value;
+async function composeReadTime(source) {
+  const lang = detectLanguage();
+  const placeholders = await fetchPlaceholders(lang);
 
-    if (selector === 'title') {
-      return doc.querySelector('title')?.textContent?.trim() || '';
-    }
-
-    const meta = doc.querySelector(selector);
-    if (meta?.tagName === 'META') {
-      return meta.getAttribute('content')?.trim() || '';
-    }
-
-    return meta?.textContent?.trim() || '';
-  }, '');
-}
-
-function composeReadTime(source) {
   const legacy = getProp(source, ['readTime', 'readtime']);
   if (legacy) return legacy;
 
@@ -530,12 +357,25 @@ function composeReadTime(source) {
     : getProp(source, ['storyReadTime', 'storyreadtime']);
   if (!minutes) return '';
 
-  const label = type === 'watchTime' ? 'Minute Watch' : 'Minute Read';
+  const label = type === 'watchTime'
+    ? placeholders?.['storyCard.minuteWatch'] || 'Minute Watch'
+    : placeholders?.['storyCard.minuteRead'] || 'Minute Read';
   return `${minutes} ${label}`;
 }
 
-function buildStoryData(source = {}) {
-  const imageReference = getPropValue(source, ['cardImage', 'cardimage']);
+async function buildStoryData(source = {}) {
+  const imageReference = getPropValue(source, [
+    'cardImage',
+    'cardimage',
+    'pageImage',
+    'pageimage',
+    'image',
+    'profileImage',
+    'profileimage',
+    'headshotImage',
+    'headshotimage',
+    'thumbnail',
+  ]);
 
   return {
     eyebrow: getProp(source, ['eyebrowText', 'eyebrowtext']),
@@ -546,67 +386,7 @@ function buildStoryData(source = {}) {
     ctaText: getProp(source, ['ctaText', 'ctatext']),
     ctaAltText: getProp(source, ['ctaAltText', 'ctaalttext']),
     publicationDate: getProp(source, ['publicationDate', 'publicationdate']),
-    readTime: composeReadTime(source),
-  };
-}
-
-function parsePageDocument(doc) {
-  return {
-    eyebrowText: getMetaContent(doc, [
-      'meta[name="eyebrowText"]',
-      'meta[property="eyebrowText"]',
-    ]),
-    cardTitle: getMetaContent(doc, [
-      'meta[name="cardTitle"]',
-      'meta[property="cardTitle"]',
-      'meta[name="pageTitle"]',
-      'meta[property="og:title"]',
-      'title',
-    ]),
-    cardDescription: getMetaContent(doc, [
-      'meta[name="cardDescription"]',
-      'meta[property="cardDescription"]',
-      'meta[name="description"]',
-      'meta[property="og:description"]',
-    ]),
-    cardImage: getMetaContent(doc, [
-      'meta[name="cardImage"]',
-      'meta[property="cardImage"]',
-      'meta[property="og:image"]',
-    ]),
-    cardImageAlt: getMetaContent(doc, [
-      'meta[name="cardImageAlt"]',
-      'meta[property="cardImageAlt"]',
-      'meta[property="og:image:alt"]',
-    ]),
-    ctaText: getMetaContent(doc, [
-      'meta[name="ctaText"]',
-      'meta[property="ctaText"]',
-    ]),
-    ctaAltText: getMetaContent(doc, [
-      'meta[name="ctaAltText"]',
-      'meta[property="ctaAltText"]',
-    ]),
-    publicationDate: getMetaContent(doc, [
-      'meta[name="publicationDate"]',
-      'meta[property="publicationDate"]',
-    ]),
-    readTime: getMetaContent(doc, [
-      'meta[name="readTime"]',
-      'meta[property="readTime"]',
-    ]),
-    readWatchTime: getMetaContent(doc, [
-      'meta[name="readWatchTime"]',
-      'meta[property="readWatchTime"]',
-    ]),
-    storyReadTime: getMetaContent(doc, [
-      'meta[name="storyReadTime"]',
-      'meta[property="storyReadTime"]',
-    ]),
-    storyWatchTime: getMetaContent(doc, [
-      'meta[name="storyWatchTime"]',
-      'meta[property="storyWatchTime"]',
-    ]),
+    readTime: await composeReadTime(source),
   };
 }
 
@@ -629,25 +409,6 @@ function mergeStoryData(primary, secondary) {
     publicationDate: primary.publicationDate || secondary.publicationDate || '',
     readTime: primary.readTime || secondary.readTime || '',
   };
-}
-
-async function fetchDocumentStoryData(candidates, index = 0) {
-  if (index >= candidates.length) {
-    return null;
-  }
-
-  try {
-    const response = await fetch(candidates[index]);
-    if (response.ok) {
-      const html = await response.text();
-      const doc = new DOMParser().parseFromString(html, 'text/html');
-      return buildStoryData(parsePageDocument(doc));
-    }
-  } catch {
-    // Try the next candidate when a fetch fails in author or preview environments.
-  }
-
-  return fetchDocumentStoryData(candidates, index + 1);
 }
 
 function readSequentialConfig(source, rootPath) {
@@ -677,19 +438,19 @@ function readSequentialConfig(source, rootPath) {
     cells[index]?.querySelector('a[href]')?.getAttribute('href') || textAt(index)
   );
 
-  // Detect extended layout: new model puts overview fields (storyCardType,
+  // Detect extended layout: new model puts overview fields (storyCardVariant,
   // hide* booleans) before the properties tab fields. The page link moves
   // from index 2 (legacy 9-col) to index 8 (extended 15-col). We detect
-  // the extended layout when index 0 holds a known storyCardType value.
+  // the extended layout when index 0 holds a known storyCardVariant value.
   const firstCell = textAt(0);
-  const isExtended = firstCell === 'cardInfo' || firstCell === 'storyCardInfo' || firstCell === 'leaderInfo';
+  const isExtended = firstCell === 'cardInfo' || firstCell === 'storyCardInfo' || firstCell === 'leaderInfo' || firstCell === 'sidePanel' || firstCell === 'relatedContent';
 
   if (isExtended) {
     return {
-      storyCardType: textAt(0),
+      storyCardVariant: textAt(0),
       hidePublicationDate: parseBoolean(textAt(1), false),
       hideReadTime: parseBoolean(textAt(2), false),
-      hideTitle: parseBoolean(textAt(3), false),
+      hideRole: parseBoolean(textAt(3), false),
       hideDescription: parseBoolean(textAt(4), false),
       hideImage: parseBoolean(textAt(5), false),
       id: textAt(6),
@@ -698,7 +459,7 @@ function readSequentialConfig(source, rootPath) {
       openInNewTab: parseBoolean(textAt(9), false),
       imagePreset: toClassName(textAt(10)),
       imageModifiers: textAt(11),
-      ctaText: textAt(12),
+      ctaLabel: textAt(12),
       language: normalizeLang(textAt(14)),
       legacySizeStyle: '',
       legacyLayoutStyle: '',
@@ -762,19 +523,11 @@ function extractConfig(block, rootPath) {
   }
 
   return {
-    storyCardType: getFieldText(source, 'storyCardType') || 'cardInfo',
-    hidePublicationDate: getFieldElement(source, 'hidePublicationDate')
-      ? parseBoolean(getFieldText(source, 'hidePublicationDate'), false)
-      : false,
-    hideReadTime: getFieldElement(source, 'hideReadTime')
-      ? parseBoolean(getFieldText(source, 'hideReadTime'), false)
-      : false,
-    hideTitle: getFieldElement(source, 'hideTitle')
-      ? parseBoolean(getFieldText(source, 'hideTitle'), false)
-      : false,
-    hideDescription: getFieldElement(source, 'hideDescription')
-      ? parseBoolean(getFieldText(source, 'hideDescription'), false)
-      : false,
+    storyCardVariant: getFieldText(source, 'storyCardVariant') || getFieldText(source, 'storyCardType') || 'cardInfo',
+    hidePublicationDate: getFieldBoolean(source, 'hidePublicationDate'),
+    hideReadTime: getFieldBoolean(source, 'hideReadTime'),
+    hideRole: getFieldBoolean(source, 'hideRole') || getFieldBoolean(source, 'hideTitle'),
+    hideDescription: getFieldBoolean(source, 'hideDescription'),
     id: getFieldText(source, 'id', sequentialConfig.id),
     customClass: getFieldText(source, 'customClass')
       || getFieldText(source, 'classes_customClass')
@@ -784,14 +537,14 @@ function extractConfig(block, rootPath) {
       rootPath,
     ) || sequentialConfig.page,
     openInNewTab: getFieldElement(source, 'openInNewTab')
-      ? parseBoolean(getFieldText(source, 'openInNewTab'), sequentialConfig.openInNewTab)
+      ? getFieldBoolean(source, 'openInNewTab', sequentialConfig.openInNewTab)
       : sequentialConfig.openInNewTab,
     hideImage: getFieldElement(source, 'hideImage')
-      ? parseBoolean(getFieldText(source, 'hideImage'), sequentialConfig.hideImage)
+      ? getFieldBoolean(source, 'hideImage', sequentialConfig.hideImage)
       : sequentialConfig.hideImage,
     imagePreset: toClassName(getFieldText(source, 'imagePreset')) || sequentialConfig.imagePreset,
     imageModifiers: getFieldText(source, 'imageModifiers', sequentialConfig.imageModifiers),
-    ctaText: getFieldText(source, 'ctaText'),
+    ctaLabel: getFieldText(source, 'ctaLabel') || getFieldText(source, 'ctaText'),
     language: getFieldElement(source, 'language')
       ? normalizeLang(getFieldText(source, 'language'))
       : sequentialConfig.language,
@@ -801,7 +554,7 @@ function extractConfig(block, rootPath) {
   };
 }
 
-function getStoryCardData(pageReference, aemPublishUrl = '') {
+function getStoryCardData(pageReference) {
   if (!pageReference?.href) return Promise.resolve(null);
 
   const cacheKey = pageReference.href;
@@ -811,40 +564,21 @@ function getStoryCardData(pageReference, aemPublishUrl = '') {
 
   const pending = (async () => {
     let indexData = {};
-    let documentData = {};
     let valid = false;
 
     if (pageReference.internal) {
       try {
         const pageProps = await indexUtils.getPageProperties(pageReference.path);
-        indexData = buildStoryData(pageProps);
+        indexData = await buildStoryData(pageProps);
         valid = valid || !!pageProps;
       } catch {
         // Rendering falls back to document metadata when the index is unavailable.
       }
-
-      const htmlCandidates = [...new Set([
-        pageReference.htmlHref,
-        pageReference.sourceHtmlHref,
-      ].filter(Boolean))];
-
-      try {
-        documentData = await fetchDocumentStoryData(htmlCandidates) || {};
-        valid = valid || Object.values(documentData).some(Boolean);
-      } catch {
-        // Keep the index-based fallback and avoid breaking the block on fetch errors.
-      }
     }
-
-    const mergedData = mergeStoryData(documentData, indexData);
-    const resolvedImage = await resolveDamAssetToOpenApi(mergedData.image, aemPublishUrl);
 
     return {
       valid,
-      data: {
-        ...mergedData,
-        image: resolvedImage,
-      },
+      data: indexData,
     };
   })();
 
@@ -872,6 +606,23 @@ function parseImageModifiers(modifiers = '') {
     acc.classModifiers.push(token);
     return acc;
   }, { classModifiers: [], queryModifiers: [] });
+}
+
+function applyImageModifiersToPicture(picture, imageModifiers = '') {
+  if (!picture || !imageModifiers) return picture;
+
+  picture.querySelectorAll('source').forEach((source) => {
+    if (source.srcset) {
+      source.srcset = buildImageUrl(source.srcset, '', '', '', imageModifiers);
+    }
+  });
+
+  const img = picture.querySelector('img');
+  if (img?.src) {
+    img.src = buildImageUrl(img.src, '', '', '', imageModifiers);
+  }
+
+  return picture;
 }
 
 function removeBlock(block) {
@@ -1002,8 +753,26 @@ function removePrefixedClasses(element, prefix) {
 }
 
 function applyBlockOptions(block, config, analyticsId) {
-  block.classList.remove('has-image', 'is-text-only', 'opens-new-tab');
+  block.classList.remove(
+    'has-image',
+    'is-text-only',
+    'opens-new-tab',
+    'hide-publication-date',
+    'hide-read-time',
+    'hide-role',
+    'hide-description',
+  );
   removePrefixedClasses(block, 'preset-');
+
+  if (config.id) {
+    block.id = config.id;
+  }
+
+  if (config.customClass) {
+    config.customClass.split(/\s+/).filter(Boolean).forEach((cls) => {
+      block.classList.add(cls);
+    });
+  }
 
   if (config.language) {
     block.setAttribute('lang', config.language);
@@ -1024,6 +793,11 @@ function applyBlockOptions(block, config, analyticsId) {
   } else if (config.imagePreset) {
     block.classList.add(`preset-${config.imagePreset}`);
   }
+
+  if (config.hidePublicationDate) block.classList.add('hide-publication-date');
+  if (config.hideReadTime) block.classList.add('hide-read-time');
+  if (config.hideRole) block.classList.add('hide-role');
+  if (config.hideDescription) block.classList.add('hide-description');
 
   block.dataset.analyticsInteractionId = analyticsId;
   block.dataset.pagePath = config.page?.path || '';
@@ -1115,18 +889,11 @@ function buildPictureElement(src, alt, preset, imageModifiers = '') {
       return picture;
     }
 
-    if (url.origin === window.location.origin && isDamAssetUrl(url)) {
-      const picture = document.createElement('picture');
-      const image = document.createElement('img');
-      image.src = src;
-      image.alt = alt;
-      image.loading = 'lazy';
-      picture.append(image);
-      return picture;
-    }
-
     if (url.origin === window.location.origin) {
-      return createOptimizedPicture(url.pathname, alt, false, breakpoints);
+      const picture = createOptimizedPicture(url.pathname, alt, false, breakpoints);
+      return isDamAssetUrl(url)
+        ? applyImageModifiersToPicture(picture, imageModifiers)
+        : picture;
     }
   } catch {
     // Fallback to a regular image element below when the URL cannot be normalized.
@@ -1167,13 +934,14 @@ function buildMetaElement(data, config = {}) {
     meta.append(eyebrow);
   }
 
-  const isCardInfo = config.storyCardType === 'cardInfo';
-  const isStoryInfo = config.storyCardType === 'storyCardInfo';
-  const readTimeInCta = isCardInfo && !isStoryInfo;
+  const isCardInfo = config.storyCardVariant === 'cardInfo';
+  const isStoryInfo = config.storyCardVariant === 'storyCardInfo';
+  const isSidePanelOrRelated = config.storyCardVariant === 'sidePanel' || config.storyCardVariant === 'relatedContent';
+  const readTimeInCta = (isCardInfo || isSidePanelOrRelated) && !isStoryInfo;
   if (!config.hideReadTime && data.readTime && !readTimeInCta) {
     const readTime = document.createElement('span');
     readTime.className = 'story-card-read-time';
-    readTime.textContent = toDisplayUppercase(data.readTime);
+    readTime.textContent = data.readTime;
     meta.append(readTime);
   }
 
@@ -1186,8 +954,11 @@ function isLeaderCard(block) {
 }
 
 function buildCard(block, config, data, analyticsId) {
-  const leaderCard = isLeaderCard(block) || config.storyCardType === 'leaderInfo';
-  const isStoryInfo = config.storyCardType === 'storyCardInfo';
+  const leaderCard = isLeaderCard(block) || config.storyCardVariant === 'leaderInfo';
+  const isStoryInfo = config.storyCardVariant === 'storyCardInfo';
+  const isSidePanel = config.storyCardVariant === 'sidePanel';
+  const isRelatedContent = config.storyCardVariant === 'relatedContent';
+  const isCardInfo = config.storyCardVariant === 'cardInfo';
 
   const panel = document.createElement('div');
   panel.className = 'story-card-panel cardpagestory card-dashboard card-medium';
@@ -1197,6 +968,15 @@ function buildCard(block, config, data, analyticsId) {
   }
   if (isStoryInfo) {
     block.classList.add('story-card-info');
+  }
+  if (isCardInfo) {
+    block.classList.add('card-info');
+  }
+  if (isSidePanel) {
+    block.classList.add('is-side-panel');
+  }
+  if (isRelatedContent) {
+    block.classList.add('is-related-content');
   }
   if (config.language) {
     panel.lang = config.language;
@@ -1210,9 +990,7 @@ function buildCard(block, config, data, analyticsId) {
   link.dataset.analyticsInteractionId = analyticsId;
   link.dataset.analyticsTrack = analyticsId;
   link.dataset.analyticsContentType = 'story-card';
-  link.dataset.analyticsLinkText = leaderCard
-    ? (data.ctaText || DEFAULT_CTA_TEXT)
-    : toDisplayUppercase(data.ctaText || DEFAULT_CTA_TEXT);
+  link.dataset.analyticsLinkText = toDisplayUppercase(data.ctaText || DEFAULT_CTA_TEXT);
   link.dataset.analyticsComponentTitle = data.title;
 
   if (config.openInNewTab) {
@@ -1220,8 +998,8 @@ function buildCard(block, config, data, analyticsId) {
     block.classList.add('opens-new-tab');
   }
 
-  if (!config.hideImage && data.image) {
-    if (!leaderCard) {
+  if (!isStoryInfo && !config.hideImage && data.image) {
+    if (!leaderCard && !isSidePanel) {
       panel.classList.add('show-image-hide-desc');
     }
     const figure = document.createElement('div');
@@ -1274,50 +1052,55 @@ function buildCard(block, config, data, analyticsId) {
     contentMain.append(meta);
   }
 
-  const textContainer = document.createElement('div');
-  textContainer.className = 'card-text-container';
+  if (!isStoryInfo) {
+    const textContainer = document.createElement('div');
+    textContainer.className = 'card-text-container';
 
-  if (!config.hideTitle && data.title) {
-    const title = document.createElement('h4');
-    title.className = 'story-card-title card-title';
-    title.textContent = data.title;
-    textContainer.append(title);
-  }
+    if (!config.hideRole && data.title) {
+      const title = document.createElement('h4');
+      title.className = 'story-card-title card-title';
+      title.textContent = data.title;
+      textContainer.append(title);
+    }
 
-  const showDescription = !config.hideDescription
-    && data.description
-    && !block.classList.contains('hide-description');
-  if (showDescription) {
-    const description = document.createElement('p');
-    description.className = 'story-card-description card-description';
-    description.textContent = data.description;
-    textContainer.append(description);
+    const showDescription = !config.hideDescription
+      && data.description
+      && !block.classList.contains('hide-description');
+    if (showDescription) {
+      const description = document.createElement('p');
+      description.className = 'story-card-description card-description';
+      description.textContent = data.description;
+      textContainer.append(description);
+    }
+
+    if (textContainer.childElementCount) {
+      contentMain.append(textContainer);
+    }
   }
-  contentMain.append(textContainer);
   content.append(contentMain);
 
-  const ctaContainer = document.createElement('div');
-  ctaContainer.className = 'story-card-cta-container';
+  if (!isStoryInfo) {
+    const ctaContainer = document.createElement('div');
+    ctaContainer.className = 'story-card-cta-container';
 
-  const cta = document.createElement('span');
-  cta.className = 'story-card-cta card-cta';
-  cta.textContent = leaderCard
-    ? (data.ctaText || DEFAULT_CTA_TEXT)
-    : toDisplayUppercase(data.ctaText || DEFAULT_CTA_TEXT);
-  if (data.ctaAltText) {
-    cta.setAttribute('aria-label', data.ctaAltText);
+    const cta = document.createElement('span');
+    cta.className = 'story-card-cta card-cta';
+    cta.textContent = toDisplayUppercase(data.ctaText || DEFAULT_CTA_TEXT);
+    if (data.ctaAltText) {
+      cta.setAttribute('aria-label', data.ctaAltText);
+    }
+    ctaContainer.append(cta);
+
+    const readTimeInCta = (config.storyCardVariant === 'cardInfo' || isSidePanel || isRelatedContent) && !leaderCard;
+    if (readTimeInCta && !config.hideReadTime && data.readTime) {
+      const inlineReadTime = document.createElement('span');
+      inlineReadTime.className = 'story-card-read-time story-card-read-time-inline';
+      inlineReadTime.textContent = data.readTime;
+      ctaContainer.append(inlineReadTime);
+    }
+
+    content.append(ctaContainer);
   }
-  ctaContainer.append(cta);
-
-  const readTimeInCta = config.storyCardType === 'cardInfo' && !isStoryInfo && !leaderCard;
-  if (readTimeInCta && !config.hideReadTime && data.readTime) {
-    const inlineReadTime = document.createElement('span');
-    inlineReadTime.className = 'story-card-read-time story-card-read-time-inline';
-    inlineReadTime.textContent = toDisplayUppercase(data.readTime);
-    ctaContainer.append(inlineReadTime);
-  }
-
-  content.append(ctaContainer);
 
   // Story Card Info: no wrapping link — content sits directly in panel
   if (isStoryInfo) {
@@ -1356,11 +1139,10 @@ export function buildStoryCardItem(row, containerBlock) {
 }
 
 export default async function decorateStoryCard(block) {
-  applyCommonProps(block);
-  const [rootPath, aemPublishUrl] = await Promise.all([
-    getConfigValue('rootPath'),
-    getConfigValue('aemPublishUrl'),
-  ]);
+  // Note: do NOT call applyCommonProps here — story card uses positional
+  // row parsing (readSequentialConfig) that breaks if rows are removed.
+  // The id: and lang: values are handled by extractConfig instead.
+  const rootPath = await getConfigValue('rootPath');
   const config = extractConfig(block, rootPath);
   const authorMode = isUniversalEditor();
   const analyticsId = createAnalyticsInteractionId(block);
@@ -1383,9 +1165,9 @@ export default async function decorateStoryCard(block) {
 
   applyBlockOptions(block, config, analyticsId);
 
-  const storyResponse = await getStoryCardData(config.page, aemPublishUrl || '');
+  const storyResponse = await getStoryCardData(config.page);
   const storyData = mergeStoryData(storyResponse?.data || {}, config.legacyContent || {});
-  if (config.ctaText) storyData.ctaText = config.ctaText;
+  if (config.ctaLabel) storyData.ctaText = config.ctaLabel;
 
   if (!storyResponse?.valid || !storyData.title) {
     if (authorMode) {

@@ -1,0 +1,216 @@
+.custom-title {
+  /* Block-scoped custom properties — avoids duplicate :root lint error */
+  --custom-title-color: var(--corp-color-text-default);
+  --custom-title-accent-color: var(--corp-color-link-default);
+
+  margin: 0;
+  padding: 0;
+}
+
+.custom-title .custom-title-heading {
+  font-family: var(--heading-font-family-bold);
+  color: var(--custom-title-color);
+  margin: 0;
+  padding: 0;
+  margin-bottom: var(--corp-spacing-20);
+  font-weight: var(--corp-font-weight-extrabold);
+}
+
+/* Heading sizes — base (mobile) */
+
+.custom-title h1.custom-title-heading {
+  font-size: var(--corp-font-size-30);
+  line-height: var(--corp-typography-lineheight-relaxed-xl);
+}
+
+.custom-title h2.custom-title-heading {
+  font-size: var(--corp-font-size-28);
+  line-height: var(--corp-typography-lineheight-relaxed-lg);
+}
+
+.custom-title h3.custom-title-heading {
+  font-size: var(--corp-font-size-26);
+  line-height: var(--corp-typography-lineheight-relaxed-md);
+}
+
+.custom-title h4.custom-title-heading {
+  font-size: var(--corp-font-size-24);
+  line-height: var(--corp-typography-lineheight-relaxed-sm);
+}
+
+.custom-title h5.custom-title-heading {
+  font-size: var(--corp-font-size-20);
+  line-height: var(--corp-typography-lineheight-body-lg);
+}
+
+.custom-title h6.custom-title-heading {
+  font-size: var(--corp-font-size-28);
+  line-height: var(--corp-typography-lineheight-relaxed-lg);
+}
+
+/* Heading sizes — tablet (≥744px) */
+
+@media (--be-tablet) {
+  .custom-title h1.custom-title-heading {
+    font-size: var(--corp-font-size-40);
+    line-height: var(--corp-typography-lineheight-heading-md);
+  }
+
+  .custom-title h2.custom-title-heading {
+    font-size: var(--corp-font-size-36);
+    line-height: var(--corp-typography-lineheight-heading-sm);
+  }
+
+  .custom-title h3.custom-title-heading {
+    font-size: var(--corp-font-size-32);
+    line-height: var(--corp-typography-lineheight-relaxed-3xl);
+  }
+
+  .custom-title h4.custom-title-heading {
+    font-size: var(--corp-font-size-30);
+    line-height: var(--corp-typography-lineheight-relaxed-xl);
+  }
+
+  .custom-title h5.custom-title-heading {
+    font-size: var(--corp-font-size-28);
+    line-height: var(--corp-typography-lineheight-relaxed-lg);
+  }
+
+  .custom-title h6.custom-title-heading {
+    font-size: var(--corp-font-size-28);
+    line-height: var(--corp-typography-lineheight-relaxed-lg);
+  }
+}
+
+/* Heading sizes — desktop (≥1024px) */
+
+@media (min-width: 1024px) {
+  .custom-title h1.custom-title-heading {
+    font-size: var(--corp-font-size-64);
+    line-height: var(--corp-typography-lineheight-display-xl);
+    letter-spacing: var(--corp-typography-letterspacing-tight-em-sm);
+  }
+
+  .custom-title h2.custom-title-heading {
+    font-size: var(--corp-font-size-56);
+    line-height: var(--corp-spacing-64);
+    letter-spacing: var(--corp-typography-letterspacing-tight-em-sm);
+  }
+
+  .custom-title h3.custom-title-heading {
+    font-size: var(--heading-font-size-l);
+    line-height: var(--corp-typography-lineheight-heading-xl);
+  }
+
+  .custom-title h4.custom-title-heading {
+    font-size: var(--corp-font-size-40);
+    line-height: var(--corp-typography-lineheight-heading-md);
+  }
+
+  .custom-title h5.custom-title-heading {
+    font-size: var(--corp-font-size-32);
+    line-height: var(--corp-typography-lineheight-relaxed-3xl);
+  }
+
+  .custom-title h6.custom-title-heading {
+    font-size: var(--corp-font-size-24);
+    line-height: var(--corp-typography-lineheight-relaxed-sm);
+  }
+}
+
+/* Alignment */
+
+.custom-title.align-left   .custom-title-heading { text-align: left; }
+
+.custom-title.align-center .custom-title-heading { text-align: center; }
+
+.custom-title.align-right  .custom-title-heading { text-align: right; }
+
+/* Font Weight
+   Default : F37 Lineca Medium, 800
+   Medium  : F37 Lineca Medium, 500
+   Book    : F37 Lineca Book,   400 */
+
+.custom-title.weight-medium .custom-title-heading {
+  font-family: var(--heading-font-family-bold);
+  font-weight: var(--corp-font-weight-medium);
+}
+
+.custom-title.weight-book .custom-title-heading {
+  font-family: var(--heading-font-family);
+  font-weight: var(--corp-font-weight-regular);
+}
+
+/* Format: Outdented — first letter changes to brand accent blue */
+
+.format-outdented .custom-title-heading::first-letter {
+  color: var(--custom-title-accent-color);
+  display: inline;
+}
+
+/* Format: Raised Cap — first letter scales up, sits raised on the baseline */
+
+.format-raised .custom-title-heading::first-letter {
+  font-weight: inherit;
+  color: inherit;
+  vertical-align: baseline;
+  float: none;
+  display: inline;
+}
+
+.format-raised h1::first-letter {
+  font-size: var(--corp-font-size-80);
+  line-height: var(--corp-typography-lineheight-display-2xl);
+}
+
+/* h2 — same size as h1 drop cap */
+
+.format-raised h2::first-letter {
+  font-size: var(--corp-font-size-80);
+  line-height: var(--corp-typography-lineheight-display-2xl);
+}
+
+.format-raised h3::first-letter {
+  font-size: var(--corp-font-size-56);
+  line-height: var(--corp-typography-lineheight-display-base);
+}
+
+/* h4 — first letter larger than the h4 text, proportionally scaled */
+
+.format-raised h4::first-letter {
+  font-size: var(--corp-font-size-48);
+  line-height: var(--corp-typography-lineheight-display-sm);
+}
+
+/* h5 — first letter visibly bigger than surrounding h5 text */
+
+.format-raised h5::first-letter {
+  font-size: var(--corp-font-size-40);
+  line-height: var(--corp-typography-lineheight-heading-md);
+}
+
+/* h6 — subtler lift; still larger than the h6 text */
+
+.format-raised h6::first-letter {
+  font-size: var(--corp-font-size-32);
+  line-height: var(--corp-typography-lineheight-relaxed-3xl);
+}
+
+/* Theme: Light — no background, navy text (inherits from project default) */
+
+.custom-title.theme-light .custom-title-heading {
+  color: var(--corp-color-text-default);
+}
+
+/* Theme: Dark — no background, text changes to white */
+
+.custom-title.theme-dark .custom-title-heading {
+  color: var(--color-white);
+}
+
+/* Former heading section — center H2 with bold weight */
+
+.former-heading .custom-title h2 {
+  text-align: center;
+  font-weight: var(--corp-font-weight-extrabold);
+}

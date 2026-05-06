@@ -24,34 +24,21 @@
       "id": "video",
       "fields": [
         {
+          "component": "tab",
+          "label": "Overview",
+          "name": "overview"
+        },
+        {
           "component": "aem-content",
           "valueType": "string",
           "name": "uri",
           "label": "Video"
         },
         {
-          "component": "multiselect",
-          "name": "classes",
-          "value": "",
-          "label": "Options",
-          "valueType": "string",
-          "options": [
-            {
-              "name": "Auto Play",
-              "children": [
-                {
-                  "name": "AutoPlay",
-                  "value": "autoplay"
-                }
-              ]
-            }
-          ]
-        },
-        {
           "component": "reference",
           "valueType": "string",
           "name": "placeholderImage",
-          "label": "Placeholder Image",
+          "label": "Poster Image",
           "multi": false
         },
         {
@@ -59,33 +46,62 @@
           "valueType": "string",
           "name": "placeholderAlt",
           "value": "",
-          "label": "Placeholder Alt Text"
+          "label": "Poster Alt Text",
+          "description": "Provide alt text for the poster image for accessibility."
         },
         {
           "component": "text",
           "valueType": "string",
           "name": "overlayTitle",
           "value": "",
-          "label": "Overlay Title"
+          "label": "Overlay Title",
+          "description": "Title displayed on top of the video before the user clicks play."
         },
         {
           "component": "text",
           "valueType": "string",
           "name": "overlayDescription",
           "value": "",
-          "label": "Overlay Description"
+          "label": "Overlay Description",
+          "description": "Description displayed on top of the video before the user clicks play."
         },
         {
           "name": "overlayBtnText",
-          "label": "Button Text (e.g. Watch 2:10)",
-          "component": "text"
+          "label": "Overlay Button Text",
+          "component": "text",
+          "description": "Defines the button text displayed on the video overlay before playback."
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "videoContentLayout",
+          "value": "none",
+          "label": "Content Position",
+          "options": [
+            {
+              "name": "None (overlay)",
+              "value": "none"
+            },
+            {
+              "name": "Bottom",
+              "value": "bottom"
+            },
+            {
+              "name": "Left",
+              "value": "left"
+            },
+            {
+              "name": "Right",
+              "value": "right"
+            }
+          ]
         },
         {
           "component": "select",
           "valueType": "string",
           "name": "classes_overlayColor",
           "value": "video-overlay-navy",
-          "label": "Overlay Color",
+          "label": "Color Overlay",
           "options": [
             {
               "name": "Navy Overlay",
@@ -99,14 +115,15 @@
               "name": "Purple Overlay",
               "value": "video-overlay-purple"
             }
-          ]
+          ],
+          "description": "Provide a solid background color that overlays the video before playback begins."
         },
         {
           "component": "select",
           "valueType": "string",
           "name": "classes_overlayBtnStyle",
           "value": "video-btn-outline",
-          "label": "Button Style",
+          "label": "Overlay Button Style",
           "options": [
             {
               "name": "Outline",
@@ -121,6 +138,84 @@
               "value": "video-btn-ghost"
             }
           ]
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "overlayButtonIconType",
+          "value": "icon-font",
+          "label": "Overlay Button Icon Type",
+          "description": "Select the icon type used in the overlay button",
+          "options": [
+            {
+              "name": "Icon Font",
+              "value": "icon-font"
+            },
+            {
+              "name": "Image",
+              "value": "image"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "overlayButtonFontIcon",
+          "value": "play",
+          "label": "Overlay Button Font Icon",
+          "description": "Define the icon font name for the button.",
+          "condition": {
+            "===": [
+              {
+                "var": "overlayButtonIconType"
+              },
+              "icon-font"
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "projectNumber",
+          "value": "",
+          "label": "Project Number",
+          "description": "Enter the project reference number if applicable."
+        },
+        {
+          "component": "tab",
+          "label": "Video Features",
+          "name": "Videofeatures"
+        },
+        {
+          "component": "boolean",
+          "name": "enableAutoplay",
+          "label": "Enable Autoplay",
+          "value": false,
+          "valueType": "boolean",
+          "description": "If selected this video will auto play when it comes into the view of the user."
+        },
+        {
+          "component": "boolean",
+          "name": "enableCaptions",
+          "label": "Enable Captions",
+          "value": false,
+          "valueType": "boolean",
+          "description": "If selected captions will be displayed"
+        },
+        {
+          "component": "boolean",
+          "name": "enablePlayerControls",
+          "label": "Enable Player Controls",
+          "value": true,
+          "valueType": "boolean",
+          "description": "If selected a video toolbar will be available to the user (play, pause, etc)"
+        },
+        {
+          "component": "boolean",
+          "name": "enableFullscreen",
+          "label": "Allow Fullscreen",
+          "value": true,
+          "valueType": "boolean"
         },
         {
           "...": "../../models/_common-properties.json#/common-prop"

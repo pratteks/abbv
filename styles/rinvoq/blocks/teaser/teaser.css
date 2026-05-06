@@ -1,136 +1,138 @@
 /* Teaser Block - mobile-first two-column layout */
 
 .teaser {
-  max-width: var(--content-max-width);
-  margin: var(--spacing-00) auto var(--spacing-80);
-  padding: var(--spacing-24) var(--spacing-16);
+  max-width: var(--corp-layout-container-max-width-md);
+  margin: 0 auto var(--corp-spacing-56);
+  padding: 0;
 }
 
 .teaser .teaser-eyebrow {
-  margin-bottom: var(--spacing-16);
-  color: var(--text-color);
+  margin-bottom: var(--corp-spacing-16);
+  color: var(--corp-color-text-default);
   font-family: var(--roboto-bold-font-family);
-  font-size: var(--font-size-12);
-  font-weight: var(--font-weight-700);
-  letter-spacing: var(--letter-spacing-wide-72);
-  line-height: var(--spacing-16);
+  font-size: var(--corp-font-size-16);
+  font-weight: var(--corp-font-weight-bold);
+  letter-spacing: var(--corp-typography-letterspacing-wide-xl);
+  line-height: var(--corp-spacing-20);
   text-transform: uppercase;
-  margin-left: var(--spacing-35);
 }
 
 .teaser .teaser-content {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  margin-left: var(--spacing-35);
-  margin-right: var(--spacing-35);
+  margin-right: var(--corp-spacing-35);
+  row-gap: var(--corp-spacing-16);
 }
 
 .teaser .teaser-left,
 .teaser .teaser-right {
-  min-width: var(--spacing-00);
+  min-width: 0;
 }
 
 .teaser .teaser-title {
-  margin: var(--spacing-00);
-  color: var(--text-color);
-  font-family: var(--heading-font-family);
-  font-size: var(--font-size-28);
-  font-weight: var(--font-weight-800);
-  line-height: var(--spacing-32);
+  margin: 0;
+  color: var(--corp-color-text-default);
+  font-family: var(--heading-font-family-bold);
+  font-size: var(--corp-font-size-28);
+  font-weight: var(--corp-font-weight-extrabold);
+  line-height: var(--corp-spacing-32);
 }
 
 .teaser .teaser-description {
-  margin: var(--spacing-00);
-  color: var(--text-color);
+  margin: 0;
+  color: var(--corp-color-text-default);
   font-family: var(--body-font-family);
-  font-size: var(--font-size-18);
-  font-weight: var(--font-weight-400);
-  line-height: var(--spacing-22);
+  font-size: var(--corp-font-size-18);
+  font-weight: var(--corp-font-weight-regular);
+  line-height: var(--corp-spacing-22);
 }
 
 .teaser .teaser-right .button-container {
-  margin: var(--spacing-24) var(--spacing-00) var(--spacing-00);
+  margin: var(--corp-spacing-24) 0 0;
 }
 
 /* Button Styles */
 
 .teaser .button.link-internal,
 .teaser .button.link-external {
-  letter-spacing: 0.06em;
+  letter-spacing: var(--corp-typography-letterspacing-wide-em);
   align-items: center;
   color: var(--color-accent-blue);
   cursor: pointer;
   display: flex;
   font-family: var(--roboto-bold-font-family);
-  font-size: var(--font-size-16);
-  font-weight: var(--font-weight-700);
-  line-height: var(--spacing-20);
-  padding: var(--spacing-00);
-  margin: var(--spacing-00);
+  font-size: var(--corp-font-size-16);
+  font-weight: var(--corp-font-weight-bold);
+  line-height: var(--corp-spacing-20);
+  padding: 0;
+  margin: 0;
   border: none;
-  border-radius: var(--border-radius-00);
+  border-radius: 0;
   background-color: unset;
   text-decoration: none;
   width: fit-content;
   text-transform: uppercase;
 }
 
-.teaser .button.link-internal:hover,
-.teaser .button.link-external :hover {
-  color: var(--text-color);
+.teaser .link-internal:hover,
+.teaser .link-external:hover {
+  color: var(--corp-color-text-default);
 }
 
-.teaser .button.link-internal::after {
+.teaser .link-internal::after {
   color: inherit;
   content: '\e901';
   display: flex;
-  font-family: var(--icon-font-family);
-  font-size: var(--font-size-12);
-  margin-left: var(--spacing-12);
-  margin-right: var(--spacing-03);
-  transition: color .1s ease;
+  font-family: var(--corp-icon-font-family);
+  font-size: var(--corp-font-size-14);
+  margin-left: var(--corp-spacing-12);
+  margin-right: var(--corp-spacing-3);
+  transform: scale(0.8);
+  transition: color 0.1s ease;
   vertical-align: middle;
 }
 
-.teaser .button.link-external::after {
+.teaser .link-external::after {
   color: inherit;
   content: '\e900';
-  font-family: var(--icon-font-family);
-  font-size: var(--font-size-12);
-  margin-left: var(--spacing-12);
-  margin-right: var(--spacing-03);
-  transform: scale(.8);
-  transition: color .1s ease;
+  font-family: var(--corp-icon-font-family);
+  font-size: var(--corp-font-size-14);
+  margin-left: var(--corp-spacing-12);
+  margin-right: var(--corp-spacing-3);
+   transform: scale(0.8);
+   transition: color 0.1s ease;
 }
 
 /* tablet styles */
 
 @media (min-width: 744px) {
-  .teaser {
-    padding-inline: var(--spacing-24);
+  .teaser {    
+    margin: 0 auto var(--corp-spacing-80);
   }
 
   .teaser .teaser-eyebrow {
-    margin-bottom: var(--spacing-24);
+    margin-bottom: var(--corp-spacing-24);
+    font-size: var(--corp-font-size-12);
+    line-height: var(--corp-spacing-16);
   }
 
   .teaser .teaser-content {
-    gap: var(--spacing-24);
+    column-gap: var(--corp-spacing-24);
   }
 
   .teaser .teaser-title {
-    font-size: var(--font-size-36);
-    line-height: var(--spacing-40);
+    font-size: var(--corp-font-size-36);
+    line-height: var(--corp-spacing-40);
   }
 
   .teaser .teaser-description {
-    font-size: var(--font-size-20);
-    line-height: var(--spacing-26);
+    font-size: var(--corp-font-size-20);
+    line-height: var(--corp-spacing-26);
   }
 
   .teaser .button.link-internal,
   .teaser .button.link-external {
-    font-size: var(--font-size-14);
+    font-size: var(--corp-font-size-14);
   }
 }
 
@@ -138,12 +140,13 @@
 
 @media (min-width: 1024px) {
   .teaser {
-    padding-inline: var(--spacing-00);
+    padding-inline: 0;
   }
 
   .teaser .teaser-content {
     grid-template-columns: repeat(12, 1fr);
-    gap: var(--spacing-24);
+    gap: var(--corp-spacing-24);
+    align-items: baseline;
   }
 
   .teaser .teaser-left {
@@ -152,15 +155,16 @@
 
   .teaser .teaser-right {
     grid-column: 8 / span 5;
+    align-self: end;
   }
 
   .teaser .teaser-title {
-    font-size: var(--font-size-56);
-    line-height: var(--spacing-64);
+    font-size: var(--corp-font-size-56);
+    line-height: var(--corp-spacing-64);
   }
 
   .teaser .teaser-description {
-    font-size: var(--font-size-24);
-    line-height: var(--spacing-32);
+    font-size: var(--corp-font-size-24);
+    line-height: var(--corp-spacing-32);
   }
 }

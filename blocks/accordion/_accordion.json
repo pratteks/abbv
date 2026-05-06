@@ -10,7 +10,9 @@
             "template": {
               "name": "Accordion",
               "model": "accordion",
-              "filter": "accordion"
+              "filter": "accordion",
+              "language": "lang:none",
+              "blockId": "id:"
             }
           }
         }
@@ -27,7 +29,7 @@
               "name": "Accordion Item",
               "model": "accordion-item",
               "summary": "Lorem Ipsum doloer sit",
-              "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur volutpat consequat dui, sit amet ...</p>"
+              "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur volutpat consequat dui, sit amet ..."
             }
           }
         }
@@ -70,7 +72,7 @@
         {
           "component": "text",
           "valueType": "string",
-          "name": "expandAllText",
+          "name": "expandAllLabel",
           "value": "Expand All",
           "label": "Expand All text",
           "condition": {
@@ -83,7 +85,7 @@
         {
           "component": "text",
           "valueType": "string",
-          "name": "collapseAllText",
+          "name": "collapseAllLabel",
           "value": "Collapse All",
           "label": "Collapse All text",
           "condition": {
@@ -327,6 +329,9 @@
             { "name": "None", "value": "no-margin" },
             { "name": "No Bottom Margin", "value": "margin-bottom-0" }
           ]
+        },
+        {
+          "...": "../../models/_common-properties.json#/common-prop"
         }
       ]
     },

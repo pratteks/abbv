@@ -34,7 +34,7 @@
               "name": "LinkList Item",
               "model": "linklist-item",
               "classes": "linklist-item",
-              "linkText": "New Link",
+              "linkText": "",
               "iconType": "none",
               "openInNewTab": false,
               "cookieConsentLink": false,
@@ -192,11 +192,23 @@
           "value": false,
           "description": "Show page description below each link (from index metadata).",
           "condition": {
-            "===": [
+            "and": [
               {
-                "var": "linkSource"
+                "===": [
+                  {
+                    "var": "linkSource"
+                  },
+                  "child-pages"
+                ]
               },
-              "child-pages"
+              {
+                "!==": [
+                  {
+                    "var": "variant"
+                  },
+                  "detailed-list"
+                ]
+              }
             ]
           }
         },
@@ -224,11 +236,23 @@
           "value": false,
           "description": "Show subtitle field from the index when available.",
           "condition": {
-            "===": [
+            "and": [
               {
-                "var": "linkSource"
+                "===": [
+                  {
+                    "var": "linkSource"
+                  },
+                  "child-pages"
+                ]
               },
-              "child-pages"
+              {
+                "!==": [
+                  {
+                    "var": "variant"
+                  },
+                  "detailed-list"
+                ]
+              }
             ]
           }
         },
@@ -495,7 +519,10 @@
           "name": "categoryTags",
           "label": "Category Tags",
           "value": [],
-          "description": "Select taxonomy tags to categorize this item."
+          "description": "Select taxonomy tags to categorize this item.",
+          "namespaces": [
+            "corporate"
+          ]
         },
         {
           "component": "select",

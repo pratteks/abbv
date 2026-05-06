@@ -7,7 +7,38 @@
 import { resolveImageReference } from '../../scripts/scripts.js';
 import { applyCommonProps } from '../../scripts/utils.js';
 
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+// const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+function getFieldElement(block, name) {
+  return block.querySelector(`[data-aue-prop="${name}"]`) || null;
+}
+
+function getFieldText(block, name) {
+  const field = getFieldElement(block, name);
+  if (!field) return '';
+  return (field.getAttribute('data-aue-value') ?? field.textContent ?? '').trim();
+}
+
+function getFieldBoolean(block, name, fallback = false) {
+  const value = getFieldText(block, name).toLowerCase();
+  if (!value) return fallback;
+  if (['true', '1', 'yes', 'on'].includes(value)) return true;
+  if (['false', '0', 'no', 'off'].includes(value)) return false;
+  return fallback;
+}
+
+function parseBooleanValue(value, fallback = false) {
+  const normalized = `${value || ''}`.trim().toLowerCase();
+  if (!normalized) return fallback;
+  if (['true', '1', 'yes', 'on'].includes(normalized)) return true;
+  if (['false', '0', 'no', 'off'].includes(normalized)) return false;
+  return fallback;
+}
+
+function isBooleanLikeValue(value) {
+  const normalized = `${value || ''}`.trim().toLowerCase();
+  return ['true', '1', 'yes', 'on', 'false', '0', 'no', 'off'].includes(normalized);
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Config reader
@@ -18,42 +49,72 @@ function getVideoConfig(block) {
     const cell = row.querySelector(':scope > div');
     if (!cell) return false;
     if (cell.querySelector('a, picture, img')) return false;
-    return cell.textContent.trim().length > 0;
+    return !!cell;
   });
 
   const getText = (row) => row?.querySelector(':scope > div')?.textContent?.trim()
     || row?.textContent?.trim()
     || '';
 
-  const len = textRows.length;
-
   let placeholderAlt = '';
   let overlayTitle = '';
   let overlayDescription = '';
   let overlayBtnText = '';
+  let videoContentLayout = '';
+  let overlayButtonIconType = '';
+  let overlayButtonFontIcon = '';
 
-  // CASE 1: Only Title
   const get = (i) => (textRows[i] ? getText(textRows[i]) : undefined);
 
-  if (len >= 4) {
-    placeholderAlt = get(0);
-    overlayTitle = get(1);
-    overlayDescription = get(2);
-    overlayBtnText = get(3);
-  } else {
-    overlayTitle = get(0);
-    overlayDescription = get(1);
-    overlayBtnText = get(2);
-  }
+  placeholderAlt = get(0);
+  overlayTitle = get(1);
+  overlayDescription = get(2);
+  overlayBtnText = get(3);
+  videoContentLayout = get(4) || 'none';
+  overlayButtonIconType = get(5) || '';
+  overlayButtonFontIcon = get(6) || '';
+  const featureRowValues = textRows
+    .map((row) => getText(row))
+    .filter(isBooleanLikeValue);
+  const featureValues = featureRowValues.slice(-4);
+
+  const hasFeatureFields = !!getFieldElement(block, 'enableAutoplay')
+    || !!getFieldElement(block, 'enableCaptions')
+    || !!getFieldElement(block, 'enablePlayerControls')
+    || !!getFieldElement(block, 'enableFullscreen');
 
   return {
     placeholderAlt,
     overlayTitle,
     overlayDescription,
     overlayBtnText,
+    videoContentLayout,
+    overlayButtonIconType: getFieldText(block, 'overlayButtonIconType') || overlayButtonIconType,
+    overlayButtonFontIcon: getFieldText(block, 'overlayButtonFontIcon') || overlayButtonFontIcon,
     overlayColor: [...block.classList].find((c) => c.startsWith('video-overlay-')) || 'video-overlay-navy',
     overlayBtnStyle: [...block.classList].find((c) => c.startsWith('video-btn-')) || 'video-btn-outline',
+    enableAutoplay: hasFeatureFields
+      ? getFieldBoolean(block, 'enableAutoplay', false)
+      : parseBooleanValue(featureValues[0], block.classList.contains('autoplay')),
+    enableCaptions: hasFeatureFields
+      ? getFieldBoolean(block, 'enableCaptions', false)
+      : parseBooleanValue(featureValues[1], block.classList.contains('captions')),
+    enablePlayerControls: hasFeatureFields
+      ? getFieldBoolean(block, 'enablePlayerControls', true)
+      : parseBooleanValue(featureValues[2], block.classList.contains('playercontrols')),
+    enableFullscreen: hasFeatureFields
+      ? getFieldBoolean(block, 'enableFullscreen', true)
+      : parseBooleanValue(featureValues[3], true),
   };
+}
+
+function buildOverlayButtonIcon(config) {
+  if (config.overlayButtonIconType !== 'icon-font' || !config.overlayButtonFontIcon) return null;
+
+  const icon = document.createElement('span');
+  icon.className = `video-play-icon icon-abbvie-${config.overlayButtonFontIcon}`;
+  icon.setAttribute('aria-hidden', 'true');
+  return icon;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -64,22 +125,157 @@ function getVideoConfig(block) {
 // before we attempt to clone it.
 // ─────────────────────────────────────────────────────────────────────────────
 
+function isEmbedVideoHref(href) {
+  if (!href) return false;
+  return /youtube\.com|youtu\.be|vimeo\.com/i.test(href);
+}
+
+/** Any href used as the block's main video source (embed or file). */
+function isVideoSourceHref(href) {
+  if (!href) return false;
+  if (isEmbedVideoHref(href)) return true;
+  return /\.(mp4|webm|ogg|mov)(\?|$)/i.test(href);
+}
+
+function isPosterReferenceHref(href) {
+  if (!href || isEmbedVideoHref(href)) return false;
+  return /\.(jpg|jpeg|png|gif|webp|svg|avif)(\?|$)/i.test(href)
+    || href.includes('scene7.com')
+    || href.includes('/is/image/')
+    || href.includes('/content/dam/')
+    || href.includes('media_');
+}
+
+function resolvePlaceholderInContainer(container) {
+  if (!container || container.querySelector('picture, img')) return;
+  const link = [...container.querySelectorAll('a[href]')].find((a) => isPosterReferenceHref(a.href));
+  if (link) resolveImageReference(container);
+}
+
+function pickPosterNode(block) {
+  const propRoot = block.querySelector('[data-aue-prop="placeholderImage"]');
+  if (propRoot) {
+    const pic = propRoot.querySelector('picture');
+    if (pic) return pic;
+    const img = propRoot.querySelector('img');
+    if (img) return img;
+  }
+  return block.querySelector('picture') || block.querySelector('img') || null;
+}
+
 function resolvePlaceholder(block) {
-  // The placeholderImage reference field renders as a block row whose first
-  // cell contains only an <a> or unresolved image reference — no visible text.
-  // resolveImageReference replaces that with a proper <picture> element.
+  const posterField = block.querySelector('[data-aue-prop="placeholderImage"]');
+  if (posterField) {
+    const target = posterField.matches('a') ? posterField.parentElement : posterField;
+    resolvePlaceholderInContainer(target);
+  }
+
   const rows = [...block.querySelectorAll(':scope > div')];
   rows.forEach((row) => {
     const cell = row.querySelector(':scope > div') || row;
-    // Only process rows that do not already have a picture/img and are not
-    // pure text rows (i.e. the image reference row).
-    if (!cell.querySelector('picture, img') && cell.querySelector('a[href*="/content/dam"], a[href*="media_"]')) {
-      resolveImageReference(cell);
-    }
+    if (cell.querySelector('picture, img')) return;
+    if (![...cell.querySelectorAll('a[href]')].some((a) => isPosterReferenceHref(a.href))) return;
+    resolveImageReference(cell);
   });
 
-  // After resolution, find the resulting picture or img anywhere in the block
-  return block.querySelector('picture') || block.querySelector('img') || null;
+  return pickPosterNode(block);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// GTM analytics for YouTube — ported from AEM _ytplayer.js
+// Attaches a scoped postMessage listener to a single YouTube iframe so each
+// block instance tracks independently. Cleans up when the iframe is removed.
+// ─────────────────────────────────────────────────────────────────────────────
+
+function setupYouTubeAnalytics(iframe) {
+  const dl = () => {
+    window.dataLayer = window.dataLayer || [];
+    return window.dataLayer;
+  };
+  const PROGRESS_POINTS = [25, 50, 75];
+  const progressReached = {};
+  let started = false;
+  let completed = false;
+  let duration = 0;
+  let title = '';
+
+  const idMatch = iframe.src.match(/\/embed\/([^?&]+)/);
+  const videoId = idMatch ? idMatch[1] : '';
+
+  function checkProgress(currentTime) {
+    if (!duration) return;
+    const pct = Math.floor((currentTime / duration) * 100);
+    PROGRESS_POINTS.forEach((threshold) => {
+      if (pct >= threshold && !progressReached[threshold]) {
+        progressReached[threshold] = true;
+        dl().push({
+          event: 'video_progress',
+          video_name: title || videoId,
+          video_id: videoId,
+          video_length: duration,
+          percent: String(threshold),
+        });
+      }
+    });
+    if (pct >= 97 && !completed) {
+      completed = true;
+      dl().push({
+        event: 'video_complete',
+        video_name: title || videoId,
+        video_id: videoId,
+        video_length: duration,
+      });
+    }
+  }
+
+  function onMessage(e) {
+    if (!e.data || e.source !== iframe.contentWindow) return;
+    let obj;
+    try {
+      obj = JSON.parse(e.data);
+    } catch {
+      return;
+    }
+    if (obj.event !== 'infoDelivery' || !obj.info) return;
+
+    const {
+      playerState, currentTime, duration: dur, videoData,
+    } = obj.info;
+    if (dur) duration = dur;
+    if (videoData?.title) title = videoData.title;
+
+    if (playerState === 1 && !started) {
+      started = true;
+      PROGRESS_POINTS.forEach((p) => { progressReached[p] = false; });
+      completed = false;
+      dl().push({
+        event: 'video_start',
+        video_name: title || videoId,
+        video_id: videoId,
+        video_length: duration,
+      });
+    }
+    if (playerState === 0 && !completed) {
+      completed = true;
+      dl().push({
+        event: 'video_complete',
+        video_name: title || videoId,
+        video_id: videoId,
+        video_length: duration,
+      });
+    }
+    if (currentTime != null) checkProgress(currentTime);
+  }
+
+  window.addEventListener('message', onMessage);
+
+  const observer = new MutationObserver(() => {
+    if (!document.contains(iframe)) {
+      window.removeEventListener('message', onMessage);
+      observer.disconnect();
+    }
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -94,14 +290,31 @@ function getYouTubeId(url) {
   return '';
 }
 
-function embedYoutube(url, autoplay, background) {
+function embedYoutube(url, options) {
+  const {
+    background,
+    userInitiated,
+    enableCaptions,
+    enablePlayerControls,
+    enableFullscreen,
+  } = options;
+  const shouldAutoplay = userInitiated;
   const videoId = getYouTubeId(url);
   const params = new URLSearchParams();
   params.set('rel', '0');
   params.set('playsinline', '1');
   params.set('enablejsapi', '1');
   params.set('origin', window.location.origin);
-  if (autoplay || background) params.set('autoplay', autoplay ? '1' : '0');
+  params.set('controls', enablePlayerControls ? '1' : '0');
+  params.set('modestbranding', '1');
+  params.set('fs', enableFullscreen ? '1' : '0');
+  if (enableCaptions) params.set('cc_load_policy', '1');
+  if (shouldAutoplay || background) {
+    params.set('autoplay', shouldAutoplay ? '1' : '0');
+  }
+  if (background) {
+    params.set('mute', '1');
+  }
   if (background) {
     params.set('mute', '1');
     params.set('controls', '0');
@@ -115,10 +328,12 @@ function embedYoutube(url, autoplay, background) {
   iframe.src = videoId
     ? `https://www.youtube.com/embed/${encodeURIComponent(videoId)}?${params.toString()}`
     : url.href;
-  iframe.allow = 'autoplay; fullscreen; picture-in-picture; encrypted-media; accelerometer; gyroscope';
-  iframe.allowFullscreen = true;
+  iframe.allow = `${shouldAutoplay ? 'autoplay; ' : ''}${enableFullscreen ? 'fullscreen; ' : ''}picture-in-picture; encrypted-media; accelerometer; gyroscope`;
+  iframe.allowFullscreen = enableFullscreen;
   iframe.loading = 'lazy';
   iframe.title = 'Content from Youtube';
+
+  iframe.addEventListener('load', () => setupYouTubeAnalytics(iframe), { once: true });
 
   const wrap = document.createElement('div');
   wrap.className = 'video-player-wrap';
@@ -126,12 +341,20 @@ function embedYoutube(url, autoplay, background) {
   return wrap;
 }
 
-function embedVimeo(url, autoplay, background) {
+function embedVimeo(url, options) {
+  const {
+    background,
+    userInitiated,
+    enablePlayerControls,
+    enableFullscreen,
+  } = options;
+  const shouldAutoplay = userInitiated;
   const videoId = url.pathname.split('/').filter(Boolean).pop();
   const params = new URLSearchParams();
   params.set('api', '1');
   params.set('playsinline', '1');
-  if (autoplay || background) params.set('autoplay', autoplay ? '1' : '0');
+  params.set('controls', enablePlayerControls ? '1' : '0');
+  if (shouldAutoplay || background) params.set('autoplay', shouldAutoplay ? '1' : '0');
   if (background) {
     params.set('background', '1');
     params.set('muted', '1');
@@ -141,8 +364,8 @@ function embedVimeo(url, autoplay, background) {
   const iframe = document.createElement('iframe');
   iframe.className = 'video-iframe';
   iframe.src = `https://player.vimeo.com/video/${videoId}?${params.toString()}`;
-  iframe.allow = 'autoplay; fullscreen; picture-in-picture';
-  iframe.allowFullscreen = true;
+  iframe.allow = `${shouldAutoplay ? 'autoplay; ' : ''}${enableFullscreen ? 'fullscreen; ' : ''}picture-in-picture`;
+  iframe.allowFullscreen = enableFullscreen;
   iframe.loading = 'lazy';
   iframe.title = 'Content from Vimeo';
 
@@ -152,17 +375,25 @@ function embedVimeo(url, autoplay, background) {
   return wrap;
 }
 
-function getNativeVideoElement(source, autoplay, background) {
+function getNativeVideoElement(source, options) {
+  const {
+    background,
+    userInitiated,
+    enablePlayerControls,
+    enableFullscreen,
+  } = options;
+  const shouldAutoplay = userInitiated;
   const video = document.createElement('video');
   video.className = 'video-native';
-  video.setAttribute('controls', '');
-  if (autoplay) video.setAttribute('autoplay', '');
+  video.setAttribute('playsinline', '');
+  if (enablePlayerControls) video.setAttribute('controls', '');
+  if (shouldAutoplay) video.setAttribute('autoplay', '');
   if (background) {
     video.setAttribute('loop', '');
-    video.setAttribute('playsinline', '');
     video.muted = true;
     video.removeAttribute('controls');
   }
+  if (!enableFullscreen) video.setAttribute('controlslist', 'nofullscreen');
   const srcEl = document.createElement('source');
   srcEl.setAttribute('src', source);
   srcEl.setAttribute('type', `video/${source.split('.').pop()}`);
@@ -186,9 +417,10 @@ function sendYouTubeCommand(block, func) {
   );
 }
 
-function loadVideoEmbed(block, link, autoplay, background, mountPoint) {
+function loadVideoEmbed(block, link, options, mountPoint) {
+  const { userInitiated } = options;
   if (block.dataset.embedLoaded === 'true' || block.dataset.embedLoading === 'true') {
-    if (autoplay) sendYouTubeCommand(block, 'playVideo');
+    if (userInitiated) sendYouTubeCommand(block, 'playVideo');
     return;
   }
   block.dataset.embedLoading = 'true';
@@ -200,24 +432,31 @@ function loadVideoEmbed(block, link, autoplay, background, mountPoint) {
 
   if (isYoutube) {
     block.dataset.videoProvider = 'youtube';
-    playerWrap = embedYoutube(url, autoplay, background);
+    playerWrap = embedYoutube(url, options);
     playerWrap.querySelector('iframe').addEventListener('load', () => {
       block.dataset.embedLoaded = 'true';
       block.dataset.embedLoading = 'false';
+      if (userInitiated) {
+        sendYouTubeCommand(block, 'playVideo');
+      }
     }, { once: true });
   } else if (isVimeo) {
     block.dataset.videoProvider = 'vimeo';
-    playerWrap = embedVimeo(url, autoplay, background);
+    playerWrap = embedVimeo(url, options);
     playerWrap.querySelector('iframe').addEventListener('load', () => {
       block.dataset.embedLoaded = 'true';
       block.dataset.embedLoading = 'false';
     }, { once: true });
   } else {
     block.dataset.videoProvider = 'native';
-    playerWrap = getNativeVideoElement(link, autoplay, background);
-    playerWrap.querySelector('video').addEventListener('canplay', () => {
+    playerWrap = getNativeVideoElement(link, options);
+    playerWrap.querySelector('video').addEventListener('canplay', (event) => {
       block.dataset.embedLoaded = 'true';
       block.dataset.embedLoading = 'false';
+      if (userInitiated) {
+        const playAttempt = event.target.play();
+        if (playAttempt?.catch) playAttempt.catch(() => {});
+      }
     }, { once: true });
   }
 
@@ -234,30 +473,29 @@ function buildOverlayButton(config) {
   btn.className = `video-play-btn ${config.overlayBtnStyle}`;
   btn.setAttribute('aria-label', `Play video${config.overlayTitle ? `: ${config.overlayTitle}` : ''}`);
 
-  const icon = document.createElement('span');
-  icon.className = 'video-play-icon';
-  icon.setAttribute('aria-hidden', 'true');
-
+  const icon = buildOverlayButtonIcon(config);
   const label = document.createElement('span');
   label.className = 'video-play-label';
   label.textContent = config.overlayBtnText || 'Watch';
 
-  btn.append(icon, label);
+  if (icon) btn.append(icon);
+  btn.append(label);
   return btn;
 }
 
 function buildOverlay(config, onPlay) {
   const overlay = document.createElement('div');
   overlay.className = `video-overlay ${config.overlayColor}`;
+  const isOverlayMode = config.videoContentLayout === 'none';
 
-  if (config.overlayTitle) {
+  if (isOverlayMode && config.overlayTitle) {
     const title = document.createElement('p');
     title.className = 'video-overlay-title';
     title.textContent = config.overlayTitle;
     overlay.append(title);
   }
 
-  if (config.overlayDescription) {
+  if (isOverlayMode && config.overlayDescription) {
     const desc = document.createElement('p');
     desc.className = 'video-overlay-description';
     desc.textContent = config.overlayDescription;
@@ -278,6 +516,29 @@ function buildOverlay(config, onPlay) {
   controls.append(btn);
   overlay.append(controls);
   return overlay;
+}
+
+function buildContentArea(config) {
+  const area = document.createElement('div');
+  area.className = 'video-content-area';
+
+  if (config.overlayTitle) {
+    const title = document.createElement('p');
+    title.className = 'video-content-title';
+    const b = document.createElement('b');
+    b.textContent = config.overlayTitle;
+    title.append(b);
+    area.append(title);
+  }
+
+  if (config.overlayDescription) {
+    const desc = document.createElement('p');
+    desc.className = 'video-content-desc';
+    desc.textContent = config.overlayDescription;
+    area.append(desc);
+  }
+
+  return area;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -307,13 +568,16 @@ export default async function decorate(block) {
   // textContent wipe below.
   const placeholderClone = rawPlaceholder ? rawPlaceholder.cloneNode(true) : null;
 
-  const linkEl = block.querySelector('a');
+  const linkEl = [...block.querySelectorAll('a[href]')].find((a) => isVideoSourceHref(a.href));
   const link = linkEl?.href || '';
 
   // Guard: nothing to build without a video link
   if (!link) return;
 
   block.textContent = '';
+
+  const layout = config.videoContentLayout || 'none';
+  block.classList.add(`video-content-${layout}`);
 
   const shell = document.createElement('div');
   shell.className = 'video-shell';
@@ -346,29 +610,39 @@ export default async function decorate(block) {
     block.classList.add('has-poster');
   }
 
-  const autoplay = block.classList.contains('autoplay');
-
-  const startPlayback = () => {
-    loadVideoEmbed(block, link, true, false, media);
+  const videoOptions = {
+    background: false,
+    userInitiated: false,
+    enableCaptions: config.enableCaptions,
+    enablePlayerControls: config.enablePlayerControls,
+    enableFullscreen: config.enableFullscreen,
   };
 
-  if (!autoplay) {
-    const overlay = buildOverlay(config, startPlayback);
-    shell.append(overlay);
+  const startPlayback = () => {
+    loadVideoEmbed(block, link, {
+      ...videoOptions,
+      userInitiated: config.enableAutoplay,
+    }, media);
+  };
+
+  const overlay = buildOverlay(config, startPlayback);
+  shell.append(overlay);
+
+  const mainWrapper = document.createElement('div');
+  mainWrapper.className = 'video-main';
+
+  if (layout !== 'none') {
+    const contentArea = buildContentArea(config);
+    if (layout === 'left') {
+      mainWrapper.append(contentArea, shell);
+    } else if (layout === 'right') {
+      mainWrapper.append(shell, contentArea);
+    } else {
+      mainWrapper.append(shell, contentArea);
+    }
+  } else {
+    mainWrapper.append(shell);
   }
 
-  block.append(shell);
-
-  // Set up lazy-load observer when there is no poster (video loads on scroll),
-  // or when autoplay is enabled (video starts on viewport entry).
-  if (!placeholderClone || autoplay) {
-    const observer = new IntersectionObserver((entries) => {
-      if (entries.some((entry) => entry.isIntersecting)) {
-        observer.disconnect();
-        const playOnLoad = autoplay && !prefersReducedMotion.matches;
-        loadVideoEmbed(block, link, playOnLoad, autoplay, media);
-      }
-    });
-    observer.observe(block);
-  }
+  block.append(mainWrapper);
 }

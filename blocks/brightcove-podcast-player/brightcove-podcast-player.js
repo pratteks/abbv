@@ -156,6 +156,55 @@ function loadPlayer(container, cfg, imgContainer, titleEl) {
         this.audioOnlyMode(true);
         this.controls(true);
 
+        // GTM analytics — ported from AEM _brightcoveplayer.js (podcast path)
+        const dl = () => { window.dataLayer = window.dataLayer || []; return window.dataLayer; };
+        const PROGRESS_POINTS = [25, 50, 75];
+        const progressReached = {};
+        let playFired = false;
+        let completeFired = false;
+
+        this.on('play', () => {
+          if (!playFired && this.mediainfo) {
+            playFired = true;
+            dl().push({
+              event: 'podcast_start',
+              podcast_name: this.mediainfo.name,
+              podcast_length: this.duration(),
+              podcast_id: this.mediainfo.id,
+            });
+          }
+        });
+
+        this.on('timeupdate', () => {
+          if (!this.mediainfo || !this.duration()) return;
+          const pct = Math.floor((this.currentTime() / this.duration()) * 100);
+          PROGRESS_POINTS.forEach((threshold) => {
+            if (pct === threshold && !progressReached[threshold]) {
+              progressReached[threshold] = true;
+              dl().push({
+                event: 'podcast_progress',
+                podcast_name: this.mediainfo.name,
+                podcast_length: this.duration(),
+                podcast_id: this.mediainfo.id,
+                percent: String(threshold),
+              });
+            }
+          });
+        });
+
+        this.on('ended', () => {
+          if (!completeFired && this.mediainfo) {
+            completeFired = true;
+            dl().push({
+              event: 'podcast_complete',
+              podcast_name: this.mediainfo.name,
+              podcast_length: this.duration(),
+              podcast_id: this.mediainfo.id,
+              percent: '100',
+            });
+          }
+        });
+
         this.on('loadedmetadata', () => {
           const mediaInfo = this.mediainfo;
           if (!mediaInfo) return;
@@ -196,13 +245,6 @@ export default function decorate(block) {
 
   // Clear block content for rebuild
   block.textContent = '';
-
-  // Language attribute for accessibility
-  if (cfg.language) {
-    block.setAttribute('lang', cfg.language);
-  } else {
-    block.removeAttribute('lang');
-  }
 
   // Analytics data attribute
   if (cfg.analyticsInteractionId) {

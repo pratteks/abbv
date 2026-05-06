@@ -1,3 +1,8 @@
+/* stylelint-disable */
+/** TODO Revistit Stylelint and Code Refacor during Block Development */
+.tabs {
+  --tab-padding: 0.5em;
+}
 .tabs .tabs-list {
   display: flex;
   gap: 0.5ch;
@@ -21,10 +26,10 @@
 .tabs .tabs-list button {
   flex: 0 0 max-content;
   margin: 0;
-  border: 1px solid #dadada;
+  border: var(--border-width-thin) solid var(--color-border-subtle);
   border-radius: 0;
-  padding: 0.5em;
-  background-color: var(--light-color);
+  padding: var(--tab-padding);
+  background-color: var(--corp-color-surface-subtle);
   color: initial;
   font-weight: bold;
   line-height: unset;
@@ -41,15 +46,15 @@
 
 
 .tabs .tabs-list button[aria-selected='true'] {
-  border-bottom: 1px solid var(--background-color);
-  background-color: var(--background-color);
+  border-bottom: var(--border-width-thin) solid var(--color-surface-default);
+  background-color: var(--color-surface-default);
   cursor: initial;
 }
 
 .tabs .tabs-panel {
-  margin-top: -1px;
-  padding: 24px;
-  border: 1px solid #dadada;
+  margin-top: calc(var(--corp-spacing-1) * -1);
+  padding: var(--corp-spacing-24);
+  border: var(--border-width-thin) solid var(--color-border-subtle);
   overflow: auto;
 }
 

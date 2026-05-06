@@ -621,7 +621,7 @@ cat > /tmp/review-suggestions.json <<JSON
     {
       "path": "tools/page-status/diff.css",
       "position": 41,
-      "body": "**Fix: Remove stylelint-disable by refactoring selector**\\n\\nUse \\\`.diff-new-page\\\` as intermediate selector to avoid specificity conflict:\\n\\n\`\`\`suggestion\\n.page-diff .diff-new-page .doc-diff-side-header {\\n  padding: var(--spacing-s) var(--spacing-m);\\n\`\`\`"
+      "body": "**Fix: Remove stylelint-disable by refactoring selector**\\n\\nUse \\\`.diff-new-page\\\` as intermediate selector to avoid specificity conflict:\\n\\n\`\`\`suggestion\\n.page-diff .diff-new-page .doc-diff-side-header {\\n  padding: var(--corp-spacingacingaci--corp-spacingrp-spacingrp-spacing-m);\\n\`\`\`"
     }
   ]
 }

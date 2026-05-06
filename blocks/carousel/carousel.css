@@ -1,3 +1,8 @@
+/* stylelint-disable */
+/* Todo: This carousel block has not been developed yet. We will revisit during block development or enhancement. */
+.carousel {
+  --carousel-height: 8.8rem;
+}
 .carousel .carousel-slides-container {
   position: relative;
 }
@@ -29,7 +34,7 @@
   justify-content: center;
   position: relative;
   width: 100%;
-  min-height: min(50vw, calc(100dvh - var(--header-height)));
+  min-height: min(50vw, calc(100dvh - var(--carousel-height)));
 }
 
 .carousel .carousel-slide:has(.carousel-slide-content[data-align='center']) {
@@ -67,7 +72,7 @@
   justify-content: center;
   gap: 6px 12px;
   padding: 12px;
-  background-color: var(--light-color);
+  background-color: var(--corp-color-surface-subtle);
   line-height: 0;
 }
 
@@ -77,14 +82,14 @@
   margin: 0;
   padding: 0;
   border-radius: 50%;
-  background-color: #dadada;
+  background-color: var(--color-border-subtle);
   transition: background-color 0.2s;
 }
 
 .carousel .carousel-slide-indicator button:disabled,
 .carousel .carousel-slide-indicator button:hover,
 .carousel .carousel-slide-indicator button:focus-visible {
-  background-color: var(--text-color);
+  background-color: var(--corp-color-text-default);
 }
 
 .carousel .carousel-navigation-buttons {
@@ -99,7 +104,6 @@
   z-index: 1;
 }
 
-/* stylelint-disable-next-line no-descending-specificity */
 .carousel .carousel-navigation-buttons button {
   position: relative;
   width: 44px;

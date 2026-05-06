@@ -97,16 +97,16 @@ Leverage CSS custom properties defined in `styles/styles.css` for consistency:
 **Colors:**
 ```css
 main .my-block {
-  background-color: var(--background-color);
-  color: var(--text-color);
+  background-color: var(--color-surface-default);
+  color: var(--corp-color-text-default);
 }
 
 main .my-block a:any-link {
-  color: var(--link-color);
+  color: var(--corp-color-link-default);
 }
 
 main .my-block a:hover {
-  color: var(--link-hover-color);
+  color: var(--corp-color-link-hover);
 }
 ```
 
@@ -132,7 +132,7 @@ main .my-block {
 ```
 
 **Available custom properties:**
-- Colors: `--clr-*`, `--link-color`, `--background-color`, `--text-color`, etc.
+- Colors: `--clr-*`, `--corp-color-link-default`, `--color-surface-default`, `--corp-color-text-default`, etc.
 - Fonts: `--body-font-family`, `--heading-font-family`, `--fixed-font-family`
 - Font sizes: `--heading-font-size-*`, `--body-font-size-*`
 - Layout: `--max-content-width`, `--inline-section-padding`
@@ -254,13 +254,13 @@ Use the variant class alongside the block class:
 ```css
 /* Base block */
 main .my-block {
-  background-color: var(--background-color);
-  color: var(--text-color);
+  background-color: var(--color-surface-default);
+  color: var(--corp-color-text-default);
 }
 
 /* Dark variant */
 main .my-block.dark {
-  background-color: var(--dark-color);
+  background-color: var(--corp-color-text-strong);
   color: var(--clr-white);
 }
 
@@ -401,7 +401,7 @@ main .my-block {
 /* Good */
 main .my-block {
   font-family: var(--body-font-family);
-  color: var(--text-color);
+  color: var(--corp-color-text-default);
 }
 ```
 

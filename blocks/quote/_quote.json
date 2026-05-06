@@ -12,7 +12,7 @@
               "model": "quote",
               "id": "",
               "customClass": "",
-              "quoteType": "basic",
+              "quoteVariant": "basic",
               "backgroundImageAlt": "",
               "classes_theme": "quote-none",
               "classes_contentAlignment": "quote-align-none",
@@ -38,7 +38,7 @@
         {
           "component": "select",
           "valueType": "string",
-          "name": "quoteType",
+          "name": "quoteVariant",
           "value": "basic",
           "label": "Quote Type",
           "required": true,
@@ -63,7 +63,7 @@
           "condition": {
             "in": [
               {
-                "var": "quoteType"
+                "var": "quoteVariant"
               },
               ["basic"]
             ]
@@ -74,12 +74,12 @@
           "valueType": "string",
           "name": "attributionName",
           "value": "",
-          "label": "Author Name",
+          "label": "Attribution Name",
           "description": "Provide the name of the author",
           "condition": {
             "in": [
               {
-                "var": "quoteType"
+                "var": "quoteVariant"
               },
               ["basic"]
             ]
@@ -88,14 +88,14 @@
         {
           "component": "text",
           "valueType": "string",
-          "name": "attributionTitle",
+          "name": "attributionRole",
           "value": "",
-          "label": "Author Title",
+          "label": "Attribution Title",
           "description": "Provide the title of the author",
           "condition": {
             "in": [
               {
-                "var": "quoteType"
+                "var": "quoteVariant"
               },
               ["basic"]
             ]
@@ -105,13 +105,13 @@
           "component": "reference",
           "valueType": "string",
           "name": "attributionImage",
-          "label": "Author Image",
+          "label": "Attribution Image",
           "description": "Select an image of the author",
           "multi": false,
           "condition": {
             "in": [
               {
-                "var": "quoteType"
+                "var": "quoteVariant"
               },
               ["basic"]
             ]
@@ -121,26 +121,30 @@
           "component": "aem-content",
           "valueType": "string",
           "name": "quoteFragment",
-          "label": "Content Fragment",
-          "description": "Select a quote from the Content Fragment library",
+          "label": "Quote Fragment",
+          "description": "Select a quote from the Content Fragments",
           "condition": {
             "in": [
               {
-                "var": "quoteType"
+                "var": "quoteVariant"
               },
               ["content-fragment"]
             ]
           }
-        },
+        },     
         {
-          "component": "reference",
+          "component": "custom-asset-namespace:custom-asset",
           "valueType": "string",
           "name": "backgroundImage",
           "label": "Background Image",
-          "description": "Select a background image for the quote",
-          "multi": false
+          "configUrl": "https://dm--dev-abbvie-corporate-us-en--abbvie.aem.live/tools/assets-selector/image.config.json"
         },
         {
+          "component": "custom-asset-namespace:custom-asset-mimetype",
+          "valueType": "string",
+          "name": "backgroundImageMimeType"
+        },
+         {
           "component": "text",
           "valueType": "string",
           "name": "backgroundImageAlt",
@@ -184,14 +188,14 @@
           "label": "Content Width",
           "value": "quote-content-col-none",
           "options": [
-            { "name": "None", "value": "quote-content-col-none" },
-            { "name": "1 Column", "value": "quote-content-col-1" },            
-            { "name": "3 Columns", "value": "quote-content-col-3" },    
-            { "name": "6 Columns", "value": "quote-content-col-6" },           
-            { "name": "9 Columns", "value": "quote-content-col-9" },           
-            { "name": "12 Columns", "value": "quote-content-col-12" }
+            { "name": "Default (No Columns)", "value": "quote-content-col-none" },
+            { "name": "Narrow", "value": "quote-content-col-1" },
+            { "name": "Small", "value": "quote-content-col-3" },
+            { "name": "Medium", "value": "quote-content-col-6" },
+            { "name": "Wide", "value": "quote-content-col-9" },
+            { "name": "Full Width", "value": "quote-content-col-12" }
           ]
-        },       
+        },
         {
           "...": "../../models/_common-properties.json#/common-prop"
         },

@@ -1,7 +1,7 @@
 .section.fact-card-container {
-  row-gap: var(--spacing-20);
+  row-gap: var(--corp-spacing-20);
   min-height: 21.6rem;
-  padding-bottom: var(--spacing-20);
+  padding-bottom: var(--corp-spacing-20);
 }
 
 /* Mobile: single column, full width */
@@ -13,6 +13,9 @@
 /* Block wrapper */
 
 .fact-card {
+  --fact-card-height: 27rem;
+  --fact-card-min-height: 36.8rem;
+  
   transition: all 0.2s;
   height: 100%;
 }
@@ -22,14 +25,14 @@
 .fact-card .fact-card-inner {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-20);
-  background-color: var(--background-color);
+  gap: var(--corp-spacing-20);
+  background-color: var(--color-surface-default);
 }
 
 /* Content area — 24px 32px consistent across all breakpoints */
 
 .fact-card .fact-card-content {
-  padding: var(--spacing-24) var(--spacing-32);
+  padding: var(--corp-spacing-24) var(--corp-spacing-32);
   overflow: hidden;
 }
 
@@ -40,13 +43,13 @@
 
 .fact-card .fact-card-eyebrow {
   font-family: var(--roboto-bold-font-family);
-  font-size: var(--font-size-16);
-  font-weight: var(--font-weight-700);
-  line-height: var(--line-height-20);
-  letter-spacing: var(--letter-spacing-wide-96);
-  color: var(--text-color);
+  font-size: var(--corp-font-size-16);
+  font-weight: var(--corp-font-weight-bold);
+  line-height: var(--corp-typography-lineheight-body-sm);
+  letter-spacing: var(--corp-typography-letterspacing-wide-4xl);
+  color: var(--corp-color-text-default);
   text-transform: uppercase;
-  margin-bottom: var(--spacing-38);
+  margin-bottom: var(--corp-spacing-38);
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -61,11 +64,11 @@
 
 .fact-card .fact-card-data-point {
   font-family: var(--heading-font-family);
-  font-size: var(--font-size-56);
-  font-weight: var(--font-weight-650);
-  line-height: var(--line-height-45);
-  letter-spacing: var(--letter-spacing-tight-lg);
-  color: var(--link-color);
+  font-size: var(--corp-font-size-56);
+  font-weight: var(--corp-font-weight-semibold-alt);
+  line-height: var(--corp-typography-lineheight-heading-lg);
+  letter-spacing: var(--corp-typography-letterspacing-tight-lg);
+  color: var(--color-accent-blue);
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -76,10 +79,10 @@
 
 .fact-card .fact-card-data-suffix {
   font-family: var(--heading-font-family-bold);
-  font-size: var(--font-size-24);
-  font-weight: var(--font-weight-800);
-  line-height: var(--line-height-28);
-  color: var(--link-color);
+  font-size: var(--corp-font-size-24);
+  font-weight: var(--corp-font-weight-extrabold);
+  line-height: var(--corp-typography-lineheight-relaxed-sm);
+  color: var(--color-accent-blue);
 }
 
 /* =====================================================
@@ -89,10 +92,10 @@
 
 .fact-card .fact-card-description {
   font-family: var(--body-font-family);
-  font-size: var(--font-size-16);
-  font-weight: var(--font-weight-400);
-  line-height: var(--line-height-20);
-  color: var(--text-color);
+  font-size: var(--corp-font-size-16);
+  font-weight: var(--corp-font-weight-regular);
+  line-height: var(--corp-typography-lineheight-body-sm);
+  color: var(--corp-color-text-default);
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 4;
@@ -106,7 +109,7 @@
 
 .fact-card .fact-card-image {
   width: 100%;
-  height: 27rem;
+  height: var(--fact-card-height);
   object-fit: cover;
   object-position: 50% 50%;
   display: block;
@@ -119,21 +122,21 @@
 /* Medium theme (light blue) — 1px transparent border */
 
 .fact-card.medium-theme .fact-card-inner {
-  background-color: var(--highlight-background-color);
+  background-color: var(--color-surface-highlight);
   border: 1px solid transparent;
 }
 
 /* Light theme no stroke — white, no border */
 
 .fact-card.light-theme-no-stroke .fact-card-inner {
-  background-color: var(--background-color);
+  background-color: var(--color-surface-default);
   border: none;
 }
 
 /* Size medium vertical — tall card with image on top */
 
 .fact-card.size-medium-vertical .fact-card-content {
-  height: 27rem;
+  height: var(--fact-card-height);
 }
 
 /* =====================================================
@@ -144,16 +147,17 @@
 
 .section.fact-card-container.fact-card-feature-grid {
   background-color: var(--color-gray-light);
-  border-top-left-radius: var(--border-top-radius);
+  border-top-left-radius: var(--border-radius-xl);
   overflow: hidden;
-  padding: var(--spacing-32) var(--spacing-35) var(--spacing-20);
-  max-width: var(--content-max-width-wide);
-  margin: var(--spacing-00) auto;
+  padding: var(--corp-spacing-32) var(--corp-spacing-35) var(--corp-spacing-20);
+  max-width: var(--corp-layout-container-max-width-lg);
+  margin: 0 auto;
+  row-gap: var(--corp-gap-md);
 }
 
 /* Mobile: single column */
 
-.section.fact-card-container.fact-card-feature-grid .fact-card-wrapper {
+.section.fact-card-container:where(.fact-card-feature-grid) .fact-card-wrapper {
   grid-column: 1 / span 6;
 }
 
@@ -167,7 +171,7 @@
 
 @media (min-width: 744px) {
     .section.fact-card-container {
-    min-height: 36.8rem;
+    min-height: var(--fact-card-min-height);
   }
 
   .section.fact-card-container .fact-card-wrapper {
@@ -175,68 +179,68 @@
   }
 
   .fact-card .fact-card-eyebrow {
-    font-size: var(--font-size-14);
-    letter-spacing: var(--letter-spacing-wide-84);
+    font-size: var(--corp-font-size-14);
+    letter-spacing: var(--corp-typography-letterspacing-wide-2xl);
   }
 
   .fact-card .fact-card-data-point {
-    font-size: var(--font-size-64);
-    line-height: var(--line-height-68);
-    letter-spacing: var(--letter-spacing-tight-md);
+    font-size: var(--corp-font-size-64);
+    line-height: var(--corp-typography-lineheight-display-xl);
+    letter-spacing: var(--corp-typography-letterspacing-tight-md-lg);
   }
 
   .fact-card .fact-card-data-suffix {
-    font-size: var(--font-size-30);
-    line-height: var(--line-height-34);
+    font-size: var(--corp-font-size-30);
+    line-height: var(--corp-typography-lineheight-relaxed-xl);
   }
 
   .fact-card .fact-card-description {
-    font-size: var(--font-size-14);
+    font-size: var(--corp-font-size-14);
   }
   
   .section.fact-card-container.fact-card-feature-grid {
-    padding: var(--spacing-56) var(--spacing-70) var(--spacing-20);
-    border-top-left-radius: var(--spacing-64);
+    padding: var(--corp-spacing-56) var(--corp-spacing-70) var(--corp-spacing-20);
+    border-top-left-radius: var(--corp-spacing-64);
     grid-template-rows: 1fr 1fr;
   }
 
   /* Default: 2-column layout */
-  .section.fact-card-container.fact-card-feature-grid .fact-card-wrapper {
+  .section.fact-card-container:where(.fact-card-feature-grid) .fact-card-wrapper {
     grid-column: auto / span 4;
   }
 
   /* Card 1 (top-left stacked): col 1, row 1 */
-  .section.fact-card-container.fact-card-feature-grid .fact-card-wrapper:nth-child(1) {
+  .section.fact-card-container:where(.fact-card-feature-grid) :where(.fact-card-wrapper):nth-child(1) {
     grid-column: 1 / span 4;
     grid-row: 1;
   }
 
   /* Card 2 (tall+image): col 2, spans 2 rows */
-  .section.fact-card-container.fact-card-feature-grid .fact-card-wrapper:nth-child(2) {
+  .section.fact-card-container:where(.fact-card-feature-grid) :where(.fact-card-wrapper):nth-child(2) {
     grid-column: 5 / span 4;
     grid-row: 1 / span 2;
   }
 
   /* Card 3 (top-right stacked): col 1, row 3 */
-  .section.fact-card-container.fact-card-feature-grid .fact-card-wrapper:nth-child(3) {
+  .section.fact-card-container:where(.fact-card-feature-grid) :where(.fact-card-wrapper):nth-child(3) {
     grid-column: 1 / span 4;
     grid-row: 3;
   }
 
   /* Card 4 (tall+image): col 2, rows 3-4 */
-  .section.fact-card-container.fact-card-feature-grid .fact-card-wrapper:nth-child(4) {
+  .section.fact-card-container:where(.fact-card-feature-grid) :where(.fact-card-wrapper):nth-child(4) {
     grid-column: 5 / span 4;
     grid-row: 3 / span 2;
   }
 
   /* Card 5 (bottom-left stacked): col 1, row 2 */
-  .section.fact-card-container.fact-card-feature-grid .fact-card-wrapper:nth-child(5) {
+  .section.fact-card-container:where(.fact-card-feature-grid) :where(.fact-card-wrapper):nth-child(5) {
     grid-column: 1 / span 4;
     grid-row: 2;
   }
 
   /* Card 6 (bottom-right stacked): col 1, row 4 */
-  .section.fact-card-container.fact-card-feature-grid .fact-card-wrapper:nth-child(6) {
+  .section.fact-card-container:where(.fact-card-feature-grid) :where(.fact-card-wrapper):nth-child(6) {
     grid-column: 1 / span 4;
     grid-row: 4;
   }
@@ -254,68 +258,68 @@
   }
 
   .fact-card .fact-card-content {
-    height: 27rem;
+    height: var(--fact-card-height);
   }
 
   .fact-card .fact-card-data-point {
-    font-size: var(--font-size-80);
-    line-height: var(--line-height-84);
-    letter-spacing: var(--letter-spacing-tight-xl);
+    font-size: var(--corp-font-size-80);
+    line-height: var(--corp-typography-lineheight-display-2xl);
+    letter-spacing: var(--corp-typography-letterspacing-tight-xl);
   }
 
   .fact-card .fact-card-data-suffix {
-    font-size: var(--font-size-40);
-    line-height: var(--line-height-44);
-    margin-bottom: var(--spacing-07);
+    font-size: var(--corp-font-size-40);
+    line-height: var(--corp-typography-lineheight-heading-md);
+    margin-bottom: var(--corp-spacing-7);
   }
 
   .fact-card .fact-card-description {
-    font-size: var(--font-size-16);
+    font-size: var(--corp-font-size-16);
   }
 
   .section.fact-card-container.fact-card-feature-grid {
-    padding: var(--spacing-80) var(--spacing-55) var(--spacing-20);
-    border-top-left-radius: var(--spacing-80);
+    padding: var(--corp-spacing-80) var(--corp-spacing-55) var(--corp-spacing-20);
+    border-top-left-radius: var(--corp-spacing-80);
     grid-template-rows: 1fr 1fr;
   }
 
   /* Default: 4-column, 3 spans each */
-  .section.fact-card-container.fact-card-feature-grid .fact-card-wrapper {
+  .section.fact-card-container:where(.fact-card-feature-grid) .fact-card-wrapper {
     grid-column: auto / span 3;
   }
 
   /* Card 1 (top-left stacked): col 1-3, row 1 */
-  .section.fact-card-container.fact-card-feature-grid .fact-card-wrapper:nth-child(1) {
+  .section.fact-card-container:where(.fact-card-feature-grid) :where(.fact-card-wrapper):nth-child(1) {
     grid-column: 1 / span 3;
     grid-row: 1;
   }
 
   /* Card 2 (tall+image): col 4-6, spans rows 1-2 */
-  .section.fact-card-container.fact-card-feature-grid .fact-card-wrapper:nth-child(2) {
+  .section.fact-card-container:where(.fact-card-feature-grid) :where(.fact-card-wrapper):nth-child(2) {
     grid-column: 4 / span 3;
     grid-row: 1 / span 2;
   }
 
   /* Card 3 (top-right stacked): col 7-9, row 1 */
-  .section.fact-card-container.fact-card-feature-grid .fact-card-wrapper:nth-child(3) {
+  .section.fact-card-container:where(.fact-card-feature-grid) :where(.fact-card-wrapper):nth-child(3) {
     grid-column: 7 / span 3;
     grid-row: 1;
   }
 
   /* Card 4 (tall+image): col 10-12, spans rows 1-2 */
-  .section.fact-card-container.fact-card-feature-grid .fact-card-wrapper:nth-child(4) {
+  .section.fact-card-container:where(.fact-card-feature-grid) :where(.fact-card-wrapper):nth-child(4) {
     grid-column: 10 / span 3;
     grid-row: 1 / span 2;
   }
 
   /* Card 5 (bottom-left stacked): col 1-3, row 2 */
-  .section.fact-card-container.fact-card-feature-grid .fact-card-wrapper:nth-child(5) {
+  .section.fact-card-container:where(.fact-card-feature-grid) :where(.fact-card-wrapper):nth-child(5) {
     grid-column: 1 / span 3;
     grid-row: 2;
   }
 
   /* Card 6 (bottom-right stacked): col 7-9, row 2 */
-  .section.fact-card-container.fact-card-feature-grid .fact-card-wrapper:nth-child(6) {
+  .section.fact-card-container:where(.fact-card-feature-grid) :where(.fact-card-wrapper):nth-child(6) {
     grid-column: 7 / span 3;
     grid-row: 2;
   }
@@ -329,9 +333,9 @@
   background-color: var(--color-navy-dark);
 }
 
-.fact-card.dark-theme .fact-card-inner .fact-card-eyebrow,
-.fact-card.dark-theme .fact-card-inner .fact-card-description {
-  color: var(--background-color);
+.fact-card:where(.dark-theme) .fact-card-inner .fact-card-eyebrow,
+.fact-card:where(.dark-theme) .fact-card-inner .fact-card-description {
+  color: var(--color-surface-default);
 }
 
 /* =====================================================
@@ -339,7 +343,7 @@
    ===================================================== */
 
 .fact-card.light-theme-stroke .fact-card-inner {
-  border: var(--border-01) solid var(--container-border-color);
+  border: var(--border-width-thin) solid var(--color-border-container);
 }
 
 /* =====================================================
@@ -347,8 +351,8 @@
    ===================================================== */
 
 .fact-card:focus-visible {
-  outline: 2px solid var(--link-color);
-  outline-offset: 2px;
+  outline: var(--corp-spacing-2) solid var(--corp-color-link-default);
+  outline-offset: var(--corp-spacing-2);
 }
 
 .fact-card [lang] {

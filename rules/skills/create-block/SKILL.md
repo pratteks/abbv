@@ -342,7 +342,7 @@ From `rules/04-css-js-best-practices.md`:
 /* Base component styles */
 .my-block {
   /* Use tokens */
-  padding: var(--spacing-xl) var(--spacing-md);
+  padding: var(--corp-spacing-xl) var(--corp-spacing-md);
   background-color: var(--color-background);
   max-width: var(--max-content-width);
   margin: 0 auto;
@@ -350,7 +350,7 @@ From `rules/04-css-js-best-practices.md`:
   /* Mobile-first */
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
+  gap: var(--corp-spacing-md);
 }
 
 .my-block-container {
@@ -360,14 +360,14 @@ From `rules/04-css-js-best-practices.md`:
 /* Component elements */
 .my-block h2 {
   font-family: var(--font-family-primary);
-  font-size: var(--font-size-h2);
+  font-size: var(--corp-font-size-h2);
   line-height: var(--line-height-heading);
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--corp-spacing-md);
   color: var(--color-text);
 }
 
 .my-block p {
-  font-size: var(--font-size-body);
+  font-size: var(--corp-font-size-body);
   line-height: var(--line-height-body);
   color: var(--color-text);
 }
@@ -376,13 +376,13 @@ From `rules/04-css-js-best-practices.md`:
 @media (min-width: 768px) {
   .my-block {
     flex-direction: row;
-    padding: var(--spacing-xl);
+    padding: var(--corp-spacing-xl);
   }
 }
 
 @media (min-width: 1024px) {
   .my-block {
-    gap: var(--spacing-xl);
+    gap: var(--corp-spacing-xl);
   }
 }
 
@@ -398,8 +398,8 @@ From `rules/04-css-js-best-practices.md`:
 }
 
 .my-block.compact {
-  padding: var(--spacing-md);
-  gap: var(--spacing-sm);
+  padding: var(--corp-spacing-md);
+  gap: var(--corp-spacing-sm);
 }
 ```
 

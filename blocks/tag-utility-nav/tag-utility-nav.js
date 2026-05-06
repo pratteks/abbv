@@ -93,19 +93,34 @@ function buildSearch({
   input.type = 'search';
   input.className = 'tag-utility-nav-search-input';
   input.setAttribute('aria-label', placeholderText);
+  input.setAttribute('name', 'search');
   input.autocomplete = 'off';
 
   const label = document.createElement('label');
   label.className = 'tag-utility-nav-search-label';
   label.textContent = placeholderText;
 
+  const clearBtn = document.createElement('button');
+  clearBtn.type = 'button';
+  clearBtn.className = 'tag-utility-nav-search-clear hide-close-icon';
   fieldDiv.append(input);
   fieldDiv.append(label);
   wrapper.append(fieldDiv);
+  wrapper.append(clearBtn);
 
-  // Toggle 'has-value' class so CSS can move label up when input has text
+  // Toggle 'has-value' class and show/hide clear button as user types
   input.addEventListener('input', () => {
-    fieldDiv.classList.toggle('has-value', !!input.value);
+    const hasValue = !!input.value;
+    fieldDiv.classList.toggle('has-value', hasValue);
+    clearBtn.classList.toggle('hide-close-icon', !hasValue);
+  });
+
+  clearBtn.addEventListener('click', () => {
+    input.value = '';
+    fieldDiv.classList.remove('has-value');
+    clearBtn.classList.add('hide-close-icon');
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    input.blur();
   });
 
   return wrapper;
@@ -167,14 +182,24 @@ function buildCategoryDropdown(placeholderText, categories) {
   allLi.append(allBtn);
   modal.append(allLi); */
 
-  // Category options from authored child rows
-  categories.forEach(({ tag, title }) => {
+  // If any category has a link, render all items as <a>; otherwise all as <button>
+  const useLinks = categories.some((c) => c.link);
+
+  categories.forEach(({ tag, link, title }) => {
     const li = document.createElement('li');
-    const optBtn = document.createElement('button');
-    optBtn.type = 'button';
-    optBtn.textContent = title;
-    optBtn.dataset.categoryTag = tag;
-    li.append(optBtn);
+    if (useLinks) {
+      const optLink = document.createElement('a');
+      optLink.href = link || '#';
+      optLink.textContent = title;
+      optLink.dataset.categoryTag = tag;
+      li.append(optLink);
+    } else {
+      const optBtn = document.createElement('button');
+      optBtn.type = 'button';
+      optBtn.textContent = title;
+      optBtn.dataset.categoryTag = tag;
+      li.append(optBtn);
+    }
     modal.append(li);
   });
 
@@ -213,81 +238,6 @@ function buildClearButton(text) {
   wrapper.append(btn);
   return wrapper;
 }
-
-/* ── publication list decoration ────────────────────────────── */
-
-/**
- * Decorate publication list items in the target <ul>.
- * RTE-authored structure per <li>:
- *   <a href="…">Title</a><br>Journal | DOI:…<br>Authors…
- * Title and journal are already separated by <br> in the authored content.
- * This function wraps the title in a row with an external-link icon
- * and wraps the journal text node in a styled <span> inside the link.
- */
-function decoratePublicationList(container) {
-  if (!container || container.tagName !== 'UL') return;
-
-  container.classList.add('pub-list');
-
-  container.querySelectorAll(':scope > li').forEach((li) => {
-    // Find the link — either inside .button-container (local preview)
-    // or as a direct child <a> (published/AEM richtext)
-    const btnContainer = li.querySelector('.button-container');
-    const link = btnContainer
-      ? btnContainer.querySelector('a')
-      : li.querySelector(':scope > a');
-    if (!link) return;
-
-    link.classList.add('pub-link');
-    link.classList.remove('button');
-
-    const titleText = link.textContent.trim();
-
-    // Rebuild the link interior: title-row (title span + icon)
-    link.textContent = '';
-
-    const titleRow = document.createElement('span');
-    titleRow.className = 'pub-title-row';
-
-    const titleSpan = document.createElement('span');
-    titleSpan.className = 'pub-title';
-    titleSpan.textContent = titleText;
-    titleRow.append(titleSpan);
-
-    const iconSpan = document.createElement('span');
-    iconSpan.className = 'pub-icon';
-    iconSpan.setAttribute('aria-hidden', 'true');
-    titleRow.append(iconSpan);
-
-    link.append(titleRow);
-
-    // In RTE-authored content the journal + DOI sits after the first <br>
-    // following the <a>. It can be a mix of elements (<strong><em>Journal</em></strong>)
-    // and text nodes (| DOI:xxx). Collect all nodes between the first <br>
-    // and the second <br> (authors), wrap them in a .pub-journal span.
-    const firstBr = link.nextElementSibling;
-    if (firstBr && firstBr.tagName === 'BR') {
-      const journalSpan = document.createElement('span');
-      journalSpan.className = 'pub-journal';
-
-      // Collect all sibling nodes after the first <br> until the next <br>
-      let node = firstBr.nextSibling;
-      while (node) {
-        const next = node.nextSibling;
-        if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'BR') break;
-        journalSpan.append(node);
-        node = next;
-      }
-
-      if (journalSpan.textContent.trim()) {
-        link.append(journalSpan);
-      }
-      firstBr.remove();
-    }
-  });
-}
-
-/* ── target content discovery ──────────────────────────────── */
 
 /**
  * Find the filterable content container near the block.
@@ -341,14 +291,22 @@ function attachFilterBehavior(
   targetId,
   categories,
 ) {
-  const targetContainer = findTargetContainer(block, targetId);
-  if (!targetContainer) return;
-
-  const items = getFilterableItems(targetContainer);
+  // Container/items resolved lazily so async-decorated siblings are handled correctly
+  let targetContainer = findTargetContainer(block, targetId);
   let activeCategory = ''; // empty = all
+
+  function getItems() {
+    if (!targetContainer) targetContainer = findTargetContainer(block, targetId);
+    return targetContainer ? getFilterableItems(targetContainer) : [];
+  }
+
+  const clearContainer = block.querySelector('.tag-utility-nav-clear-container');
 
   // Combined filter: applies both search text and active category
   function applyFilters() {
+    const items = getItems();
+    if (!items.length) return;
+
     const query = searchInput.value.toLowerCase().trim();
     const hasCategory = activeCategory !== '';
     const hasQuery = query !== '';
@@ -356,6 +314,7 @@ function attachFilterBehavior(
     if (!hasCategory && !hasQuery) {
       items.forEach((li) => { li.hidden = false; });
       emptyContainer.hidden = true;
+      if (clearContainer) clearContainer.hidden = true;
       return;
     }
 
@@ -369,12 +328,9 @@ function attachFilterBehavior(
       if (visible) visibleCount += 1;
     });
 
-    // Show results counter or empty message
-    if (visibleCount === 0) {
-      emptyContainer.hidden = false;
-    } else {
-      emptyContainer.hidden = true;
-    }
+    const noResults = visibleCount === 0;
+    emptyContainer.hidden = !noResults;
+    if (clearContainer) clearContainer.hidden = !noResults;
   }
 
   // Search input listener
@@ -395,13 +351,20 @@ function attachFilterBehavior(
   if (categories.length > 0) {
     const dropdownModal = block.querySelector('.tag-utility-nav-dropdown-modal');
     const labelText = block.querySelector('.tag-utility-nav-label-text');
-    const clearContainer = block.querySelector('.tag-utility-nav-clear-container');
     const defaultLabel = labelText?.textContent || '';
 
     if (dropdownModal) {
       dropdownModal.addEventListener('click', (e) => {
-        const optBtn = e.target.closest('button');
+        const optBtn = e.target.closest('button, a[data-category-tag]');
         if (!optBtn) return;
+
+        // Links navigate to their page — just close the dropdown
+        if (optBtn.tagName === 'A') {
+          const btn = block.querySelector('.tag-utility-nav-dropdown-btn');
+          if (btn) btn.setAttribute('aria-expanded', 'false');
+          dropdownModal.hidden = true;
+          return;
+        }
 
         // Update selected state
         dropdownModal.querySelectorAll('button').forEach((b) => b.classList.remove('option-selected'));
@@ -449,14 +412,6 @@ function attachFilterBehavior(
         applyFilters();
       });
     }
-  }
-
-  // Show clear button when search input has value
-  const clearContainer = block.querySelector('.tag-utility-nav-clear-container');
-  if (clearContainer) {
-    searchInput.addEventListener('input', () => {
-      clearContainer.hidden = !searchInput.value && !activeCategory;
-    });
   }
 }
 
@@ -530,9 +485,5 @@ export default function decorate(block) {
     if (input) {
       attachFilterBehavior(block, input, emptyWidget, searchInID, categories);
     }
-
-    // Decorate adjacent publication list (split title/journal, add icon)
-    const targetContainer = findTargetContainer(block, searchInID);
-    decoratePublicationList(targetContainer);
   });
 }

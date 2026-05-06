@@ -1,52 +1,77 @@
+
+.hero-container {
+  --hero-profile-container-height: var(--corp-spacing-120);
+  --hero-overlay-gradient: linear-gradient(to top, rgb(0 0 0 / 90%) 42.91%, transparent);
+  --hero-button-hover-color: var(--color-border-container);
+  --hero-space-neg-md: calc(-15 * var(--px-to-rem));   /* -1.5rem */
+  --hero-space-neg-lg: calc(-20 * var(--px-to-rem));   /* -2rem */
+  --hero-space-neg-2xl: calc(-40 * var(--px-to-rem));   /* -4rem */
+  --hero-space-neg-5xl: calc(-64 * var(--px-to-rem)); /** -6.4rem */
+  --hero-space-neg-3xl: calc(-48 * var(--px-to-rem));   /* -4.8rem */
+  --hero-space-neg-3xxl: calc(-55 * var(--px-to-rem));   /* -5.5rem */
+  --hero-space-neg-4xl: calc(-56 * var(--px-to-rem));   /* -5.6rem */
+  --hero-space-neg-6xl: calc(-70 * var(--px-to-rem));   /* -7rem */
+  --hero-space-neg-7xl: calc(-112 * var(--px-to-rem)); /* -11.2rem */
+  --hero-space-neg-2lg: calc(-35 * var(--px-to-rem));   /* -3.5rem */
+  --hero-spacing-448: 44.8rem;
+  --hero-space-neg-6xxl: calc(-80 * var(--px-to-rem));   /* -8rem */
+}
+
+/* Hero container witdht */
+.section.abbvie-container.hero-container {
+  max-width: var(--corp-layout-container-max-width-lg);
+  background: transparent;
+}
+
 /* AbbVie Hero — White overlap panel on hero image */
 .hero-container .hero-wrapper {
   max-width: unset;
-  padding: var(--spacing-00);
+  padding: 0;
 }
 
 /* Navy-overlap hero: pull wrapper into section padding so bg image shows */
-main > .section.navy-overlap.hero-container:not(.columns-container, .cards-container) {
-  padding-bottom: var(--spacing-00);
-  margin-bottom: var(--spacing-32);
+.hero-navy {
+  padding-bottom: 0;
+  margin-bottom: var(--corp-spacing-32);
   background-color: var(--color-white);
 }
 
-main > .section.navy-overlap.hero-container:not(.columns-container, .cards-container) .hero-wrapper {
-  margin: var(--spacing-n40) -3.5rem var(--spacing-00);
+.hero-navy .hero-wrapper {
+  margin: var(--hero-space-neg-2xl) var(--hero-space-neg-2lg) 0;
   max-width: none;
   overflow: hidden;
 }
 
 @media (--bp-tablet) {
-  main > .section.navy-overlap.hero-container:not(.columns-container, .cards-container) .hero-wrapper {
-    margin: -5.6rem -7rem var(--spacing-00);
+  .hero-navy .hero-wrapper {
+    margin: var(--hero-space-neg-4xl) var(--hero-space-neg-6xl) 0;
   }
 
-  main > .section.navy-overlap.hero-container:not(.columns-container, .cards-container) {
-    border-top-left-radius: var(--spacing-64);
-    margin-bottom: var(--spacing-80);
+  .hero-navy {
+    border-top-left-radius: var(--corp-spacing-64);
+    margin-bottom: var(--corp-spacing-80);
   }
 }
 
 @media (--bp-desktop) {
-  main > .section.navy-overlap.hero-container:not(.columns-container, .cards-container) .hero-wrapper {
-    margin: -8rem -5.5rem 0;
+  .hero-navy .hero-wrapper {
+    margin: var(--hero-space-neg-6xxl) var(--hero-space-neg-3xxl) 0;
   }
 
-  main > .section.navy-overlap.hero-container:not(.columns-container, .cards-container) {
-   border-top-left-radius: var(--spacing-80);
+  .hero-navy {
+   border-top-left-radius: var(--corp-spacing-80);
   }
 }
 
 /* Height-tall variant — taller hero image area matching live site .height-tall */
-.section.height-tall .hero > div:first-child {
+.height-tall .hero > :where(div):first-child {
   min-height: var(--hero-tall-image-container-height);
-  padding: var(--spacing-00);
+  padding: 0;
 }
 
-.section.height-tall .hero > div:first-child img {
+.height-tall .hero > :where(div):first-child :where(img) {
   position: absolute;
-  inset: var(--spacing-00);
+  inset: 0;
   height: 100%;
   width: 100%;
   max-height: none;
@@ -55,52 +80,52 @@ main > .section.navy-overlap.hero-container:not(.columns-container, .cards-conta
 
 /* Breadcrumbs inside hero text panel */
 .hero .hero-breadcrumbs {
-  margin-bottom: var(--spacing-32);
+  margin-bottom: var(--corp-spacing-32);
 }
 
-.hero .hero-breadcrumbs ol {
+.hero-breadcrumbs :where(ol) {
   display: flex;
   flex-flow: wrap;
   list-style: none;
-  padding: var(--spacing-00);
-  margin: var(--spacing-00);
-  gap: var(--spacing-08);
+  padding: 0;
+  margin: 0;
+  gap: var(--corp-spacing-8);
   align-items: baseline;
 }
 
-.hero .hero-breadcrumbs ol li {
+.hero-breadcrumbs :where(ol li) {
   font-family: var(--roboto-bold-font-family);
-  font-size: var(--font-size-14);
-  font-weight: var(--font-weight-700);
-  letter-spacing: var(--letter-spacing-wide-06);
-  line-height: var(--line-height-20);
+  font-size: var(--corp-font-size-14);
+  font-weight: var(--corp-font-weight-bold);
+  letter-spacing: var(--corp-typography-letterspacing-wide-sm);
+  line-height: var(--corp-typography-lineheight-body-sm);
   text-transform: uppercase;
-  color: var(--text-color);
+  color: var(--corp-color-text-default);
   display: flex;
   align-items: flex-end;
 }
 
 /* Chevron separator — scaled to match text cap height and vertically centred */
-.hero .hero-breadcrumbs ol li:not(:last-child)::after {
+.hero-breadcrumbs :where(ol li):not(:last-child)::after {
   content: '\203A';
-  padding-left: var(--spacing-08);
-  font-size: var(--font-size-30);
-  font-weight: var(--font-weight-700);
+  padding-left: var(--corp-spacing-8);
+  font-size: var(--corp-font-size-30);
+  font-weight: var(--corp-font-weight-bold);
   vertical-align: middle;
   line-height: 1;
 }
 
-.hero .hero-breadcrumbs ol li a {
-  color: var(--text-color);
-  font-weight: var(--font-weight-700);
+.hero-breadcrumbs :where(li a) {
+  color: var(--corp-color-text-default);
+  font-weight: var(--corp-font-weight-bold);
   font-size: inherit;
   text-decoration: none;
 }
 
 /* Current page — muted gray, no link */
-.hero .hero-breadcrumbs ol li[aria-current] {
+.hero-breadcrumbs :where(ol li)[aria-current] {
   color: var(--color-gray-dark);
-  font-weight: var(--font-weight-700);
+  font-weight: var(--corp-font-weight-bold);
 }
 
 .hero {
@@ -120,19 +145,19 @@ main > .section.navy-overlap.hero-container:not(.columns-container, .cards-conta
   overflow: hidden;
   height: 100%;
   min-height: var(--hero-image-container-height);
-  margin: var(--spacing-00) var(--spacing-n20);
-  padding-left: var(--spacing-55);
-  padding-right: var(--spacing-55);
+  margin: 0 var(--hero-space-neg-lg);
+  padding-left: var(--corp-spacing-55);
+  padding-right: var(--corp-spacing-55);
 }
 
-.section-wide .hero > div:first-child {
+.section-wide .hero > :where(div):first-child {
     margin: 0;
     padding-left: 0;
     padding-right: 0;
 }
 
-.hero.no-padding > div:first-child{
-  padding: var(--spacing-00);
+.hero.no-padding > :where(div):first-child{
+  padding: 0;
 }
 
 .hero picture {
@@ -144,7 +169,7 @@ main > .section.navy-overlap.hero-container:not(.columns-container, .cards-conta
   width: 100%;
   height: auto;
   display: block;
-  border-top-left-radius: var(--border-top-left-radius);
+  border-top-left-radius: var(--border-radius-xl);
   max-height: var(--hero-image-container-height);
 }
 
@@ -152,67 +177,67 @@ main > .section.navy-overlap.hero-container:not(.columns-container, .cards-conta
 .hero > div:nth-child(2) {
  /*  display: flex;
   flex-direction: column; */
-  background-color: var(--background-color);
-  border-top-left-radius: var(--border-top-radius-medium);
-  margin: var(--spacing-n48) var(--spacing-20) var(--spacing-00);
+  background-color: var(--color-surface-default);
+  border-top-left-radius: var(--border-radius-subtle);
+  margin: var(--hero-space-neg-3xl) var(--corp-spacing-20) 0;
   position: relative;
-  padding: var(--spacing-32) var(--spacing-20) var(--spacing-40);
-  padding-bottom: var(--spacing-00);
-  max-width: calc(100vw - var(--spacing-40));
+  padding: var(--corp-spacing-32) var(--corp-spacing-20) var(--corp-spacing-40);
+  padding-bottom: 0;
+  max-width: calc(100vw - var(--corp-spacing-40));
 }
 
 /* font-weight: inherit prevents browser UA bold, defers to F37 Lineca Medium's own weight */
 .hero h1 {
-  margin: var(--spacing-00) var(--spacing-00) var(--spacing-08);
-  font-size: var(--font-size-30);
-  line-height: var(--line-height-34);
-  color: var(--text-color);
+  margin: 0 0 var(--corp-spacing-8);
+  font-size: var(--corp-font-size-30);
+  line-height: var(--corp-typography-lineheight-relaxed-xl);
+  color: var(--corp-color-text-default);
   font-family: var(--heading-font-family-bold);
 }
 
 /* Roboto Small (300 light) for all hero paragraphs */
 .hero p {
-  margin: var(--spacing-00);
-  padding-bottom: var(--spacing-16);
+  margin: 0;
+  padding-bottom: var(--corp-spacing-16);
 }
 
-.navy-overlap .hero:not(.body-unica-32-reg) p {
-    font-size: 1.6rem;
-    line-height: 2.2rem;
+.navy-overlap .hero:where(:not(.body-unica-32-reg)) :where(p) {
+    font-size: var(--corp-font-size-16);
+    line-height: var(--corp-typography-lineheight-body-md);
 }
 
 /* Height-tall hero paragraph — larger font matching body-unica-32-reg scale
    Uses higher specificity to override navy-overlap when both are present */
-.navy-overlap.height-tall .hero p,
+.navy-overlap.height-tall .hero :where(p),
 .height-tall .hero p {
-  font-size: var(--font-size-20);
-  line-height: var(--line-height-26);
-  margin-top: var(--spacing-08);
+  font-size: var(--corp-font-size-20);
+  line-height: var(--corp-typography-lineheight-body-xl);
+  margin-top: var(--corp-spacing-8);
 }
 
 .hero.light-font p {
   font-family: var(--roboto-light-font-family);
-  font-weight: var(--font-weight-300);
+  font-weight: var(--corp-font-weight-light);
 }
 
 .hero a.button {
   background: none;
   font-family: var(--roboto-bold-font-family);
-  font-size: var(--font-size-14);
+  font-size: var(--corp-font-size-14);
   font-style: normal;
-  font-weight: var(--font-weight-700);
-  letter-spacing: var(--letter-spacing-wide-06);
-  padding: var(--spacing-05) 0;
-  color: var(--highlight-dark-background-color);
-  line-height: var(--line-height-20);
+  font-weight: var(--corp-font-weight-bold);
+  letter-spacing: var(--corp-typography-letterspacing-wide-sm);
+  padding: var(--corp-spacing-5) 0;
+  color: var(--color-surface-highlight-inverse);
+  line-height: var(--corp-typography-lineheight-body-sm);
   text-decoration: none;
   text-transform: uppercase;
-  margin: var(--spacing-16) 0 0;
+  margin: var(--corp-spacing-16) 0 0;
   border: 0;
 }
 
-.hero a.button:hover {
-  color: var(--link-hover-color);
+.hero :where(a).button:hover {
+  color: var(--corp-color-link-hover);
   cursor: pointer;
   background: none;
 }
@@ -221,89 +246,89 @@ main > .section.navy-overlap.hero-container:not(.columns-container, .cards-conta
   .hero > div:first-child {
     min-height: var(--hero-image-container-height);
     width: 100%;
-    margin: var(--spacing-00) auto;
-    padding-left: var(--spacing-70);
-    padding-right: var(--spacing-70);
-  }
-
-  .hero > div:first-child:has(picture) {
-      padding-left: var(--spacing-70);
-      padding-right: var(--spacing-70);
-    }
-
-    .hero.no-padding > div:first-child{
-      padding: var(--spacing-00);
-    }
-
-  .hero img {
-    border-top-left-radius: var(--spacing-64);
-    max-height: var(--hero-image-container-height);
+    margin: 0 auto;
+    padding-left: var(--corp-spacing-70);
+    padding-right: var(--corp-spacing-70);
   }
 
   .hero > div:nth-child(2) {
-    border-top-left-radius: var(--spacing-40);
-    margin: var(--spacing-n64) var(--spacing-70) var(--spacing-00);
-    padding: var(--spacing-56) var(--spacing-70) var(--spacing-00);
-    max-width: calc(100vw - var(--spacing-140));
+    border-top-left-radius: var(--corp-spacing-40);
+    margin: var(--hero-space-neg-5xl) var(--corp-spacing-70) 0;
+    padding: var(--corp-spacing-56) var(--corp-spacing-70) 0;
+    max-width: calc(100vw - var(--corp-spacing-140));
+  }
+
+  .hero > div:first-child:has(picture) {
+      padding-left: var(--corp-spacing-70);
+      padding-right: var(--corp-spacing-70);
+    }
+
+    .hero.no-padding > :where(div):first-child{
+      padding: 0;
+    }
+
+  .hero img {
+    border-top-left-radius: var(--corp-spacing-64);
+    max-height: var(--hero-image-container-height);
   }
 
 
   .hero h1 {
-    font-size: var(--font-size-40);
-    line-height: var(--line-height-44);
-    margin-bottom: var(--spacing-16);
+    font-size: var(--corp-font-size-40);
+    line-height: var(--corp-typography-lineheight-heading-md);
+    margin-bottom: var(--corp-spacing-16);
   }
 
-  .navy-overlap .hero:not(.body-unica-32-reg) p {
-    font-size: 1.8rem;
-    line-height: 2.4rem;
+  .navy-overlap .hero:where(:not(.body-unica-32-reg)) :where(p) {
+    font-size: var(--corp-font-size-18);
+    line-height: var(--corp-typography-lineheight-body-lg);
   }
 
-  .navy-overlap.height-tall .hero p,
+  .navy-overlap.height-tall .hero :where(p),
   .height-tall .hero p {
-    font-size: var(--font-size-32);
-    line-height: var(--line-height-40);
+    font-size: var(--corp-font-size-32);
+    line-height: var(--corp-typography-lineheight-heading-sm);
   }
 }
 
 @media (--bp-desktop) {
     .hero > div:first-child {
       min-height: var(--hero-image-container-height);
-      margin: var(--spacing-00) auto;
+      margin: 0 auto;
       width: 100%;
-      padding-left: var(--spacing-55);
-      padding-right: var(--spacing-55);
+      padding-left: var(--corp-spacing-55);
+      padding-right: var(--corp-spacing-55);
     }
-
-    .hero > div:first-child:has(picture) {
-      padding-left: var(--spacing-55);
-      padding-right: var(--spacing-55);
-    }
-
-    .hero.no-padding > div:first-child{
-      padding: var(--spacing-00);
-    }
-
-  .hero img {
-    border-top-left-radius: var(--spacing-80);
-    max-height: var(--hero-image-container-height);
-  }
 
   .hero > div:nth-child(2) {
-    border-top-left-radius: var(--spacing-40);
-    margin: var(--spacing-n112) auto var(--spacing-00);
-    padding: var(--spacing-80) var(--spacing-55) var(--spacing-00);
+    border-top-left-radius: var(--corp-spacing-40);
+    margin: var(--hero-space-neg-7xl) auto 0;
+    padding: var(--corp-spacing-80) var(--corp-spacing-55) 0;
     max-width: 78%;
   }
 
+    .hero > div:first-child:has(picture) {
+      padding-left: var(--corp-spacing-55);
+      padding-right: var(--corp-spacing-55);
+    }
+
+    .hero.no-padding > :where(div):first-child{
+      padding: 0;
+    }
+
+  .hero img {
+    border-top-left-radius: var(--corp-spacing-80);
+    max-height: var(--hero-image-container-height);
+  }
+
   .hero h1 {
-    font-size: var(--font-size-64);
-    letter-spacing: var(--letter-spacing-tight);
-    line-height: var(--line-height-68);
+    font-size: var(--corp-font-size-64);
+    letter-spacing: var(--corp-typography-letterspacing-tight-sm);
+    line-height: var(--corp-typography-lineheight-display-xl);
   }
 
   .height-tall .hero p {
-    font-size: var(--font-size-32);
+    font-size: var(--corp-font-size-32);
     line-height: 4rem;
   }
 }
@@ -314,94 +339,92 @@ main > .section.navy-overlap.hero-container:not(.columns-container, .cards-conta
    ===================================================== */
 
 /* Section override — full-width so navy band spans edge-to-edge */
-main > .section.hero-container,
-main > .section.hero-container:has(.hero.profile) {
-  max-width: var(--content-max-width-wide);
-  margin-bottom: var(--spacing-32);
+.hero-container,
+.hero-profile-section {
+  max-width: var(--corp-layout-container-max-width-lg);
+  margin-bottom: var(--corp-spacing-32);
 }
 
 /* Profile breadcrumbs — uppercase, 14px to match live site */
-.hero.profile .hero-breadcrumbs ol li {
-  font-size: var(--font-size-14);
-  letter-spacing: var(--letter-spacing-wide-06);
+.hero.profile .hero-breadcrumbs :where(ol li) {
+  font-size: var(--corp-font-size-14);
+  letter-spacing: var(--corp-typography-letterspacing-wide-sm);
   text-transform: uppercase;
-  font-weight: var(--font-weight-700);
+  font-weight: var(--corp-font-weight-bold);
 }
 
-.hero.profile .hero-breadcrumbs ol li[aria-current] {
-  font-weight: var(--font-weight-700);
+.profile .hero-breadcrumbs :where(ol li)[aria-current] {
+  font-weight: var(--corp-font-weight-bold);
 }
 
-.hero.profile .hero-breadcrumbs ol li:not(:last-child)::after {
-  /* font-size: var(--font-size-14); */
-}
+/* Profile breadcrumb separator — inherits base styling */
 
 /* Navy background band replaces hero image */
-.hero.profile > div:first-child {
+.hero.profile > :where(div):first-child {
   background-color: var(--color-navy-dark);
   height: var(--hero-section-height);
-  border-top-left-radius: var(--border-top-radius-medium);
+  border-top-left-radius: var(--border-radius-subtle);
    min-height: var(--hero-profile-container-height);
-   margin: var(--spacing-00);
+   margin: 0;
 }
 
-.hero.profile.purple-overlap > div:first-child {
- background-color: var(--color-accent-purple);
+.profile.purple-overlap > :where(div):first-child {
+ background-color: var(--color-purple-primary);
 }
 
-.large-radius .hero > div:first-child {
- border-top-left-radius: var(--border-top-radius);
+.large-radius .hero > :where(div):first-child {
+ border-top-left-radius: var(--border-radius-xl);
 }
 
-.medium-radius .hero > div:first-child {
-  border-top-left-radius: var(--border-top-radius-medium);
+.medium-radius .hero > :where(div):first-child {
+  border-top-left-radius: var(--border-radius-subtle);
 }
 
-.hero.profile > div:first-child picture,
-.hero.profile > div:first-child img {
+.hero.profile > :where(div):first-child :where(picture),
+.hero.profile > :where(div):first-child :where(img) {
   display: none;
 }
 
 /* White overlap card — profile spacing */
-.hero.profile > div:nth-child(2) {
-  margin-top: var(--spacing-n48);
-  padding: var(--spacing-32) var(--spacing-20) var(--spacing-00);
+.hero.profile > :where(div):nth-child(2) {
+  margin-top: var(--hero-space-neg-3xl);
+  padding: var(--corp-spacing-32) var(--corp-spacing-20) 0;
 }
 
 /* Subtitle — Roboto Small, weight 300 (matches --roboto-small-font-family) */
-.hero.profile.light-font p {
+.hero.profile.light-font :where(p) {
   font-family: var(--roboto-small-font-family);
-  font-weight: var(--font-weight-300);
+  font-weight: var(--corp-font-weight-light);
 }
 
 @media (--bp-tablet) {
-.hero.profile > div:nth-child(2) {
-  margin-top: var(--spacing-n64);
-  padding: var(--spacing-56) var(--spacing-70) var(--spacing-00);
+.hero.profile > :where(div):nth-child(2) {
+  margin-top: var(--hero-space-neg-5xl);
+  padding: var(--corp-spacing-56) var(--corp-spacing-70) 0;
 }
 
-main > .section.hero-container:has(.hero.profile) {
-margin-bottom: var(--spacing-80);
+.hero-profile-section {
+margin-bottom: var(--corp-spacing-80);
 }
 }
 
 @media (--bp-desktop) {
-  main > .section.hero-container:has(.hero.profile) {
-    margin-bottom: var(--spacing-00);
+  .hero-profile-section {
+    margin-bottom: 0;
     margin-left: auto;
     margin-right: auto;
   }
 
-  .hero.profile > div:first-child {
-    height: var(--spacing-288);
+  .hero.profile > :where(div):first-child {
+    height: var(--corp-spacing-288);
   }
 
-  .hero.profile > div:nth-child(2) {
-    margin: var(--spacing-n112) auto -1px;
-    padding: var(--spacing-80) var(--spacing-55) var(--spacing-00);
+  .hero.profile > :where(div):nth-child(2) {
+    margin: var(--hero-space-neg-7xl) auto -1px;
+    padding: var(--corp-spacing-80) var(--corp-spacing-55) 0;
     width: 85%;
-    min-height: 44.8rem;
-    border-top-left-radius: var(--spacing-40);
+    min-height: var(--hero-spacing-448);
+    border-top-left-radius: var(--corp-spacing-40);
     max-width: 85%;
   }
 }
@@ -410,7 +433,7 @@ margin-bottom: var(--spacing-80);
 .hero .hero-text-container {
   width: 100%;
   display: grid;
-  column-gap: var(--gap-20);
+  column-gap: var(--corp-gap-lg);
   grid-template-columns: repeat(6, 1fr);
   align-self: center;
 }
@@ -422,7 +445,7 @@ margin-bottom: var(--spacing-80);
 @media (--bp-tablet) {
 .hero .hero-text-container {
     grid-template-columns: repeat(8, 1fr);
-    min-height: var(--spacing-368);
+    min-height: var(--corp-spacing-368);
     }
 
 .hero .cmp-container-x-large {
@@ -447,25 +470,25 @@ margin-bottom: var(--spacing-80);
    ===================================================== */
 
 /* Section override — edge-to-edge, no bottom margin */
-main > .section.hero-container:has(.hero.landing) {
-  max-width: var(--content-max-width-wide);
-  margin-left: var(--spacing-00);
-  margin-right: var(--spacing-00);
-  margin-bottom: var(--spacing-00);
-  padding: var(--spacing-00);
+.hero-landing-section {
+  max-width: var(--corp-layout-container-max-width-lg);
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  padding: 0;
 }
 
-.fragment-wrapper .section.hero-container:has(.hero.landing) {
+.hero-landing-section:where(:has(.fragment-wrapper)) {
+  margin-bottom: var(--corp-spacing-32);
+}
+
+.fragment-wrapper .hero-landing-section {
     margin-right: auto;
     margin-left: auto;
 }
 
-.section.hero-container:has(.fragment-wrapper .hero.landing) {
-  margin-bottom: var(--spacing-32);
-}
-
-main > .section.hero-container:has(.hero.landing) .hero-wrapper {
-  margin: var(--spacing-00);
+.hero-landing-section .hero-wrapper {
+  margin: 0;
   max-width: none;
   overflow: hidden;
 }
@@ -473,11 +496,11 @@ main > .section.hero-container:has(.hero.landing) .hero-wrapper {
 /* Block root — min-height for hero image area; grows with press-releases content */
 .hero.landing {
   position: relative;
-  z-index: var(--z-index-0);
+  z-index: 0;
   display: block;
   overflow: visible;
   min-height: var(--hero-landing-container-height);
-  border-top-left-radius: var(--border-top-left-radius);
+  border-top-left-radius: var(--border-radius-xl);
 }
 
 /* Re-enable gradient overlay via ::after — fixed height covers image area only */
@@ -485,34 +508,34 @@ main > .section.hero-container:has(.hero.landing) .hero-wrapper {
   display: block;
   content: '';
   position: absolute;
-  top: var(--spacing-00);
-  left: var(--spacing-00);
-  right: var(--spacing-00);
+  top: 0;
+  left: 0;
+  right: 0;
   height: var(--hero-landing-container-height);
   background: var(--hero-overlay-gradient);
-  z-index: var(--z-index-1);
+  z-index: var(--corp-z-index-base);
   pointer-events: none;
-  border-top-left-radius: var(--border-top-left-radius);
+  border-top-left-radius: var(--border-radius-xl);
 }
 
 /* Image container — fixed height covers image area only */
-.hero.landing > div:first-child {
+.hero.landing > :where(div):first-child {
   position: absolute;
-  top: var(--spacing-00);
-  left: var(--spacing-00);
-  right: var(--spacing-00);
+  top: 0;
+  left: 0;
+  right: 0;
   height: var(--hero-landing-container-height);
   overflow: hidden;
-  min-height: var(--spacing-00);
-  margin: var(--spacing-00);
-  padding: var(--spacing-00);
-  z-index: var(--z-index-0);
-  border-top-left-radius: var(--border-top-left-radius);
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  z-index: 0;
+  border-top-left-radius: var(--border-radius-xl);
 }
 
 .hero.landing picture {
   position: absolute;
-  inset: var(--spacing-00);
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
@@ -520,13 +543,13 @@ main > .section.hero-container:has(.hero.landing) .hero-wrapper {
 
 .hero.landing img {
   position: absolute;
-  inset: var(--spacing-00);
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: 50% 50%;
   display: block;
-  border-top-left-radius: var(--border-radius-00);
+  border-top-left-radius: 0;
   max-height: none;
 }
 
@@ -537,13 +560,13 @@ main > .section.hero-container:has(.hero.landing) .hero-wrapper {
 }
 
 /* Text container — positioned over image, text starts at padding-top */
-.hero.landing > div:nth-child(2) {
+.hero.landing > :where(div):nth-child(2) {
   position: relative;
-  z-index: var(--z-index-2);
+  z-index: var(--corp-z-index-raised);
   background: none;
-  border-top-left-radius: var(--border-radius-00);
-  margin: var(--spacing-00);
-  padding: var(--spacing-88) var(--spacing-35) var(--spacing-40);
+  border-top-left-radius: 0;
+  margin: 0;
+  padding: var(--corp-spacing-88) var(--corp-spacing-35) var(--corp-spacing-40);
   max-width: none;
   display: block;
   box-sizing: border-box;
@@ -552,117 +575,117 @@ main > .section.hero-container:has(.hero.landing) .hero-wrapper {
 /* Text colours — white on dark overlay */
 .hero.landing h1 {
   color: var(--color-white);
-  font-size: var(--font-size-30);
-  line-height: var(--line-height-34);
-  margin-bottom: var(--spacing-16);
+  font-size: var(--corp-font-size-30);
+  line-height: var(--corp-typography-lineheight-relaxed-xl);
+  margin-bottom: var(--corp-spacing-16);
 }
 
 .hero.landing p {
   color: var(--color-white);
-  margin-bottom: var(--spacing-16);
+  margin-bottom: var(--corp-spacing-16);
 }
 
 /* CTA link — blue, uppercase, no background */
 .hero.landing .button-container {
-padding: var(--spacing-00);
+padding: 0;
 }
 
-.hero.landing a.button {
-  color: var(--hero-button-color);
+.hero.landing :where(a).button {
+  color: var(--color-accent-blue-light);
   background: none;
-  border: var(--border-00);
+  border: 0;
   font-family: var(--roboto-bold-font-family);
-  font-size: var(--font-size-16);
-  font-weight: var(--font-weight-700);
-  letter-spacing: var(--letter-spacing-wide-06);
-  line-height: var(--line-height-20);
-  text-transform: var(--font-uppercase);
+  font-size: var(--corp-font-size-16);
+  font-weight: var(--corp-font-weight-bold);
+  letter-spacing: var(--corp-typography-letterspacing-wide-sm);
+  line-height: var(--corp-typography-lineheight-body-sm);
+  text-transform: var(--text-transform-uppercase);
   text-decoration: none;
-  padding: var(--spacing-00) var(--spacing-02) var(--spacing-03);
-  margin: var(--spacing-00);
+  padding: 0 var(--corp-spacing-2) var(--corp-spacing-3);
+  margin: 0;
 }
 
-.hero.landing a.button:hover {
+.hero.landing :where(a.button):hover {
   color: var(--hero-button-hover-color);
   background: none;
 }
 
 /* Landing breadcrumbs — white text on dark overlay */
-.hero.landing .hero-breadcrumbs ol li {
+.hero.landing .hero-breadcrumbs :where(ol li) {
   color: var(--color-white);
 }
 
-.hero.landing .hero-breadcrumbs ol li a {
+.hero.landing .hero-breadcrumbs :where(li a) {
   color: var(--color-white);
 }
 
-.hero.landing .hero-breadcrumbs ol li[aria-current] {
+.landing .hero-breadcrumbs :where(ol li)[aria-current] {
   color: rgb(255 255 255 / 60%);
 }
 
 /* ---- Tablet (>=744px) ---- */
 @media (--bp-tablet) {
-.section.hero-container:has(.fragment-wrapper .hero.landing) {
-  margin-bottom: var(--spacing-80);
+.hero-landing-section:where(:has(.fragment-wrapper)) {
+  margin-bottom: var(--corp-spacing-80);
 }
 
   .hero.landing {
-    border-top-left-radius: var(--border-top-left-radius-tablet);
+    border-top-left-radius: var(--border-radius-xl);
   }
 
   .hero.landing::after,
-  .hero.landing > div:first-child {
-    border-top-left-radius: var(--border-top-left-radius-tablet);
+  .hero.landing > :where(div):first-child {
+    border-top-left-radius: var(--border-radius-xl);
   }
 
-  .hero.landing > div:nth-child(2) {
-    padding: var(--spacing-192) var(--spacing-70) var(--spacing-40);
+  .hero.landing > :where(div):nth-child(2) {
+    padding: var(--corp-spacing-192) var(--corp-spacing-70) var(--corp-spacing-40);
   }
 
   .hero.landing h1 {
-    font-size: var(--font-size-40);
-    line-height: var(--line-height-44);
-    margin-bottom: var(--spacing-24);
+    font-size: var(--corp-font-size-40);
+    line-height: var(--corp-typography-lineheight-heading-md);
+    margin-bottom: var(--corp-spacing-24);
   }
 
   .hero.landing p {
-  margin-bottom: var(--spacing-24);
-  line-height: var(--line-height-22);
+  margin-bottom: var(--corp-spacing-24);
+  line-height: var(--corp-typography-lineheight-body-md);
   }
 
-  .hero.landing a.button {
-  font-size: var(--font-size-14)
+  .hero.landing :where(a).button {
+  font-size: var(--corp-font-size-14)
   }
 }
 
 /* ---- Desktop (>=1024px) ---- */
 @media (--bp-desktop) {
-  main > .section.hero-container:has(.hero.landing) {
+  .hero-landing-section {
     margin-left: auto;
     margin-right: auto;
   }
 
   .hero.landing {
-    border-top-left-radius: var(--border-top-left-radius-desktop);
+    border-top-left-radius: var(--border-radius-xl);
   }
 
   .hero.landing::after,
-  .hero.landing > div:first-child {
-    border-top-left-radius: var(--border-top-left-radius-desktop);
+  .hero.landing > :where(div):first-child {
+    border-top-left-radius: var(--border-radius-xl);
   }
 
-  .hero.landing > div:nth-child(2) {
-    padding: var(--spacing-312) var(--spacing-108) var(--spacing-40);
+  .hero.landing > :where(div):nth-child(2) {
+    padding: var(--corp-spacing-312) var(--corp-spacing-108) var(--corp-spacing-40);
   }
 
   .hero.landing h1 {
-    font-size: var(--font-size-64);
-    line-height: var(--line-height-68);
-    letter-spacing: var(--letter-spacing-tight);
+    font-size: var(--corp-font-size-64);
+    line-height: var(--corp-typography-lineheight-display-xl);
+    letter-spacing: var(--corp-typography-letterspacing-tight-sm);
   }
 
     .hero.landing p {
-    line-height: var(--line-height-24);
+    line-height: var(--corp-typography-lineheight-body-lg);
     }
 }
 
@@ -675,31 +698,31 @@ padding: var(--spacing-00);
 /* ---- Mobile (base) ---- */
 .hero.landing .hero-press-releases-container {
   background-color: var(--color-white);
-  border-top-left-radius: var(--border-top-left-radius-24);
-  margin: var(--spacing-88) var(--spacing-n15) var(--spacing-n40);
-  padding: var(--spacing-32) var(--spacing-35) var(--spacing-00);
+  border-top-left-radius: var(--border-radius-subtle);
+  margin: var(--corp-spacing-88) var(--hero-space-neg-md) var(--hero-space-neg-2xl);
+  padding: var(--corp-spacing-32) var(--corp-spacing-35) 0;
   position: relative;
-  color: var(--text-color);
+  color: var(--corp-color-text-default);
 }
 
-.hero.landing .hero-press-releases-container p {
+.hero.landing .hero-press-releases-container :where(p) {
 color: inherit;
 }
 
 /* ---- Tablet (>=744px) ---- */
 @media (--bp-tablet) {
   .hero.landing .hero-press-releases-container {
-    border-top-left-radius: var(--border-top-left-radius-40);
-    margin: var(--spacing-118) var(--spacing-00) var(--spacing-n40);
-    padding: var(--spacing-56) var(--spacing-70) var(--spacing-00);
+    border-top-left-radius: var(--border-radius-md);
+    margin: var(--corp-spacing-118) 0 var(--hero-space-neg-2xl);
+    padding: var(--corp-spacing-56) var(--corp-spacing-70) 0;
   }
 }
 
 /* ---- Desktop (>=1024px) — profile-like auto centering ---- */
 @media (--bp-desktop) {
   .hero.landing .hero-press-releases-container {
-    border-top-left-radius: var(--border-top-left-radius-40);
-    margin: var(--spacing-41) auto var(--spacing-n40);
-    padding: var(--spacing-80) var(--spacing-55) var(--spacing-00);
+    border-top-left-radius: var(--border-radius-md);
+    margin: var(--corp-spacing-41) auto var(--hero-space-neg-2xl);
+    padding: var(--corp-spacing-80) var(--corp-spacing-55) 0;
   }
 }

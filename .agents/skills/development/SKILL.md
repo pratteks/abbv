@@ -392,9 +392,9 @@ grep -E "^\s*--" styles/styles.css
 
 | Category | Example Properties |
 |----------|-------------------|
-| Typography | `--body-font-family`, `--heading-font-family`, `--font-size-*` |
-| Colors | `--primary-color`, `--background-color`, `--text-color` |
-| Spacing | `--spacing-*`, `--nav-height`, `--section-padding` |
+| Typography | `--body-font-family`, `--heading-font-family`, `--corp-font-size-size-size-*` |
+| Colors | `--primary-color`, `--color-surface-default`, `--corp-color-text-default` |
+| Spacing | `--corp-spacingacingacing-*`, `--nav-height`, `--section-padding` |
 | Layout | `--content-width`, `--grid-gap` |
 
 ### 4.2 Document Font Setup
@@ -627,15 +627,15 @@ npm run lint
 ```css
 --primary-color: [value];
 --secondary-color: [value];
---background-color: [value];
---text-color: [value];
+--color-surface-default: [value];
+--corp-color-text-default: [value];
 ```
 
 #### Spacing
 ```css
---spacing-s: [value];
---spacing-m: [value];
---spacing-l: [value];
+--corp-spacingacingacing-s: [value];
+--corp-spacingacingacing-m: [value];
+--corp-spacingacingacing-l: [value];
 --nav-height: [value];
 ```
 

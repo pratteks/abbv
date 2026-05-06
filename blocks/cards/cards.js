@@ -199,4 +199,13 @@ export default function decorate(block) {
   });
   block.textContent = '';
   block.append(ul);
+
+  // Add helper class to section for stats variant (cards-wrapper is first child)
+  const section = block.closest('.section');
+  if (section) {
+    const wrapper = section.querySelector('.cards-wrapper');
+    if (wrapper === section.firstElementChild) {
+      section.classList.add('cards-stats');
+    }
+  }
 }

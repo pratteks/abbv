@@ -1,0 +1,295 @@
+/*
+ * Hero Container Block
+ *
+ * Renders a rotating hero and owns both the wrapper and item styles.
+ * This follows the same single-block pattern as cards/card so authors can add
+ * hero items as children from the block's "+" action in UE.
+ */
+
+/* ── Section reset ─────────────────────────────────────────────────────────── */
+
+.section:has(.hero-container-wrapper) {
+  padding: 0;
+  max-width: var(--corp-layout-container-max-width-lg);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-container-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+/* ── Block root ────────────────────────────────────────────────────────────── */
+
+.hero-container {
+  --hero-container-overlay-gradient: linear-gradient(to top, rgb(0 0 0 / 90%) 42.91%, transparent);
+  --hero-container-button-hover-color: var(--color-border-container);
+
+  position: relative;
+  display: block;
+  overflow: visible;
+}
+
+.hero-container-item {
+  position: relative;
+  display: block;
+}
+
+.hero-container-item.hidden {
+  display: none;
+}
+
+.hero-container-bg {
+  position: relative;
+  overflow: hidden;
+  height: var(--hero-image-container-height);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.hero-container-bg picture,
+.hero-container-bg img,
+.hero-container-bg video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.hero-container.dark :where(.hero-container-bg):has(picture, img, video)::after,
+.hero-container.navy :where(.hero-container-bg):has(picture, img, video)::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--hero-container-overlay-gradient);
+  z-index: var(--corp-z-index-base);
+  pointer-events: none;
+}
+
+.hero-container.navy .hero-container-bg {
+  background-color: var(--color-navy-dark);
+}
+
+.hero-container.purple .hero-container-bg {
+  background-color: var(--color-purple-primary);
+}
+
+.hero-container-title-row,
+.hero-container-cta-row {
+  position: relative;
+  z-index: var(--corp-z-index-raised);
+  width: 100%;
+  padding: 0 var(--corp-spacing-20);
+  box-sizing: border-box;
+}
+
+.hero-container-section-outer {
+  margin: var(--hero-overlap) var(--corp-spacing-20) 0;
+  width: calc(100% - 2 * var(--corp-spacing-20));
+}
+
+.hero-container-section-overlay {
+  position: relative;
+  z-index: var(--corp-z-index-base);
+  background-color: var(--color-surface-default);
+  border-top-left-radius: var(--border-radius-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: var(--corp-spacing-20) var(--corp-spacing-20) 0;
+  box-sizing: border-box;
+}
+
+.hero-container-section-overlay > div {
+  width: 100%;
+  margin-inline: auto;
+}
+
+.hero-container-section-overlay > div[class$='-wrapper'] {
+  max-width: unset;
+  padding: 0;
+}
+
+.hero-container-title-row :where(h1, h2, h3) {
+  margin: 0 0 var(--corp-spacing-16);
+  color: var(--corp-color-text-default);
+  font-family: var(--heading-font-family-bold);
+  font-size: var(--corp-font-size-30);
+  line-height: var(--corp-typography-lineheight-relaxed-xl);
+}
+
+.hero-container.dark :where(.hero-container-title-row) :where(h1, h2, h3),
+.hero-container.navy :where(.hero-container-title-row) :where(h1, h2, h3),
+.hero-container.purple :where(.hero-container-title-row) :where(h1, h2, h3) {
+  color: var(--color-white);
+}
+
+.hero-container.dark :where(.hero-container-title-row) :where(p),
+.hero-container.navy :where(.hero-container-title-row) :where(p),
+.hero-container.purple :where(.hero-container-title-row) :where(p) {
+  color: var(--color-white);
+  margin-bottom: var(--corp-spacing-16);
+}
+
+.hero-container-cta-row .button-container {
+  padding: 0;
+}
+
+.hero-container-cta-row :where(a).button {
+  background: none;
+  font-family: var(--roboto-bold-font-family);
+  font-size: var(--corp-font-size-14);
+  font-style: normal;
+  font-weight: var(--corp-font-weight-bold);
+  letter-spacing: var(--corp-typography-letterspacing-wide-sm);
+  padding: var(--corp-spacing-5) 0;
+  color: var(--color-surface-highlight-inverse);
+  line-height: var(--corp-typography-lineheight-body-sm);
+  text-decoration: none;
+  text-transform: uppercase;
+  margin: var(--corp-spacing-16) 0 0;
+  border: 0;
+}
+
+.hero-container-cta-row :where(a).button:hover {
+  color: var(--corp-color-link-hover);
+  cursor: pointer;
+  background: none;
+}
+
+.hero-container:is(.dark, .navy, .purple) :where(.hero-container-cta-row) :where(a.button) {
+  color: var(--color-accent-blue-light);
+}
+
+.hero-container:is(.dark, .navy, .purple) :where(.hero-container-cta-row) :where(a.button:hover) {
+  color: var(--hero-container-button-hover-color);
+}
+
+/* ── Tablet (≥744px) ───────────────────────────────────────────────────────── */
+
+@media (min-width: 744px) {
+  .hero-container-title-row,
+  .hero-container-cta-row {
+    padding: 0 var(--corp-spacing-70);
+  }
+
+  .hero-container-section-outer {
+    width: calc(100% - 2 * var(--corp-spacing-70));
+    margin-left: var(--corp-spacing-70);
+    margin-right: var(--corp-spacing-70);
+    margin-bottom: var(--corp-spacing-80);
+  }
+
+  .hero-container-section-overlay {
+    padding: var(--corp-spacing-56) var(--corp-spacing-70) 0;
+  }
+
+  .hero-container-title-row :where(h1, h2, h3) {
+    font-size: var(--corp-font-size-40);
+    line-height: var(--corp-typography-lineheight-heading-md);
+    margin-bottom: var(--corp-spacing-24);
+  }
+
+  .hero-container.dark :where(.hero-container-title-row) :where(p),
+  .hero-container.navy :where(.hero-container-title-row) :where(p),
+  .hero-container.purple :where(.hero-container-title-row) :where(p) {
+    margin-bottom: var(--corp-spacing-24);
+    line-height: var(--corp-typography-lineheight-body-md);
+  }
+}
+
+/* ── Desktop (≥1024px) ─────────────────────────────────────────────────────── */
+
+@media (min-width: 1024px) {
+  .hero-container-title-row,
+  .hero-container-cta-row {
+    width: 100%;
+    padding: 0 var(--corp-spacing-55);
+  }
+
+  .hero-container-section-outer {
+    max-width: var(--corp-layout-container-max-width-md);
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  .hero-container-section-outer > .hero-container-section-overlay {
+    grid-column: 1 / -1;
+    margin-inline: auto;
+    width: calc(100% * 11 / 12);
+    padding: var(--corp-spacing-80) var(--corp-spacing-55) 0;
+  }
+
+  .hero-container-section-overlay > div {
+    width: calc(100% * 10 / 12);
+  }
+
+  .hero-container-title-row :where(h1, h2, h3) {
+    font-size: var(--corp-font-size-64);
+    line-height: var(--corp-typography-lineheight-display-xl);
+    letter-spacing: var(--corp-typography-letterspacing-tight-sm);
+    margin-bottom: var(--corp-spacing-24);
+  }
+}
+
+.hero-container.landing .hero-container-bg {
+  height: var(--hero-landing-container-height);
+  padding-bottom: var(--corp-spacing-56);
+}
+
+@media (min-width: 744px) {
+  .hero-container.landing .hero-container-bg {
+    height: var(--hero-landing-container-height-tablet, var(--hero-landing-container-height));
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-container.landing .hero-container-bg {
+    height: var(--hero-landing-container-height-desktop, var(--hero-landing-container-height));
+  }
+}
+
+/* ── Height variants ───────────────────────────────────────────────────────── */
+
+.hero-container.height-short .hero-container-bg {
+  height: var(--hero-section-height);
+}
+
+.hero-container.height-default .hero-container-bg {
+  height: var(--hero-image-container-height);
+}
+
+.hero-container.height-tall .hero-container-bg {
+  height: var(--hero-tall-image-container-height);
+}
+
+.hero-container.height-xx-tall .hero-container-bg {
+  height: var(--hero-landing-container-height);
+}
+
+/* ── Overlay content height variants ───────────────────────────────────────── */
+
+.hero-container.overlay-height-short .hero-container-section-overlay {
+  min-height: var(--hero-section-height);
+}
+
+.hero-container.overlay-height-default .hero-container-section-overlay {
+  min-height: var(--hero-image-container-height);
+}
+
+.hero-container.overlay-height-tall .hero-container-section-overlay {
+  min-height: var(--hero-tall-image-container-height);
+}
+
+.hero-container.overlay-height-xx-tall .hero-container-section-overlay {
+  min-height: var(--hero-landing-container-height);
+}

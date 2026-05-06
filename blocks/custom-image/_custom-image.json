@@ -47,80 +47,23 @@
           "name": "overview"
         },
         {
-          "component": "reference",
+          "component": "custom-asset-namespace:custom-asset",
           "valueType": "string",
           "name": "image",
           "label": "Image",
-          "multi": false
+          "configUrl": "/content/dam/corporate/asset-selector.json"
         },
         {
-          "component": "select",
+          "component": "custom-asset-namespace:custom-asset-mimetype",
           "valueType": "string",
-          "name": "presetType",
-          "value": "",
-          "label": "Preset Type",
-          "description": "Choose how the image preset or smart crop is applied",
-          "options": [
-            { "name": "None",          "value": "" },
-            { "name": "Image Preset",  "value": "image-preset" },
-            { "name": "Smart Crop",    "value": "smart-crop" }
-          ]
-        },
-        {
-          "component": "select",
-          "valueType": "string",
-          "name": "imagePreset",
-          "value": "",
-          "label": "Image Preset",
-          "description": "Select an image preset from the available preset renditions",
-          "condition": {
-            "===": [{ "var": "presetType" }, "image-preset"]
-          },
-          "options": [
-            { "name": "None",            "value": "" },
-            { "name": "Feature",         "value": "Feature" },
-            { "name": "Hero",            "value": "Hero" },
-            { "name": "Responsive",      "value": "Responsive" },
-            { "name": "Square",          "value": "Square" },
-            { "name": "Tall",            "value": "Tall" },
-            { "name": "VideoThumbnail",  "value": "VideoThumbnail" }
-          ]
-        },
-        {
-          "component": "select",
-          "valueType": "string",
-          "name": "rendition",
-          "value": "",
-          "label": "Rendition",
-          "description": "Select a smart crop rendition for the image",
-          "condition": {
-            "===": [{ "var": "presetType" }, "smart-crop"]
-          },
-          "options": [
-            { "name": "None",    "value": "" },
-            { "name": "Auto",    "value": "Auto" },
-            { "name": "Square",  "value": "Square" },
-            { "name": "Tall",    "value": "Tall" },
-            { "name": "Taller",  "value": "Taller" },
-            { "name": "Tallest", "value": "Tallest" }
-          ]
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "imageModifiers",
-          "value": "",
-          "label": "Image Modifiers",
-          "description": "Specify additional image modifier parameters (e.g. wid=500&hei=300)"
+          "name": "imageMimeType"
         },
         {
           "component": "text",
           "valueType": "string",
           "name": "imageAlt",
-          "value": "",
-          "label": "Alternative Text",
-          "description": "Provide alternative text for your image",
-          "required": true
+          "label": "Alt",
+          "value": ""
         },
         {
           "component": "boolean",

@@ -13,7 +13,8 @@
               "filter": "custom-title",
               "title": "",
               "titleType": "h1",
-              "language": "lang:none"
+              "language": "lang:none",
+              "blockId": "id:"
             }
           }
         }
@@ -29,7 +30,7 @@
           "valueType": "string",
           "name": "title",
           "value": "",
-          "label": "Title"
+          "label": "Text"
         },
         {
           "component": "tab",
@@ -41,7 +42,7 @@
           "valueType": "string",
           "name": "titleType",
           "value": "h1",
-          "label": "Heading Level",
+          "label": "Semantic Heading",
           "options": [
             { "name": "H1", "value": "h1" },
             { "name": "H2", "value": "h2" },
@@ -99,12 +100,7 @@
           ]
         },
         {
-          "component": "tab",
-          "label": "Accessibility",
-          "name": "accessibility"
-        },
-        {
-          "...": "../../models/_language.json#/language-field"
+          "...": "../../models/_common-properties.json#/common-prop"
         }
       ]
     }

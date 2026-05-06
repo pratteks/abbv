@@ -10,479 +10,6 @@
  * governing permissions and limitations under the License.
  */
 
-/* ========================================================================
-   AbbVie Design Tokens
-   ======================================================================== */
-
-:root {
-  /* PX to REM Conversion */
-  --base-size: 10;
-  --px-to-rem: calc(1rem / var(--base-size));
-  --direction-multiplier: 1;
-
-  /* Colors */
-  --link-color: #035fe6;
-  --link-hover-color: #136ff6;
-  --background-color: #fff;
-  --highlight-background-color: #f1f3ff;
-  --highlight-dark-background-color: #0066f5;
-  --container-border-color: #a6b5e0;
-  --footer-background-color: #fafafa;
-  --footer-border-color: #e1e1e1;
-  --footer-text-color: #071d49;
-  --footer-link-color: #071d49;
-  --footer-seperator-color: #b9b4b4;
-  --text-color: #071d49;
-  --text-label-color: #061e47;
-  --text-color-gray: #808080;
-  --strong-heading: #0066f5;
-  --light-color: #f8f8f8;
-  --dark-color: #505050;
-  --overlay-background-color: lightgrey;
-  --color-accent-purple: #8a2ecc;
-  --color-accent-blue: #0066f5;
-  --color-accent-blue-light: #479ff8;
-  --color-accent-green: #338700;
-  --overlay-navy: rgb(7 29 73 / 70%);
-  --overlay-navy-medium: rgb(7 29 73 / 55%);
-  --overlay-navy-light: rgb(7 29 73 / 50%);
-
-  /* Background Colors for Style Field Values */
-  --color-white: #fff;
-  --color-navy-dark: #071d49;
-  --color-blue-light: #a6b5e0;
-  --color-blue-very-light: #f1f3ff;
-  --color-blue-ultra-light: #fafbff;
-  --color-gray-dark: #666b7a;
-  --color-gray-medium: #b9b4b4;
-  --color-gray-light: #f4f4f4;
-  --color-gray-extra-light: #fafafa;
-  --color-purple-primary: #8a2ecc;
-  --color-purple-light: #a86bde;
-  --color-blue-primary: #0066f5;
-  --color-blue-secondary: #479ff8;
-  --color-orange-dark: #cf451c;
-  --color-orange-light: #f7634f;
-  --color-green-primary: #338700;
-
-  /* Alerts */
-  --error-color: #cf451c;
-  --warning-color: #f2dede;
-  --success-color: #2f9ece;
-
-  /* Fonts */
-  --body-font-family: 'Roboto Regular', Helvetica, Arial, sans-serif;
-  --heading-font-family: 'F37 Lineca Book', Helvetica, Arial, sans-serif;
-  --heading-font-family-bold: 'F37 Lineca Medium', Helvetica, Arial, sans-serif;
-  --icon-font-family: 'Abbvie Icon';
-  --roboto-small-font-family: 'Roboto Small', Helvetica, Arial, sans-serif;
-  --roboto-bold-font-family: 'Roboto Bold', Helvetica, Arial, sans-serif;
-  --roboto-medium-font-family: 'Roboto Medium', Helvetica, Arial, sans-serif;
-  --roboto-light-font-family: 'Roboto Light', Helvetica, Arial, sans-serif;
-  --form-font-family: "Open Sans", sans-serif;
-
-  /* Body sizes */
-  --body-font-size-m: 1.8rem;
-  --body-font-size-s: 1.6rem;
-  --body-font-size-xs: 1.4rem;
-
-  /* Granular font sizes */
-  --font-size-10: 1rem;
-  --font-size-11: 1.1rem;
-  --font-size-12: 1.2rem;
-  --font-size-13: 1.3rem;
-  --font-size-14: 1.4rem;
-  --font-size-16: 1.6rem;
-  --font-size-18: 1.8rem;
-  --font-size-20: 2rem;
-  --font-size-22: 2.2rem;
-  --font-size-24: 2.4rem;
-  --font-size-26: 2.6rem;
-  --font-size-28: 2.8rem;
-  --font-size-30: 3rem;
-  --font-size-32: 3.2rem;
-  --font-size-33: 3.3rem;
-  --font-size-34: 3.4rem;
-  --font-size-36: 3.6rem;
-  --font-size-38: 3.8rem;
-  --font-size-40: 4rem;
-  --font-size-42: 4.2rem;
-  --font-size-48: 4.8rem;
-  --font-size-50: 5rem;
-  --font-size-56: 5.6rem;
-  --font-size-64: 6.4rem;
-  --font-size-80: 8rem;
-  --icon-size-08: 8px;
-  --icon-size-010: 10px;
-  --icon-size-02: 2px;
-
-  /* Heading sizes */
-  --heading-font-size-xxl: 6.4rem;
-  --heading-font-size-xl: 5.6rem;
-  --heading-font-size-l: 4.8rem;
-  --heading-font-size-m: 4rem;
-  --heading-font-size-s: 3.2rem;
-  --heading-font-size-xs: 2.4rem;
-
-  /* Nav heights */
-  --nav-height: 88px;
-  --nav-height-mobile: 72px;
-  --breadcrumbs-height: 34px;
-  --header-height: var(--nav-height);
-  --header-height-mobile: var(--nav-height-mobile);
-
-  /* Breakpoints: see styles/tokens.css @custom-media (--bp-tablet, --bp-desktop, --bp-wide). */
-
-  /* Font Weights */
-  --font-weight-300: 300;
-  --font-weight-400: 400;
-  --font-weight-500: 500;
-  --font-weight-600: 600;
-  --font-weight-650: 650;
-  --font-weight-700: 700;
-  --font-weight-800: 800;
-  --font-weight-regular: 400;
-  --font-weight-bold: 700;
-
-  /* Spacing Tokens */
-  --space-token-xxs: calc(8 * var(--px-to-rem));
-  --space-token-xs: calc(16 * var(--px-to-rem));
-  --space-token-s: calc(24 * var(--px-to-rem));
-  --space-token-m: calc(32 * var(--px-to-rem));
-  --space-token-l: calc(40 * var(--px-to-rem));
-  --space-token-xl: calc(56 * var(--px-to-rem));
-  --space-token-xxl: calc(80 * var(--px-to-rem));
-  --space-token-xxxl: calc(104 * var(--px-to-rem));
-
-  /* Generalized Spacing */
-  --spacing-01: 0.1rem;
-  --spacing-02: 0.2rem;
-  --spacing-03: 0.3rem;
-  --spacing-04: 0.4rem;
-  --spacing-05: 0.5rem;
-  --spacing-06: 0.6rem;
-  --spacing-07: 0.7rem;
-  --spacing-08: 0.8rem;
-  --spacing-10: 1rem;
-  --spacing-13: 1.3rem;
-  --spacing-12: 1.2rem;
-  --spacing-14: 1.4rem;
-  --spacing-15: 1.5rem;
-  --spacing-16: 1.6rem;
-  --spacing-17: 1.7rem;
-  --spacing-18: 1.8rem;
-  --spacing-20: 2rem;
-  --spacing-21: 2.1rem;
-  --spacing-22: 2.2rem;
-  --spacing-24: 2.4rem;
-  --spacing-25: 2.5rem;
-  --spacing-26: 2.6rem;
-  --spacing-27: 2.7rem;
-  --spacing-275: 2.75rem;
-  --spacing-28: 2.8rem;
-  --spacing-30: 3rem;
-  --spacing-31: 3.1rem;
-  --spacing-32: 3.2rem;
-  --spacing-33: 3.3rem;
-  --spacing-34: 3.4rem;
-  --spacing-35: 3.5rem;
-  --spacing-36: 3.6rem;
-  --spacing-37-5: 3.75rem;
-  --spacing-38: 3.8rem;
-  --spacing-40: 4rem;
-  --spacing-41: 4.1rem;
-  --spacing-42: 4.2rem;
-  --spacing-44: 4.4rem;
-  --spacing-46: 4.6rem;
-  --spacing-48: 4.8rem;
-  --spacing-49: 4.9rem;
-  --spacing-50: 5rem;
-  --spacing-52: 5.2rem;
-  --spacing-55: 5.5rem;
-  --spacing-56: 5.6rem;
-  --spacing-60: 6rem;
-  --spacing-62: 6.2rem;
-  --spacing-64: 6.4rem;
-  --spacing-66: 6.6rem;
-  --spacing-70: 7rem;
-  --spacing-72: 7.2rem;
-  --spacing-74: 7.4rem;
-  --spacing-80: 8rem;
-  --spacing-81: 8.1rem;
-  --spacing-85: 8.5rem;
-  --spacing-86: 8.6rem;
-  --spacing-88: 8.8rem;
-  --spacing-90: 9rem;
-  --spacing-96: 9.6rem;
-  --spacing-100: 10rem;
-  --spacing-108: 10.8rem;
-  --spacing-110: 11rem;
-  --spacing-118: 11.8rem;
-  --spacing-120: 12rem;
-  --spacing-140: 14rem;
-  --spacing-124: 12.4rem;
-  --spacing-168: 16.8rem;
-  --spacing-180: 18rem;
-  --spacing-190: 19rem;
-  --spacing-192: 19.2rem;
-  --spacing-288: 28.8rem;
-  --spacing-300: 30rem;
-  --spacing-312: 31.2rem;
-  --spacing-320: 32rem;
-  --spacing-368: 36.8rem;
-  --spacing-375: 37.5rem;
-  --spacing-400: 40rem;
-  --spacing-420: 42rem;
-  --spacing-480: 48rem;
-  --spacing-500: 50rem;
-  --spacing-585: 58.5rem;
-  --spacing-810: 81rem;
-  --spacing-1000: 100rem;
-  --spacing-1200: 120rem;
-  --spacing-06: 0.6rem;
-  --spacing-08: 0.8rem;
-  --spacing-12: 1.2rem;
-  --spacing-25: 2.5rem;
-  --spacing-26: 2.6rem;
-  --spacing-100: 10rem;
-  --spacing-225: 2.25rem;
-  --spacing-025: 0.25rem;
-  --spacing-055: 0.55rem;
-  --spacing-00: 0;
-
-  /* negative spacing variables */
-  --spacing-n15: -1.5rem;
-  --spacing-n40: -4rem;
-  --spacing-n50: -5rem;
-  --spacing-n20: -2rem;
-  --spacing-n80: -8rem;
-  --spacing-n64: -6.4rem;
-  --spacing-n44: -4.4rem;
-  --spacing-n48: -4.8rem;
-  --spacing-n55: -5.5rem;
-  --spacing-n112: -11.2rem;
-
-  /* Line Heights */
-  --line-height-00: 0;
-  --line-height-16: 1.6rem;
-  --line-height-18: 1.8rem;
-  --line-height-20: 2rem;
-  --line-height-22: 2.2rem;
-  --line-height-24: 2.4rem;
-  --line-height-26: 2.6rem;
-  --line-height-28: 2.8rem;
-  --line-height-30: 3rem;
-  --line-height-32: 3.2rem;
-  --line-height-34: 3.4rem;
-  --line-height-35: 3.5rem;
-  --line-height-36: 3.6rem;
-  --line-height-38: 3.8rem;
-  --line-height-40: 4rem;
-  --line-height-44: 4.4rem;
-  --line-height-45: 4.5rem;
-  --line-height-46: 4.6rem;
-  --line-height-68: 6.8rem;
-  --line-height-84: 8.4rem;
-  --line-height-52: 5.2rem;
-  --line-height-58: 5.8rem;
-  --line-height-64: 6.4rem;
-  --line-height-84: 8.4rem;
-
-  /* Gap */
-  --gap-0: 0;
-  --gap-04: 0.4rem;
-  --gap-10: 1rem;
-  --gap-15: 1.5rem;
-  --gap-16: 1.6rem;
-  --gap-18: 1.8rem;
-  --gap-20: 2rem;
-  --gap-24: 2.4rem;
-  --gap-32: 3.2rem;
-  --gap-40: 4rem;
-  --gap-42: 4.2rem;
-
-  /* Letter spacing */
-  --letter-spacing-n03: -.03rem;
-  --letter-spacing-tight: -0.02rem;
-  --letter-spacing-tight-xl: -2.4px;
-  --letter-spacing-tight-lg: -1.68px;
-  --letter-spacing-tight-md: -1.28px;
-  --letter-spacing-wide-04: 0.04rem;
-  --letter-spacing-wide-06: 0.06rem;
-  --letter-spacing-wide-08: 0.08rem;
-  --letter-spacing-wide-84: 0.84px;
-  --letter-spacing-wide-86: 0.86px;
-  --letter-spacing-wide-96: 0.96px;
-  --letter-spacing-wide-72: 0.72px;
-
-  /* Scroll margin */
-  --scroll-margin-heading: 40px;
-
-  /* Icon height */
-  --icon-height-20: 2rem;
-  --icon-width-20: 2rem;
-  --icon-height: 2.4rem;
-  --icon-width: 2.4rem;
-
-  /* Hero */
-  --border-top-radius: 3.2rem;
-  --border-top-radius-medium: 2.4rem;
-  --hero-section-height: 12rem;
-  --hero-overlay-gradient: linear-gradient(to top, rgb(0 0 0 / 90%) 42.91%, transparent);
-  --hero-button-color: #479ff8;
-  --hero-button-hover-color: var(--container-border-color);
-  --hero-image-container-height: 21.6rem;
-  --hero-tall-image-container-height: 25.6rem;
-  --hero-profile-container-height: 12rem;
-  --hero-landing-container-height: 41.8rem;
-
-  /* Line Clamp */
-
-  --line-clamp-2: 2;
-
-  /* grid column start */
-  --grid-column-start-2: 2;
-
-  /* Separator Height */
-  --separator-height-1: .1rem;
-  --separator-height-8: .8rem;
-  --separator-height-16: 1.6rem;
-  --separator-height-24: 2.4rem;
-  --separator-height-32: 3.2rem;
-  --separator-height-48: 4.8rem;
-  --separator-height-64: 6.4rem;
-  --separator-height-80: 8rem;
-  --separator-height-96: 9.6rem;
-  --separator-height-112: 11.2rem;
-  --separator-height-128: 12.8rem;
-  --separator-height-144: 14.4rem;
-
-  /* Border Radius */
-  --border-radius-base: 0.4rem;
-  --border-radius-m: 0.8rem;
-  --border-radius-l: 8rem;
-  --border-radius-00: 0;
-  --border-00: 0;
-
-  /* border */
-  --border-01: 1px;
-  --border-02: 2px;
-
-  /* Border Radius for Styled Sections */
-  --border-top-left-radius: 3.2rem;
-  --border-top-left-radius-40: 4rem;
-  --border-top-left-radius-tablet:6.4rem;
-  --border-top-left-radius-desktop:8rem;
-  --border-top-left-radius-24: 2.4rem;
-
-  /* Opacity */
-  --opacity-00: 0;
-  --opacity-07: 0.7;
-  --opacity-1: 1;
-  --opacity-2: 2;
-
-  /* Section/container widths) */
-  --content-max-width: 133rem;
-  --content-max-width-narrow: 110rem;
-  --content-max-width-medium: 90rem;
-  --content-max-width-faq: 80rem;
-  --content-max-width-wide: 144rem;
-
-  /* accordion */
-  --accordion-icon-width: 0.7rem;
-  --accordion-icon-height: 0.7rem;
-  --accordion-border-02: var(--spacing-02);
-  --accordion-border-01: var(--spacing-01);
-
-  /* text container */
-  --text-container-li-width: var(--spacing-06);
-  --text-container-li-height: var(--spacing-06);
-
-  /* Icons / UI */
-  --icon-size: 2.4rem;
-
-  /* Text transform */
-  --font-uppercase: uppercase;
-  --font-lowercase: lowercase;
-  --font-normal: normal;
-
-  /* Story card */
-  --story-card-text-color: var(--footer-link-color);
-  --story-card-link-color: #0066f5;
-  --story-card-hover-bg: #f1f3ff;
-
-   /* z-index */
-  --z-index-negative: -1;
-  --z-index-0 : 0;
-  --z-index-1 : 1;
-  --z-index-2 : 2;
-  --z-index-3 : 3;
-  --z-index-4 : 4;
-
-  /* order */
-  --order-0: 0;
-  --order-1: 1;
-  --order-2: 2;
-  --order-n1: -1;
-
-  /* Form */
-  --form-background-color: #fff;
-  --form-text-color: #727272;
-  --form-secondary-text-color: #727272;
-  --form-border-color: #ccc;
-  --form-border-hover-color: #000;
-  --form-background-hover-color: #f3f3f3;
-  --form-primary-color: #7c3098;
-  --form-secondary-color: #80379b;
-  --form-secondary-hover-color: #6d2f85;
-  --form-disabled-color: #5e2b72;
-  --form-dark-color: #071d49;
-  --form-white-color: white;
-  --form-error-color: #eb3c36;
-  --form-error-border-color: rgb(212 43 43);
-  --form-shadow-color: rgb(167 167 167);
-  --form-overlay-bg: rgb(255 255 255 / 90%);
-  --form-divider-color: #eee;
-  --form-light-border-color: #d0d0d0;
-  --form-light-bg-color: #f5f5f5;
-  --form-light-text-color: #666;
-  --form-dark-text-color: #333;
-  --form-darker-text-color: #55565a;
-  --form-medium-text-color: #999;
-  --form-light-divider-color: #f0f0f0;
-  --form-medium-border-color: #ddd;
-  --form-orange-color: #e98300;
-  --form-success-color: #2f9ece;
-  --form-warning-color: #d32f2f;
-  --semi-transparent-color: #071d49b2;
-
-  --letter-spacing-06: .06em;
-  --letter-spacing-neg-03: -.03em;
-  --letter-spacing-neg-02: -.02em;
-}
-
-/* Responsive token adjustments */
-@media (width >= 744px) {
-  :root {
-    --border-top-radius: 6.4rem;
-    --hero-section-height: 26rem;
-    --border-top-radius-medium: 4rem;
-    --hero-image-container-height: 36.8rem;
-    --hero-tall-image-container-height: 41.6rem;
-    --hero-landing-container-height: 57.6rem;
-  }
-}
-
-@media (width >= 1024px) {
-  :root {
-    --border-top-radius: 8rem;
-    --hero-section-height: 28.8rem;
-    --hero-image-container-height: 44.8rem;
-    --hero-tall-image-container-height: 60.8rem;
-    --hero-landing-container-height: 81rem;
-  }
-}
-
 /* Fallback fonts */
 @font-face {
   font-family: roboto-fallback;
@@ -502,7 +29,7 @@ html {
 body,
 html {
   font-family: var(--body-font-family);
-  font-size: 62.5%;
+  font-size: 62.5%; /* stylelint-disable-line scale-unlimited/declaration-strict-value */
   line-height: 1.5;
 }
 
@@ -519,8 +46,8 @@ html {
 body {
   display: none;
   margin: 0;
-  background-color: var(--background-color);
-  color: var(--text-color);
+  background-color: var(--color-surface-default);
+  color: var(--corp-color-text-default);
   text-rendering: optimizespeed;
 }
 
@@ -532,16 +59,6 @@ img,
 picture {
   display: block;
   max-width: 100%;
-}
-
-header {
-  height: var(--header-height-mobile);
-}
-
-@media (width >= 1024px) {
-  header {
-    height: var(--header-height);
-  }
 }
 
 header .header,
@@ -562,34 +79,105 @@ footer .footer[data-block-status="loaded"] {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--heading-font-family-bold);
-  font-weight: var(--font-weight-800);
-  margin-bottom: var(--spacing-24);
-  color: var(--text-color);
+  font-weight: var(--corp-font-weight-extrabold);
+  margin-bottom: var(--corp-spacing-24);
+  color: var(--corp-color-text-default);
 }
 
-h1 { font-size: var(--font-size-30); line-height: var(--line-height-34); }
-h2 { font-size: var(--font-size-28); line-height: var(--line-height-32); }
-h3 { font-size: var(--font-size-26); line-height: var(--line-height-30); }
-h4 { font-size: var(--font-size-24); line-height: var(--line-height-28); }
-h5 { font-size: var(--font-size-20); line-height: var(--line-height-24); }
-h6 { font-size: var(--font-size-28); line-height: var(--line-height-32); }
+h1 {
+  font-size: var(--corp-font-size-30);
+  line-height: var(--corp-typography-lineheight-relaxed-xl);
+}
+
+h2 {
+  font-size: var(--corp-font-size-28);
+  line-height: var(--corp-typography-lineheight-relaxed-lg);
+}
+
+h3 {
+  font-size: var(--corp-font-size-26);
+  line-height: var(--corp-typography-lineheight-relaxed-md);
+}
+
+h4 {
+  font-size: var(--corp-font-size-24);
+  line-height: var(--corp-typography-lineheight-relaxed-sm);
+}
+
+h5 {
+  font-size: var(--corp-font-size-20);
+  line-height: var(--corp-typography-lineheight-body-lg);
+}
+
+h6 {
+  font-size: var(--corp-font-size-28);
+  line-height: var(--corp-typography-lineheight-relaxed-lg);
+}
 
 @media (width >= 744px) {
-  h1 { font-size: var(--font-size-40); line-height: var(--line-height-44); }
-  h2 { font-size: var(--font-size-36); line-height: var(--spacing-40); }
-  h3 { font-size: var(--font-size-32); line-height: var(--line-height-36); }
-  h4 { font-size: var(--font-size-30); line-height: var(--line-height-34); }
-  h5 { font-size: var(--font-size-28); line-height: var(--line-height-32); }
-  h6 { font-size: var(--font-size-28); line-height: var(--line-height-32); }
+  h1 {
+    font-size: var(--corp-font-size-40);
+    line-height: var(--corp-typography-lineheight-heading-md);
+  }
+
+  h2 {
+    font-size: var(--corp-font-size-36);
+    line-height: var(--corp-spacing-40);
+  }
+
+  h3 {
+    font-size: var(--corp-font-size-32);
+    line-height: var(--corp-typography-lineheight-relaxed-3xl);
+  }
+
+  h4 {
+    font-size: var(--corp-font-size-30);
+    line-height: var(--corp-typography-lineheight-relaxed-xl);
+  }
+
+  h5 {
+    font-size: var(--corp-font-size-28);
+    line-height: var(--corp-typography-lineheight-relaxed-lg);
+  }
+
+  h6 {
+    font-size: var(--corp-font-size-28);
+    line-height: var(--corp-typography-lineheight-relaxed-lg);
+  }
 }
 
 @media (width >= 1024px) {
-  h1 { font-size: var(--font-size-64); line-height: var(--line-height-68); letter-spacing: -0.02em; }
-  h2 { font-size: var(--font-size-56); line-height: var(--spacing-64); letter-spacing: -0.02em; }
-  h3 { font-size: var(--heading-font-size-l); line-height: var(--line-height-46); }
-  h4 { font-size: var(--font-size-40); line-height: var(--line-height-44); }
-  h5 { font-size: var(--font-size-32); line-height: var(--line-height-36); }
-  h6 { font-size: var(--font-size-24); line-height: var(--line-height-28); }
+  h1 {
+    font-size: var(--corp-font-size-64);
+    line-height: var(--corp-typography-lineheight-display-xl);
+    letter-spacing: var(--corp-typography-letterspacing-tight-em-sm);
+  }
+
+  h2 {
+    font-size: var(--corp-font-size-56);
+    line-height: var(--corp-spacing-64);
+    letter-spacing: var(--corp-typography-letterspacing-tight-em-sm);
+  }
+
+  h3 {
+    font-size: var(--heading-font-size-l);
+    line-height: var(--corp-typography-lineheight-heading-xl);
+  }
+
+  h4 {
+    font-size: var(--corp-font-size-40);
+    line-height: var(--corp-typography-lineheight-heading-md);
+  }
+
+  h5 {
+    font-size: var(--corp-font-size-32);
+    line-height: var(--corp-typography-lineheight-relaxed-3xl);
+  }
+
+  h6 {
+    font-size: var(--corp-font-size-24);
+    line-height: var(--corp-typography-lineheight-relaxed-sm);
+  }
 }
 
 p,
@@ -607,22 +195,143 @@ a,
 li,
 dd,
 dt {
-  font-size: 1.6rem;
-  line-height: 2rem;
+  font-size: var(--corp-font-size-16);
+  line-height: var(--corp-typography-lineheight-body-sm);
   margin-bottom: 0;
 }
 
 p {
-  margin-bottom: 3rem;
+  margin-bottom: var(--corp-spacing-30);
 }
 
-p:not(.button-container):last-child {
-  margin-bottom: 0;
+/* rte body unica custom classes */
+
+.body-unica-32-reg p {
+    color: var(--corp-color-text-default);
+    font-family: var(--roboto-small-font-family);
+    font-size: var(--corp-font-size-20);
+    font-weight: var(--corp-font-weight-regular);
+    line-height: var(--corp-typography-lineheight-body-xl);
 }
 
-#stories-behind-science p:not(.button-container):last-child {
-  margin-bottom: var(--spacing-20);
+.body-unica-26-reg p {
+    color: var(--corp-color-text-default);
+    font-family: var(--body-font-family);
+    font-size: var(--corp-font-size-16);
+    font-weight: var(--corp-font-weight-regular);
+    line-height: var(--corp-typography-lineheight-body-md);
 }
+
+.body-unica-24-reg p {
+    color: var(--corp-color-text-default);
+    font-family: var(--body-font-family);
+    font-size: var(--corp-font-size-18);
+    font-weight: var(--corp-font-weight-regular);
+    line-height: var(--corp-typography-lineheight-body-lg);
+}
+
+.body-unica-20-reg p {
+    color: var(--corp-color-text-default);
+    font-family: var(--body-font-family);
+    font-size: var(--corp-font-size-14);
+    font-weight: var(--corp-font-weight-regular);
+    line-height: var(--corp-typography-lineheight-body-sm);
+}
+
+.body-unica-18-reg p {
+    color: var(--corp-color-text-default);
+    font-family: var(--body-font-family);
+    font-size: var(--corp-font-size-13);
+    font-weight: var(--corp-font-weight-regular);
+    line-height: var(--corp-typography-lineheight-body-sm);
+}
+
+.body-unica-16-reg p {
+    color: var(--corp-color-text-default);
+    font-family: var(--body-font-family);
+    font-size: var(--corp-font-size-12);
+    font-weight: var(--corp-font-weight-regular);
+    line-height: var(--corp-typography-lineheight-tight-sm);
+}
+
+.body-unica-14-reg p {
+    color: var(--corp-color-text-default);
+    font-family: var(--body-font-family);
+    font-size: var(--corp-font-size-12);
+    font-weight: var(--corp-font-weight-regular);
+    line-height: var(--corp-typography-lineheight-tight-sm);
+}
+
+@media(width >= 744px) {
+    .body-unica-32-reg p {
+        font-size: var(--corp-font-size-24);
+        line-height: var(--corp-typography-lineheight-relaxed-md);
+    }
+
+    .body-unica-26-reg p {
+        font-size: var(--corp-font-size-22);
+        line-height: var(--corp-typography-lineheight-relaxed-md);
+    }
+
+    .body-unica-24-reg p {
+        font-size: var(--corp-font-size-20);
+        line-height: var(--corp-typography-lineheight-body-xl);
+    }
+
+    .body-unica-20-reg p {
+        font-size: var(--corp-font-size-18);
+        line-height: var(--corp-typography-lineheight-body-lg);
+    }
+
+    .body-unica-18-reg p {
+        font-size: var(--corp-font-size-16);
+        line-height: var(--corp-typography-lineheight-body-md);
+    }
+
+    .body-unica-16-reg p {
+        font-size: var(--corp-font-size-14);
+        line-height: var(--corp-typography-lineheight-body-sm);
+    }
+}
+
+@media(width >= 1024px) {
+    .body-unica-32-reg p {
+        font-size: var(--corp-font-size-32);
+        line-height: var(--corp-typography-lineheight-heading-sm);
+    }
+
+    .body-unica-26-reg p {
+        font-size: var(--corp-font-size-26);
+        line-height: var(--corp-typography-lineheight-relaxed-lg);
+    }
+
+    .body-unica-24-reg p {
+        font-size: var(--corp-font-size-24);
+        line-height: var(--corp-typography-lineheight-relaxed-lg);
+    }
+
+    .body-unica-20-reg p {
+        font-size: var(--corp-font-size-20);
+        line-height: var(--corp-typography-lineheight-body-lg);
+    }
+
+    .body-unica-18-reg p {
+        font-size: var(--corp-font-size-18);
+        line-height: var(--corp-typography-lineheight-body-lg);
+    }
+
+    .body-unica-16-reg p {
+        font-size: var(--corp-font-size-16);
+        line-height: var(--corp-typography-lineheight-body-sm);
+    }
+
+    .body-unica-14-reg p {
+        font-size: var(--corp-font-size-14);
+        line-height: var(--corp-typography-lineheight-body-sm);
+    }
+}
+
+/* body unica custom classes - end */
 
 @media (width >= 744px) {
   p,
@@ -630,8 +339,8 @@ p:not(.button-container):last-child {
   li,
   dd,
   dt {
-    font-size: 1.6rem;
-    line-height: 2.2rem;
+    font-size: var(--corp-font-size-16);
+    line-height: var(--corp-typography-lineheight-body-md);
   }
 }
 
@@ -641,7 +350,7 @@ p:not(.button-container):last-child {
   li,
   dd,
   dt {
-    font-size: 1.8rem;
+    font-size: var(--body-font-size-m);
     line-height: 2.4rem;
   }
 }
@@ -654,7 +363,7 @@ pre {
 pre {
   padding: 1.6rem;
   border-radius: .8rem;
-  background-color: var(--highlight-background-color);
+  background-color: var(--color-surface-highlight);
   overflow-x: auto;
   white-space: pre;
 }
@@ -671,13 +380,20 @@ button {
    ======================================================================== */
 
 a:any-link {
-  color: var(--link-color);
+  color: var(--corp-color-link-default);
   text-decoration: none;
   overflow-wrap: break-word;
 }
 
 a:hover {
-  color: var(--link-hover-color);
+  color: var(--corp-color-link-hover);
+}
+
+a:focus-visible {
+  outline: var(--corp-focus-visible-outline);
+  outline-offset: var(--corp-focus-visible-outline-offset);
+  outline-style: auto;
+  outline-width: var(--corp-focus-visible-outline-width);
 }
 
 /* ========================================================================
@@ -699,8 +415,8 @@ button {
   line-height: 1.25;
   text-align: center;
   text-decoration: none;
-  background-color: var(--link-color);
-  color: var(--background-color);
+  background-color: var(--corp-color-link-default);
+  color: var(--color-surface-default);
   cursor: pointer;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -711,22 +427,22 @@ a.button:hover,
 a.button:focus,
 button:hover,
 button:focus {
-  background-color: var(--highlight-dark-background-color);
-  color: var(--background-color);
+  background-color: var(--color-surface-highlight-inverse);
+  color: var(--color-surface-default);
   cursor: pointer;
 }
 
 button:disabled,
 button:disabled:hover {
-  background-color: var(--light-color);
+  background-color: var(--corp-color-surface-subtle);
   cursor: unset;
 }
 
 a.button.secondary,
 button.secondary {
   background-color: unset;
-  border: 1px solid currentcolor;
-  color: var(--text-color);
+  border: var(--border-width-thin) solid currentcolor;
+  color: var(--corp-color-text-default);
 }
 
 /* ========================================================================
@@ -759,8 +475,10 @@ main img {
    ======================================================================== */
 
 main > .section {
-  max-width: 133rem;
-  margin-bottom: 8rem;
+  max-width: var(--corp-layout-container-max-width-md);
+  margin-bottom: var(--corp-spacing-32);
+  margin-left: var(--corp-spacing-20);
+  margin-right: var(--corp-spacing-20);
 }
 
 main > .section:first-of-type {
@@ -771,28 +489,19 @@ main > .section > div {
   max-width: 100%;
 }
 
-main > .section.columns-container.section-wide, main > .section.section-wide, main > .section-wide{
-    max-width: var(--content-max-width-wide);
-    margin-left: auto;
-    margin-right: auto;
-}
-
 @media (width >= 744px) {
   main > .section {
-    margin-left: 7rem;
-    margin-right: 7rem;
-  }
-
-  main > .section-wide .hero > div:first-child{
-    padding-left: 0;
-    padding-right: 0;
+    margin-bottom: var(--corp-spacing-80);
+    margin-left: var(--corp-spacing-70);
+    margin-right: var(--corp-spacing-70);
   }
 }
 
 @media (width >= 1024px) {
   main > .section {
-    margin-left: 5.5rem;
-    margin-right: 5.5rem;
+    margin-bottom: var(--corp-spacing-80);
+    margin-left: var(--corp-spacing-55);
+    margin-right: var(--corp-spacing-55);
   }
 }
 
@@ -800,1687 +509,11 @@ main > .section.columns-container.section-wide, main > .section.section-wide, ma
   main > .section {
     margin-left: auto;
     margin-right: auto;
-    max-width: var(--content-max-width);
+    max-width: var(--corp-layout-container-max-width-md);
   }
-
-  main > .section.embed-container:not(.navy) {
-    max-width: var(--content-max-width);
-  }
-
-  main > .section.columns-container:not(.dark):not(.navy):not(.purple):not(.highlight) {
-    padding-left: var(--spacing-55);
-    padding-right: var(--spacing-55);
-    margin: 0 auto;
-  }
-
-  main > .section.accordion-container:not(.navy) {
-    max-width: var(--content-max-width);
-  }
-}
-
-/* AbbVie signature: rounded top-left corner on styled sections */
-main .section.navy-overlap,
-main .section.navy,
-main .section.purple {
-  border-top-left-radius: var(--border-top-radius);
-  overflow: hidden;
-}
-
-/* ========================================================================
-   Section Metadata — Background Styles
-   ======================================================================== */
-
-/* navy-overlap: Light blue/lavender background (hero overlap area) */
-main .section.navy-overlap {
-  background-color: var(--highlight-background-color);
-  max-width: var(--content-max-width);
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 0;
-  padding: 4rem 0 8rem;
-}
-
-@media (width >= 744px) {
-  main .section.navy-overlap {
-    /* margin-left: 7rem;
-    margin-right: 7rem; */
-    padding: 5.6rem 0 8rem;
-  }
-}
-
-@media (width >= 1024px) {
-  main .section.navy-overlap {
-    /* margin-left: 5.5rem;
-    margin-right: 5.5rem; */
-    padding: 8rem 0;
-  }
-}
-
-@media (width >= 1440px) {
-  main .section.navy-overlap {
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-/* dark: Navy blue background with white text */
-main .section.dark {
-  background-color: var(--color-navy-dark);
-  color: var(--background-color);
-  margin: 0 auto;
-  padding: 4rem 3.5rem 8rem;
-  max-width: var(--content-max-width-wide);;
-}
-
-main .section.dark h1,
-main .section.dark h2,
-main .section.dark h3,
-main .section.dark h4,
-main .section.dark h5,
-main .section.dark h6 {
-  color: var(--background-color);
-}
-
-main .section.dark p,
-main .section.dark li,
-main .section.dark a:not(.button) {
-  color: var(--background-color);
-}
-
-main .section.dark a.button:any-link {
-  border: 1px solid var(--background-color);
-  padding: 1.6rem 4rem;
-  color: var(--background-color);
-}
-
-main .section.dark a.button:hover {
-  background-color: var(--background-color);
-  color: var(--color-navy-dark);
-}
-
-@media (width >= 744px) {
-  main .section.dark {
-    padding: 5.6rem 7rem 8rem;
-  }
-}
-
-@media (width >= 1024px) {
-  main .section.dark {
-    padding: 8rem 5.5rem;
-  }
-}
-
-@media (width >= 1440px) {
-  main .section.dark > div {
-    max-width: 133rem;
-    margin: 0 auto;
-  }
-}
-
-/* navy: Navy blue background with white text */
-main .section.navy {
-  background-color: var(--color-navy-dark);
-  color: var(--background-color);
-  margin: 0 auto;
-  padding: 4rem 3.5rem 8rem;
-  max-width: var(--content-max-width-wide);
-}
-
-main .section.navy h1,
-main .section.navy h2,
-main .section.navy h3,
-main .section.navy h4,
-main .section.navy h5,
-main .section.navy h6 {
-  color: var(--background-color);
-}
-
-main .section.navy p,
-main .section.navy li,
-main .section.navy a:not(.button) {
-  color: var(--background-color);
-}
-
-main .section.navy a.button:any-link {
-  border-color: var(--background-color);
-  color: var(--background-color);
-}
-
-main .section.navy a.button:hover {
-  background-color: var(--background-color);
-  color: var(--color-navy-dark);
-}
-
-@media (width >= 744px) {
-  main .section.navy {
-    padding: 5.6rem 7rem 8rem;
-  }
-}
-
-@media (width >= 1024px) {
-  main .section.navy {
-    padding: 8rem 5.5rem;
-  }
-}
-
-@media (width >= 1440px) {
-  main .section.navy > div {
-    max-width: 133rem;
-    margin: 0 auto;
-  }
-}
-
-/* purple: Purple background with white text */
-main .section.purple {
-  background-color: var(--color-purple-primary);
-  color: var(--background-color);
-  margin: 0 auto;
-  padding: 4rem 3.5rem 8rem;
-  max-width: var(--content-max-width-wide);
-}
-
-main .section.purple h1,
-main .section.purple h2,
-main .section.purple h3,
-main .section.purple h4,
-main .section.purple h5,
-main .section.purple h6 {
-  color: var(--background-color);
-}
-
-main .section.purple p,
-main .section.purple li,
-main .section.purple a:not(.button) {
-  color: var(--background-color);
-}
-
-main .section.purple a.button:any-link {
-  border-color: var(--background-color);
-  color: var(--background-color);
-}
-
-main .section.purple a.button:hover {
-  background-color: var(--background-color);
-  color: var(--color-purple-primary);
-}
-
-@media (width >= 744px) {
-  main .section.purple {
-    padding: 5.6rem 7rem 8rem;
-  }
-}
-
-@media (width >= 1024px) {
-  main .section.purple {
-    padding: 8rem 5.5rem;
-  }
-}
-
-@media (width >= 1440px) {
-  main .section.purple > div {
-    max-width: 133rem;
-    margin: 0 auto;
-  }
-}
-
-/* light: Light gray background */
-main .section.light {
-  background-color: var(--footer-background-color);
-  margin: 0 auto;
-  padding: var(--spacing-40) var(--spacing-35);
-  max-width: var(--content-max-width-wide);
-}
-
-/* highlight: Light lavender background */
-main .section.highlight {
-  background-color: var(--highlight-background-color);
-  margin: 0 auto;
-  padding: var(--spacing-40) var(--spacing-35) var(--spacing-16) ;
-  max-width: var(--content-max-width-wide);
-  margin-bottom: var(--spacing-32);
-}
-
-@media (width >= 744px) {
-  main .section.light,
-  main .section.highlight {
-    padding: 5.6rem 7rem 1.6rem;
-  }
-
-  main .section.highlight {
-  margin-bottom: var(--spacing-80);
-}
-}
-
-@media (width >= 1024px) {
-  main .section.light,
-  main .section.highlight {
-    padding: 8rem 5.5rem 5.8rem;
-  }
-}
-
-/* light-blue: Light lavender/blue background */
-main .section.light-blue {
-  background-color: var(--highlight-background-color);
-  margin: 0 auto;
-  padding: 4rem 3.5rem;
-  max-width: var(--content-max-width-wide);
-}
-
-@media (width >= 744px) {
-  main .section.light-blue {
-    padding: 5.6rem 7rem 1.6rem;
-  }
-}
-
-@media (width >= 1024px) {
-  main .section.light-blue {
-    padding: 8rem 5.5rem 5.8rem;
-  }
-}
-
-/* Text CTA style for accordion section default content */
-main .section.accordion-container > .default-content-wrapper .button-container a.button {
-  background: none;
-  border: none;
-  border-radius: 0;
-  padding: 0;
-  margin: var(--spacing-16) 0 var(--spacing-24);
-  color: var(--highlight-dark-background-color);
-  font-family: var(--roboto-bold-font-family);
-  font-size: var(--font-size-14);
-  font-weight: var(--font-weight-700);
-  text-transform: uppercase;
-  letter-spacing: 0.84px;
-  line-height: var(--line-height-20);
-  display: inline-flex;
-  align-items: center;
-  white-space: normal;
-  overflow: visible;
-  transition: color 0.2s ease;
-}
-
-main .section.accordion-container > .default-content-wrapper .button-container a.button::after {
-  content: '';
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-top: 2px solid var(--highlight-dark-background-color);
-  border-right: 2px solid var(--highlight-dark-background-color);
-  transform: rotate(45deg);
-  margin-left: 8px;
-  flex-shrink: 0;
-}
-
-main .section.accordion-container > .default-content-wrapper .button-container a.button:hover {
-  color: var(--link-hover-color);
-}
-
-main .section.accordion-container > .default-content-wrapper .button-container a.button:hover::after {
-  border-color: var(--link-hover-color);
-}
-/* CTA highlight section — h2 matches original 48px */
-main .section.highlight:not([data-background]) > .default-content-wrapper h2 {
-  font-size: var(--heading-font-size-l);
-}
-
-/* ========================================================================
-   Section Width Variants (AEM Container System)
-   Maps original AEM `cmp-container-*` widths to EDS section-metadata styles.
-   Authoring: add "style: <variant>" in section-metadata block.
-   ======================================================================== */
-
-/*
- * full-width: Content extends full viewport (like cmp-container-full-width)
- * Inner content breaks out of section padding to fill viewport.
- */
-main .section.full-width {
-  margin: 0;
-  padding: 0;
-  max-width: none;
-}
-
-main .section.full-width > div {
-  max-width: 133rem;
-  margin: 0 auto;
-  padding: 4rem 3.5rem;
-}
-
-@media (width >= 744px) {
-  main .section.full-width > div {
-    padding: 5.6rem 7rem;
-  }
-}
-
-@media (width >= 1024px) {
-  main .section.full-width > div {
-    padding: 8rem 5.5rem;
-  }
-}
-
-/*
- * narrow: Narrower content area (~110rem max, like cmp-container-x-large)
- * Good for focused reading content.
- */
-main .section.narrow > div {
-  max-width: 110rem;
-  margin: 0 auto;
-}
-
-/*
- * medium-width: Medium content area (~90rem max, like cmp-container-medium)
- * Good for centered FAQ, forms, single-column text.
- */
-main .section.medium-width > div {
-  max-width: 90rem;
-  margin: 0 auto;
-}
-
-/*
- * centered: Centers all text content inside the section.
- */
-main .section.centered {
-  text-align: center;
-}
-
-/* ========================================================================
-   Section Border Radius Variants
-   Maps AEM radius modifiers to EDS section-metadata styles.
-   ======================================================================== */
-
-/*
- * radius-large: 8rem border-top-left-radius (like AEM large-radius → 80px)
- */
-main .section.radius-large {
-  border-top-left-radius: var(--spacing-80);
-}
-
-/*
- * radius-medium: 4rem border-top-left-radius (like AEM medium-radius → 40px)
- */
-main .section.radius-medium {
-  border-top-left-radius: var(--spacing-40);
-}
-
-/*
- * radius-small: 1.6rem border-top-left-radius (like AEM small-radius → 16px)
- */
-
-main .section.radius-small{
-  border-top-left-radius: var(--spacing-16);
-}
-
-/*
- * radius-default: 2rem border-top-left-radius (like AEM default-radius)
- */
-main .section.radius-default {
-  border-top-left-radius: var(--spacing-20);
-}
-
-/*
- * none: Remove border-top-left-radius (author selected "None" for Border Radius)
- */
-main .section.none {
-  /* border-top-left-radius: var(--spacing-00); */
-}
-
-/* ========================================================================
-   Section Modifier Variants
-   Maps AEM container modifiers to EDS section-metadata styles.
-   ======================================================================== */
-
-/*
- * overlap: Section overlaps the previous section (like AEM overlap-predecessor)
- * Creates the white panel overlapping the hero image effect.
- */
-main .section.overlap {
-  position: relative;
-  z-index: 1;
-  margin-top: -5rem;
-}
-
-@media (width >= 744px) {
-  main .section.overlap {
-    margin-top: -8rem;
-  }
-
-  /*
- * no-padding: Removes section padding (like AEM no-padding)
- */
-main .section.no-padding, main > .section.no-padding.columns-container:not(.dark):not(.navy):not(.purple):not(.highlight) {
-  padding: 0;
-}
-}
-
-@media (width >= 1024px) {
-  main .section.overlap {
-    margin-top: -11.2rem;
-  }
-}
-
-
-
-/*
- * no-margin: Removes section bottom margin (like AEM no-bottom-margin)
- */
-main .section.no-margin {
-  margin-bottom: 0;
-}
-
-main .section.no-bottom-margin {
-  margin-bottom: var(--spacing-00);
-}
-
-/*
- * compact: Reduces section vertical padding
- */
-main .section.compact {
-  padding-top: 2.4rem;
-  padding-bottom: 2.4rem;
-}
-
-@media (width >= 1024px) {
-  main .section.compact {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-  }
-}
-
-/* ========================================================================
-   Navy Overlap Section Effect
-   ======================================================================== */
-
-/* Empty navy-overlap section creates visual overlap with hero */
-main .section.navy-overlap:empty {
-  padding: 0;
-  min-height: 0;
-}
-
-/* Navy-overlap without hero block: navy bar + white overlap card effect */
-main .section.navy-overlap:not(.hero-container) {
-  background-color: var(--background-color);
-  position: relative;
-  padding-top: 10rem;
-  padding-bottom: 4rem;
-}
-
-main .section.navy-overlap:not(.hero-container)::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 14rem;
-  background-color: var(--color-navy-dark);
-  border-top-left-radius: 4rem;
-  z-index: 0;
-}
-
-main .section.navy-overlap:not(.hero-container) > .default-content-wrapper {
-  position: relative;
-  z-index: 1;
-  background-color: var(--background-color);
-  border-top-left-radius: 4rem;
-  padding: 3rem 3rem 1rem;
-  max-width: var(--content-max-width);
-  margin: 0 auto;
-}
-
-@media (width >= 744px) {
-  main .section.navy-overlap:not(.hero-container) {
-    padding-top: 12rem;
-  }
-
-  main .section.navy-overlap:not(.hero-container)::before {
-    height: 16rem;
-  }
-
-  main .section.navy-overlap:not(.hero-container) > .default-content-wrapper {
-    padding: 4rem 5rem 1rem;
-  }
-}
-
-@media (width >= 1024px) {
-  main .section.navy-overlap:not(.hero-container) {
-    padding-top: 12rem;
-  }
-
-  main .section.navy-overlap:not(.hero-container)::before {
-    height: 18rem;
-  }
-
-  main .section.navy-overlap:not(.hero-container) > .default-content-wrapper {
-    padding: 4rem 6rem 1rem;
-  }
-}
-
-/* Standalone breadcrumbs (pages without hero block) */
-.section-breadcrumbs {
-  margin-bottom: var(--spacing-32);
-}
-
-.section-breadcrumbs ol {
-  display: flex;
-  flex-flow: wrap;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  gap: 0.8rem;
-  align-items: baseline;
-}
-
-.section-breadcrumbs ol li {
-  font-family: var(--roboto-bold-font-family);
-  font-size: var(--font-size-14);
-  font-weight: var(--font-weight-700);
-  letter-spacing: 0.06em;
-  line-height: var(--line-height-20);
-  text-transform: uppercase;
-  color: var(--text-color);
-  display: flex;
-  align-items: flex-end;
-}
-
-.section-breadcrumbs ol li:not(:last-child)::after {
-  content: '\203A';
-  padding-left: 0.8rem;
-  font-size: var(--font-size-30);
-  font-weight: var(--font-weight-700);
-  vertical-align: middle;
-  line-height: 1;
-}
-
-.section-breadcrumbs ol li a {
-  color: var(--text-color);
-  font-weight: var(--font-weight-700);
-  font-size: inherit;
-  text-decoration: none;
-}
-
-.section-breadcrumbs ol li[aria-current] {
-  color: var(--color-gray-dark);
-  font-weight: var(--font-weight-700);
-}
-
-/* ========================================================================
-   Section Background Image (from section-metadata "background" property)
-   Applied via JS: decorateSectionBackgrounds() sets inline background-image.
-   ======================================================================== */
-main .section[data-background] {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-/* Highlight section with background image — stats cards variant */
-main .section.highlight[data-background] {
-  background-color: transparent;
-  margin-left: auto;
-  margin-right: auto;
-  overflow: hidden;
-  max-width: var(--content-max-width-wide);
-}
-
-main .section.highlight[data-background] .columns > div {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-}
-
-main .section.highlight[data-background] .columns.block.columns-4-cols > div {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  align-items: unset;
-}
-
-@media (width >= 744px) {
-  main .section.highlight[data-background] .columns.block.columns-4-cols > div {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (width >= 1024px) {
-  main .section.highlight[data-background] .columns.block.columns-4-cols > div {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-main .section.highlight[data-background] .columns > div > div {
-  background-color: var(--background-color);
-  padding: 2.4rem 3.2rem;
-}
-
-main .section.highlight[data-background] .columns h2 {
-  font-size: var(--font-size-14);
-  font-family: var(--roboto-bold-font-family);
-  font-weight: 700;
-  color: var(--text-color);
-  margin-bottom: 3.8rem;
-  text-transform: var(--font-uppercase);
-  letter-spacing: var(--letter-spacing-06);
-  line-height: var(--line-height-20);
-}
-
-/* main .section.highlight[data-background] .columns p {
-
-} */
-
-main .section.highlight[data-background] .columns p strong {
-  color: var(--strong-heading);
-  font-family: var(--heading-font-family);
-  font-weight: var(--font-weight-650);
-  font-size: var(--font-size-56);
-  letter-spacing: var(--letter-spacing-neg-03);
-  line-height: var(--line-height-64);
-}
-
-@media (width >= 744px) {
-  main .section.highlight[data-background] .columns p strong {
-    font-size: var(--font-size-64);
-    letter-spacing: var(--letter-spacing-neg-02);
-    line-height: var(--line-height-68);
-  }
-}
-
-@media (width >= 1024px) {
-  main .section.highlight[data-background] .columns p strong {
-    font-size: var(--font-size-80);
-    letter-spacing: var(--letter-spacing-neg-03);
-    line-height: var(--line-height-84);
-  }
-}
-
-main .section.highlight[data-background] .columns p {
-  font-size: var(--font-size-12);
-  color: var(--text-color);
-  font-weight: var(--font-weight-400);
-  line-height: var(--line-height-16);
-  margin-bottom: var(--spacing-00);
-}
-
-@media (width >= 744px) {
-  main .section.highlight[data-background] .columns p {
-    font-size: var(--font-size-14);
-    line-height: var(--line-height-20);
-    margin-bottom: var(--spacing-00);
-  }
-}
-
-@media (width >= 1024px) {
-  main .section.highlight[data-background] .columns p {
-    font-size: var(--font-size-16);
-    line-height: var(--line-height-20);
-    margin-bottom: var(--spacing-00);
-  }
-}
-
-@media (width < 744px) {
-  main .section.highlight[data-background] .columns > div {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (width >= 744px) {
-  main .section.highlight[data-background] {
-    margin-left: 0rem;
-    margin-right: 0rem;
-    min-height: 36.8rem;
-  }
-}
-
-@media (width >= 1024px) {
-  main .section.highlight[data-background] {
-    margin-left: 0rem;
-    margin-right: 0rem;
-    min-height: 44.8rem;
-  }
-}
-
-@media (width >= 1440px) {
-  main .section.highlight[data-background] {
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-/* ========================================================================
-   Mixed-Content Section Background Overrides
-   When section-metadata groups multiple blocks with different visual
-   treatments, override section bg to white and apply per-wrapper
-   backgrounds to match the original site layout.
-   ======================================================================== */
-
-/* --- Section: hero + columns + cards + quote (originally "dark") --- */
-
-/* Light blue base background; hero wrapper overrides to white */
-main > .section.dark.cards-container {
-  background-color: var(--highlight-background-color);
-  color: var(--text-color);
-}
-
-/* Content-series dark section: light gray (#F4F4F4) matches original AbbVie */
-main > .section.dark.cards-container:not(.hero-container) {
-  background-color: var(--color-gray-light);
-}
-
-/* Content-series card tiles: light blue on gray background */
-main > .section.dark.cards-container:not(.hero-container) .cards > ul > li {
-  background-color: var(--highlight-background-color);
-  border-radius: 0.8rem;
-  overflow: hidden;
-}
-
-main > .section.dark.cards-container:not(.hero-container) .cards .cards-card-body {
-  padding: 0 1.6rem 1.6rem;
-}
-
-main > .section.dark.cards-container :is(h1, h2, h3, h4, h5, h6) {
-  color: var(--text-color);
-}
-
-main > .section.dark.cards-container :is(p, li) {
-  color: var(--text-color);
-}
-
-main > .section.dark.cards-container a:not(.button) {
-  color: var(--text-color);
-}
-
-main > .section.dark.cards-container a.button:any-link {
-  border-color: var(--highlight-dark-background-color);
-  color: var(--highlight-dark-background-color);
-}
-
-main > .section.dark.cards-container a.button:hover {
-  background-color: var(--highlight-dark-background-color);
-  color: var(--background-color);
-}
-
-/* Hero wrapper: full-bleed, transparent so section white bg shows through */
-
-/* Original AEM: large-radius cmp-container-full-width (80px radius) */
-main > .section.dark.cards-container .hero-wrapper {
-  background-color: var(--background-color);
-  margin: -4rem -3.5rem 0;
-  padding: 0;
-  border-top-left-radius: var(--spacing-32);
-  overflow: hidden;
-}
-
-@media (width >= 744px) {
-  main > .section.dark.cards-container .hero-wrapper {
-    margin: -5.6rem -7rem 0;
-    border-top-left-radius: var(--spacing-64);
-  }
-}
-
-@media (width >= 1024px) {
-  main > .section.dark.cards-container .hero-wrapper {
-    margin: -8rem -5.5rem 0;
-    border-top-left-radius: var(--spacing-80);
-  }
-}
-
-/* Quote band: full-width background image with quote overlay */
-main > .section.dark.cards-container .default-content-wrapper:has(+ .quote-wrapper) {
-  position: relative;
-  margin: 4rem -3.5rem 0;
-  padding: 0;
-  line-height: 0;
-  overflow: hidden;
-  border-top-left-radius: var(--spacing-32);
-  max-width: none;
-}
-
-main > .section.dark.cards-container .default-content-wrapper:has(+ .quote-wrapper) img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-  aspect-ratio: 2 / 3;
-}
-
-/* Semi-transparent overlay on the background image */
-main > .section.dark.cards-container .default-content-wrapper:has(+ .quote-wrapper)::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgb(7 29 73 / 70%);
-  pointer-events: none;
-}
-
-main > .section.dark.cards-container .quote-wrapper {
-  position: relative;
-  margin: 0 -3.5rem -8rem;
-  padding: 0 3.5rem 4rem;
-  margin-top: -34rem;
-  z-index: 1;
-  max-width: none;
-  background-color: transparent;
-}
-
-/* stylelint-disable-next-line no-descending-specificity */
-main > .section.dark.cards-container .quote-wrapper .quote {
-  background: none;
-}
-
-main > .section.dark.cards-container .quote-wrapper :is(p, em) {
-  color: var(--background-color);
-}
-
-main > .section.dark.cards-container .quote-wrapper blockquote::before {
-  color: var(--background-color);
-}
-
-@media (width >= 744px) {
-  main > .section.dark.cards-container .default-content-wrapper:has(+ .quote-wrapper) {
-    margin: 4rem -7rem 0;
-    border-top-left-radius: var(--spacing-64);
-  }
-
-  main > .section.dark.cards-container .default-content-wrapper:has(+ .quote-wrapper) img {
-    aspect-ratio: 3 / 2;
-  }
-
-  main > .section.dark.cards-container .quote-wrapper {
-    margin: 0 -7rem -8rem;
-    margin-top: -30rem;
-    padding: 0 7rem 5.6rem;
-  }
-}
-
-@media (width >= 1024px) {
-  main > .section.dark.cards-container .default-content-wrapper:has(+ .quote-wrapper) {
-    margin: 4rem -5.5rem 0;
-    border-top-left-radius: var(--spacing-80);
-  }
-
-  main > .section.dark.cards-container .default-content-wrapper:has(+ .quote-wrapper) img {
-    aspect-ratio: 5 / 2;
-  }
-
-  main > .section.dark.cards-container .quote-wrapper {
-    margin: 0 -5.5rem -8rem;
-    margin-top: -36rem;
-    padding: 6rem 5.5rem 8rem;
-    padding-left: 50%;
-  }
-}
-
-/* Columns + Cards area: light blue background matching original */
-main > .section.dark.cards-container .columns-wrapper {
-  background-color: var(--highlight-background-color);
-  margin: 0 -3.5rem;
-  padding: 4rem 3.5rem;
-  max-width: none;
-}
-
-main > .section.dark.cards-container .cards-wrapper {
-  background-color: var(--highlight-background-color);
-  margin: 0 -3.5rem;
-  padding: 2.4rem 3.5rem;
-  max-width: none;
-}
-
-@media (width >= 744px) {
-  main > .section.dark.cards-container .columns-wrapper {
-    margin: 0 -7rem;
-    padding: 4rem 7rem;
-  }
-
-  main > .section.dark.cards-container .cards-wrapper {
-    margin: 0 -7rem;
-    padding: 2.4rem 7rem;
-  }
-}
-
-@media (width >= 1024px) {
-  main > .section.dark.cards-container .columns-wrapper {
-    margin: 0 -5.5rem;
-    padding: 4rem 5.5rem;
-  }
-
-  main > .section.dark.cards-container .cards-wrapper {
-    margin: 0 -5.5rem;
-    padding: 2.4rem 5.5rem;
-  }
-}
-
-/* Cards bottom padding before quote section */
-main > .section.dark.cards-container .cards-wrapper:last-of-type {
-  padding-bottom: 4rem;
-}
-
-/* Cards groups: no separator between card rows */
-main > .section.dark.cards-container .columns-wrapper + .cards-wrapper,
-main > .section.dark.cards-container .cards-wrapper + .cards-wrapper {
-  border-top: none;
-}
-
-/* Video columns: 67-33 ratio matching original AEM col-with-8 + col-with-4 */
-@media (width >= 900px) {
-  main > .section.dark.cards-container .columns > div > div:first-child {
-    flex: 8;
-  }
-
-  main > .section.dark.cards-container .columns > div > div:last-child {
-    flex: 4;
-  }
-}
-
-/* Mobile: text column first, video card second (matching original site) */
-@media (width < 900px) {
-  main > .section.dark.cards-container .columns > div > div:last-child {
-    order: 0;
-  }
-
-  main > .section.dark.cards-container .columns > div > div:first-child {
-    order: 1;
-  }
-}
-
-/* --- Video thumbnail overlay (main "Behind the Science" video) ---
-   Original AEM: image with dark navy overlay, title + watch button
-   centered on the image. */
-
-main > .section.dark.cards-container .columns > div > div:first-child {
-  position: relative;
-  border-radius: 0.8rem;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-main > .section.dark.cards-container .columns > div > div:first-child > p:first-child {
-  margin: 0;
-  line-height: 0;
-}
-
-main > .section.dark.cards-container .columns > div > div:first-child img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  display: block;
-}
-
-/* Dark navy overlay on the video thumbnail */
-main > .section.dark.cards-container .columns > div > div:first-child::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgb(7 29 73 / 50%);
-  pointer-events: none;
-  border-radius: 0.8rem;
-}
-
-/* Video title overlaid on image — centered vertically + horizontally */
-main > .section.dark.cards-container .columns > div > div:first-child > p:nth-child(2) {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -80%);
-  width: 80%;
-  text-align: center;
-  color: var(--background-color);
-  font-family: var(--heading-font-family-bold);
-  font-size: var(--font-size-24);
-  line-height: var(--line-height-32);
-  font-weight: 800;
-  z-index: 1;
-  margin: 0;
-}
-
-/* Watch button overlaid on image — centered below title */
-main > .section.dark.cards-container .columns > div > div:first-child > p:last-child {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, 80%);
-  color: var(--background-color);
-  font-family: var(--roboto-bold-font-family);
-  font-size: var(--font-size-14);
-  font-weight: 700;
-  text-transform: var(--font-uppercase);
-  letter-spacing: 0.06em;
-  border: 1px solid var(--background-color);
-  padding: 1.2rem 3.2rem;
-  z-index: 1;
-  cursor: pointer;
-  white-space: nowrap;
-  margin: 0;
-}
-
-/* Play icon before watch text */
-main > .section.dark.cards-container .columns > div > div:first-child > p:last-child::before {
-  content: '\25B6';
-  margin-right: 0.8rem;
-  font-size: var(--font-size-12);
-}
-
-@media (width >= 900px) {
-  main > .section.dark.cards-container .columns > div > div:first-child > p:nth-child(2) {
-    font-size: var(--font-size-30);
-    line-height: var(--line-height-34);
-  }
-}
-
-/* Columns video: playing state — hide overlay, title, button; show iframe */
-main > .section.dark.cards-container .columns > div > div:first-child.playing::after,
-main > .section.dark.cards-container .columns > div > div:first-child.playing > p:not(:first-child) {
-  display: none;
-}
-
-main > .section.dark.cards-container .columns > div > div:first-child.playing .columns-video-player {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-  border-radius: 0.8rem;
-}
-
-/* --- Video cards: overlay handled by cards.js + cards.css --- */
-
-/* --- Section: R&D + embed + FAQ + CTA (originally "navy") --- */
-
-/* Override to white base */
-main > .section.navy.embed-container {
-  background-color: var(--background-color);
-  color: var(--text-color);
-}
-
-main > .section.navy.embed-container :is(h1, h2, h3, h4, h5, h6) {
-  color: var(--text-color);
-}
-
-main > .section.navy.embed-container :is(p, li) {
-  color: var(--text-color);
-}
-
-main > .section.navy.embed-container a:not(.button) {
-  color: var(--highlight-dark-background-color);
-}
-
-main > .section.navy.embed-container a.button:any-link {
-  border-color: var(--highlight-dark-background-color);
-  color: var(--highlight-dark-background-color);
-}
-
-main > .section.navy.embed-container a.button:hover {
-  background-color: var(--highlight-dark-background-color);
-  color: var(--background-color);
-}
-
-/* Embed: full-bleed navy background with video overlay */
-main > .section.navy.embed-container .embed-wrapper {
-  background-color: var(--color-navy-dark);
-  margin: 0 -3.5rem;
-  padding: 0;
-  position: relative;
-  max-width: none;
-}
-
-main > .section.navy.embed-container .embed-wrapper .embed {
-  margin: 0;
-  position: relative;
-  cursor: pointer;
-}
-
-/* stylelint-disable-next-line no-descending-specificity */
-main > .section.navy.embed-container .embed-wrapper .embed img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 0;
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
-}
-
-main > .section.navy.embed-container .embed-wrapper .embed .embed-placeholder {
-  aspect-ratio: 3 / 4;
-}
-
-/* Dark overlay on discovery video image */
-main > .section.navy.embed-container .embed-wrapper .embed::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgb(7 29 73 / 55%);
-  pointer-events: none;
-}
-
-/* Centered play button on discovery video */
-main > .section.navy.embed-container .embed-wrapper .embed::before {
-  content: '\25B6  Watch 2:33';
-  position: absolute;
-  top: 76%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: var(--background-color);
-  font-family: var(--roboto-bold-font-family);
-  font-size: var(--font-size-12);
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: var(--font-uppercase);
-  border: 1px solid var(--background-color);
-  padding: 1.2rem 3.2rem;
-  z-index: 2;
-  pointer-events: none;
-  white-space: nowrap;
-}
-
-/* Title overlay on discovery video */
-main > .section.navy.embed-container .embed-wrapper::before {
-  content: 'The eureka moment behind a scientific discovery';
-  position: absolute;
-  top: 18%;
-  left: 50%;
-  transform: translateX(-50%);
-  color: var(--background-color);
-  font-family: var(--heading-font-family-bold);
-  font-size: var(--font-size-20);
-  line-height: var(--line-height-26);
-  font-weight: 800;
-  text-align: center;
-  max-width: 75%;
-  z-index: 2;
-  pointer-events: none;
-}
-
-/* Description overlay on discovery video */
-main > .section.navy.embed-container .embed-wrapper::after {
-  content: 'Hear from scientists about what it takes to make a breakthrough.';
-  position: absolute;
-  top: 48%;
-  left: 50%;
-  transform: translateX(-50%);
-  color: var(--background-color);
-  font-size: var(--font-size-14);
-  line-height: var(--line-height-20);
-  text-align: center;
-  max-width: 80%;
-  z-index: 2;
-  pointer-events: none;
-  display: none;
-}
-
-main > .section.navy.embed-container .embed-wrapper :is(h2, p, a) {
-  color: var(--background-color);
-}
-
-@media (width >= 744px) {
-  main > .section.navy.embed-container .embed-wrapper {
-    margin: 0 -7rem;
-    padding: 0;
-  }
-
-  main > .section.navy.embed-container .embed-wrapper .embed img {
-    aspect-ratio: 16 / 9;
-  }
-
-  main > .section.navy.embed-container .embed-wrapper .embed .embed-placeholder {
-    aspect-ratio: 16 / 9;
-  }
-
-  main > .section.navy.embed-container .embed-wrapper::before {
-    font-size: var(--font-size-30);
-    line-height: var(--line-height-34);
-    max-width: 65%;
-    top: 28%;
-  }
-
-  main > .section.navy.embed-container .embed-wrapper::after {
-    display: block;
-    font-size: var(--font-size-16);
-    line-height: var(--line-height-22);
-    max-width: 60%;
-    top: 52%;
-  }
-
-  main > .section.navy.embed-container .embed-wrapper .embed::before {
-    font-size: var(--font-size-14);
-    padding: 1.6rem 4rem;
-    top: 68%;
-  }
-}
-
-@media (width >= 1024px) {
-  main > .section.navy.embed-container .embed-wrapper {
-    margin: 0 -5.5rem;
-    padding: 0;
-  }
-
-  main > .section.navy.embed-container .embed-wrapper .embed img {
-    aspect-ratio: 16 / 7;
-  }
-
-  main > .section.navy.embed-container .embed-wrapper .embed .embed-placeholder {
-    aspect-ratio: 16 / 7;
-  }
-
-  main > .section.navy.embed-container .embed-wrapper::before {
-    font-size: var(--font-size-40);
-    line-height: var(--line-height-44);
-    max-width: 60%;
-    top: 30%;
-  }
-
-  main > .section.navy.embed-container .embed-wrapper::after {
-    font-size: var(--font-size-18);
-    line-height: var(--line-height-24);
-    max-width: 50%;
-    top: 53%;
-  }
-
-  main > .section.navy.embed-container .embed-wrapper .embed::before {
-    top: 68%;
-  }
-}
-
-/* Embed: hide default play button (CSS overlay provides the button) */
-main > .section.navy.embed-container .embed-placeholder-play {
-  display: none;
-}
-
-/* Embed: hide all overlays when video is loaded */
-main > .section.navy.embed-container .embed-wrapper .embed.embed-is-loaded::before,
-main > .section.navy.embed-container .embed-wrapper .embed.embed-is-loaded::after {
-  display: none;
-}
-
-main > .section.navy.embed-container .embed-wrapper:has(.embed-is-loaded)::before,
-main > .section.navy.embed-container .embed-wrapper:has(.embed-is-loaded)::after {
-  display: none;
-}
-
-/* FAQ heading: full-bleed light gray background */
-/* stylelint-disable-next-line no-descending-specificity */
-main > .section.navy.embed-container > .default-content-wrapper {
-  background-color: var(--color-gray-extra-light);
-  margin: 0 -3.5rem;
-  padding: 4rem 3.5rem 0;
-  text-align: center;
-  max-width: none;
-}
-
-main > .section.navy.embed-container > .default-content-wrapper h2 {
-  font-size: var(--font-size-30);
-  line-height: var(--line-height-34);
-  margin-bottom: 0;
-  padding-bottom: var(--spacing-16);
-}
-
-/* Accordion: full-bleed light gray background */
-main > .section.navy.embed-container .accordion-wrapper {
-  background-color: var(--color-gray-extra-light);
-  margin: 0 -3.5rem;
-  padding: 0 3.5rem 4rem;
-  max-width: none;
-  overflow: hidden;
-}
-
-main > .section.navy.embed-container .accordion-wrapper .accordion {
-  max-width: 80rem;
-  margin: 0 auto;
-}
-
-@media (width >= 744px) {
-  main > .section.navy.embed-container > .default-content-wrapper {
-    margin: 0 -7rem;
-    padding: 5.6rem 7rem 0;
-  }
-
-  main > .section.navy.embed-container .accordion-wrapper {
-    margin: 0 -7rem;
-    padding: 0 7rem 5.6rem;
-  }
-}
-
-@media (width >= 1024px) {
-  main > .section.navy.embed-container > .default-content-wrapper {
-    margin: 0 -5.5rem;
-    padding: 8rem 5.5rem 0;
-  }
-
-  main > .section.navy.embed-container > .default-content-wrapper h2 {
-    font-size: var(--font-size-40);
-    line-height: var(--line-height-44);
-  }
-
-  main > .section.navy.embed-container .accordion-wrapper {
-    margin: 0 -5.5rem;
-    padding: 0 5.5rem 8rem;
-  }
-}
-
-/* CTA columns: full-bleed blue background */
-
-/* Original AEM: medium-radius cmp-container-full-width (40px radius) */
-main > .section.navy.embed-container .columns-wrapper:last-child {
-  background-color: var(--highlight-dark-background-color);
-  margin: 0 -3.5rem -8rem;
-  padding: 4rem 3.5rem;
-  border-top-left-radius: var(--spacing-20);
-  max-width: none;
-}
-
-main > .section.navy.embed-container .columns-wrapper:last-child :is(h4, p, a) {
-  color: var(--background-color);
-}
-
-main > .section.navy.embed-container .columns-wrapper:last-child a.button:any-link {
-  border-color: var(--background-color);
-  color: var(--background-color);
-}
-
-main > .section.navy.embed-container .columns-wrapper:last-child a.button:hover {
-  background-color: var(--background-color);
-  color: var(--highlight-dark-background-color);
-}
-
-@media (width >= 744px) {
-  main > .section.navy.embed-container .columns-wrapper:last-child {
-    margin: 0 -7rem -8rem;
-    padding: 5.6rem 7rem;
-    border-top-left-radius: var(--spacing-32);
-  }
-}
-
-@media (width >= 1024px) {
-  main > .section.navy.embed-container .columns-wrapper:last-child {
-    margin: 0 -5.5rem -8rem;
-    padding: 8rem 5.5rem;
-    border-top-left-radius: var(--spacing-40);
-  }
-}
-
-/* R&D community section: proper 2-column layout */
-main > .section.navy.embed-container .columns-wrapper:first-child {
-  padding: 4rem 0;
-}
-
-main > .section.navy.embed-container .columns-wrapper:first-child h3 {
-  font-family: var(--heading-font-family-bold);
-  font-size: var(--font-size-30);
-  line-height: var(--line-height-34);
-  color: var(--text-color);
-  margin: 0 0 var(--spacing-24);
-}
-
-/* R&D community left column: add image below heading via pseudo-element */
-main > .section.navy.embed-container .columns-wrapper:first-child .columns > div > div:first-child::after {
-  content: '';
-  display: block;
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  margin-top: var(--spacing-24);
-  background: url('https://abbvie.scene7.com/is/image/abbviecorp/explore%20randd%20workers') center / cover no-repeat;
-  border-radius: 0.8rem;
-}
-
-/* R&D community: 42-58 ratio matching original AEM col-with-5 + col-with-7 */
-@media (width >= 900px) {
-  main > .section.navy.embed-container .columns-wrapper:first-child .columns > div > div:first-child {
-    flex: 5;
-  }
-
-  main > .section.navy.embed-container .columns-wrapper:first-child .columns > div > div:last-child {
-    flex: 7;
-  }
-}
-
-/* R&D community links: styled with dividers and arrows */
-main > .section.navy.embed-container .columns-wrapper:first-child ul {
-  list-style: none;
-  padding: 0;
-  margin: var(--spacing-16) 0 0;
-}
-
-main > .section.navy.embed-container .columns-wrapper:first-child ul li {
-  border-bottom: 1px solid var(--container-border-color);
-  padding: var(--spacing-16) 0;
-  margin: 0;
-}
-
-main > .section.navy.embed-container .columns-wrapper:first-child ul li:first-child {
-  border-top: 1px solid var(--container-border-color);
-}
-
-main > .section.navy.embed-container .columns-wrapper:first-child ul li a {
-  font-family: var(--body-font-family);
-  font-size: var(--font-size-18);
-  font-weight: 400;
-  text-decoration: none;
-  text-transform: none;
-  color: var(--text-color);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-main > .section.navy.embed-container .columns-wrapper:first-child ul li a::after {
-  content: '\2192';
-  font-size: var(--font-size-18);
-  color: var(--text-color);
-  flex-shrink: 0;
-  margin-left: var(--spacing-16);
-}
-
-@media (width >= 1024px) {
-  main > .section.navy.embed-container .columns-wrapper:first-child h3 {
-    font-size: var(--font-size-40);
-    line-height: var(--line-height-44);
-  }
-
-  main > .section.navy.embed-container .columns-wrapper:first-child ul li a {
-    font-size: var(--font-size-20);
-  }
-}
-
-/* CTA heading: F37 Lineca Book, 40px, weight 650 */
-main > .section.navy.embed-container .columns-wrapper:last-child h4 {
-  font-family: var(--heading-font-family);
-  font-weight: 650;
-  font-size: var(--font-size-30);
-  line-height: var(--line-height-34);
 }
 
-@media (width >= 744px) {
-  main > .section.navy.embed-container .columns-wrapper:last-child h4 {
-    font-size: var(--font-size-36);
-    line-height: var(--line-height-44);
-  }
-}
-
-@media (width >= 1024px) {
-  main > .section.navy.embed-container .columns-wrapper:last-child h4 {
-    font-size: var(--font-size-40);
-    line-height: var(--line-height-44);
-  }
-}
-
-/* ========================================================================
-   Content-Series Pages — Section Spacing
-   Reduces gaps between sections for pages where the hero is in its own
-   section (not combined with columns/cards like the landing page).
-   ======================================================================== */
-
-/* Hero-only section: reduce bottom padding */
-main > .section.navy-overlap.hero-container:not(.columns-container, .cards-container) {
-  padding-bottom: 0;
-}
-
-/* Content-series hero: full-bleed hero wrapper (matches landing page treatment) */
-main > .section.navy-overlap.hero-container:not(.columns-container, .cards-container) .hero-wrapper {
-  margin: -4rem -3.5rem 0;
-  max-width: none;
-  overflow: hidden;
-}
-
-@media (width >= 744px) {
-  main > .section.navy-overlap.hero-container:not(.columns-container, .cards-container) .hero-wrapper {
-    margin: -5.6rem -7rem 0;
-  }
-}
-
-@media (width >= 1024px) {
-  main > .section.navy-overlap.hero-container:not(.columns-container, .cards-container) .hero-wrapper {
-    margin: -8rem -5.5rem 0;
-  }
-}
-
-/* Dark section after hero-only: remove top padding, wrapper padding suffices */
-main > .section.navy-overlap.hero-container:not(.columns-container) + .section.dark {
-  padding-top: 0;
-}
-
-/* Dark section → dive deeper: ensure no gap between full-bleed backgrounds */
-main > .section.dark.cards-container:not(:has(.hero-wrapper)) {
-  margin-bottom: 0;
-}
-
-/* ========================================================================
-   Content-Series Pages — Dive Deeper Section
-   The unstyled columns section after the dark section contains the
-   "Dive deeper into AbbVie science" navigation links.
-   ======================================================================== */
-
-main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) {
-  background-color: var(--background-color);
-  margin: 0;
-  padding: 4rem 3.5rem;
-  max-width: none;
-  border-top-left-radius: 4rem;
-}
-
-@media (width >= 744px) {
-  main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) {
-    padding: 8rem 7rem;
-  }
-}
-
-@media (width >= 1024px) {
-  main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) {
-    padding: 8rem 5.5rem;
-  }
-}
-
-@media (width >= 1440px) {
-  main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) > div {
-    max-width: 133rem;
-    margin: 0 auto;
-  }
-}
 
-/* Dive deeper heading */
-main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) h3 {
-  font-family: var(--heading-font-family-bold);
-  font-size: var(--font-size-30);
-  line-height: var(--line-height-34);
-  color: var(--text-color);
-  margin: 0 0 var(--spacing-24);
-}
-
-@media (width >= 1024px) {
-  main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) h3 {
-    font-size: var(--font-size-40);
-    line-height: var(--line-height-44);
-  }
-}
-
-/* Dive deeper image in left column */
-main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) .columns > div > div:first-child img {
-  /* border-radius: 0.8rem; */
-  margin-top: var(--spacing-24);
-}
-
-/* Dive deeper: 42-58 column ratio */
-@media (width >= 900px) {
-  main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) .columns > div > div:first-child {
-    flex: 5;
-  }
-
-  main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) .columns > div > div:last-child {
-    flex: 7;
-  }
-}
-
-/* Dive deeper links: styled with dividers and arrows */
-main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) ul {
-  list-style: none;
-  padding: 0;
-  margin: var(--spacing-16) 0 0;
-}
-
-/* stylelint-disable-next-line no-descending-specificity */
-main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) ul li {
-  border-bottom: 1px solid var(--container-border-color);
-  padding: var(--spacing-16) 0;
-  margin: 0;
-}
-
-main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) ul li:first-child {
-  border-top: 1px solid var(--container-border-color);
-}
-
-main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) ul li a {
-  font-family: var(--body-font-family);
-  font-size: var(--font-size-18);
-  font-weight: 400;
-  text-decoration: none;
-  text-transform: none;
-  color: var(--text-color);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) ul li a::after {
-  content: '\e905';
-  font-family: var(--icon-font-family);
-  font-size: var(--font-size-16);
-  color: var(--text-color);
-  flex-shrink: 0;
-  margin-left: var(--spacing-16);
-  line-height: var(--line-height-20);
-}
-
-@media (width >= 1024px) {
-  main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) ul li a {
-    font-size: var(--font-size-20);
-  }
-}
-
-/* ========================================================================
-   Content-Series Pages — CTA Section
-   The navy section with a columns block containing heading + button.
-   Uses the base .navy styles. CTA heading matches landing page style.
-   ======================================================================== */
-
-/* stylelint-disable no-descending-specificity */
-main > .section.navy.columns-container h4,
-main > .section.purple.columns-container h4 {
-  font-family: var(--heading-font-family);
-  font-weight: 650;
-  font-size: var(--font-size-24);
-  line-height: var(--line-height-28);
-}
-
-@media (width >= 744px) {
-  main > .section.navy.columns-container h4,
-  main > .section.purple.columns-container h4 {
-    font-size: var(--font-size-30);
-    line-height: var(--line-height-34);
-  }
-}
-
-@media (width >= 1024px) {
-  main > .section.navy.columns-container h4,
-  main > .section.purple.columns-container h4 {
-    font-size: var(--font-size-40);
-    line-height: var(--line-height-44);
-  }
-}
-/* stylelint-enable no-descending-specificity */
 
 /* ========================================================================
    Utilities
@@ -2498,163 +531,12 @@ main > .section.purple.columns-container h4 {
 }
 
 .hide {
-  display: none !important;
+  display: none !important; /* stylelint-disable-line declaration-no-important */
 }
 
-
-.section .large-radius {
-  border-top-left-radius: var(--border-top-left-radius);
-}
-
-@media (width >= 744px) {
-  .section .large-radius {
-    border-top-left-radius: var(--border-top-left-radius-tablet);
-  }
-
-  main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) ul li a::after {
-    line-height: var(--line-height-22);
-  }
-}
-
-@media (width >= 1024px) {
-  .section .large-radius {
-    border-top-left-radius: var(--border-top-left-radius-desktop);
-  } 
-
-  main > .section.dark + .section.columns-container:not(.dark, .navy, .purple) ul li a::after {
-    line-height: var(--line-height-24);
-  }
-}
 
 .bg-f4f4f4 {
   background-color: var(--color-gray-light);
-}
-
-
-/* rte body unica custom classes */
-
-.body-unica-32-reg p {
-    color: var(--text-color);
-    font-family: var(--roboto-small-font-family);
-    font-size: var(--font-size-20);
-    font-weight: var(--font-weight-400);
-    line-height: var(--line-height-26);
-}
-
-.body-unica-26-reg p {
-    color: var(--text-color);
-    font-family: var(--body-font-family);
-    font-size: var(--font-size-16);
-    font-weight: var(--font-weight-400);
-    line-height: var(--line-height-22);
-}
-
-.body-unica-24-reg p {
-    color: var(--text-color);
-    font-family: var(--body-font-family);
-    font-size: var(--font-size-18);
-    font-weight: var(--font-weight-400);
-    line-height: var(--line-height-24);
-}
-
-.body-unica-20-reg p {
-    color: var(--text-color);
-    font-family: var(--body-font-family);
-    font-size: var(--font-size-14);
-    font-weight: var(--font-weight-400);
-    line-height: var(--line-height-20);
-}
-
-.body-unica-18-reg p {
-    color: var(--text-color);
-    font-family: var(--body-font-family);
-    font-size: var(--font-size-13);
-    font-weight: var(--font-weight-400);
-    line-height: var(--line-height-20);
-}
-
-.body-unica-16-reg p {
-    color: var(--text-color);
-    font-family: var(--body-font-family);
-    font-size: var(--font-size-12);
-    font-weight: var(--font-weight-400);
-    line-height: var(--line-height-16);
-}
-
-/* CTA link — blue, Roboto Bold, 14px, uppercase, letter-spacing 0.84px */
-main > .section.cards-container:has(#the-stories-behind-our-science) .cards .cards-card-body .button-container .button {
-  color: var(--highlight-dark-background-color);
-  font-size: var(--font-size-14);
-  letter-spacing: var(--letter-spacing-wide-06);
-}
-
-/* Image aspect ratio — live site uses ~5:6 (natural 1331x1600) */
-main > .section.cards-container:has(#the-stories-behind-our-science) .cards > ul > li img {
-  aspect-ratio: 1331 / 1600;
-}
-
-/* Card body padding — match live site spacing */
-main > .section.cards-container:has(#the-stories-behind-our-science) .cards .cards-card-body {
-  padding: var(--spacing-16) 0 var(--spacing-24);
-}
-
-
-/* rte body unica custom classes */
-
-.body-unica-32-reg p {
-    color: var(--text-color);
-    font-family: var(--roboto-small-font-family);
-    font-size: var(--font-size-20);
-    font-weight: var(--font-weight-400);
-    line-height: var(--line-height-26);
-}
-
-.body-unica-26-reg p {
-    color: var(--text-color);
-    font-family: var(--body-font-family);
-    font-size: var(--font-size-16);
-    font-weight: var(--font-weight-400);
-    line-height: var(--line-height-22);
-}
-
-.body-unica-24-reg p {
-    color: var(--text-color);
-    font-family: var(--body-font-family);
-    font-size: var(--font-size-18);
-    font-weight: var(--font-weight-400);
-    line-height: var(--line-height-24);
-}
-
-.body-unica-20-reg p {
-    color: var(--text-color);
-    font-family: var(--body-font-family);
-    font-size: var(--font-size-14);
-    font-weight: var(--font-weight-400);
-    line-height: var(--line-height-20);
-}
-
-.body-unica-18-reg p {
-    color: var(--text-color);
-    font-family: var(--body-font-family);
-    font-size: var(--font-size-13);
-    font-weight: var(--font-weight-400);
-    line-height: var(--line-height-20);
-}
-
-.body-unica-16-reg p {
-    color: var(--text-color);
-    font-family: var(--body-font-family);
-    font-size: var(--font-size-12);
-    font-weight: var(--font-weight-400);
-    line-height: var(--line-height-16);
-}
-
-.body-unica-14-reg p {
-    color: var(--text-color);
-    font-family: var(--body-font-family);
-    font-size: var(--font-size-12);
-    font-weight: var(--font-weight-400);
-    line-height: var(--line-height-16);
 }
 
 .section-padding {
@@ -2663,41 +545,8 @@ main > .section.cards-container:has(#the-stories-behind-our-science) .cards .car
   padding-top: 3.2rem;
 }
 
-.section.section-bottom-margin {
-  margin-bottom: 8rem !important;
-}
 
 @media(width >= 744px) {
-    .body-unica-32-reg p {
-        font-size: var(--font-size-24);
-        line-height: var(--line-height-30);
-    }
-
-    .body-unica-26-reg p {
-        font-size: var(--font-size-22);
-        line-height: var(--line-height-30);
-    }
-
-    .body-unica-24-reg p {
-        font-size: var(--font-size-20);
-        line-height: var(--line-height-26);
-    }
-
-    .body-unica-20-reg p {
-        font-size: var(--font-size-18);
-        line-height: var(--line-height-24);
-    }
-
-    .body-unica-18-reg p {
-        font-size: var(--font-size-16);
-        line-height: var(--line-height-22);
-    }
-
-    .body-unica-16-reg p {
-        font-size: var(--font-size-14);
-        line-height: var(--line-height-20);
-    }
-
     .section-padding {
       padding-left: 7rem;
       padding-right: 7rem;
@@ -2706,41 +555,6 @@ main > .section.cards-container:has(#the-stories-behind-our-science) .cards .car
 }
 
 @media(width >= 1024px) {
-    .body-unica-32-reg p {
-        font-size: var(--font-size-32);
-        line-height: var(--line-height-40);
-    }
-
-    .body-unica-26-reg p {
-        font-size: var(--font-size-26);
-        line-height: var(--line-height-32);
-    }
-
-    .body-unica-24-reg p {
-        font-size: var(--font-size-24);
-        line-height: var(--line-height-32);
-    }
-
-    .body-unica-20-reg p {
-        font-size: var(--font-size-20);
-        line-height: var(--line-height-24);
-    }
-
-    .body-unica-18-reg p {
-        font-size: var(--font-size-18);
-        line-height: var(--line-height-24);
-    }
-
-    .body-unica-16-reg p {
-        font-size: var(--font-size-16);
-        line-height: var(--line-height-20);
-    }
-
-    .body-unica-14-reg p {
-        font-size: var(--font-size-14);
-        line-height: var(--line-height-20);
-    }
-
     .section-padding {
       padding-left: 5.5rem;
       padding-right: 5.5rem;
@@ -2748,31 +562,30 @@ main > .section.cards-container:has(#the-stories-behind-our-science) .cards .car
     }
 }
 
-/* body unica custom classes - end */
-
 /* abbvie container styles */
 .abbvie-container {
   display: grid;
-  column-gap: var(--spacing-15);
+  column-gap: var(--corp-spacing-15);
   grid-template-columns: repeat(6, 1fr);
-  margin-left: var(--spacing-20);
-  margin-right: var(--spacing-20);
+  margin-left: var(--corp-spacing-20);
+  margin-right: var(--corp-spacing-20);
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 /* inner cmp-container base setup */ .abbvie-container div {
   grid-column: 1 / span 6;
 }
 
 .abbvie-separator hr {
-    border: var(--border-01) solid var(--footer-seperator-color);
+    border: var(--border-width-thin) solid var(--color-gray-medium);
 }
 
 @media (width >=744px) {
   .abbvie-container {
-    column-gap: var(--spacing-20);
+    column-gap: var(--corp-spacing-20);
     grid-template-columns: repeat(8, 1fr);
-    margin-left: var(--spacing-70);
-    margin-right: var(--spacing-70);
+    margin-left: var(--corp-spacing-70);
+    margin-right: var(--corp-spacing-70);
   }
 
   .abbvie-container div {
@@ -2781,464 +594,13 @@ main > .section.cards-container:has(#the-stories-behind-our-science) .cards .car
 }
 
 @media (width >= 1024px) {
-  /* 4-column grid at desktop — matches live site 4x .grid-row__col-with-3 */
-  main > .section.cards-container:has(#the-stories-behind-our-science) .cards > ul {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .abbvie-container div {
-    grid-column: 1 / span 8;   
-  }
-}
-
-@media (width >= 1440px) {
-  main > .section.cards-container:has(#the-stories-behind-our-science) > div {
-    max-width: var(--content-max-width);
-    margin: 0 auto;
-  }
-}
-
-@media (width >=1024px) {
   .abbvie-container {
     grid-template-columns: repeat(12, 1fr);
-    margin-left: var(--spacing-55);
-    margin-right: var(--spacing-55);
+    margin-left: var(--corp-spacing-55);
+    margin-right: var(--corp-spacing-55);
   }
 
   .abbvie-container div {
-    grid-column: 1 / span 12;   
-  }
-}
-
-/* =====================================================
-   Priorities / Core focus areas section
-   Part of the dashboard — lab background image with
-   white panel overlay and 3-column layout
-   ===================================================== */
-
-main .section.dark:has(#core-focus-areas) {
-  background-color: var(--color-gray-light);
-  background-image: url('https://abbvie.scene7.com/is/image/abbviecorp/abbvie-src-scout?$Hero$');
-  background-size: cover;
-  background-position: center bottom;
-  color: var(--color-navy-dark);
-  padding: var(--spacing-00) var(--spacing-55) var(--spacing-80);
-  margin-top: var(--spacing-n50);
-  position: relative;
-  z-index: 1;
-  overflow: hidden;
-}
-
-/* White panel overlay for priorities content */
-main .section.dark:has(#core-focus-areas) > .default-content-wrapper {
-  background-color: #fff;
-  padding: 5.6rem 7rem 0;
-  position: relative;
-  z-index: 1;
-}
-
-main .section.dark:has(#core-focus-areas) h4 {
-  color: var(--color-navy-dark);
-  font-family: var(--heading-font-family);
-  font-size: 4rem;
-  font-weight: 650;
-  line-height: 4.4rem;
-  margin-bottom: 0;
-}
-
-/* PRIORITIES eyebrow */
-main .section.dark:has(#core-focus-areas) > .default-content-wrapper > p:first-child {
-  font-family: var(--roboto-bold-font-family);
-  font-size: var(--font-size-14, 1.4rem);
-  font-weight: var(--font-weight-700);
-  text-transform: uppercase;
-  letter-spacing: var(--letter-spacing-wide-04);
-  color: var(--text-color);
-  margin-bottom: 0;
-}
-
-/* Description paragraph */
-main .section.dark:has(#core-focus-areas) p {
-  color: var(--color-navy-dark);
-  font-size: 1.8rem;
-  line-height: 2.4rem;
-}
-
-/* Link lists */
-main .section.dark:has(#core-focus-areas) ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.body-unica-14-reg p {
-    color: var(--text-color);
-    font-family: var(--body-font-family);
-    font-size: var(--font-size-12);
-    font-weight: var(--font-weight-400);
-    line-height: var(--line-height-16);
-}
-
-.section-padding {
-  padding-left: 3.5rem;
-  padding-right: 3.5rem;
-  padding-top: 3.2rem;
-}
-
-.section.section-bottom-margin {
-  margin-bottom: 8rem !important;
-}
-
-@media(width >= 744px) {
-    .body-unica-32-reg p {
-        font-size: var(--font-size-24);
-        line-height: var(--line-height-30);
-    }
-
-    .body-unica-26-reg p {
-        font-size: var(--font-size-22);
-        line-height: var(--line-height-30);
-    }
-
-    .body-unica-24-reg p {
-        font-size: var(--font-size-20);
-        line-height: var(--line-height-26);
-    }
-
-    .body-unica-20-reg p {
-        font-size: var(--font-size-18);
-        line-height: var(--line-height-24);
-    }
-
-    .body-unica-18-reg p {
-        font-size: var(--font-size-16);
-        line-height: var(--line-height-22);
-    }
-
-    .body-unica-16-reg p {
-        font-size: var(--font-size-14);
-        line-height: var(--line-height-20);
-    }
-
-    .section-padding {
-      padding-left: 7rem;
-      padding-right: 7rem;
-      padding-top: 5.6rem;
-    }
-}
-
-@media(width >= 1024px) {
-    .body-unica-32-reg p {
-        font-size: var(--font-size-32);
-        line-height: var(--line-height-40);
-    }
-
-    .body-unica-26-reg p {
-        font-size: var(--font-size-26);
-        line-height: var(--line-height-32);
-    }
-
-    .body-unica-24-reg p {
-        font-size: var(--font-size-24);
-        line-height: var(--line-height-32);
-    }
-
-    .body-unica-20-reg p {
-        font-size: var(--font-size-20);
-        line-height: var(--line-height-24);
-    }
-
-    .body-unica-18-reg p {
-        font-size: var(--font-size-18);
-        line-height: var(--line-height-24);
-    }
-
-    .body-unica-16-reg p {
-        font-size: var(--font-size-16);
-        line-height: var(--line-height-20);
-    }
-
-    .body-unica-14-reg p {
-        font-size: var(--font-size-14);
-        line-height: var(--line-height-20);
-    }
-
-    .section-padding {
-      padding-left: 5.5rem;
-      padding-right: 5.5rem;
-      padding-top: 8rem;
-    }
-  }
-    
-main .section.dark:has(#core-focus-areas) ul li a::after {
-  content: '\e905';
-  font-family: var(--icon-font-family);
-  font-size: var(--font-size-16, 1.6rem);
-  color: var(--color-navy-dark);
-  flex-shrink: 0;
-  margin-left: 1.6rem;
-}
-
-/* Desktop: 3-column grid (text left, 2 link columns right) */
-@media (width >= 1024px) {
-  main .section.dark:has(#core-focus-areas) > .default-content-wrapper {
-    display: grid;
-    grid-template-columns: 5fr 3fr 3fr;
-    gap: 0 4rem;
-  }
-
-  main .section.dark:has(#core-focus-areas) > .default-content-wrapper > p:first-child,
-  main .section.dark:has(#core-focus-areas) > .default-content-wrapper > h4,
-  main .section.dark:has(#core-focus-areas) > .default-content-wrapper > p:nth-of-type(2) {
-    grid-column: 1;
-  }
-
-  main .section.dark:has(#core-focus-areas) > .default-content-wrapper > ul:first-of-type {
-    grid-column: 2;
-    grid-row: 1 / span 3;
-    align-self: start;
-  }
-
-  main .section.dark:has(#core-focus-areas) > .default-content-wrapper > ul:last-of-type {
-    grid-column: 3;
-    grid-row: 1 / span 3;
-    align-self: start;
-  }
-
-  .abbvie-container {
-    grid-template-columns: repeat(12, 1fr);
-    margin-left: var(--spacing-55);
-    margin-right: var(--spacing-55);
-  }
-
-  .abbvie-container div {
-    grid-column: 1 / span 12;   
-  }
-}
-
-/* =====================================================
-   Science page — Columns section (Explore + Tenacity)
-   Scoped via :has(#explore-our-science)
-   ===================================================== */
-
-/* F1: H3 headings — 26px → 48px to match live site */
-main .section.columns-container:has(#explore-our-science) h3 {
-  font-size: 4.8rem;
-  font-weight: 800;
-  line-height: 5.2rem;
-  letter-spacing: -0.096rem;
-  color: var(--color-navy-dark);
-}
-
-/* F8: Link list arrows in Explore section */
-main .section.columns-container:has(#explore-our-science) ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-main .section.columns-container:has(#explore-our-science) ul li {
-  margin: 0 0 1.2rem;
-}
-
-main .section.columns-container:has(#explore-our-science) ul li a {
-  font-family: var(--body-font-family);
-  font-size: 1.8rem;
-  font-weight: 400;
-  text-decoration: none;
-  color: var(--color-navy-dark);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 0 1.6rem;
-  border-bottom: 1px solid rgb(185 180 180);
-}
-
-main .section.columns-container:has(#explore-our-science) ul li a::after {
-  content: '\e905';
-  font-family: var(--icon-font-family);
-  font-size: var(--font-size-16, 1.6rem);
-  color: var(--color-navy-dark);
-  flex-shrink: 0;
-  margin-left: 1.6rem;
-}
-
-/* F5: Quote text — 40px F37 Lineca Book to match original site
-   DOM: .columns > div:nth-child(2) > div:last-child > p:first-child
-   (tenacity is its own section on live AEM with 2 rows, not 3) */
-main .section:has(#the-tenacity-to-take-on-the-toughest-challenges) .columns > div:nth-child(2) > div:last-child > p:first-child {
-  font-family: var(--heading-font-family);
-  font-size: 4rem;
-  font-weight: 650;
-  line-height: 4.4rem;
-  color: var(--color-navy-dark);
-  font-style: normal;
-  padding-top: 2rem;
-}
-
-/* F12: Blue quote icon above quote text */
-main .section:has(#the-tenacity-to-take-on-the-toughest-challenges) .columns > div:nth-child(2) > div:last-child > p:first-child::before {
-  content: '\e91b';
-  font-family: var(--icon-font-family);
-  font-size: 3.3rem;
-  color: var(--link-color, #0066f5);
-  display: block;
-  margin-bottom: 1.6rem;
-}
-
-/* F13: Quote attribution — bold author name */
-main .section:has(#the-tenacity-to-take-on-the-toughest-challenges) .columns > div:nth-child(2) > div:last-child > p:last-child {
-  font-family: var(--roboto-bold-font-family);
-  font-size: 1.8rem;
-  font-weight: 700;
-  line-height: 2.4rem;
-  color: var(--color-navy-dark);
-}
-
-/* =====================================================
-   Science page — Stories section
-   Scoped via :has(#the-stories-behind-our-science)
-   ===================================================== */
-
-/* F2: Stories H1 — 32px → 48px to match live site */
-main .section:has(#the-stories-behind-our-science) h1 {
-  font-size: 4.8rem;
-  font-weight: 800;
-  line-height: 5.2rem;
-  letter-spacing: -0.096rem;
-  color: var(--color-navy-dark);
-}
-
-/* F14: Blue separator below stories heading */
-main .section:has(#the-stories-behind-our-science) .default-content-wrapper {
-  border-bottom: none;
-}
-
-main .section:has(#the-stories-behind-our-science) h1::after {
-  content: '';
-  display: block;
-  width: 100%;
-  height: 0;
-  margin-top: 1.6rem;
-}
-
-/* F11: Story card CTA links — text links with arrow, not filled buttons */
-main .section:has(#the-stories-behind-our-science) .cards-card-body a.button {
-  font-family: var(--roboto-bold-font-family);
-  font-size: 1.4rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.084rem;
-  color: var(--link-color, #0066f5);
-  text-decoration: none;
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  padding: 0;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.8rem;
-}
-
-main .section:has(#the-stories-behind-our-science) .cards-card-body a.button::after {
-  content: '\e905';
-  font-family: var(--icon-font-family);
-  font-size: 1.2rem;
-  color: var(--link-color, #0066f5);
-}
-
-/* =====================================================
-   Science page — FAQ / Accordion section
-   Double-scoped: main:has(#core-focus-areas) ensures
-   science page only + :has(#frequently-asked-questions)
-   ===================================================== */
-
-/* F3: FAQ H2 — 32px → 48px to match live site */
-main:has(#core-focus-areas) .section:has(#frequently-asked-questions) h2 {
-  font-size: 4.8rem;
-  font-weight: 800;
-  line-height: 5.2rem;
-  letter-spacing: -0.096rem;
-  color: var(--color-navy-dark);
-  text-align: center;
-}
-
-/* F4: Accordion item labels — 26px/Roboto Bold/700 to match original */
-main:has(#core-focus-areas) .section:has(#frequently-asked-questions) .accordion-item-label {
-  font-family: var(--roboto-bold-font-family);
-  font-size: 2.6rem;
-  font-weight: 700;
-  line-height: 3.2rem;
-  color: var(--color-navy-dark);
-}
-
-/* F15: Expand All button — blue, bold */
-main:has(#core-focus-areas) .section:has(#frequently-asked-questions) .accordion-wrapper > div > button {
-  font-family: var(--roboto-bold-font-family);
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--link-color, #0066f5);
-}
-
-/* =====================================================
-   Science page — CTA / Highlight section
-   Scoped via :has(#where-bold-science-meets-real-world-results)
-   ===================================================== */
-
-/* F10: CTA button — filled → outlined to match live site */
-main .section.highlight:has(#where-bold-science-meets-real-world-results) a {
-  background: transparent;
-  border: 1px solid var(--link-color, #0066f5);
-  color: var(--link-color, #0066f5);
-  font-family: var(--roboto-bold-font-family);
-  font-size: 1.4rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.084rem;
-  padding: 1.6rem 4rem;
-  line-height: 2rem;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  border-radius: 0;
-}
-
-/* body unica custom classes - end */
-
-/* abbvie container styles */
-.abbvie-container {
-  display: grid;
-  column-gap: var(--spacing-15);
-  grid-template-columns: repeat(6, 1fr);
-  margin-left: var(--spacing-20);
-  margin-right: var(--spacing-20);  
-}
-
-/* inner cmp-container base setup */ .abbvie-container div {
-  grid-column: 1 / span 6; 
-}
-
-@media (width >=744px) {
-  .abbvie-container {
-    column-gap: var(--spacing-20);
-    grid-template-columns: repeat(8, 1fr);
-    margin-left: var(--spacing-70);
-    margin-right: var(--spacing-70);
-  }
-
-  .abbvie-container div {
-    grid-column: 1 / span 8;   
-  }
-}
-
-@media (width >=1024px) {
-  .abbvie-container {
-    grid-template-columns: repeat(12, 1fr);
-    margin-left: var(--spacing-55);
-    margin-right: var(--spacing-55);
-  }
-
-  .abbvie-container div {
-    grid-column: 1 / span 12;   
+    grid-column: 1 / span 12;
   }
 }

@@ -59,41 +59,13 @@ function normalizeIconPosition(iconPosition = '') {
   return 'right';
 }
 
-function readGlyph(iconFont = '') {
-  const trimmed = iconFont.trim();
-  if (!trimmed) return null;
-  if (trimmed.length === 1) return trimmed;
-
-  const normalized = trimmed
-    .replace(/^\\u/i, '')
-    .replace(/^u/i, '')
-    .replace(/^\\/, '');
-
-  if (/^[0-9a-f]{4,6}$/i.test(normalized)) {
-    return String.fromCodePoint(parseInt(normalized, 16));
-  }
-
-  return null;
-}
-
 function createIconNode(cfg, iconType) {
   if (iconType === 'icon-font') {
     if (!cfg.iconFont) return null;
     const icon = document.createElement('span');
     icon.className = 'cta-custom-icon cta-custom-icon-font';
     icon.setAttribute('aria-hidden', 'true');
-
-    const glyph = readGlyph(cfg.iconFont);
-    if (glyph) {
-      icon.textContent = glyph;
-    } else {
-      cfg.iconFont
-        .trim()
-        .split(/\s+/)
-        .filter(Boolean)
-        .forEach((className) => icon.classList.add(className));
-    }
-
+    icon.classList.add(`icon-abbvie-${cfg.iconFont.trim()}`);
     return icon;
   }
 

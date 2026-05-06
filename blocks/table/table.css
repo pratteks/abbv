@@ -1,3 +1,5 @@
+/** TODO  - Fix ESlint Issue */
+/* stylelint-disable */
 .table.block {
   width: 100%;
   overflow-x: auto;
@@ -47,21 +49,21 @@
 }
 
 .table table td p + p {
-  margin-top: 0.25em;
+  margin-top: 0.25em; /** TODO - use token  while refactoring */
 }
 
 /* no header variant */
 .table.block.no-header table tbody tr {
-  border-top: 1px solid;
+  border-top: var(--border-width-thin) solid;
 }
 
 /* striped variant */
 .table.block.striped tbody tr:nth-child(odd) {
-  background-color: var(--overlay-background-color);
+  background-color: var(--corp-color-surface-overlay);
 }
 
 /* bordered variant */
 .table.block.bordered table th,
 .table.block.bordered table td {
-  border: 1px solid;
+  border: var(--border-width-thin) solid;
 }

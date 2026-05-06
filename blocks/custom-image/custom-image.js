@@ -5,22 +5,25 @@
  * @param {string} imagePreset - Image preset name (e.g. "Feature", "Hero")
  * @param {string} rendition - Smart crop rendition name (e.g. "Square", "Tall")
  * @param {string} modifiers - Raw query string modifiers (e.g. "wid=500&hei=300")
- * @returns {string} Final URL
+ * @returns {string} Final URL with preset=imagePreset or smartcrop=rendition format
  */
 import { applyCommonProps } from '../../scripts/utils.js';
 
 export function buildImageUrl(src, presetType, imagePreset, rendition, modifiers) {
   const baseUrl = src.includes('?') ? src.split('?')[0] : src;
 
+  let params;
+
   if (presetType === 'image-preset' && imagePreset && imagePreset.toLowerCase() !== 'none') {
-    // Adobe DM Image Preset format: ?$PresetName$
-    const presetParam = `$${imagePreset}$`;
-    return modifiers ? `${baseUrl}?${presetParam}&${modifiers}` : `${baseUrl}?${presetParam}`;
+    // Image Preset format: ?preset=PresetName
+    params = new URLSearchParams({ preset: imagePreset });
+  } else if (presetType === 'smart-crop' && rendition && rendition.toLowerCase() !== 'none') {
+    // Smart Crop format: ?smartcrop=RenditionName
+    params = new URLSearchParams({ smartcrop: rendition });
   }
 
-  if (presetType === 'smart-crop' && rendition && rendition.toLowerCase() !== 'none') {
-    // Smart Crop format: ?smartcrop=RenditionName
-    const params = new URLSearchParams({ smartcrop: rendition });
+  if (params) {
+    // Apply modifiers to the params
     if (modifiers) {
       modifiers.split('&').forEach((p) => {
         const [k, v] = p.split('=');
@@ -149,8 +152,16 @@ export default function decorate(block) {
   let picture = imageRow?.querySelector('picture');
   let img = picture?.querySelector('img') ?? imageRow?.querySelector('img');
 
+  // If img was found directly (bare <img>, no <picture> wrapper), create a wrapper
+  // so picture is never null when img is set
+  if (img && !picture) {
+    picture = document.createElement('picture');
+    picture.appendChild(img);
+  }
+
   // Case 1: image authored as URL — available as an anchor tag
   if (!img) {
+    block.classList.add('hide');
     const anchor = imageRow?.querySelector('a');
     if (!anchor) return;
 
@@ -161,6 +172,7 @@ export default function decorate(block) {
 
     picture = document.createElement('picture');
     picture.appendChild(img);
+    block.classList.remove('hide');
   }
 
   // --- Image config ---

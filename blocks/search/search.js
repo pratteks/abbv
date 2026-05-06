@@ -85,6 +85,7 @@ export async function fetchData(source) {
 
 function renderResult(result, searchTerms, titleTag) {
   const li = document.createElement('li');
+  li.className = 'search-result-item';
   const a = document.createElement('a');
   a.href = result.path;
   if (result.image) {
@@ -98,6 +99,7 @@ function renderResult(result, searchTerms, titleTag) {
     const title = document.createElement(titleTag);
     title.className = 'search-result-title';
     const link = document.createElement('a');
+    link.className = 'search-result-link';
     link.href = result.path;
     link.textContent = result.title;
     highlightTextElements(searchTerms, [link]);
@@ -220,9 +222,18 @@ function searchInput(block, config) {
   input.setAttribute('type', 'search');
   input.className = 'search-input';
 
-  const searchPlaceholder = config.placeholders.searchPlaceholder || 'Search...';
-  input.placeholder = searchPlaceholder;
-  input.setAttribute('aria-label', searchPlaceholder);
+  const desktopPlaceholder = config.placeholders.searchPlaceholder || 'Search...';
+  const mobilePlaceholder = config.placeholders.mobilePlaceholder || desktopPlaceholder;
+  const mq = window.matchMedia('(width < 744px)');
+
+  function updatePlaceholder() {
+    const placeholder = mq.matches ? mobilePlaceholder : desktopPlaceholder;
+    input.placeholder = placeholder;
+    input.setAttribute('aria-label', placeholder);
+  }
+
+  updatePlaceholder();
+  mq.addEventListener('change', updatePlaceholder);
 
   input.addEventListener('input', (e) => {
     handleSearch(e, block, config);
@@ -253,9 +264,11 @@ function searchBox(block, config) {
 export default async function decorate(block) {
   const placeholders = await fetchPlaceholders();
   const source = block.querySelector('a[href]')?.href || `${window.hlx.codeBasePath}/query-index.json`;
+  const mobilePlaceholder = [...block.querySelectorAll(':scope > div > div')]
+    .find((el) => !el.querySelector('a'))?.textContent?.trim();
   block.innerHTML = '';
   block.append(
-    searchBox(block, { source, placeholders }),
+    searchBox(block, { source, placeholders: { ...placeholders, mobilePlaceholder } }),
     searchResultsContainer(block),
   );
 

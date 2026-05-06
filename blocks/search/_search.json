@@ -28,6 +28,12 @@
           "label": "Index"
         },
         {
+          "component": "text",
+          "valueType": "string",
+          "name": "mobilePlaceholder",
+          "label": "Mobile Placeholder"
+        },
+        {
           "component": "multiselect",
           "name": "classes",
           "value": "",

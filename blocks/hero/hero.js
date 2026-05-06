@@ -1,6 +1,19 @@
 export default async function decorate(block) {
   const section = block.closest('.section');
 
+  // Add helper classes for CSS specificity reduction
+  if (section) {
+    if (section.classList.contains('navy-overlap') && section.classList.contains('hero-container')) {
+      section.classList.add('hero-navy');
+    }
+    if (section.classList.contains('hero-container') && block.classList.contains('profile')) {
+      section.classList.add('hero-profile-section');
+    }
+    if (section.classList.contains('hero-container') && block.classList.contains('landing')) {
+      section.classList.add('hero-landing-section');
+    }
+  }
+
   // Absorb a breadcrumb block into the hero text panel.
   // The breadcrumb may be in the same section or in the immediately
   // preceding sibling section (separate section break in authoring).

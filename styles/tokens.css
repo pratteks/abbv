@@ -26,95 +26,111 @@
 ----------------------------------------------------------- */
   --base-size: 10; /* 1rem = 10px */
   --px-to-rem: calc(1rem / var(--base-size));
+  --corp-layout-multiplier-direction-value: 1;
 
     /* Colors */
-  --link-color: #035fe6;
-  --link-hover-color: #136ff6;
-  --background-color: #fff;
-  --highlight-background-color: #f1f3ff;
-  --highlight-dark-background-color:#0066F5;
-  --container-border-color: #a6b5e0;
-  --footer-background-color: #fafafa;
-  --footer-text-color: #666b7a;
-  --footer-link-color: #071d49;
-  --footer-seperator-color: #b9b4b4;
-  --text-color: #071d49; /* primary dark/nav text */
-  --strong-heading: #0066f5;
-  --hero-button-color: #479ff8;
-  --text-color-gray: #808080;
-  --light-color: #f8f8f8;
-  --dark-color: #505050;
-  --overlay-background-color: lightgrey;
-  --color-accent-purple: #8a2ecc;
+  --corp-color-link-default: #035fe6;
+  --corp-color-link-hover: #136ff6;
+  --corp-color-link-secondary: #0662BB; /** Only in Tokens.css file */
+  --color-surface-default: #fff;
+  --color-surface-highlight: #f1f3ff;
+  --color-surface-highlight-inverse:#0066F5;
+  --color-border-container: #a6b5e0;
+  --corp-color-text-default: #071d49; /* primary dark/nav text */
+  --corp-color-text-label: #061e47;
+  --corp-color-text-muted: #808080;
+  --corp-color-text-accent: #0066f5;
+  --corp-color-text-subtle: #555;
+  --color-blue-grey-500: #607d8b;
+  --color-gray-600: #6c7280;
+  --corp-color-surface-subtle: #f8f8f8;
+  --corp-color-text-strong: #505050;
+  --corp-color-surface-overlay: lightgrey;
   --color-accent-blue: #0066f5;
   --color-accent-blue-light: #479ff8;
   --color-accent-green: #338700;
-  --overlay-navy: rgb(7 29 73 / 70%);
-  --overlay-navy-medium: rgb(7 29 73 / 55%);
-  --overlay-navy-light: rgb(7 29 73 / 50%);
+  --color-overlay-navy: rgb(7 29 73 / 70%);
+  --color-overlay-navy-medium: rgb(7 29 73 / 55%);
+  --color-overlay-navy-light: rgb(7 29 73 / 50%);
+  --color-overlay-gray: rgb(80 80 80 / 68%);
+  --color-overlay-purple: rgb(138 46 204 / 66%);
 
-  /* Background Colors for Style Field Values */
+  /* Background Colors for Style Field Values TODO Move to abbvie/token.css once approach finalised */
   --color-white: #ffffff;
-  --color-navy-dark: #071d49;
+  --color-black: #000;
+  --color-navy-dark: var(--corp-color-text-default);
   --color-blue-light: #a6b5e0;
+  --color-blue-gray: #526180;
   --color-blue-very-light: #f1f3ff;
   --color-blue-ultra-light: #fafbff;
   --color-gray-dark: #666b7a;
   --color-gray-medium: #b9b4b4;
   --color-gray-light: #f4f4f4;
+  --color-gray-medium-light: #e4e4e4;
   --color-gray-extra-light: #fafafa;
   --color-purple-primary: #8a2ecc;
   --color-purple-light: #a86bde;
-  --color-blue-primary: #0066f5;
-  --color-blue-secondary: #479ff8;
   --color-orange-dark: #cf451c;
   --color-orange-light: #f7634f;
   --color-green-primary: #338700;
+  --color-border-subtle: #dadada;
+  --color-warning-bg: #fff4c2;
+  --color-warning-border: #fc3;
 
   /* Alerts */
-  --error-color: #cf451c;
-  --warning-color: #f2dede;
-  --success-color: #2f9ece;
+  --color-error: var(--color-orange-dark);
+  --color-warning: #f2dede;
+  --color-success: #2f9ece;
 
-  /* Fonts */
-  --body-font-family: 'Roboto Regular', helvetica, arial, sans-serif;
-  --heading-font-family: 'F37 Lineca Book', helvetica, arial, sans-serif;
-  --icon-font-family: 'Abbvie Icon';
-  --heading-font-family-bold: 'F37 Lineca Medium', helvetica, arial, sans-serif;
-  --roboto-small-font-family: 'Roboto Small', helvetica, arial, sans-serif;
-  --roboto-bold-font-family: 'Roboto Bold', helvetica, arial, sans-serif;
-  --roboto-medium-font-family: 'Roboto Medium', helvetica, arial, sans-serif;
+    /* Fonts TODO Move to abbvie/token.css once approach finalised */
+  --body-font-family: 'Roboto Regular', Helvetica, Arial, sans-serif;
+  --heading-font-family: 'F37 Lineca Book', Helvetica, Arial, sans-serif;
+  --heading-font-family-bold: 'F37 Lineca Medium', Helvetica, Arial, sans-serif;
+  --corp-icon-font-family: 'Abbvie Icon';
+  --roboto-small-font-family: 'Roboto Small', Helvetica, Arial, sans-serif;
+  --roboto-bold-font-family: 'Roboto Bold', Helvetica, Arial, sans-serif;
+  --roboto-medium-font-family: 'Roboto Medium', Helvetica, Arial, sans-serif;
+  --roboto-light-font-family: 'Roboto Light', Helvetica, Arial, sans-serif;
   --form-font-family: "Open Sans", sans-serif;
 
   /* Body sizes (match abbvie breakpoints) */
   --body-font-size-m: 1.8rem;
   --body-font-size-s: 1.6rem;
   --body-font-size-xs: 1.4rem;
-  --font-size-10: 1rem;
-  --font-size-11: 1.1rem;
-  --font-size-12: 1.2rem;
-  --font-size-13: 1.3rem;
-  --font-size-14: 1.4rem;
-  --font-size-16: 1.6rem;
-  --font-size-18: 1.8rem;
-  --font-size-20: 2rem;
-  --font-size-22: 2.2rem;
-  --font-size-24: 2.4rem;
-  --font-size-26: 2.6rem;
-  --font-size-28: 2.8rem;
-  --font-size-32: 3.2rem;
-  --font-size-30: 3rem;
-  --font-size-33: 3.3rem;
-  --font-size-34: 3.4rem;
-  --font-size-36: 3.6rem;
-  --font-size-38: 3.8rem;
-  --font-size-40: 4rem;
-  --font-size-42: 4.2rem;
-  --font-size-50: 5rem;
-  --font-size-625: 6.25rem;
-  --font-size-64: 6.4rem;
-  --font-size-70: 7rem;
-  --font-size-80: 8rem;
+
+  /* Granular font sizes */
+  --corp-font-size-6: 0.6rem;
+  --corp-font-size-7: 0.7rem;
+  --corp-font-size-10: 1rem;
+
+  --corp-font-size-11: 1.1rem;
+  --corp-font-size-12: 1.2rem;
+  --corp-font-size-13: 1.3rem;
+  --corp-font-size-14: 1.4rem;
+  --corp-font-size-16: 1.6rem;
+  --corp-font-size-18: 1.8rem;
+  --corp-font-size-19: 1.9rem;
+  --corp-font-size-20: 2rem;
+
+  --corp-font-size-22: 2.2rem;
+  --corp-font-size-24: 2.4rem;
+  --corp-font-size-26: 2.6rem;
+  --corp-font-size-28: 2.8rem;
+  --corp-font-size-30: 3rem;
+  --corp-font-size-3125: 3.125rem;
+  --corp-font-size-32: 3.2rem;
+  --corp-font-size-33: 3.3rem;
+  --corp-font-size-34: 3.4rem;
+  --corp-font-size-36: 3.6rem;
+  --corp-font-size-38: 3.8rem;
+  --corp-font-size-40: 4rem;
+
+  --corp-font-size-42: 4.2rem;
+  --corp-font-size-48: 4.8rem;
+  --corp-font-size-50: 5rem;
+  --corp-font-size-56: 5.6rem;
+  --corp-font-size-64: 6.4rem;
+  --corp-font-size-80: 8rem;
 
   /* Heading sizes */
   --heading-font-size-xxl: 6.4rem;
@@ -124,234 +140,319 @@
   --heading-font-size-s: 3.2rem;
   --heading-font-size-xs: 2.4rem;
 
-  /* nav height (approx) */
-  --nav-height: calc(72 * var(--px-to-rem));
-  --nav-height-mobile: 72px;
-  --breadcrumbs-height: 34px;
+  /* nav height */
+  --nav-height: 8.8rem;
+  --nav-height-mobile: 7.2rem;
   --header-height: var(--nav-height);
+  --header-height-mobile: var(--nav-height-mobile);
+
+  /* Section Heights */
+  --corp-section-height-sm: 26rem;
+  --corp-section-height-md: 32rem;
+
+
+   /* Font Weight */
+  --corp-font-weight-light: 300;
+  --corp-font-weight-regular: 400;
+  --corp-font-weight-medium: 500;
+  --corp-font-weight-semibold: 600;
+  --corp-font-weight-semibold-alt: 650;
+  --corp-font-weight-bold: 700;
+  --corp-font-weight-extrabold: 800;
 
   /* Spacing Tokens */
-  --space-token-xxs: calc(8 * var(--px-to-rem));
-  --space-token-xs: calc(16 * var(--px-to-rem));
-  --space-token-s: calc(24 * var(--px-to-rem));
-  --space-token-m: calc(32 * var(--px-to-rem));
-  --space-token-l: calc(40 * var(--px-to-rem));
-  --space-token-xl: calc(56 * var(--px-to-rem));
-  --space-token-xxl: calc(80 * var(--px-to-rem));
-  --space-token-xxxl: calc(104 * var(--px-to-rem));
+  --corp-space-token-xxs: calc(8 * var(--px-to-rem));
+  --corp-space-token-xs: calc(16 * var(--px-to-rem));
+  --corp-space-token-s: calc(24 * var(--px-to-rem));
+  --corp-space-token-m: calc(32 * var(--px-to-rem));
+  --corp-space-token-l: calc(40 * var(--px-to-rem));
+  --corp-space-token-xl: calc(56 * var(--px-to-rem));
+  --corp-space-token-xxl: calc(80 * var(--px-to-rem));
+  --corp-space-token-xxxl: calc(104 * var(--px-to-rem));
 
   /* Generalized Spacing Tokens */
-  --spacing-02: 0.2rem;
-  --spacing-03: 0.3rem;
-  --spacing-04: 0.4rem;
-  --spacing-05: 0.5rem;
-  --spacing-06: 0.6rem;
-  --spacing-08: 0.8rem;
-  --spacing-10: 1rem;
-  --spacing-12: 1.2rem;
-  --spacing-14: 1.4rem;
-  --spacing-15: 1.5rem;
-  --spacing-16: 1.6rem;
-  --spacing-17: 1.7rem;
-  --spacing-18: 1.8rem;
-  --spacing-20: 2rem;
-  --spacing-21: 2.1rem;
-  --spacing-22: 2.2rem;
-  --spacing-24: 2.4rem;
-  --spacing-25: 2.5rem;
-  --spacing-26: 2.6rem;
-  --spacing-27: 2.7rem;
-  --spacing-275: 2.75rem;
-  --spacing-30: 3rem;
-  --spacing-32: 3.2rem;
-  --spacing-34: 3.4rem;
-  --spacing-35: 3.5rem;
-  --spacing-36: 3.6rem;
-  --spacing-37-5: 3.75rem;
-  --spacing-38: 3.8rem;
-  --spacing-40: 4rem;
-  --spacing-42: 4.2rem;
-  --spacing-44: 4.4rem;
-  --spacing-46: 4.6rem;
-  --spacing-50: 5rem;
-  --spacing-52: 5.2rem;
-  --spacing-55: 5.5rem;
-  --spacing-56: 5.6rem;
-  --spacing-60: 6rem;
-  --spacing-64: 6.4rem;
-  --spacing-66: 6.6rem;
-  --spacing-70: 7rem;
-  --spacing-72: 7.2rem;
-  --spacing-74: 7.4rem;
-  --spacing-80: 8rem;
-  --spacing-81: 8.1rem;
-  --spacing-85: 8.5rem;
-  --spacing-86: 8.6rem;
-  --spacing-90: 9rem;
-  --spacing-100: 10rem;
-  --spacing-110: 11rem;
-  --spacing-120: 12rem;
-  --spacing-124: 12.4rem;
-  --spacing-168: 16.8rem;
-  --spacing-180: 18rem;
-  --spacing-288: 28.8rem;
-  --spacing-300: 30rem;
-  --spacing-320: 32rem;
-  --spacing-375: 37.5rem;
-  --spacing-420: 42rem;
-  --spacing-500: 50rem;
-  --spacing-585: 58.5rem;
-  --spacing-810: 81rem;
-  --spacing-1000: 100rem;
-  --spacing-1200: 120rem;
+  --corp-spacing-1: 0.1rem;
+  --corp-spacing-2: 0.2rem;
+  --corp-spacing-3: 0.3rem;
+  --corp-spacing-4: 0.4rem;
+  --corp-spacing-5: 0.5rem;
+  --corp-spacing-055: 0.55rem;
+  --corp-spacing-6: 0.6rem;
+  --corp-spacing-7: 0.7rem;
+  --corp-spacing-75: 0.75rem;
+  --corp-spacing-8: 0.8rem;
+  --corp-spacing-9: 0.9rem;
+  --corp-spacing-10: 1rem;
+  --corp-spacing-12: 1.2rem;
+  --corp-spacing-125: 1.25rem;
+  --corp-spacing-13: 1.3rem;
+  --corp-spacing-14: 1.4rem;
+  --corp-spacing-15: 1.5rem;
+  --corp-spacing-16: 1.6rem;
+  --corp-spacing-17: 1.7rem;
+  --corp-spacing-18: 1.8rem;
+  --corp-spacing-20: 2rem;
+  --corp-spacing-21: 2.1rem;
+  --corp-spacing-22: 2.2rem;
+  --corp-spacing-24: 2.4rem;
+  --corp-spacing-25: 2.5rem;
+  --corp-spacing-26: 2.6rem;
+  --corp-spacing-27: 2.7rem;
+  --corp-spacing-275: 2.75rem;
+  --corp-spacing-28: 2.8rem;
+  --corp-spacing-30: 3rem;
+  --corp-spacing-31: 3.1rem;
+  --corp-spacing-32: 3.2rem;
+  --corp-spacing-33: 3.3rem;
+  --corp-spacing-34: 3.4rem;
+  --corp-spacing-35: 3.5rem;
+  --corp-spacing-36: 3.6rem;
+  --corp-spacing-38: 3.8rem;
+  --corp-spacing-40: 4rem;
+  --corp-spacing-41: 4.1rem;
+  --corp-spacing-42: 4.2rem;
+  --corp-spacing-44: 4.4rem;
+  --corp-spacing-46: 4.6rem;
+  --corp-spacing-48: 4.8rem;
+  /* --corp-spacing-49: 4.9rem; */
+  --corp-spacing-50: 5rem;
+  --corp-spacing-52: 5.2rem;
+  --corp-spacing-55: 5.5rem;
+  --corp-spacing-56: 5.6rem;
+  --corp-spacing-60: 6rem;
+  /* --corp-spacing-62: 6.2rem; */
+  --corp-spacing-64: 6.4rem;
+  --corp-spacing-66: 6.6rem;
+  --corp-spacing-70: 7rem;
+  --corp-spacing-72: 7.2rem;
+  --corp-spacing-74: 7.4rem;
+  --corp-spacing-80: 8rem;
+  --corp-spacing-81: 8.1rem;
+  --corp-spacing-85: 8.5rem;
+  --corp-spacing-86: 8.6rem;
+  --corp-spacing-88: 8.8rem;
+  --corp-spacing-90: 9rem;
+  --corp-spacing-100: 10rem;
+  --corp-spacing-108: 10.8rem;
+  --corp-spacing-110: 11rem;
+  --corp-spacing-118: 11.8rem;
+  --corp-spacing-120: 12rem;
+  --corp-spacing-140: 14rem;
+  --corp-spacing-124: 12.4rem;
+  --corp-spacing-161: 16.1rem;
+  --corp-spacing-168: 16.8rem;
+  --corp-spacing-180: 18rem;
+  --corp-spacing-190: 19rem;
+  --corp-spacing-192: 19.2rem;
+  --corp-spacing-250: 25rem;
+  --corp-spacing-288: 28.8rem;
+  --corp-spacing-300: 30rem;
+  --corp-spacing-312: 31.2rem;
+  --corp-spacing-320: 32rem;
+  --corp-spacing-368: 36.8rem;
+  --corp-spacing-375: 37.5rem;
+  --corp-spacing-380: 38rem;
+  --corp-spacing-400: 40rem;
+  --corp-spacing-480: 48rem;
+  --corp-spacing-500: 50rem;
+  --corp-spacing-585: 58.5rem;
+  --corp-spacing-810: 81rem;
+  --corp-spacing-1000: 100rem;
+  --corp-spacing-1200: 120rem;
+
+  /* negative spacing variables */
+  /* --space-neg-4xl: -5rem; not used anywhere */
 
   /* Separator Height */
-  --separator-height-1: .1rem;
-  --separator-height-8: .8rem;
-  --separator-height-16: 1.6rem;
-  --separator-height-24: 2.4rem;
-  --separator-height-32: 3.2rem;
-  --separator-height-48: 4.8rem;
-  --separator-height-64: 6.4rem;
-  --separator-height-80: 8rem;
-  --separator-height-96: 9.6rem;
-  --separator-height-112: 11.2rem;
-  --separator-height-128: 12.8rem;
-  --separator-height-144: 14.4rem;
+  --corp-separator-hairline: var(--corp-spacing-1);
+  --corp-separator-xs: var(--corp-spacing-8);
+  --corp-separator-sm: var(--corp-spacing-16);
+  --corp-separator-md: var(--corp-spacing-24);
+  --corp-separator-lg: var(--corp-spacing-32);
+  --corp-section-gap-xs: var(--corp-spacing-48);
+  --corp-section-gap-sm: var(--corp-spacing-64);
+  --corp-section-gap-md: var(--corp-spacing-80);
+  --corp-section-gap-lg: 9.6rem;
+  --corp-section-gap-xl: 11.2rem;
+  --corp-section-gap-2xl: 12.8rem;
+  --corp-section-gap-3xl: 14.4rem;
 
   /* text transform */
-  --font-uppercase: uppercase;
-  --font-lowercase: lowercase;
-  --font-normal: normal;
+  --text-transform-uppercase: uppercase;
+  --text-transform-lowercase: lowercase;
+  --text-transform-none: normal;
 
-  /* Border Radius */
+  /* Border Radius & Border Radius for Styled Sections */ 
+  --border-radius-s: 0.2rem;
   --border-radius-base: 0.4rem;
   --border-radius-m: 0.8rem;
+  --border-radius-md: 4rem; /**  --border-top-left-radius-40 */
+  --border-radius-l: 8rem; /** --border-top-left-radius-desktop */
+  --border-width-hairline: 0.05rem;
+  --border-width-thin: 0.1rem;
+  --border-width-thick: 0.2rem;
+  --border-radius-xl: 3.2rem;
+  --border-radius-subtle: 2.4rem;
 
   /* z-index */
-  --z-index-negative: -1;
-  --z-index-0 : 0;
-  --z-index-1 : 1;
-  --z-index-2 : 2;
-  --z-index-3 : 3;
+  --corp-z-index-negative: -1;
+  --corp-z-index-base: 1;
+  --corp-z-index-raised: 2;
+  --corp-z-index-dropdown: 3;
+  --corp-z-index-sticky: 4;
+  --corp-z-index-overlay: 10;
 
   /* Flex/Grid order */
   --order-first: -1;
-  --order-0: 0;
-  --order-1: 1;
-  --order-unset: unset;
+  --order-default: 1;
+  --order-last: 2;
 
-  /* Layout */
-  --content-max-width: 133rem;
-  --content-max-width-narrow: 110rem;
-  --content-max-width-medium: 90rem;
-  --content-max-width-faq: 80rem;
-  --icon-size: 2.4rem;
+  /** Opacity */
+  --opacity-full: 1;
+  --opacity-muted: 0.7;
 
-  /* Font Weight */
-  --font-weight-300: 300;
-  --font-weight-400: 400;
-  --font-weight-500: 500;
-  --font-weight-600: 600;
-  --font-weight-650: 650;
-  --font-weight-700: 700;
-  --font-weight-800: 800;
-  --font-weight-regular: 400;
-  --font-weight-bold: 700;
+  /* Layout TODO Moved to Abbvie token class*/
+  --corp-layout-container-max-width-xs: 90rem;
+  --corp-layout-container-max-width-sm: 110rem;
+  --corp-layout-container-max-width-md: 133rem;
+  --corp-layout-container-max-width-lg: 144rem;
 
   /* Gap */
-  --gap-0: 0;
-  --gap-10: 1rem;
-  --gap-20: 2rem;
-  --gap-24: 2.4rem;
-  --gap-32: 3.2rem;
-  --gap-42: 4.2rem;
-  --border-top-radius: 3.2rem;
+  --corp-gap-xs: 0.4rem;
+  --corp-gap-sm: 1rem;
+  --corp-gap-sm1: 1.5rem;
+  --corp-gap-md: 1.6rem;
+  --corp-gap-lg: 2rem;
+  --corp-gap-xl: 2.4rem;
+  --corp-gap-2xl: 3.2rem;
+  --corp-gap-3xl: 4rem;
+  --corp-gap-4xl: 4.2rem;
+  --corp-gap-5xl: 4.8rem;
+
+  /** TODO Move to Hero Block */
+  /** Hero Section Heights */
   --hero-section-height: 12rem;
   --hero-tall-image-container-height: 25.6rem;
+  --hero-image-container-height: 21.6rem;
+  --hero-landing-container-height: 41.8rem;
+  --hero-overlap: -4.8rem;
+
+  /* Letter spacing keeping different unit as its scalling with font size*/
+  --corp-typography-letterspacing-tight-xs: -0.3rem;
+  --corp-typography-letterspacing-tight-md: -.03rem;
+  --corp-typography-letterspacing-tight-sm: -0.02rem;
+  --corp-typography-letterspacing-tight-xl: -0.24rem;
+  --corp-typography-letterspacing-tight-lg: -0.168rem;
+  --corp-typography-letterspacing-tight-md-lg: -0.128rem;
+  --corp-typography-letterspacing-wide-xs: 0.04rem;
+  --corp-typography-letterspacing-wide-sm: 0.06rem;
+  --corp-typography-letterspacing-wide-md: 0.08rem;
+  --corp-typography-letterspacing-wide-lg: 0.56px;
+  --corp-typography-letterspacing-wide-2xl: 0.84px;
+  --corp-typography-letterspacing-wide-3xl: 0.86px;
+  --corp-typography-letterspacing-wide-4xl: 0.96px;
+  --corp-typography-letterspacing-wide-xl: 0.72px;
+  --corp-typography-letterspacing-wide-em: .06em;
+  --corp-typography-letterspacing-tight-em-sm: -.02em;
+  --corp-typography-letterspacing-wide-em-xs: 0.04em;
+
+  /* Icon Size */
+  --corp-icon-size-md: 2.4rem;
 
   /* Generalized Line Heights */
-  --line-height-16: 1.6rem;
-  --line-height-20: 2rem;
-  --line-height-22: 2.2rem;
-  --line-height-24: 2.4rem;
-  --line-height-26: 2.6rem;
-  --line-height-28: 2.8rem;
-  --line-height-30: 3rem;
-  --line-height-32: 3.2rem;
-  --line-height-34: 3.4rem;
-  --line-height-35: 3.5rem;
-  --line-height-36: 3.6rem;
-  --line-height-44: 4.4rem;
-  --line-height-46: 4.6rem;
-  --line-height-68: 6.8rem;
+  --corp-typography-lineheight-tight-xs: 1rem;      /* line-height-1 */
+  --corp-typography-lineheight-tight-s: 1.4rem;    /* line-height-14 */
+  --corp-typography-lineheight-tight-sm: 1.6rem;    /* line-height-16 */
+  --corp-typography-lineheight-tight-md: 1.8rem;    /* line-height-18 */
+  --corp-typography-lineheight-body-sm: 2rem;
+  --corp-typography-lineheight-body-md-tight: 2.1rem;       /* line-height-20 */
+  --corp-typography-lineheight-body-md: 2.2rem;
+  --corp-typography-lineheight-body-lg: 2.4rem;     /* line-height-24 */
+  --corp-typography-lineheight-body-xl: 2.6rem;     /* line-height-26 */
+  --corp-typography-lineheight-relaxed-sm: 2.8rem;  /* line-height-28 */
+  --corp-typography-lineheight-relaxed-md: 3rem;    /* line-height-30 */
+  --corp-typography-lineheight-relaxed-lg: 3.2rem;  /* line-height-32 */
+  --corp-typography-lineheight-relaxed-xl: 3.4rem;  /* line-height-34 */
+  --corp-typography-lineheight-relaxed-2xl: 3.5rem; /* line-height-35 */
+  --corp-typography-lineheight-relaxed-3xl: 3.6rem; /* line-height-36 */
+  --corp-typography-lineheight-relaxed-4xl: 3.8rem; /* line-height-38 */
+  --corp-typography-lineheight-heading-sm: 4rem;    /* line-height-40 */
+  --corp-typography-lineheight-heading-md: 4.4rem;  /* line-height-44 */
+  --corp-typography-lineheight-heading-lg: 4.5rem;  /* line-height-45 */
+  --corp-typography-lineheight-heading-xl: 4.6rem;  /* line-height-46 */
+  --corp-typography-lineheight-display-sm: 5.2rem;
+  --corp-typography-lineheight-display-md: 5.8rem;
+  --corp-typography-lineheight-display-base: 6rem;
+  --corp-typography-lineheight-display-lg: 6.4rem;  /* line-height-64 */
+  --corp-typography-lineheight-display-xl: 6.8rem;  /* line-height-68 */
+  --corp-typography-lineheight-display-2xl: 8.4rem; /* line-height-84 */
+  --corp-typography-lineheight-tight: 1.25;
+  
 
   /* Shared Motion, Surface, Border, Text, Elevation, Focus, Tracking */
-  --transition-duration-fast: 0.2s;
-  --transition-duration-medium: 0.3s;
-  --transition-easing-standard: ease;
-  --transition-easing-emphasized: ease-out;
-  --surface-background-default: var(--background-color);
-  --border-subtle: var(--separator-height-1) solid var(--container-border-color);
-  --text-subtle: var(--color-gray-dark);
-  --elevation-card: 0 var(--spacing-08) var(--spacing-20) rgb(7 29 73 / 10%);
-  --focus-ring-default: 0 0 0 var(--spacing-02) rgb(0 102 245 / 16%);
-  --motion-hover-scale: 1.02;
-  --tracking-wide-sm: 0.04em;
-  --tracking-wide-md: 0.06em;
+  --surface-background-default: var(--color-surface-default);
+  --border-subtle: var(--corp-separator-hairline) solid var(--color-border-container);
 
-  /* Hero Colors */
-  --hero-overlay-gradient: linear-gradient(to top, rgb(0 0 0 / 90%) 42.91%, transparent);
-  --hero-button-hover-color: var(--container-border-color);
-  --story-card-text-color: var(--footer-link-color);
-  --story-card-link-color: #0066f5;
-  --story-card-hover-bg: #f1f3ff;
+  /* Corp Form Colors */
+  --corp-form-background-color: #fff;
+  --corp-form-text-color: #727272;
+  --corp-form-secondary-text-color: #727272;
+  --corp-form-border-color: #ccc;
+  --corp-form-border-hover-color: #000;
+  --corp-form-background-hover-color: #f3f3f3;
+  --corp-form-primary-color: #7c3098;
+  --corp-form-secondary-color: #80379b;
+  --corp-form-secondary-hover-color: #6d2f85;
+  --corp-form-disabled-color: #5e2b72;
+  --corp-form-dark-color: #071d49;
+  --corp-form-white-color: white;
+  --corp-form-error-color: #eb3c36;
+  --corp-form-error-border-color: rgb(212 43 43);
+  --corp-form-shadow-color: rgb(167 167 167);
+  --corp-form-overlay-bg: rgb(255 255 255 / 90%);
+  --corp-form-divider-color: #eee;
+  --corp-form-light-border-color: #d0d0d0;
+  --corp-form-light-bg-color: #f5f5f5;
+  --corp-form-light-text-color: #666;
+  --corp-form-dark-text-color: #333;
+  --corp-form-darker-text-color: #55565a;
+  --corp-form-medium-text-color: #999;
+  --corp-form-light-divider-color: #f0f0f0;
+  --corp-form-medium-border-color: #ddd;
+  --corp-form-orange-color: #e98300;
+  --corp-form-success-color: #2f9ece;
+  --corp-form-warning-color: #d32f2f;
+  --corp-semi-transparent-color: #071d49b2;
 
-  /* Form Colors */
-  --form-background-color: #fff;
-  --form-text-color: #727272;
-  --form-secondary-text-color: #727272;
-  --form-border-color: #ccc;
-  --form-border-hover-color: #000;
-  --form-background-hover-color: #f3f3f3;
-  --form-primary-color: #7c3098;
-  --form-secondary-color: #80379b;
-  --form-secondary-hover-color: #6d2f85;
-  --form-disabled-color: #5e2b72;
-  --form-dark-color: #071d49;
-  --form-white-color: white;
-  --form-error-color: #eb3c36;
-  --form-error-border-color: rgb(212 43 43);
-  --form-shadow-color: rgb(167 167 167);
-  --form-overlay-bg: rgb(255 255 255 / 90%);
-  --form-divider-color: #eee;
-  --form-light-border-color: #d0d0d0;
-  --form-light-bg-color: #f5f5f5;
-  --form-light-text-color: #666;
-  --form-dark-text-color: #333;
-  --form-darker-text-color: #55565a;
-  --form-medium-text-color: #999;
-  --form-light-divider-color: #f0f0f0;
-  --form-medium-border-color: #ddd;
-  --form-orange-color: #e98300;
-  --form-success-color: #2f9ece;
-  --form-warning-color: #d32f2f;
-
-  /* Form Fonts */
+   /* Corp Focus outline */
+  --corp-focus-visible-outline: var(--border-width-thick) solid var(--color-black);
+  --corp-focus-visible-outline-width: var(--border-width-thin);
+  --corp-focus-visible-outline-offset: -0.1rem;
 }
 
-@media (--bp-tablet) {
+/** TODO Move to Hero Block & replace breakpoint value to token in core file */
+/** Hero Section Heights */
+@media (width >= 744px) {
   :root {
-    --border-top-radius: 6.4rem;
     --hero-section-height: 26rem;
+    --border-radius-subtle: 4rem;
     --hero-tall-image-container-height: 41.6rem;
+    --hero-image-container-height: 36.8rem;
+    --hero-landing-container-height: 57.6rem;
+    --hero-overlap: -6.4rem;
+    --border-radius-xl: 6.4rem;
   }
 }
 
-@media (--bp-desktop) {
+/** TODO Move to Hero Block & replace breakpoint value to token in core file */
+/** Hero Section Heights */
+@media (width >= 1024px) {
   :root {
-    --border-top-radius: 8rem;
     --hero-section-height: 28.8rem;
     --hero-tall-image-container-height: 60.8rem;
+    --hero-image-container-height: 44.8rem;
+    --hero-landing-container-height: 81rem;
+    --hero-overlap: -11.2rem;
+    --border-radius-xl: 8rem;
   }
 }

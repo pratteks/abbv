@@ -7,13 +7,17 @@ import {
 import decorateExternalLinksUtility, {
   isAuthorEnvironment,
   isEditor,
+  isUniversalEditor,
 } from '../../scripts/utils.js';
 
 const INDEX_CACHE_KEY = 'abbvie-index-data';
+const TAGS_JSON_CACHE_KEY = 'abbvie-tags-json-lookup-v1';
 let flatIndexCache = null;
 
-// WeakMap to hold per-block ResizeObserver references for carousel cleanup.
-const carouselROMap = new WeakMap();
+/** In-memory tag id → title (from tags.json); mirrors sessionStorage cache. */
+let tagsTitleLookup = null;
+/** Single in-flight fetch for tags.json (deduped across blocks). */
+let tagsTitleLookupPromise = null;
 
 function parseBool(val, fallback = false) {
   const v = String(val ?? '').toLowerCase();
@@ -88,6 +92,132 @@ function getFlatIndex() {
   } catch (_e) {
     return [];
   }
+}
+
+function getTagsJsonFetchUrl() {
+  if (isUniversalEditor()) {
+    let currentPath = window.location.pathname;
+    if (currentPath.endsWith('.html')) {
+      currentPath = currentPath.substring(0, currentPath.length - 5);
+    }
+    return `${currentPath}.resource/tags.json`;
+  }
+  const base = window.hlx?.codeBasePath ?? '';
+  let url = `${base}/tags.json`.replace(/\/{2,}/g, '/');
+  if (!url.startsWith('/')) url = `/${url}`;
+  return url;
+}
+
+function parseStoredTagLookup(raw) {
+  try {
+    const obj = JSON.parse(raw);
+    if (!obj || typeof obj !== 'object') return null;
+    const exact = new Map();
+    const lower = new Map();
+    Object.entries(obj).forEach(([k, v]) => {
+      if (!k || v == null || v === '') return;
+      const title = String(v).trim();
+      const id = String(k).trim();
+      if (!id || !title) return;
+      exact.set(id, title);
+      lower.set(id.toLowerCase(), title);
+    });
+    if (!exact.size) return null;
+    return { exact, lower };
+  } catch (_e) {
+    return null;
+  }
+}
+
+function saveTagLookupToSession(exactMap) {
+  try {
+    sessionStorage.setItem(
+      TAGS_JSON_CACHE_KEY,
+      JSON.stringify(Object.fromEntries(exactMap)),
+    );
+  } catch (_e) {
+    /* sessionStorage full or disabled */
+  }
+}
+
+function buildTagTitleResolver(payload) {
+  const exact = new Map();
+  const lower = new Map();
+  const rows = Array.isArray(payload?.data) ? payload.data : [];
+  rows.forEach((row) => {
+    const id = row?.tag ?? row?.id;
+    const title = row?.title ?? row?.name;
+    if (id == null || title == null) return;
+    const idStr = String(id).trim();
+    const titleStr = String(title).trim();
+    if (!idStr || !titleStr) return;
+    exact.set(idStr, titleStr);
+    lower.set(idStr.toLowerCase(), titleStr);
+  });
+  return { exact, lower };
+}
+
+function resolveTagTitle(tagId, lookup) {
+  if (!lookup) return '';
+  const t = String(tagId ?? '').trim();
+  if (!t) return '';
+  return (
+    lookup.exact.get(t)
+    || lookup.lower.get(t.toLowerCase())
+    || ''
+  );
+}
+
+/**
+ * Loads tags.json (same shape as /tags.json on aem.page), caches in sessionStorage,
+ * and returns a lookup for tag id → display title.
+ */
+async function getTagsTitleLookup() {
+  if (tagsTitleLookup?.exact?.size) return tagsTitleLookup;
+
+  try {
+    const cached = sessionStorage.getItem(TAGS_JSON_CACHE_KEY);
+    if (cached) {
+      const parsed = parseStoredTagLookup(cached);
+      if (parsed) {
+        tagsTitleLookup = parsed;
+        return tagsTitleLookup;
+      }
+    }
+  } catch (_e) {
+    /* ignore */
+  }
+
+  if (!tagsTitleLookupPromise) {
+    tagsTitleLookupPromise = (async () => {
+      const url = getTagsJsonFetchUrl();
+      const res = await fetch(url, { credentials: 'same-origin' });
+      if (!res.ok) {
+        throw new Error(`tags.json HTTP ${res.status}`);
+      }
+      const json = await res.json();
+      const lookup = buildTagTitleResolver(json);
+      if (lookup.exact.size > 0) {
+        tagsTitleLookup = lookup;
+        saveTagLookupToSession(lookup.exact);
+      }
+      return lookup;
+    })().finally(() => {
+      tagsTitleLookupPromise = null;
+    });
+  }
+
+  const inflight = tagsTitleLookupPromise;
+  if (inflight) {
+    try {
+      const fetched = await inflight;
+      if (fetched?.exact?.size) return fetched;
+    } catch (_e) {
+      /* fall through — titles will use heuristic labels */
+    }
+  }
+
+  return tagsTitleLookup || { exact: new Map(), lower: new Map() };
 }
 
 function indexPath(page) {
@@ -168,7 +298,7 @@ function makeConfigCacheHelpers(block) {
     try {
       sessionStorage.removeItem(sessionKey);
     } catch (_e) {
-      /* quota */
+      // sessionStorage may throw when full
     }
   };
 
@@ -187,7 +317,7 @@ function makeConfigCacheHelpers(block) {
       try {
         sessionStorage.setItem(sessionKey, serialised);
       } catch (_e) {
-        /* quota */
+        // sessionStorage may throw when full
       }
     }
     block.dataset.linklistConfig = serialised;
@@ -356,22 +486,8 @@ function readParentConfig(block) {
     return cfg;
   }
 
-  // ── Doc / row-based mode ───────────────────────────────────────────────────
-  // Parent block fields (tabs skipped — tab components do not render doc rows):
-  //
-  // Overview tab:
-  //  0:id  1:customClass  2:variant  3:linkSource
-  //  4:parentPage  5:childDepth  6:excludeCurrentPage
-  //  7:enableDescription  8:enableTags  9:enableSubtitle  10:enableDate
-  //  11:orderBy  12:sortOrder  13:maxItems  14:layout  15:fontIcon
-  //
-  // Accessibility tab:
-  //  16:language  17:ariaLabel
-  //
-  // NOTE: fontIcon (row 15) is conditionally shown in the UE dialog (variant=icons)
-  // but always present as a doc row. ariaLabel was moved to the Accessibility tab
-  // (row 17) — old blocks without ariaLabel only have 16 config rows.
-  // getConfigRowCount() detects which count applies.
+  // Non-UE: parent fields are sequential doc rows (0-15 props, 16 language, 17 ariaLabel).
+  // Older blocks may omit row 17; getConfigRowCount() separates config rows from items.
   const rows = [...block.querySelectorAll(':scope > div')].filter(
     (r) => !r.classList.contains('linklist-item')
       && !r.dataset.aueResource?.includes('linklist-item')
@@ -404,7 +520,6 @@ function readParentConfig(block) {
     layout: ct(14) || 'single-column',
     fontIcon: ct(15) || '',
     language: ct(16) || 'lang:none',
-    // row 17 = ariaLabel; absent on blocks authored before this field was added
     ariaLabel: ct(17) || '',
   };
 
@@ -416,42 +531,180 @@ function readParentConfig(block) {
   return cfg;
 }
 
+/** Split author / UE strings that pack several tags (newlines, CSV, pipes). */
+function expandDelimitedTagStrings(s) {
+  const t = String(s ?? '').trim();
+  if (!t) return [];
+  return t
+    .split(/\r\n|\n|\r|,|;|\|/g)
+    .map((p) => p.trim())
+    .filter((p) => p && p.toLowerCase() !== 'none');
+}
+
+/** Index / metadata keys that may carry taxonomy tags (merged for child pages). */
+const TAG_PAGE_KEYS = [
+  'cq-tags',
+  'cq:tags',
+  'cqTags',
+  'tags',
+  'tagNames',
+  'categoryTags',
+  'brandTags',
+  'standardTags',
+  'corporateTags',
+  'contentTags',
+  'xwalk:tags',
+];
+
+/** Prefer stable taxonomy ids (for tags.json lookup) over display titles. */
+function flattenTagIds(val) {
+  if (val == null || val === '') return [];
+  if (Array.isArray(val)) {
+    return val.flatMap((item) => flattenTagIds(item));
+  }
+  if (typeof val === 'object' && val !== null) {
+    const id = val.tag ?? val.path ?? val.tagID ?? val.id ?? val['cq:tag'];
+    if (id != null && String(id).trim()) return [String(id).trim()];
+    const title = val.title ?? val.name ?? val.label ?? val.displayName;
+    if (title != null && String(title).trim()) return [String(title).trim()];
+    return [];
+  }
+  const s = String(val).trim();
+  if (!s) return [];
+  if ((s.startsWith('[') && s.endsWith(']')) || (s.startsWith('{') && s.endsWith('}'))) {
+    try {
+      const parsed = JSON.parse(s);
+      return flattenTagIds(parsed);
+    } catch (_e) {
+      /* fall through */
+    }
+  }
+  const pieces = expandDelimitedTagStrings(s);
+  if (pieces.length > 1) {
+    return pieces.flatMap((p) => flattenTagIds(p));
+  }
+  return pieces.length ? [pieces[0]] : [s];
+}
+
+function collectPageTagStrings(page) {
+  const seen = new Set();
+  const parts = [];
+  TAG_PAGE_KEYS.forEach((key) => {
+    flattenTagIds(page[key]).forEach((piece) => {
+      const norm = piece.trim();
+      if (!norm || norm.toLowerCase() === 'none') return;
+      const dedupe = norm.toLowerCase();
+      if (seen.has(dedupe)) return;
+      seen.add(dedupe);
+      parts.push(norm);
+    });
+  });
+  return parts.join(',');
+}
+
+/**
+ * Read all category tags from Universal Editor / XWalk markup: every
+ * [data-aue-prop="categoryTags"], JSON arrays, data-* JSON, or one chip per child.
+ */
+function collectCategoryTagsFromDom(root) {
+  if (!root) return null;
+  const nodes = [...root.querySelectorAll('[data-aue-prop="categoryTags"]')];
+  if (!nodes.length) return null;
+
+  const out = [];
+  const seen = new Set();
+
+  const pushToken = (t) => {
+    expandDelimitedTagStrings(String(t ?? '').trim()).forEach((piece) => {
+      const p = piece.trim();
+      if (!p || p.toLowerCase() === 'none') return;
+      const k = p.toLowerCase();
+      if (seen.has(k)) return;
+      seen.add(k);
+      out.push(p);
+    });
+  };
+
+  nodes.forEach((el) => {
+    const attr = el.getAttribute('data-value')
+      ?? el.getAttribute('data-values')
+      ?? el.getAttribute('data-tags');
+    if (attr) {
+      try {
+        const parsed = JSON.parse(attr);
+        if (Array.isArray(parsed)) {
+          parsed.forEach((x) => pushToken(x));
+          return;
+        }
+        if (parsed && typeof parsed === 'object') {
+          const oid = parsed.tag ?? parsed.id ?? parsed.path ?? parsed['cq:tag'];
+          if (oid) {
+            pushToken(oid);
+            return;
+          }
+        }
+      } catch (_e) {
+        pushToken(attr);
+        return;
+      }
+    }
+
+    const text = el.textContent?.trim() ?? '';
+    if (text) {
+      try {
+        const parsed = JSON.parse(text);
+        if (Array.isArray(parsed)) {
+          parsed.forEach((x) => pushToken(x));
+          return;
+        }
+        if (parsed && typeof parsed === 'object') {
+          const id = parsed.tag ?? parsed.id ?? parsed.path ?? parsed['cq:tag'];
+          if (id) {
+            pushToken(id);
+            return;
+          }
+        }
+      } catch (_e) {
+        /* not JSON */
+      }
+    }
+
+    const childTexts = [...el.children]
+      .map((c) => c.textContent?.trim())
+      .filter(Boolean);
+    if (childTexts.length > 1) {
+      childTexts.forEach((c) => pushToken(c));
+      return;
+    }
+    if (text) pushToken(text);
+  });
+
+  return out.length ? out.join(',') : null;
+}
+
+function readTagsFromCategoryRow(rowEl) {
+  if (!rowEl) return '';
+  const fromDom = collectCategoryTagsFromDom(rowEl);
+  if (fromDom) return fromDom;
+  const kids = [...rowEl.children].filter((c) => c.textContent?.trim());
+  if (kids.length > 1) {
+    const merged = kids.map((c) => c.textContent.trim()).filter(Boolean).join('\n');
+    return merged.toLowerCase() === 'none' ? '' : merged;
+  }
+  const raw = rowEl.textContent?.trim() || '';
+  return raw.toLowerCase() === 'none' ? '' : raw;
+}
+
 function readItemConfig(itemEl) {
   const imgPropEl = itemEl.querySelector('[data-aue-prop="imageIcon"]');
-  if (imgPropEl) resolveImageReference(imgPropEl);
+  // Only resolve when the prop is on a container (not the img itself).
+  if (imgPropEl && imgPropEl.tagName?.toLowerCase() !== 'img') {
+    resolveImageReference(imgPropEl);
+  }
 
-  // ── Unified reading strategy ───────────────────────────────────────────────
-  // AEM Universal Editor only attaches data-aue-prop to a subset of field
-  // types (text, richtext, aem-content). Select, boolean, aem-tag, and
-  // reference fields often render as plain divs with no data-aue-prop, even
-  // in the author instance. This means we cannot rely solely on the UE prop
-  // path — it silently returns '' for iconType, fontIcon, categoryTags etc.
-  //
-  // Strategy: ALWAYS parse the sequential doc-mode rows first (works in both
-  // author and local preview), then OVERRIDE with data-aue-prop values for
-  // the fields that reliably have them (id, customClass, linkText, subtitle,
-  // description, ariaLabel). This gives consistent results everywhere.
-  //
-  // Doc-mode layout versions (detected by div[2] anchor presence):
-  //
-  // V3 / V2b — div[2] has NO anchor (cookieConsentLink boolean at [2]):
-  //  0:id  1:customClass  2:cookieConsentLink  3:link  4:openInNewTab
-  //  5:linkText  6:subtitle  7:description  8:categoryTags
-  //  9:iconType  10:fontIcon  11:imageIcon  12:iconPosition  13:iconLink
-  //  14:enableConfirmationModal  15:confirmationModalType  16:modalId
-  //  17:language  18:ariaLabel
-  //  (V2b = 18 divs, ariaLabel row may be absent — ct(18) returns '' safely)
-  //
-  // V2a — div[2] HAS anchor (link field at [2], no categoryTags row):
-  //  0:id  1:customClass  2:link  3:openInNewTab  4:cookieConsentLink
-  //  5:linkText  6:subtitle  7:description
-  //  8:iconType  9:fontIcon  10:imageIcon  11:iconPosition  12:iconLink
-  //  13:enableConfirmationModal  14:confirmationModalType  15:modalId
-  //  16:language  17:ariaLabel
-  //
-  // categoryTags detection: AEM tag paths always contain ':' and '/'
-  // (e.g. "corporate:abbvie-com-2/category-types/media"). We scan divs 7-9
-  // so items missing the description row are handled correctly.
+  // UE often omits data-aue-prop on selects/booleans/tags; read doc rows first,
+  // then override from data-aue-prop where it exists. V2a = anchor in rows[2]
+  // (no categoryTags row); V3/V2b = boolean at rows[2], link in rows[3].
   const rows = [...itemEl.querySelectorAll(':scope > div')];
   const ct = (i) => rows[i]?.textContent?.trim() || '';
   const cl = (i) => rows[i]?.querySelector('a')?.getAttribute('href') || ct(i);
@@ -459,60 +712,33 @@ function readItemConfig(itemEl) {
 
   const isV2a = !!rows[2]?.querySelector('a');
 
+  const isUrlShaped = (s) => {
+    const t = String(s || '').trim();
+    if (!t) return true;
+    return t.startsWith('/') || /^https?:\/\//i.test(t) || t.startsWith('#');
+  };
+  const cleanLabel = (s) => (isUrlShaped(s) ? '' : String(s).trim());
+
+  // Anchor to fontIcon (text field, always has data-aue-prop in UE, EDS row 9).
+  // Any deviation from index 9 means extra rows exist in the UE rendering.
+  // Returns 0 in pure EDS mode (no data-aue-prop present at all).
+  const fontIconRowIdx = rows.findIndex(
+    (r) => r.querySelector('[data-aue-prop="fontIcon"]') !== null,
+  );
+  const ueShift = fontIconRowIdx >= 0 ? fontIconRowIdx - 9 : 0;
+
   let docConfig;
 
   if (!isV2a) {
-    // V3 / V2b path
     const anchorEl = rows[3]?.querySelector('a');
-    const resolvedLinkText = ct(5)
-      || anchorEl?.getAttribute('title')
-      || anchorEl?.textContent?.trim()
+    const resolvedLinkText = cleanLabel(anchorEl?.textContent)
+      || cleanLabel(anchorEl?.getAttribute('title'))
       || '';
 
-    // Content-aware categoryTags detection: scan divs 7-9 for AEM tag path.
-    // AEM taxonomy paths always contain both ':' and '/' e.g.
-    // "corporate:abbvie-com-2/category-types/media".
-    // If no tag is found, check whether div[8] is a known iconType value
-    // ('font', 'image', 'none') — if so, categoryTags row is absent and
-    // iconType sits at [8], so tagsIdx should be 7 (iconTypeIdx = 8).
-    // Otherwise fall back to tagsIdx=8 (categoryTags present but empty).
-    const ICON_TYPE_VALUES = new Set(['font', 'image', 'none']);
-    const tagsSearch = (() => {
-      for (let i = 7; i <= 9; i += 1) {
-        const val = ct(i);
-        if (val && val.includes(':') && val.includes('/')) {
-          return { idx: i, val };
-        }
-      }
-      // No tag signature found — if div[8] is a known iconType value,
-      // the categoryTags row is absent and tagsIdx should be 7
-      const div8 = ct(8).toLowerCase();
-      if (ICON_TYPE_VALUES.has(div8)) {
-        return { idx: 7, val: '' };
-      }
-      // categoryTags row present but empty
-      return { idx: 8, val: ct(8) };
-    })();
+    const categoryTagsVal = readTagsFromCategoryRow(rows[7 + ueShift]);
 
-    const tagsIdx = tagsSearch.idx;
-    const categoryTagsVal = tagsSearch.val.toLowerCase() === 'none' ? '' : tagsSearch.val;
-    // description is at div[7] only when tagsIdx > 7
-    const descriptionVal = tagsIdx > 7 ? ch(7) : '';
-
-    // All fields after categoryTags cascade from tagsIdx
-    const iconTypeIdx = tagsIdx + 1;
-    const fontIconIdx = tagsIdx + 2;
-    const imageIconIdx = tagsIdx + 3;
-    const iconPositionIdx = tagsIdx + 4;
-    const iconLinkIdx = tagsIdx + 5;
-    const enableConfModalIdx = tagsIdx + 6;
-    const confModalTypeIdx = tagsIdx + 7;
-    const modalIdIdx = tagsIdx + 8;
-    const languageIdx = tagsIdx + 9;
-    const ariaLabelIdx = tagsIdx + 10;
-
-    const imageIconSrc = rows[imageIconIdx]?.querySelector('img')?.getAttribute('src')
-      || cl(imageIconIdx);
+    const imageIconSrc = rows[10 + ueShift]?.querySelector('img')?.getAttribute('src')
+      || cl(10 + ueShift);
 
     docConfig = {
       id: ct(0),
@@ -521,28 +747,27 @@ function readItemConfig(itemEl) {
       link: cl(3),
       openInNewTab: parseBool(ct(4), false),
       linkText: resolvedLinkText,
-      subtitle: ct(6),
-      description: descriptionVal,
+      subtitle: ct(5 + ueShift),
+      description: ch(6 + ueShift),
       categoryTags: categoryTagsVal,
-      iconType: ct(iconTypeIdx) || 'none',
-      fontIcon: ct(fontIconIdx),
+      iconType: ct(8 + ueShift) || 'none',
+      fontIcon: ct(9 + ueShift),
       imageIcon: imageIconSrc,
-      iconPosition: ct(iconPositionIdx) || 'before',
-      iconLink: cl(iconLinkIdx),
-      enableConfirmationModal: parseBool(ct(enableConfModalIdx), false),
-      confirmationModalType: ct(confModalTypeIdx) || 'standard',
-      modalId: ct(modalIdIdx),
-      language: ct(languageIdx) || 'lang:none',
-      ariaLabel: ct(ariaLabelIdx),
+      iconPosition: ct(11 + ueShift) || 'before',
+      iconLink: cl(12 + ueShift),
+      enableConfirmationModal: parseBool(ct(13 + ueShift), false),
+      confirmationModalType: ct(14 + ueShift) || 'standard',
+      modalId: ct(15 + ueShift),
+      language: ct(16 + ueShift) || 'lang:none',
+      ariaLabel: ct(17 + ueShift),
     };
   } else {
-    // V2a path — link at [2], no categoryTags row
     const anchorEl = rows[2]?.querySelector('a');
-    const resolvedLinkText = ct(5)
-      || anchorEl?.getAttribute('title')
-      || anchorEl?.textContent?.trim()
+    const resolvedLinkText = cleanLabel(ct(5 + ueShift))
+      || cleanLabel(anchorEl?.getAttribute('title'))
+      || cleanLabel(anchorEl?.textContent)
       || '';
-    const imageIconSrc = rows[10]?.querySelector('img')?.getAttribute('src') || cl(10);
+    const imageIconSrc = rows[10 + ueShift]?.querySelector('img')?.getAttribute('src') || cl(10 + ueShift);
 
     docConfig = {
       id: ct(0),
@@ -551,26 +776,22 @@ function readItemConfig(itemEl) {
       link: cl(2),
       openInNewTab: parseBool(ct(3), false),
       linkText: resolvedLinkText,
-      subtitle: ct(6),
-      description: ch(7),
+      subtitle: ct(6 + ueShift),
+      description: ch(7 + ueShift),
       categoryTags: '',
-      iconType: ct(8) || 'none',
-      fontIcon: ct(9),
+      iconType: ct(8 + ueShift) || 'none',
+      fontIcon: ct(9 + ueShift),
       imageIcon: imageIconSrc,
-      iconPosition: ct(11) || 'before',
-      iconLink: cl(12),
-      enableConfirmationModal: parseBool(ct(13), false),
-      confirmationModalType: ct(14) || 'standard',
-      modalId: ct(15),
-      language: ct(16) || 'lang:none',
-      ariaLabel: ct(17),
+      iconPosition: ct(11 + ueShift) || 'before',
+      iconLink: cl(12 + ueShift),
+      enableConfirmationModal: parseBool(ct(13 + ueShift), false),
+      confirmationModalType: ct(14 + ueShift) || 'standard',
+      modalId: ct(15 + ueShift),
+      language: ct(16 + ueShift) || 'lang:none',
+      ariaLabel: ct(17 + ueShift),
     };
   }
 
-  // ── UE prop overrides ──────────────────────────────────────────────────────
-  // Only override fields that reliably have data-aue-prop in the author DOM:
-  // text, richtext, and aem-content fields. Select/boolean/aem-tag/reference
-  // fields often render without data-aue-prop so we keep the doc-mode values.
   const ueText = (name) => {
     const el = itemEl.querySelector(`[data-aue-prop="${name}"]`);
     return el != null ? el.textContent.trim() : null;
@@ -585,36 +806,52 @@ function readItemConfig(itemEl) {
     return el != null ? el.innerHTML.trim() : null;
   };
 
-  // Apply UE overrides only when the prop element actually exists (non-null)
+  const readUeCategoryTags = () => collectCategoryTagsFromDom(itemEl);
+
   const id = ueText('id') ?? docConfig.id;
   const customClass = ueText('customClass') ?? docConfig.customClass;
   const ariaLabel = ueText('ariaLabel') ?? docConfig.ariaLabel;
   const subtitle = ueText('subtitle') ?? docConfig.subtitle;
   const description = ueHtml('description') ?? docConfig.description;
 
-  // linkText: in author DOM the link anchor carries data-aue-prop="linkText"
-  // instead of a separate div — extract text from it
-  const ueLinkTextEl = itemEl.querySelector(
-    '[data-aue-prop="linkText"], [data-aue-prop="link"]',
-  );
+  const ueLinkTextEl = itemEl.querySelector('[data-aue-prop="linkText"]');
   const linkText = ueLinkTextEl
-    ? ueLinkTextEl.textContent.trim() || docConfig.linkText
+    ? cleanLabel(ueLinkTextEl.textContent) || docConfig.linkText
     : docConfig.linkText;
 
-  // link href: the anchor with data-aue-prop="linkText" also carries the href
+  const ueLinkAnchorEl = itemEl.querySelector('[data-aue-prop="link"]');
   const ueLinkHref = ueHref('link');
   const link = ueLinkHref
-    ?? (ueLinkTextEl
-      ? ueLinkTextEl.getAttribute('href')
-        || ueLinkTextEl.closest('a')?.getAttribute('href')
+    ?? (ueLinkAnchorEl
+      ? ueLinkAnchorEl.getAttribute('href')
+        || ueLinkAnchorEl.closest('a')?.getAttribute('href')
         || docConfig.link
       : docConfig.link);
 
-  // imageIcon: reference fields may resolve via resolveImageReference()
-  const ueImageIcon = itemEl
-    .querySelector('[data-aue-prop="imageIcon"] img')
-    ?.getAttribute('src') || ueHref('imageIcon');
-  const imageIcon = ueImageIcon ?? docConfig.imageIcon;
+  // In UE, data-aue-prop="imageIcon" can sit directly on the <img> element inside
+  // a <picture> (not on a wrapper), so '[data-aue-prop="imageIcon"] img' finds nothing.
+  // Handle both cases: prop on the img itself, or prop on a container around the img.
+  const ueImgProp = itemEl.querySelector('[data-aue-prop="imageIcon"]');
+  const ueImageIcon = (ueImgProp?.tagName?.toLowerCase() === 'img'
+    ? ueImgProp.getAttribute('src')
+    : ueImgProp?.querySelector('img')?.getAttribute('src'))
+    || ueHref('imageIcon') || null;
+  const imageIcon = ueImageIcon || docConfig.imageIcon;
+
+  const categoryTags = readUeCategoryTags() ?? docConfig.categoryTags;
+
+  // In UE, linkText is a separate authored row which shifts all subsequent row indices
+  // by +1. Fields below use data-aue-prop lookups to read the correct value regardless.
+  const iconType = ueText('iconType') ?? docConfig.iconType;
+  const fontIcon = ueText('fontIcon') ?? docConfig.fontIcon;
+  const iconPosition = ueText('iconPosition') ?? docConfig.iconPosition;
+  const iconLink = ueHref('iconLink') ?? docConfig.iconLink;
+  const ueEnableModal = ueText('enableConfirmationModal');
+  const enableConfirmationModal = ueEnableModal !== null
+    ? parseBool(ueEnableModal, false)
+    : docConfig.enableConfirmationModal;
+  const confirmationModalType = ueText('confirmationModalType') ?? docConfig.confirmationModalType;
+  const modalId = ueText('modalId') ?? docConfig.modalId;
 
   return {
     ...docConfig,
@@ -626,6 +863,14 @@ function readItemConfig(itemEl) {
     description,
     ariaLabel,
     imageIcon,
+    categoryTags,
+    iconType,
+    fontIcon,
+    iconPosition,
+    iconLink,
+    enableConfirmationModal,
+    confirmationModalType,
+    modalId,
   };
 }
 
@@ -639,11 +884,8 @@ function isItemEl(el) {
   );
 }
 
-// Returns the number of parent-block config rows for this block instance.
-// The ariaLabel field (row 17) was added to the model later — blocks authored
-// before that change only have 16 config rows (rows 0–15 + language at 16
-// but no ariaLabel). We detect this by checking whether the candidate row[17]
-// looks like a config row (single inner div) or an item row (multiple inner divs).
+// Row 17 (ariaLabel) was added after launch; legacy blocks have 17 config rows.
+// Row 17 with one inner div is still config; multiple inners means first item row.
 function getConfigRowCount(block) {
   const allChildren = [...block.children].filter(
     (r) => !r.classList.contains('linklist-item')
@@ -652,7 +894,6 @@ function getConfigRowCount(block) {
   );
   const row17 = allChildren[17];
   if (!row17) return 17;
-  // An item always has multiple inner child divs; a config row has exactly one
   const innerDivCount = row17.querySelectorAll(':scope > div').length;
   return innerDivCount > 1 ? 17 : 18;
 }
@@ -674,9 +915,7 @@ function collectItems(block) {
     if (el.tagName !== 'DIV') return false;
     const innerDivs = [...el.querySelectorAll(':scope > div')];
     if (!innerDivs.length) return false;
-    // A real item must have a link anchor, or a path/URL at the expected
-    // link position (div[2] for V2a, div[3] for V3/V2b).
-    // This filters out ghost rows AEM sometimes appends after items.
+    // Drop AEM "ghost" rows: require a link or path-shaped text at V2a/V3 columns.
     if (el.querySelector('a[href]')) return true;
     const div2 = innerDivs[2]?.textContent?.trim() || '';
     const div3 = innerDivs[3]?.textContent?.trim() || '';
@@ -714,12 +953,12 @@ async function buildChildPageItems(cfg, rootPath) {
               JSON.stringify(data),
             );
           } catch (_e) {
-            /* quota */
+            // sessionStorage may throw when full
           }
         }
       }
     } catch (_e) {
-      /* network errors are non-fatal */
+      // Index fetch is optional
     }
   }
 
@@ -893,8 +1132,6 @@ async function buildChildPageItems(cfg, rootPath) {
     };
   }
 
-  // Date display is independent of sort order — always show the published
-  // date, falling back to last modified if published is not available.
   const pickDateMs = (ts) => ts.published || ts.modified;
 
   const formatDate = (ms) => new Date(ms).toLocaleDateString(undefined, {
@@ -925,17 +1162,7 @@ async function buildChildPageItems(cfg, rootPath) {
           .replace(/>/g, '&gt;');
         return `<p>${escaped}</p>`;
       })(),
-      categoryTags: cfg.enableTags
-        ? String(
-          page['cq-tags']
-              || page['cq:tags']
-              || page.cqTags
-              || page.tags
-              || page.tagNames
-              || page.categoryTags
-              || '',
-        )
-        : '',
+      categoryTags: cfg.enableTags ? collectPageTagStrings(page) : '',
       iconType: 'none',
       fontIcon: '',
       imageIcon: '',
@@ -991,40 +1218,77 @@ function buildImageIcon(src) {
   return wrap;
 }
 
-function buildTags(rawTags) {
-  const tags = rawTags
-    .split(',')
-    .map((t) => {
-      const trimmed = t.trim();
-      const stripped = trimmed.includes('/')
-        ? trimmed.split('/').pop()
-        : trimmed.replace(/^[^:]+:/, '');
-      return stripped.replace(/-/g, ' ').trim();
-    })
-    .filter((label) => label && label.toLowerCase() !== 'none');
+function tagIdToDisplayLabel(rawId) {
+  const trimmed = String(rawId || '').trim();
+  if (!trimmed) return '';
 
-  if (!tags.length) return null;
+  let stripped = trimmed;
+  if (stripped.includes('/')) {
+    stripped = stripped.split('/').pop() || stripped;
+  }
+  if (stripped.includes(':')) {
+    const colonIdx = stripped.indexOf(':');
+    const afterColon = stripped.slice(colonIdx + 1);
+    stripped = (afterColon || stripped.slice(0, colonIdx)).trim();
+  }
+
+  const spaced = stripped.replace(/-/g, ' ').replace(/\s+/g, ' ').trim();
+  if (!spaced) return '';
+
+  return spaced.replace(/\b\w/g, (ch) => ch.toUpperCase());
+}
+
+function buildTags(rawTags, tagLookup) {
+  let tokens = [];
+  if (Array.isArray(rawTags)) {
+    tokens = rawTags.flatMap((x) => flattenTagIds(x));
+  } else {
+    tokens = flattenTagIds(rawTags);
+  }
+  if (!tokens.length && rawTags != null && rawTags !== '') {
+    tokens = String(rawTags)
+      .split(/[,;\n\r|]+/)
+      .map((t) => t.trim())
+      .filter(Boolean);
+  }
+
+  if (!tokens.length) return null;
+
+  const labels = [];
+  const seenIds = new Set();
+  tokens.forEach((rawId) => {
+    const id = String(rawId).trim();
+    if (!id || id.toLowerCase() === 'none') return;
+    const dedupeId = id.toLowerCase();
+    if (seenIds.has(dedupeId)) return;
+    seenIds.add(dedupeId);
+    const resolved = tagLookup && resolveTagTitle(id, tagLookup);
+    const label = resolved || tagIdToDisplayLabel(id);
+    if (!label) return;
+    labels.push(label);
+  });
+
+  if (!labels.length) return null;
 
   const ul = document.createElement('ul');
   ul.className = 'linklist-item-tags';
   ul.setAttribute('aria-label', 'Tags');
-  tags.forEach((label) => {
+  labels.forEach((label) => {
     const li = document.createElement('li');
     li.className = 'linklist-item-tag';
-    li.textContent = label.charAt(0).toUpperCase() + label.slice(1);
+    li.textContent = label;
     ul.append(li);
   });
   return ul;
 }
 
 function bindLinkBehavior(anchor, item) {
-  // ── Cookie Consent ──────────────────────────────────────────────────────
   if (item.cookieConsentLink) {
-    // Convert anchor to button-like element — no navigation occurs
     anchor.removeAttribute('href');
     anchor.setAttribute('role', 'button');
-    anchor.tabIndex = 0; // restore tab stop lost when href removed
+    anchor.tabIndex = 0;
     anchor.dataset.cookieConsent = 'true';
+    anchor.classList.add('ot-sdk-show-settings');
     const openConsent = (e) => {
       e.preventDefault();
       const w = window;
@@ -1047,12 +1311,10 @@ function bindLinkBehavior(anchor, item) {
     return;
   }
 
-  // ── Confirmation Modal ───────────────────────────────────────────────────
   if (item.enableConfirmationModal && item.modalId) {
     const dest = anchor.getAttribute('href') || '';
     if (!dest || dest === '#') return;
 
-    // Set target upfront so right-click → open in new tab works correctly
     if (item.openInNewTab) {
       anchor.target = '_blank';
       anchor.rel = 'noopener noreferrer';
@@ -1068,26 +1330,17 @@ function bindLinkBehavior(anchor, item) {
 
     anchor.addEventListener('click', async (e) => {
       e.preventDefault();
-      // Stop propagation so the document-level autolinkModals handler does
-      // not also open the modal without our onConfirm callback.
       e.stopPropagation();
       try {
         const { openModal } = await import(
           `${window.hlx.codeBasePath}/blocks/modal/modal.js`
         );
-        // openModal loads the fragment and calls createModal internally.
-        // createModal wires [data-modal-action="confirm"] clicks to onConfirm.
-        // However, XWalk plain.html renders EDS buttons as <em> (secondary)
-        // and <strong> (primary) anchors with no data-modal-action attributes.
-        // We post-process the rendered dialog to stamp the correct actions
-        // onto the buttons so createModal's delegation fires correctly.
+        // XWalk renders modal actions as plain <em>/<strong> links; stamp
+        // data-modal-action so shared modal.js delegation matches EDS markup.
         await openModal(item.modalId, {
           onConfirm: navigate,
           modalType: item.confirmationModalType || 'standard',
         });
-        // After openModal renders, find the dialog and stamp button actions.
-        // Primary button (<strong> anchor) = Confirm → triggers onConfirm.
-        // Secondary button (<em> anchor) = Cancel → closes dialog.
         const dialog = document.querySelector(
           `.modal dialog[data-modal-type="${item.confirmationModalType || 'standard'}"]`,
         );
@@ -1123,7 +1376,6 @@ function bindLinkBehavior(anchor, item) {
     return;
   }
 
-  // ── Standard open in new tab ─────────────────────────────────────────────
   if (item.openInNewTab) {
     anchor.target = '_blank';
     anchor.rel = 'noopener noreferrer';
@@ -1200,7 +1452,7 @@ function sanitizeRichtext(raw) {
   return wrapper.innerHTML;
 }
 
-function buildListItem(item, variant) {
+function buildListItem(item, variant, tagLookup) {
   const li = document.createElement('li');
   li.className = 'linklist-item';
   if (item.id) li.id = item.id.trim().replace(/\s+/g, '-');
@@ -1225,14 +1477,24 @@ function buildListItem(item, variant) {
   }
 
   const wrapIconLink = (node) => {
-    if (!node || !item.iconLink || item.cookieConsentLink) return node;
+    if (!node || item.cookieConsentLink) return node;
+
+    const href = item.iconLink || item.link;
+    if (!href || href === '#') return node;
+
     const a = document.createElement('a');
     a.className = 'linklist-icon-link';
-    a.href = item.iconLink;
+    a.href = href;
+
     if (item.openInNewTab) {
       a.target = '_blank';
       a.rel = 'noopener noreferrer';
     }
+
+    // Duplicate link for visuals only; primary name comes from the text anchor.
+    a.setAttribute('aria-hidden', 'true');
+    a.setAttribute('tabindex', '-1');
+    // a.setAttribute('title', item.linkText || '');
     a.append(node);
     return a;
   };
@@ -1242,32 +1504,54 @@ function buildListItem(item, variant) {
   if (!item.cookieConsentLink) {
     anchor.href = item.link || '#';
   }
-  anchor.textContent = item.linkText || item.link || '';
+  const labelSpan = document.createElement('span');
+  labelSpan.className = 'linklist-link-text';
+  labelSpan.textContent = item.linkText || '';
+  anchor.append(labelSpan);
   if (item.ariaLabel) anchor.setAttribute('aria-label', item.ariaLabel);
   bindLinkBehavior(anchor, item);
 
   const row = document.createElement('div');
   row.className = 'linklist-item-row';
 
-  const effectiveIconPosition = variant === 'icons' ? 'after' : item.iconPosition || 'before';
+  const effectiveIconPosition = item.iconPosition || 'before';
+  const isRowsArrows = variant === 'rows-with-arrows';
+  // Rows-with-arrows: arrow is the anchor's ::after. An "after" icon must live *inside* the
+  // anchor after the label so it sits next to the text, not as a flex sibling past the arrow.
+  const iconAfterInsideLink = Boolean(
+    iconEl && effectiveIconPosition === 'after' && isRowsArrows,
+  );
 
   if (iconEl && effectiveIconPosition !== 'after') row.append(wrapIconLink(iconEl));
   row.append(anchor);
-  if (iconEl && effectiveIconPosition === 'after') row.append(wrapIconLink(iconEl));
+  if (iconEl && effectiveIconPosition === 'after' && !iconAfterInsideLink) {
+    row.append(wrapIconLink(iconEl));
+  }
+  if (iconAfterInsideLink) {
+    const slot = document.createElement('span');
+    slot.className = 'linklist-item-icon-trailing';
+    slot.setAttribute('aria-hidden', 'true');
+    slot.append(iconEl);
+    anchor.append(slot);
+  }
+
+  const forceDetailedSlots = variant === 'detailed-list';
 
   body.append(row);
 
-  if (item.subtitle) {
+  if (item.subtitle || forceDetailedSlots) {
     const sub = document.createElement('p');
     sub.className = 'linklist-item-subtitle';
-    sub.textContent = item.subtitle;
+    if (!item.subtitle) sub.classList.add('linklist-item-subtitle--empty');
+    sub.textContent = item.subtitle || '';
     body.append(sub);
   }
 
-  if (item.description) {
+  if (item.description || forceDetailedSlots) {
     const desc = document.createElement('div');
     desc.className = 'linklist-item-description';
-    desc.innerHTML = sanitizeRichtext(item.description);
+    if (!item.description) desc.classList.add('linklist-item-description--empty');
+    desc.innerHTML = item.description ? sanitizeRichtext(item.description) : '';
     body.append(desc);
   }
 
@@ -1280,7 +1564,7 @@ function buildListItem(item, variant) {
   }
 
   if (item.categoryTags) {
-    const tagsEl = buildTags(item.categoryTags);
+    const tagsEl = buildTags(item.categoryTags, tagLookup);
     if (tagsEl) body.append(tagsEl);
   }
 
@@ -1311,19 +1595,41 @@ const EMPTY_HINTS = {
   },
 };
 
+/**
+ * Derives the number of items shown per carousel "page" from the layout class
+ * applied to the list element.
+ * - single-column        → 1
+ * - two-columns-stack    → 2
+ * - two-columns-nostack  → 2
+ */
+/**
+ * Returns the number of items visible per carousel "page" at the current
+ * viewport width by measuring rendered item width against list width.
+ * Called at click-time so it always reflects the live viewport:
+ * - single-column       → always 1
+ * - two-columns-nostack → always 2
+ * - two-columns-stack   → 1 on mobile, 2 on tablet+ (CSS drives item width)
+ */
+function getLiveCarouselItemsPerPage(list) {
+  const firstItem = list.firstElementChild;
+  if (!firstItem) return 1;
+  const itemW = firstItem.offsetWidth;
+  const listW = list.clientWidth;
+  if (!itemW || !listW) return 1;
+  // Round to nearest integer to absorb sub-pixel differences.
+  return Math.max(1, Math.round(listW / itemW));
+}
+
 export default async function decorate(block) {
   const rootPath = getMetadata('root-path') || '';
 
-  if (carouselROMap.has(block)) {
-    carouselROMap.get(block).disconnect();
-    carouselROMap.delete(block);
-  }
-
   const cfg = readParentConfig(block);
 
-  // In the author instance, id and customClass may have data-aue-prop on their
-  // inner elements even when ueMode is false (partial prop rendering). Always
-  // do a fresh DOM read for these two so the latest authored values are used.
+  if (String(cfg.variant || '').toLowerCase() === 'detailed-list') {
+    cfg.enableSubtitle = true;
+    cfg.enableDescription = true;
+  }
+
   if (block.querySelector(':scope > div [data-aue-prop]')) {
     const freshProp = (name) => {
       const el = [...block.querySelectorAll(`[data-aue-prop="${name}"]`)].find(
@@ -1387,7 +1693,6 @@ export default async function decorate(block) {
   const lang = (cfg.language || '').replace(/^lang:/, '');
   if (lang && lang !== 'none') block.setAttribute('lang', lang);
 
-  // Use dynamic config row count to correctly hide config rows vs item rows
   const configRowCount = getConfigRowCount(block);
 
   [...block.children].forEach((child, idx) => {
@@ -1406,6 +1711,11 @@ export default async function decorate(block) {
     child.remove();
   });
 
+  // Remove any previously-rendered carousel controls (re-decoration).
+  block
+    .querySelectorAll(':scope > .linklist-carousel-controls')
+    .forEach((el) => el.remove());
+
   const nav = document.createElement('nav');
   nav.className = 'linklist-nav';
   nav.setAttribute('aria-label', cfg.ariaLabel.trim() || 'Links');
@@ -1419,7 +1729,8 @@ export default async function decorate(block) {
   );
 
   const applyBlockIcon = (item) => {
-    if (variant !== 'icons' || !cfg.fontIcon) return item;
+    if (variant !== 'icons' || src !== 'icons') return item;
+    if (!cfg.fontIcon) return item;
     return {
       ...item,
       iconType: 'font',
@@ -1427,14 +1738,152 @@ export default async function decorate(block) {
     };
   };
 
+  const tagLookup = await getTagsTitleLookup();
+
+  // Lazily load the site index if any custom item is missing linkText —
+  // we'll try to resolve a title from the index for those items.
+  const itemsNeedingTitle = src !== 'child-pages'
+    && itemConfigs.some(
+      (item) => item
+        && !String(item.linkText || '').trim()
+        && !item.cookieConsentLink
+        && String(item.link || '').trim(),
+    );
+
+  if (itemsNeedingTitle && getFlatIndex().length === 0) {
+    try {
+      await indexUtils.getIndexData();
+    } catch (_e) {
+      /* fall through — items without titles will be hidden */
+    }
+    if (getFlatIndex().length === 0) {
+      try {
+        const resp = await fetch('/query-index-en.json');
+        if (resp.ok) {
+          const data = await resp.json();
+          let rows = [];
+          if (Array.isArray(data?.data)) {
+            rows = data.data;
+          } else if (Array.isArray(data)) {
+            rows = data;
+          }
+          if (rows.length) {
+            flatIndexCache = rows;
+            try {
+              sessionStorage.setItem(
+                `${INDEX_CACHE_KEY}-raw`,
+                JSON.stringify(data),
+              );
+            } catch (_e) {
+              /* sessionStorage may throw when full */
+            }
+          }
+        }
+      } catch (_e) {
+        /* index fetch is optional */
+      }
+    }
+  }
+
+  // Resolve a page title from the site index for an internal link path.
+  // Returns '' for external links or paths not in the index.
+  const resolveTitleFromIndex = (link) => {
+    const raw = String(link || '').trim();
+    if (!raw) return '';
+    if (/^https?:\/\//i.test(raw)) {
+      try {
+        const u = new URL(raw);
+        if (u.origin !== window.location.origin) return '';
+      } catch (_e) {
+        return '';
+      }
+    }
+    const flat = getFlatIndex();
+    if (!flat.length) return '';
+
+    const titleOf = (page) => String(
+      (page.title || page.Title || page.navtitle || '').split('|')[0].trim(),
+    );
+
+    const stripHost = String(raw).replace(/^https?:\/\/[^/]+/, '');
+    const cleanTail = (s) => s.replace(/\.html$/i, '').replace(/\/+$/, '') || '/';
+    const baseClean = cleanTail(stripHost);
+
+    const segs = baseClean.split('/').filter(Boolean);
+    const trailingVariants = [];
+    for (let i = 0; i < segs.length; i += 1) {
+      trailingVariants.push(`/${segs.slice(i).join('/')}`);
+    }
+
+    const exactVariants = [
+      ...new Set(
+        [
+          alignPath(raw, rootPath),
+          normalizePath(raw, rootPath),
+          ...trailingVariants,
+        ].filter(Boolean),
+      ),
+    ];
+
+    const exact = flat.find((p) => {
+      const ip = normalizePath(indexPath(p), rootPath);
+      return exactVariants.includes(ip);
+    });
+    if (exact) return titleOf(exact);
+
+    const slug = segs[segs.length - 1];
+    if (slug) {
+      const slugMatches = flat.filter((p) => {
+        const ip = normalizePath(indexPath(p), rootPath);
+        return ip.split('/').filter(Boolean).pop() === slug;
+      });
+      if (slugMatches.length === 1) return titleOf(slugMatches[0]);
+    }
+
+    return '';
+  };
+
+  // Backfill missing linkText from the page's index title where possible.
+  // After this, the renderability filter applies as before — items with no
+  // resolvable title (e.g. external link with empty linkText) stay hidden.
+  if (src !== 'child-pages') {
+    itemConfigs.forEach((item) => {
+      if (!item) return;
+      if (String(item.linkText || '').trim()) return;
+      if (item.cookieConsentLink) return;
+      const title = resolveTitleFromIndex(item.link);
+      if (title) item.linkText = title;
+    });
+  }
+
+  const isItemRenderable = (item) => {
+    if (!item) return false;
+
+    if (src === 'icons') {
+      return true;
+    }
+    const hasLinkText = !!String(item.linkText || '').trim();
+    const hasLink = !!String(item.link || '').trim();
+    const hasContent = hasLinkText && hasLink;
+    if (!hasContent) return false;
+
+    if (item.cookieConsentLink) return true;
+    return !!String(item.link || '').trim();
+  };
+
   if (src === 'child-pages') {
     childPageResult.items.forEach((data) => {
-      list.append(buildListItem(applyBlockIcon(data), variant));
+      if (!isItemRenderable(data)) return;
+      list.append(buildListItem(data, variant, tagLookup));
     });
   } else {
     itemEls.forEach((el, i) => {
       if (!itemConfigs[i]) return;
-      const li = buildListItem(applyBlockIcon(itemConfigs[i]), variant);
+      const enriched = applyBlockIcon(itemConfigs[i]);
+      if (!isItemRenderable(enriched)) {
+        return;
+      }
+      const li = buildListItem(enriched, variant, tagLookup);
       moveInstrumentation(el, li);
       list.append(li);
     });
@@ -1482,6 +1931,7 @@ export default async function decorate(block) {
 
   block.append(nav);
 
+  // ─── Carousel controls ───────────────────────────────────────────────────────
   if (variant === 'carousel' && list.children.length > 0) {
     const prev = document.createElement('button');
     prev.type = 'button';
@@ -1493,7 +1943,15 @@ export default async function decorate(block) {
     next.className = 'linklist-carousel-next';
     next.setAttribute('aria-label', 'Scroll links right');
 
-    const scrollAmt = () => Math.min(list.clientWidth * 0.85, 320);
+    // scrollAmt reads item width at click-time so it naturally returns the
+    // correct page width for the current viewport (1 item on mobile for stack,
+    // 2 items on tablet+ for stack, always 2 for nostack, always 1 for single).
+    const scrollAmt = () => {
+      const firstItem = list.firstElementChild;
+      if (!firstItem) return list.clientWidth;
+      return firstItem.offsetWidth * getLiveCarouselItemsPerPage(list);
+    };
+
     prev.addEventListener('click', () => {
       list.scrollBy({ left: -scrollAmt(), behavior: 'smooth' });
     });
@@ -1506,15 +1964,14 @@ export default async function decorate(block) {
     controls.append(prev, next);
     block.append(controls);
 
-    const syncControls = () => {
-      const overflows = list.scrollWidth > list.clientWidth + 1;
-      controls.style.display = overflows ? '' : 'none';
-    };
-
-    requestAnimationFrame(syncControls);
-
-    const ro = new ResizeObserver(syncControls);
-    ro.observe(list);
-    carouselROMap.set(block, ro);
+    // Controls visibility: hide when all items fit on a single page.
+    // For two-columns-nostack the minimum meaningful count is always > 2.
+    // For two-columns-stack it depends on viewport, so use > 1 (safe for
+    // mobile where 1 item fills a page; redundant controls on tablet with
+    // exactly 2 items are acceptable — they simply scroll nowhere).
+    // For single-column > 1 is the existing behaviour.
+    const isNoStack = list.classList.contains('linklist-layout--two-columns-nostack');
+    const minItemsToShowControls = isNoStack ? 3 : 2;
+    controls.style.display = list.children.length >= minItemsToShowControls ? '' : 'none';
   }
 }

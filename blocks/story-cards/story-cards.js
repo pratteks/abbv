@@ -1,7 +1,7 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 import decorateStoryCard, { applyStoryCardVariation, buildStoryCardItem } from '../story-card/story-card.js';
-import { isUniversalEditor, applyCommonProps } from '../../scripts/utils.js';
+import { isUniversalEditor } from '../../scripts/utils.js';
 
 function isImageUrl(url) {
   return url && (url.includes('scene7.com') || /\.(jpg|jpeg|png|webp|gif|svg)(\?|$)/i.test(url));
@@ -77,8 +77,26 @@ function buildLegacyCardItem(row) {
   return { ul };
 }
 
+function applyContainerProps(block) {
+  [...block.children].forEach((row) => {
+    const cells = [...row.children];
+    if (cells.length > 2) return;
+    const text = (cells[0] || row).textContent.trim();
+    if (!text) return;
+    if (text.startsWith('id:')) {
+      const id = text.slice(3).trim();
+      if (id && id !== 'none') block.id = id;
+      row.remove();
+    } else if (text.startsWith('lang:')) {
+      const lang = text.slice(5).trim();
+      if (lang && lang !== 'none') block.setAttribute('lang', lang);
+      row.remove();
+    }
+  });
+}
+
 export default async function decorate(block) {
-  applyCommonProps(block);
+  applyContainerProps(block);
   const ul = document.createElement('ul');
   const nestedStoryCards = [];
   const authorMode = isUniversalEditor();

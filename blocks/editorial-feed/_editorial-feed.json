@@ -1,0 +1,299 @@
+{
+  "definitions": [
+    {
+      "title": "Editorial Feed",
+      "id": "editorial-feed",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Editorial Feed",
+              "model": "editorial-feed",
+              "filter": "editorial-feed",
+              "listSource": "news-and-pr",
+              "parentPage": "",
+              "hideDescription": false,
+              "hideTags": false,
+              "hideImage": false,
+              "hideDate": false,
+              "hideFilters": false,
+              "categoryTags": "",
+              "match": "any",
+              "storyPagesToExclude": "",
+              "browseCategoriesPlaceholderText": "",
+              "searchPlaceholderText": "",
+              "searchIconType": "none",
+              "searchFontIcon": "",
+              "searchImageIcon": "",
+              "classes": "",
+              "ariaLabel": "",
+              "analyticsInteractionId": "",
+              "blockId": "id:",
+              "classes_commonCustomClass": "",
+              "language": "lang:none"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Category Item",
+      "id": "category-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Category Item",
+              "model": "category-item",
+              "title": "",
+              "pagePath": ""
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "editorial-feed",
+      "fields": [
+        {
+          "component": "tab",
+          "label": "Overview",
+          "name": "overview"
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "listSource",
+          "label": "List Source",
+          "value": "news-and-pr",
+          "description": "Determines how the list should be populated",
+          "options": [
+            { "name": "News and PR", "value": "news-and-pr" },
+            { "name": "Category Tag", "value": "category-tag" },
+            { "name": "Story Pages", "value": "story-pages" }
+          ]
+        },
+        {
+          "component": "aem-content",
+          "valueType": "string",
+          "name": "parentPage",
+          "value": "",
+          "label": "Parent Page",
+          "description": "Leave empty to use current page"
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "hideDescription",
+          "label": "Hide Description",
+          "value": false,
+          "description": "Toggle to hide item descriptions in the list",
+          "condition": {
+            "===": [{ "var": "listSource" }, "news-and-pr"]
+          }
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "hideTags",
+          "label": "Hide Tags",
+          "value": false,
+          "description": "Toggle to hide tags",
+          "condition": {
+            "===": [{ "var": "listSource" }, "news-and-pr"]
+          }
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "hideImage",
+          "label": "Hide Image",
+          "value": false,
+          "description": "Toggle to hide images",
+          "condition": {
+            "===": [{ "var": "listSource" }, "news-and-pr"]
+          }
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "hideDate",
+          "label": "Hide Date",
+          "value": false,
+          "description": "Toggle to hide dates on list items",
+          "condition": {
+            "===": [{ "var": "listSource" }, "news-and-pr"]
+          }
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "hideFilters",
+          "label": "Hide Filters",
+          "value": false,
+          "description": "Toggle to hide filter options (category dropdown and search field)"
+        },
+        {
+          "component": "aem-tag",
+          "valueType": "string",
+          "name": "categoryTags",
+          "value": "",
+          "label": "Category Tags",
+          "description": "Select one or more taxonomy tags to filter content",
+          "condition": {
+            "===": [{ "var": "listSource" }, "category-tag"]
+          }
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "match",
+          "label": "Match",
+          "value": "any",
+          "description": "Controls whether results must match any selected tag or all selected tags",
+          "condition": {
+            "===": [{ "var": "listSource" }, "category-tag"]
+          },
+          "options": [
+            { "name": "Any tag", "value": "any" },
+            { "name": "All tags", "value": "all" }
+          ]
+        },
+        {
+          "component": "aem-content",
+          "valueType": "string",
+          "name": "storyPagesToExclude",
+          "value": "",
+          "label": "Story Pages to be Excluded",
+          "description": "Select one or more story pages to exclude from the feed",
+          "multi": true
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "browseCategoriesPlaceholderText",
+          "value": "",
+          "label": "Browse Categories Placeholder Text",
+          "description": "Enter Browse Category text to override the parent tag title"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "searchPlaceholderText",
+          "value": "",
+          "label": "Search Placeholder Text",
+          "description": "Provide placeholder text for the search input field to guide users"
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "searchIconType",
+          "label": "Search Icon Type",
+          "value": "none",
+          "description": "Controls whether the search field shows no icon, a font icon, or an image icon",
+          "options": [
+            { "name": "None", "value": "none" },
+            { "name": "Icon Font", "value": "icon-font" },
+            { "name": "Image", "value": "image" }
+          ]
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "searchFontIcon",
+          "value": "",
+          "label": "Search Font Icon",
+          "description": "Font icon name to display for the search input",
+          "condition": {
+            "===": [{ "var": "searchIconType" }, "icon-font"]
+          }
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "searchImageIcon",
+          "value": "",
+          "label": "Search Image Icon",
+          "description": "Path to the image icon for the search input; if empty, the feature is disabled",
+          "condition": {
+            "===": [{ "var": "searchIconType" }, "image"]
+          }
+        },
+        {
+          "component": "tab",
+          "label": "Styles",
+          "name": "styles"
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "classes",
+          "label": "Variant (Theme)",
+          "value": "",
+          "description": "No variants supported now",
+          "options": [
+            { "name": "Default", "value": "" }
+          ]
+        },
+        {
+          "component": "tab",
+          "label": "Accessibility",
+          "name": "accessibility"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "ariaLabel",
+          "value": "",
+          "label": "Aria Label",
+          "description": "Provide an aria-label for the editorial feed section to improve screen reader accessibility"
+        },
+        {
+          "component": "tab",
+          "label": "Analytics",
+          "name": "analytics"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "analyticsInteractionId",
+          "label": "Analytics Interaction ID",
+          "value": "",
+          "description": "Identifier used to track interactions for analytics reporting"
+        },
+        {
+          "...": "../../models/_common-properties.json#/common-prop"
+        }
+      ]
+    },
+    {
+      "id": "category-item",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "title",
+          "value": "",
+          "label": "Category Title"
+        },
+        {
+          "component": "aem-content",
+          "valueType": "string",
+          "name": "pagePath",
+          "value": "",
+          "label": "Category Link"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "editorial-feed",
+      "components": ["category-item"]
+    }
+  ]
+}

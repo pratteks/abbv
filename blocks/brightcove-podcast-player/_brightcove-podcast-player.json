@@ -81,12 +81,16 @@
           "description": "If left empty, the title of the Video/Audio will be fetched from the API and displayed on the page."
         },
         {
-          "component": "reference",
+          "component": "custom-asset-namespace:custom-asset",
           "valueType": "string",
           "name": "podcastThumbnail",
           "label": "Podcast Thumbnail",
-          "description": "Select or upload a thumbnail image to represent the podcast content.",
-          "multi": false
+          "configUrl": "https://dm--dev-abbvie-corporate-us-en--abbvie.aem.live/tools/assets-selector/image.config.json"
+        },
+        {
+          "component": "custom-asset-namespace:custom-asset-mimetype",
+          "valueType": "string",
+          "name": "podcastThumbnailMimeType"
         },
         {
           "component": "tab",

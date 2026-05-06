@@ -1,5 +1,9 @@
+.story-cards {
+  --story-cards-typography-lineclamp-description: 4;
+}
+
 .section.story-cards-container {
-  max-width: var(--content-max-width-wide);
+  max-width: var(--corp-layout-container-max-width-lg);
   margin: auto;
 }
 
@@ -9,26 +13,26 @@
   max-width: 100%;
   display: grid;
   grid-template-columns: 1fr;
-  margin: 0 var(--spacing-20);
-  gap: var(--spacing-20);
+  margin: 0 var(--corp-spacing-20);
+  gap: var(--corp-spacing-20);
 }
 
 .story-cards:not(.story-card-wide)>ul>li,
 .story-cards.leader-cards-grid>ul>li {
   overflow: hidden;
-  margin-bottom: var(--spacing-35);
+  margin-bottom: var(--corp-spacing-35);
 }
 
 :where(.story-cards:not(.story-card-wide) > ul > li):last-child,
 :where(.story-cards.leader-cards-grid > ul > li):last-child {
-  margin-bottom: var(--spacing-190);
+  margin-bottom: var(--corp-spacing-190);
 }
 
 .story-cards:not(.story-card-wide) > :where(ul) > :where(li) > .story-cards-card-link,
 .story-cards.leader-cards-grid > :where(ul) > :where(li) > .story-cards-card-link {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-20);
+  gap: var(--corp-spacing-20);
 }
 
 .story-cards .story-cards-card-image {
@@ -49,41 +53,41 @@
 }
 
 .story-cards .story-cards-card-body {
-  color: var(--text-color);
-  margin: var(--spacing-16) 0 0;
+  color: var(--corp-color-text-default);
+  margin: var(--corp-spacing-16) 0 0;
 }
 
 .story-cards .story-cards-card-body h4 {
   margin-top: 0;
-  margin-bottom: var(--spacing-08);
-  font-size: var(--spacing-18);
-  font-weight: var(--font-weight-400);
-  line-height: var(--line-height-24);
+  margin-bottom: var(--corp-spacing-8);
+  font-size: var(--corp-spacing-18);
+  font-weight: var(--corp-font-weight-regular);
+  line-height: var(--corp-typography-lineheight-body-lg);
   font-family: var(--body-font-family);
 }
 
 .story-cards .story-cards-card-body p {
   margin: 0;
-  font-size: var(--font-size-16);
-  line-height: var(--line-height-20);
+  font-size: var(--corp-font-size-16);
+  line-height: var(--corp-typography-lineheight-body-sm);
 }
 
 .story-cards .story-cards-card-body p strong {
-  font-size: var(--font-size-28);
-  font-weight: var(--font-weight-650);
-  line-height: var(--line-height-32);
+  font-size: var(--corp-font-size-28);
+  font-weight: var(--corp-font-weight-semibold-alt);
+  line-height: var(--corp-typography-lineheight-relaxed-lg);
   display: block;
-  margin-bottom: var(--spacing-08);
+  margin-bottom: var(--corp-spacing-8);
 }
 
 .story-cards .story-cards-card-body :where(p):nth-of-type(2) {
-  font-size: var(--font-size-14);
-  color: var(--text-color);
-  line-height: var(--line-height-20);
+  font-size: var(--corp-font-size-14);
+  color: var(--corp-color-text-default);
+  line-height: var(--corp-typography-lineheight-body-sm);
 }
 
 .story-cards p.button-container {
-  margin-top: var(--spacing-16);
+  margin-top: var(--corp-spacing-16);
   padding: 0;
 }
 
@@ -92,31 +96,31 @@
   background-color: transparent;
   border: none;
   color: var(--color-accent-blue);
-  font-size: var(--font-size-16);
+  font-size: var(--corp-font-size-16);
   font-family: var(--roboto-bold-font-family);
-  font-weight: var(--font-weight-700);
+  font-weight: var(--corp-font-weight-bold);
   text-transform: uppercase;
   white-space: nowrap;
-  letter-spacing: var(--spacing-01);
-  line-height: var(--line-height-20);
+  letter-spacing: var(--corp-spacing-1);
+  line-height: var(--corp-typography-lineheight-body-sm);
   text-decoration: none;
 }
 
 .story-cards .button::after,
 .story-cards a.button::after {
   content: "\e901";
-  font-family: var(--icon-font-family);
-  font-size: var(--font-size-12);
+  font-family: var(--corp-icon-font-family);
+  font-size: var(--corp-font-size-12);
   color: inherit;
-  margin-left: var(--spacing-12);
-  margin-right: var(--spacing-30);
+  margin-left: var(--corp-spacing-12);
+  margin-right: var(--corp-spacing-30);
   transition: color 0.1s ease;
 }
 
 .story-cards:not(:where(.story-card-wide)) > :where(ul) > :where(li) > :where(.story-cards-card-link):hover .button,
 .story-cards:where(.leader-cards-grid) > :where(ul) > :where(li) > :where(.story-cards-card-link):hover .button,
 .story-cards :where(a).button:hover {
-  color: var(--text-color);
+  color: var(--corp-color-text-default);
 }
 
 .story-cards.story-card-wide > ul {
@@ -125,7 +129,7 @@
   display: grid;
   grid-template-columns: 1fr;
   margin: 0;
-  gap: var(--spacing-24);
+  gap: var(--corp-spacing-24);
 }
 
 .story-cards.story-card-wide > :where(ul) > :where(li) {
@@ -141,13 +145,13 @@
 
 .story-cards.story-card-wide .story-card-content {
   display: grid;
-  padding: var(--spacing-24) var(--spacing-32);
+  padding: var(--corp-spacing-24) var(--corp-spacing-32);
   min-height: var(--story-card-content-min-height-tablet);
 }
 
 .story-cards.story-card-wide .story-card-title {
-  font-size: var(--font-size-28);
-  line-height: var(--line-height-32);
+  font-size: var(--corp-font-size-28);
+  line-height: var(--corp-typography-lineheight-relaxed-lg);
 }
 
 .story-cards.story-card-wide .story-card-link {
@@ -173,16 +177,16 @@
 }
 
 .story-cards .story-cards-grid-item .story-card-title {
-  font-size: var(--font-size-20);
-  line-height: var(--line-height-24);
+  font-size: var(--corp-font-size-20);
+  line-height: var(--corp-typography-lineheight-body-lg);
 }
 
 .story-cards .story-cards-grid-item .story-card-description {
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 4;
-  font-size: var(--font-size-14);
-  line-height: var(--line-height-20);
+  -webkit-line-clamp: var(--story-cards-typography-lineclamp-description);
+  font-size: var(--corp-font-size-14);
+  line-height: var(--corp-typography-lineheight-body-sm);
 }
 
 /* =====================================================
@@ -195,24 +199,24 @@
 
 .section.portfolio-card-section > .default-content-wrapper :where(h2) {
   text-align: center;
-  margin-bottom: var(--spacing-32);
+  margin-bottom: var(--corp-spacing-32);
 }
 
 .story-cards.portfolio > ul {
-  gap: var(--spacing-24);
-  margin: var(--spacing-00);
+  gap: var(--corp-spacing-24);
+  margin: 0;
 }
 
 .story-cards.portfolio > :where(ul) > :where(li) {
   background-color: transparent;
-  border: var(--spacing-01) solid transparent;
-  padding: var(--spacing-00);
+  border: var(--corp-spacing-1) solid transparent;
+  padding: 0;
   cursor: default;
   transition: 0.3s ease-out;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--spacing-20);
+  gap: var(--corp-spacing-20);
 
 }
 
@@ -227,47 +231,47 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: var(--spacing-80);
-  margin-bottom: var(--spacing-00);
+  min-height: var(--corp-spacing-80);
+  margin-bottom: 0;
 }
 
 .story-cards.portfolio > :where(ul) > :where(li) :where(img) {
   aspect-ratio: auto;
   object-fit: contain;
-  max-height: var(--spacing-100);
+  max-height: var(--corp-spacing-100);
   width: auto;
   max-width: 100%;
 }
 
 .story-cards.portfolio .story-cards-card-body {
-  margin: var(--spacing-00);
+  margin: 0;
   text-align: left;
 }
 
 .story-cards.portfolio .story-cards-card-body :where(p strong) {
-  font-size: var(--font-size-16);
-  font-weight: var(--font-weight-700);
+  font-size: var(--corp-font-size-16);
+  font-weight: var(--corp-font-weight-bold);
   font-family: var(--roboto-bold-font-family);
-  line-height: var(--line-height-22);
-  margin-bottom: var(--spacing-04);
+  line-height: var(--corp-typography-lineheight-body-md);
+  margin-bottom: var(--corp-spacing-4);
 }
 
 .story-cards.portfolio .story-cards-card-body :where(hr) {
   border: none;
-  border-top: var(--border-01) solid var(--bg-a6b5e0);
-  margin: var(--spacing-12) 0;
+  border-top: var(--border-width-thin) solid var(--bg-a6b5e0);
+  margin: var(--corp-spacing-12) 0;
   width: 100%;
 }
 
 .story-cards.portfolio .button,
 .story-cards.portfolio :where(a).button {
-  font-size: var(--font-size-14);
-  letter-spacing: var(--letter-spacing-wide-06);
+  font-size: var(--corp-font-size-14);
+  letter-spacing: var(--corp-typography-letterspacing-wide-sm);
 }
 
 .section.investment-card-section > .default-content-wrapper :where(h2) {
   text-align: center;
-  margin-bottom: var(--spacing-32);
+  margin-bottom: var(--corp-spacing-32);
 }
 
 /* =====================================================
@@ -296,11 +300,11 @@
 .story-cards:where(.leader-cards-grid) .story-cards-grid-item .story-card-link {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-35);
+  gap: var(--corp-spacing-35);
 }
 
 .is-leader-card .story-card-cta-container{
-  margin-top: var(--spacing-14);
+  margin-top: var(--corp-spacing-14);
 }
 
 /* Leader grid: hover — image zoom + CTA color shift */
@@ -322,9 +326,9 @@
 }
 
 .story-cards:where(.leader-cards-grid) :where(.story-card):hover .story-card-cta {
-  --leader-cta-border-color: var(--text-color);
+  --leader-cta-border-color: var(--corp-color-text-default);
 
-  color: var(--text-color);
+  color: var(--corp-color-text-default);
 }
 
 /* Leader grid: image + content full width */
@@ -338,7 +342,7 @@
 /* Leader grid: image — 16:9 with overflow hidden */
 
 .story-cards:where(.leader-cards-grid) .story-cards-grid-item .story-card-image {
-  overflow: hidden;
+  overflow: clip;
 }
 
 .story-cards:where(.leader-cards-grid) .story-cards-grid-item .story-card-image :where(img) {
@@ -350,7 +354,7 @@
 
 .story-cards:where(.leader-cards-grid) .story-cards-grid-item .story-card-content {
   display: block;
-  padding: var(--spacing-00);
+  padding: 0;
   min-height: auto;
 }
 
@@ -358,11 +362,11 @@
 
 .story-cards:where(.leader-cards-grid) .story-cards-grid-item .story-card-title {
   font-family: var(--body-font-family);
-  font-size: var(--font-size-18);
-  font-weight: var(--font-weight-400);
-  line-height: var(--line-height-24);
-  color: var(--text-color);
-  margin: 0 0 var(--spacing-08) 0;
+  font-size: var(--corp-font-size-18);
+  font-weight: var(--corp-font-weight-regular);
+  line-height: var(--corp-typography-lineheight-body-lg);
+  color: var(--corp-color-text-default);
+  margin: 0 0 var(--corp-spacing-8) 0;
   display: block;
 }
 
@@ -370,10 +374,10 @@
 
 .story-cards:where(.leader-cards-grid) .story-cards-grid-item .story-card-description {
   font-family: var(--body-font-family);
-  font-size: var(--font-size-16);
-  font-weight: var(--font-weight-400);
-  line-height: var(--line-height-20);
-  color: var(--text-color);
+  font-size: var(--corp-font-size-16);
+  font-weight: var(--corp-font-weight-regular);
+  line-height: var(--corp-typography-lineheight-body-sm);
+  color: var(--corp-color-text-default);
   display: block;
 }
 
@@ -383,13 +387,12 @@
   align-items: center;
   display: inline-flex;
   font-family: var(--roboto-bold-font-family);
-  font-size: var(--font-size-16);
-  font-weight: var(--font-weight-700);
-  text-transform: var(--font-uppercase);
-  letter-spacing: var(--letter-spacing-wide-06);
-  line-height: var(--line-height-20);
-  color: var(--color-accent-blue);
-  padding-right: var(--spacing-18);
+  font-size: var(--corp-font-size-16);
+  font-weight: var(--corp-font-weight-bold);
+  text-transform: var(--text-transform-uppercase);
+  letter-spacing: var(--corp-typography-letterspacing-wide-sm);
+  line-height: var(--corp-typography-lineheight-body-sm);
+  padding-right: var(--corp-spacing-18);
   position: relative;
 }
 
@@ -401,8 +404,8 @@
   transform: translateY(-50%) rotate(-45deg);
   width: calc(7 * var(--px-to-rem));
   height: calc(7 * var(--px-to-rem));
-  border-right: var(--spacing-02) solid var(--leader-cta-border-color, currentcolor);
-  border-bottom: var(--spacing-02) solid var(--leader-cta-border-color, currentcolor);
+  border-right: var(--corp-spacing-2) solid var(--leader-cta-border-color, currentcolor);
+  border-bottom: var(--corp-spacing-2) solid var(--leader-cta-border-color, currentcolor);
 }
 
 /* Leader grid: hide meta elements */
@@ -416,12 +419,12 @@
 @media (min-width: 744px) {
   .story-cards.portfolio > ul {
     grid-template-columns: repeat(2, 1fr);
-    margin: var(--spacing-00);
+    margin: 0;
   }
 
   .story-cards:not(.story-card-wide)>ul>li,
   .story-cards.leader-cards-grid>ul>li {
-    margin-bottom: var(--spacing-00);
+    margin-bottom: 0;
   }
 
   .story-cards:where(.leader-cards-grid) .story-cards-grid-item .story-card-link {
@@ -445,46 +448,46 @@
 
   .story-cards:where(.leader-cards-grid) .story-cards-grid-item .story-card-title {
     font-family: var(--body-font-family);
-    font-size: var(--font-size-18);
-    font-weight: var(--font-weight-400);
-    line-height: var(--line-height-24);
+    font-size: var(--corp-font-size-18);
+    font-weight: var(--corp-font-weight-regular);
+    line-height: var(--corp-typography-lineheight-body-lg);
     display: block;
     line-clamp: unset;
     -webkit-line-clamp: unset;
   }
 
   .story-cards:where(.leader-cards-grid) .story-cards-grid-item .story-card-description {
-    font-size: var(--font-size-12);
-    line-height: var(--line-height-16);
+    font-size: var(--corp-font-size-12);
+    line-height: var(--corp-typography-lineheight-tight-sm);
     display: block;
     line-clamp: unset;
     -webkit-line-clamp: unset;
   }
 
   .story-cards.leader-cards-grid .story-card-cta {
-    font-size: var(--font-size-14);
-    letter-spacing: var(--letter-spacing-wide-86);
+    font-size: var(--corp-font-size-14);
+    letter-spacing: var(--corp-typography-letterspacing-wide-3xl);
   }
 
   .story-cards:not(.story-card-wide)>ul,
   .story-cards.leader-cards-grid>ul {
     grid-template-columns: repeat(2, 1fr);
-    margin: 0 var(--spacing-70);
+    margin: 0 var(--corp-spacing-70);
   }
 
   .story-cards .story-cards-card-body p {
-    font-size: var(--font-size-12);
-    line-height: var(--line-height-16);
+    font-size: var(--corp-font-size-12);
+    line-height: var(--corp-typography-lineheight-tight-sm);
   }
 
   .story-cards .button,
   .story-cards a.button {
-    font-size: var(--font-size-14);
-    line-height: var(--line-height-20);
+    font-size: var(--corp-font-size-14);
+    line-height: var(--corp-typography-lineheight-body-sm);
   }
 
   .story-cards.story-card-wide > ul {
-    gap: var(--spacing-32);
+    gap: var(--corp-spacing-32);
   }
 
   .story-cards.story-card-wide .story-card-link {
@@ -513,17 +516,17 @@
 @media (min-width: 1024px) {
   .story-cards.portfolio > ul {
     grid-template-columns: repeat(4, 1fr);
-    margin: var(--spacing-00);
+    margin: 0;
   }
 
   .story-cards.portfolio > ul > li {
-    margin-bottom: var(--spacing-80);
+    margin-bottom: var(--corp-spacing-80);
   }
 
   .story-cards.portfolio .story-cards-card-body :where(p) {
-    font-size: var(--font-size-18);
-    line-height: var(--line-height-24);
-    color: var(--text-color);
+    font-size: var(--corp-font-size-18);
+    line-height: var(--corp-typography-lineheight-body-lg);
+    color: var(--corp-color-text-default);
     text-align: left;
     font-family: var(--body-font-family);
   }
@@ -531,32 +534,32 @@
   .story-cards:not(.story-card-wide)>ul,
   .story-cards.leader-cards-grid>ul {
     grid-template-columns: repeat(3, 1fr);
-    margin: 0 var(--spacing-55);
+    margin: 0 var(--corp-spacing-55);
   }
 
   .story-cards:not(.story-card-wide)>ul>li,
   .story-cards.leader-cards-grid>ul>li {
-    margin-bottom: var(--spacing-72);
+    margin-bottom: var(--corp-spacing-72);
   }
 
   .story-cards .story-cards-card-body h4 {
-    font-size: var(--spacing-20);
-    line-height: var(--line-height-24);
+    font-size: var(--corp-spacing-20);
+    line-height: var(--corp-typography-lineheight-body-lg);
   }
 
   .story-cards .story-cards-card-body p {
-    font-size: var(--font-size-14);
-    line-height: var(--line-height-20);
+    font-size: var(--corp-font-size-14);
+    line-height: var(--corp-typography-lineheight-body-sm);
   }
 
   .story-cards .button,
   .story-cards a.button {
-    font-size: var(--font-size-14);
-    line-height: var(--line-height-20);
+    font-size: var(--corp-font-size-14);
+    line-height: var(--corp-typography-lineheight-body-sm);
   }
 
   .story-cards.story-card-wide > ul {
-    gap: var(--spacing-40);
+    gap: var(--corp-spacing-40);
   }
 
   .story-cards:where(.leader-cards-grid) .story-cards-grid-item .story-card-content {
@@ -565,13 +568,13 @@
 
   .story-cards:where(.leader-cards-grid) .story-cards-grid-item .story-card-title {
     font-family: var(--body-font-family);
-    font-size: var(--font-size-20);
-    font-weight: var(--font-weight-400);
-    line-height: var(--line-height-24);
+    font-size: var(--corp-font-size-20);
+    font-weight: var(--corp-font-weight-regular);
+    line-height: var(--corp-typography-lineheight-body-lg);
   }
 
   .story-cards:where(.leader-cards-grid) .story-cards-grid-item .story-card-description {
-    font-size: var(--font-size-14);
-    line-height: var(--line-height-20);
+    font-size: var(--corp-font-size-14);
+    line-height: var(--corp-typography-lineheight-body-sm);
   }
 }

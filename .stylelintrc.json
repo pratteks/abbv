@@ -15,27 +15,23 @@
     "selector-max-type": 2,
     "selector-max-specificity": "0,3,0",
     "declaration-no-important": true,
+    "selector-class-pattern":"^[a-z0-9\\-\\_]+$",
     "scale-unlimited/declaration-strict-value": [
       ["/color/", "background-color", "border-color", "font-size", "z-index"],
       {
-        "ignoreValues": ["inherit", "transparent", "currentColor" , "0", "0px", "0em", "0%"],
+        "ignoreValues": ["inherit", "transparent", "currentColor" , "0", "0px", "0em", "0%", "unset"],
         "message": "Use design tokens (var(--token)) instead of hardcoded values"
       }
     ]
   },
-  "overrides": [
-    {
-      "files": ["blocks/**/*.css"],
-      "rules": {
-        "color-no-hex": null,
-        "declaration-no-important": null,
-        "no-descending-specificity": null,
-        "property-no-deprecated": null,
-        "scale-unlimited/declaration-strict-value": null,
-        "selector-max-specificity": null,
-        "selector-max-type": null
-      }
-    }
-  ],
-  "ignoreFiles": ["**/node_modules/**", "**/*.min*.css", "styles/**/*.css"]
+  "ignoreFiles": [
+    "**/node_modules/**",
+    "**/*.min*.css",
+    "styles/abbvie/**/*.css",
+    "styles/botox/**/*.css",
+    "styles/rinvoq/**/*.css",
+    "styles/tokens.css",
+    "styles/fonts.css",
+    "styles/reset.css"
+  ]
 }

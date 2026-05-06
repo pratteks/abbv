@@ -1,14 +1,18 @@
 /* Breadcrumb Block — standalone section-level block */
 
-.breadcrumb-wrapper {
-  padding: var(--spacing-00);
-}
+
 
 .breadcrumb {
+  --breadcrumb-icon-size: var(--corp-icon-size-md);
+
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: var(--spacing-24);
+  margin-bottom: var(--corp-spacing-24);
+}
+
+.breadcrumb-wrapper {
+    padding: 0;
 }
 
 /* =====================================================
@@ -21,26 +25,26 @@
   align-items: center;
   background: transparent;
   border: none;
-  padding: var(--spacing-00);
-  margin: var(--spacing-00);
+  padding: 0;
+  margin: 0;
   font-family: var(--roboto-bold-font-family);
-  font-size: var(--font-size-12);
-  font-weight: var(--font-weight-700);
-  color: var(--text-color);
+  font-size: var(--corp-font-size-12);
+  font-weight: var(--corp-font-weight-bold);
+  color: var(--color-black);
   text-transform: uppercase;
-  letter-spacing: var(--letter-spacing-wide-06);
+  letter-spacing: var(--corp-typography-letterspacing-wide-sm);
   cursor: pointer;
-  line-height: var(--line-height-20);
+  line-height: var(--corp-typography-lineheight-body-sm);
 }
 
 /* Chevron icon after button text (icon font) */
 .breadcrumb .breadcrumb-drop-title::after {
   content: "";
-  font-family: var(--icon-font-family);
-  font-size: var(--font-size-12);
-  margin-left: var(--spacing-06);
-  width: var(--icon-size);
-  height: var(--icon-size);
+  font-family: var(--corp-icon-font-family);
+  font-size: var(--corp-font-size-12);
+  margin-left: var(--corp-spacing-6);
+  width: var(--breadcrumb-icon-size);
+  height: var(--breadcrumb-icon-size);
   transform: rotate(90deg);
   transition: transform 0.3s ease-out;
   display: inline-flex;
@@ -50,10 +54,10 @@
 
 /* Expanded state — chevron flips up, button turns blue */
 .breadcrumb.open-breadcrumb .breadcrumb-drop-title {
-  color: var(--link-color);
+  color: var(--corp-color-link-default);
 }
 
-.breadcrumb.open-breadcrumb .breadcrumb-drop-title::after {
+.open-breadcrumb .breadcrumb-drop-title::after {
   transform: rotate(-90deg);
 }
 
@@ -63,7 +67,7 @@
 
 .breadcrumb .breadcrumb-nav {
   max-height: 0;
-  opacity: var(--opacity-00);
+  opacity: 0;
   overflow: hidden;
   transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
 }
@@ -71,51 +75,52 @@
 /* Expanded mobile nav */
 .breadcrumb.open-breadcrumb .breadcrumb-nav {
   max-height: 100vh;
-  opacity: var(--opacity-1);
+  opacity: var(--opacity-full);
 }
 
 .breadcrumb .breadcrumb-nav ol {
   display: flex;
   flex-direction: column;
   list-style: none;
-  padding: var(--spacing-00);
-  margin: var(--spacing-28) var(--spacing-00) var(--spacing-00);
-  gap: var(--spacing-16);
+  padding: 0;
+  margin: var(--corp-spacing-28) 0 0;
+  gap: var(--corp-spacing-16);
 }
 
 .breadcrumb .breadcrumb-nav ol li {
   font-family: var(--roboto-bold-font-family);
-  font-size: var(--font-size-12);
-  font-weight: var(--font-weight-700);
-  letter-spacing: var(--letter-spacing-wide-06);
-  line-height: var(--line-height-20);
+  font-size: var(--corp-font-size-12);
+  font-weight: var(--corp-font-weight-bold);
+  letter-spacing: var(--corp-typography-letterspacing-wide-sm);
+  line-height: var(--corp-typography-lineheight-body-sm);
   text-transform: uppercase;
-  color: var(--text-color);
+  color: var(--corp-color-text-default);
   display: flex;
   align-items: center;
 }
 
 /* Hide chevron separators on mobile */
-.breadcrumb .breadcrumb-nav ol li:not(:last-child)::after {
+.breadcrumb-nav ol li:not(:last-child)::after {
   display: none;
 }
 
-.breadcrumb .breadcrumb-nav ol li a {
-  color: var(--text-color);
-  font-weight: var(--font-weight-700);
+.breadcrumb-nav li a {
+  color: var(--corp-color-text-default);
+  font-weight: var(--corp-font-weight-bold);
   font-size: inherit;
   text-decoration: none;
+  display: flex;
 }
 
-.breadcrumb .breadcrumb-nav ol li a:hover {
+.breadcrumb-nav li :where(a):hover span {
   text-decoration: none;
-  color: var(--link-hover-color);
+  color: var(--corp-color-link-hover);
 }
 
 /* Current page — muted gray, no link */
-.breadcrumb .breadcrumb-nav ol li[aria-current] {
-  color: var(--bg-666b7a, #666b7a);
-  font-weight: var(--font-weight-700);
+.breadcrumb-nav ol li[aria-current] {
+  color: var(--color-gray-dark);
+  font-weight: var(--corp-font-weight-bold);
 }
 
 /* =====================================================
@@ -125,7 +130,7 @@
 @media (--bp-tablet) {
   .breadcrumb {
     flex-direction: row;
-    margin-bottom: var(--spacing-32);
+    margin-bottom: var(--corp-spacing-32);
   }
 
   /* Hide mobile dropdown button */
@@ -136,33 +141,32 @@
   /* Show nav trail inline */
   .breadcrumb .breadcrumb-nav {
     max-height: none;
-    opacity: var(--opacity-1);
+    opacity: var(--opacity-full);
     overflow: visible;
     display: inline;
   }
 
   .breadcrumb .breadcrumb-nav ol {
     flex-flow: row wrap;
-    margin: var(--spacing-00);
-    gap: var(--spacing-08);
+    margin: 0;
+    gap: var(--corp-spacing-8);
     align-items: baseline;
   }
 
   .breadcrumb .breadcrumb-nav ol li {
-    font-size: var(--font-size-14);
+    font-size: var(--corp-font-size-14);
     display: flex;
     align-items: flex-end;
   }
 
   /* Chevron separator between items */
-  .breadcrumb .breadcrumb-nav ol li:not(:last-child)::after {
+  .breadcrumb-nav ol :where(li):not(:last-child) a::after {
     display: flex;
     content: "";
-    font-family: var(--icon-font-family);
-    padding-left: var(--spacing-08);
-    height: var(--icon-height);
-    margin: var(--spacing-00) var(--spacing-05);
-    width: var(--icon-width);
-    padding-top: var(--spacing-02);
+    font-family: var(--corp-icon-font-family);
+    padding-left: var(--corp-spacing-8);
+    height: var(--corp-icon-size-md);
+    margin: 0 var(--corp-spacing-5);
+    width: var(--corp-icon-size-md);
   }
 }

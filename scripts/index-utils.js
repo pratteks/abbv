@@ -195,7 +195,6 @@ class IndexUtils {
         parent: level > 1 ? `/${pathSegments.slice(0, level - 1).join('/')}` : null,
         children: [],
       };
-      console.log('Processing page:', indexItem);
 
       if (level === 1) {
         indexLevels.level1.push(indexItem);

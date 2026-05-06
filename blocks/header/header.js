@@ -3,10 +3,12 @@ import { loadFragment } from '../fragment/fragment.js';
 // eslint-disable-next-line import/no-named-as-default
 import IndexUtils from '../../scripts/index-utils.js';
 import { fetchDashboardCardData } from '../../scripts/cfUtil.js';
-import decorateExternalLinksUtility from '../../scripts/utils.js';
+import decorateExternalLinksUtility, { isExternalLink } from '../../scripts/utils.js';
+import { fetchPlaceholders } from '../../scripts/placeholders.js';
 
 // Constants for maintainability
-const DESKTOP_BREAKPOINT = '(min-width: 1024px)';
+const DESKTOP_BREAKPOINT_WIDHT = '(min-width: 1024px)';
+const DESKTOP_BREAKPOINT_HEIGHT = '(max-height: 700px)';
 const SCROLL_THRESHOLD_DEFAULT = 200;
 
 // Cached state and selectors
@@ -15,7 +17,8 @@ const navigationCache = new Map();
 let scrollThrottleId = null;
 
 // Media query for desktop
-const isDesktop = window.matchMedia(DESKTOP_BREAKPOINT);
+const isDesktop = window.matchMedia(DESKTOP_BREAKPOINT_WIDHT);
+const isDesktopHeight = window.matchMedia(DESKTOP_BREAKPOINT_HEIGHT);
 
 /**
  * Utility: Throttles a function using requestAnimationFrame.
@@ -42,7 +45,27 @@ function createElement(tag, { className, attributes = {}, textContent, innerHTML
   Object.entries(attributes).forEach(([key, value]) => el.setAttribute(key, value));
   if (textContent) el.textContent = textContent;
   if (innerHTML) el.innerHTML = innerHTML;
+  if (tag === 'a' && isExternalLink(attributes.href)) {
+    el.classList.add('external-link');
+    el.target = '_blank';
+    el.rel = 'noopener noreferrer';
+  }
   return el;
+}
+
+/**
+ * Extracts authored search configuration from a navigation-content search block.
+ * @param {Element} block - The navigation content block.
+ * @returns {{ label: string, resultsPath: string }}
+ */
+function getSearchConfig(block) {
+  const paragraphs = [...block.querySelectorAll('p')];
+  const label = paragraphs.at(1)?.textContent.trim() || 'Search';
+  const mobilePlaceholder = block.dataset.searchMobilePlaceholder || label;
+  const resultsLink = block.querySelector('a[href]');
+  const resultsPath = resultsLink?.getAttribute('href')?.trim() || '/search-results';
+
+  return { label, mobilePlaceholder, resultsPath };
 }
 
 /**
@@ -80,6 +103,9 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
     button.setAttribute('aria-label', expanded ? 'Open navigation' : 'Close navigation');
     const backdrop = document.getElementById('nav-backdrop');
     backdrop?.setAttribute('aria-hidden', expanded ? 'true' : 'false');
+  } else {
+    const backdrop = document.getElementById('nav-backdrop');
+    backdrop?.setAttribute('aria-hidden', 'true');
   }
 }
 
@@ -171,8 +197,8 @@ async function getSecondCardData(url) {
   if (!url) return false;
 
   try {
-    const response = await fetchDashboardCardData(url, 'cfBaseUrl');
-    return response?.data?.dashboardCardByPath?.item || { children: [] };
+    const response = await fetchDashboardCardData(url, 'cfFactsBaseUrl');
+    return response?.data?.dashboardCardFactFragmentByPath?.item || { children: [] };
   } catch (error) {
     return { children: [] };
   }
@@ -210,8 +236,9 @@ async function buildMegaMenu(block) {
     // If only p exists
     if (p) return p.textContent.trim();
 
-    return ''; // empty div
-  });
+    // Fallback: text authored as plain div (e.g. UE text/richtext fields without p wrapper)
+    return div.textContent.trim();
+  }).filter(Boolean);
   const [
     megaMenuTitle,
     megaMenuDescription,
@@ -230,8 +257,10 @@ async function buildMegaMenu(block) {
     link: megaMenuCardCta,
   };
   // get card data
-  const secondaryCardData = await getSecondCardData(megaMenuDashboardCard?.title);
+  const secondaryCardData = await getSecondCardData(megaMenuDashboardCard?.textContent);
   const dashboardLinks = megaMenuDashboardLinks?.querySelectorAll('li');
+  const wrapperMain = document.createElement('div');
+  wrapperMain.className = 'mega-menu-wrapper-main';
   const wrapper = document.createElement('div');
   wrapper.className = 'mega-menu-wrapper';
 
@@ -256,11 +285,15 @@ async function buildMegaMenu(block) {
       const link = li.querySelector('a');
       if (!link) return;
       const liClone = document.createElement('li');
-      liClone.innerHTML = `
-        <a href="${link.href}" class="dashboard-list-link" title="${link.title}">
-          ${link.textContent.trim()}
-        </a>
-      `;
+      const anchorTag = createElement('a', {
+        className: 'dashboard-list-link',
+        attributes: {
+          href: link.href,
+          title: link.title,
+        },
+        textContent: link.textContent.trim(),
+      });
+      liClone.append(anchorTag);
       ul.appendChild(liClone);
     });
     left.appendChild(ul);
@@ -314,15 +347,15 @@ async function buildMegaMenu(block) {
       appendIfExists(card, 'p', 'mega-card-title', data?.eyebrow);
 
       // Count + Suffix
-      if (data?.dataPoint || data?.dataPointSufix) {
+      if (data?.dataPoint || data?.dataPointSuffix) {
         const countWrap = createElement('div', { className: 'mega-card-count' });
         appendIfExists(countWrap, 'div', 'count', data.dataPoint);
-        appendIfExists(countWrap, 'div', 'count-unit', data.dataPointSufix);
+        appendIfExists(countWrap, 'div', 'count-unit', data.dataPointSuffix);
         card.appendChild(countWrap);
       }
 
       // Description
-      appendIfExists(card, 'p', 'card-description', data?.description?.plaintext);
+      appendIfExists(card, 'p', 'card-description', data?.description);
 
       cardWrapper.appendChild(card);
     }
@@ -344,7 +377,9 @@ async function buildMegaMenu(block) {
     document.querySelector('.mega-menu-minimize')?.classList.remove('mega-menu-minimize');
   });
 
-  return wrapper;
+  wrapperMain.append(wrapper);
+
+  return wrapperMain;
 }
 
 /**
@@ -371,7 +406,7 @@ async function buildLevelTwoNavigations(block, languageLinkData, element) {
 
   // build mega nev
   const isMegaMenu = level2Container.querySelector('.mega-menu-wrapper');
-  if (isDesktop.matches) {
+  if (isDesktop.matches && isDesktopHeight.matches) {
     level2Container.classList.add('mega-menu-minimize');
   }
   if (isMegaMenu) {
@@ -385,7 +420,7 @@ async function buildLevelTwoNavigations(block, languageLinkData, element) {
 
   const fragment = document.createDocumentFragment(); // Batch DOM changes
   const ul = createElement('ul', { className: 'navigation-group' });
-  const pageRedirectText = megaMenu.querySelector('.mega-menu-left .button-container a').textContent.trim();
+  const pageRedirectText = megaMenu?.querySelector('.mega-menu-left .button-container a').textContent.trim();
   (data?.children || []).forEach((child) => {
     const li = createElement('li', { className: 'navigation-item navigation-item-level-1' });
     if (child.children?.length) {
@@ -495,13 +530,17 @@ function buildLevelTwoLanguageLinks(selector) {
  * @param {Element} block - The block element.
  * @returns {Element} - The search form element.
  */
-function createSearchForm(block) {
-  const text = block.querySelector('p:last-child')?.textContent.trim();
+function createSearchForm(block, errorMessage = 'Please enter a valid search term') {
+  const { label: text, mobilePlaceholder, resultsPath } = getSearchConfig(block);
   const maindiv = createElement('div', { className: 'search-main-wrapper' });
   const wrapperdiv = createElement('div', { className: 'search-wrapper' });
   const form = createElement('form', {
     className: 'search-form',
-    attributes: { method: 'get', role: 'search' },
+    attributes: {
+      method: 'get',
+      role: 'search',
+      action: resultsPath,
+    },
   });
   const innerDiv = createElement('div', { className: 'search-inner-wrapper' });
   const input = createElement('input', {
@@ -517,17 +556,24 @@ function createSearchForm(block) {
       'aria-describedby': 'search-alert-text',
     },
   });
+  const charsetInput = createElement('input', {
+    attributes: {
+      type: 'hidden',
+      name: '_charset_',
+      value: 'UTF-8',
+    },
+  });
   const label = createElement('label', {
     className: 'search-input-label',
     attributes: { 'data-desktop-placeholder': text, 'aria-label': text },
     textContent: text,
   });
   const alertDiv = createElement('div', { className: 'search-input-alert' });
-  const alertP = createElement('p', { attributes: { id: 'search-alert-text' }, textContent: 'Please enter a valid search term' });
+  const alertP = createElement('p', { attributes: { id: 'search-alert-text' }, textContent: errorMessage });
 
   alertDiv.appendChild(alertP);
   innerDiv.append(input, label, alertDiv);
-  form.appendChild(innerDiv);
+  form.append(innerDiv, charsetInput);
   wrapperdiv.appendChild(form);
   maindiv.appendChild(wrapperdiv);
 
@@ -541,6 +587,35 @@ function createSearchForm(block) {
   label.addEventListener('blur', updateLabel);
   updateLabel();
 
+  form.addEventListener('submit', (e) => {
+    const searchValue = input.value.trim();
+
+    if (!searchValue) {
+      e.preventDefault();
+      alertDiv.classList.add('visible');
+      input.classList.add('search-input-error');
+      input.focus();
+      return;
+    }
+
+    alertDiv.classList.remove('visible');
+    input.classList.remove('search-input-error');
+  });
+
+  input.addEventListener('focus', () => {
+    alertDiv.classList.remove('visible');
+    input.classList.remove('search-input-error');
+  });
+
+  const mq = window.matchMedia('(width < 744px)');
+  function updateSearchPlaceholder() {
+    const placeholder = mq.matches ? mobilePlaceholder : text;
+    label.textContent = placeholder;
+    input.setAttribute('aria-label', placeholder);
+  }
+  mq.addEventListener('change', updateSearchPlaceholder);
+  updateSearchPlaceholder();
+
   return maindiv;
 }
 
@@ -553,7 +628,7 @@ function createSearchForm(block) {
 function buildMenuItem(block, isNavigation = false) {
   let label = block.querySelector('p')?.textContent.trim();
   if (block.classList.contains('search')) {
-    label = block.querySelector('p:last-child')?.textContent.trim() || 'Search';
+    label = '';
   }
   if (!label && !block.classList.contains('search')) return null;
 
@@ -595,7 +670,7 @@ function buildMenuItem(block, isNavigation = false) {
     const languageLinkData = mainDiv?.querySelector('.navigation-group');
     const isParsedUl = languageLinkData?.querySelector('.navigation-item');
     const subMenuContainer = mainDiv.querySelector('.submenu-level-1');
-    if (subMenuContainer && isDesktop.matches) subMenuContainer.classList.add('mega-menu-minimize');
+    if (subMenuContainer && (isDesktop.matches && isDesktopHeight.matches)) subMenuContainer.classList.add('mega-menu-minimize');
     if (isNavigation && !isParsedUl) {
       await buildLevelTwoNavigations(
         button,
@@ -670,18 +745,68 @@ window.addEventListener('scroll', handleScroll);
 document.addEventListener('keydown', handleKeydown);
 
 /**
+ * Retrieves grouped navigation metadata (ids, lang attributes, and custom classes)
+ * from elements with the class 'navigation-content'.
+ *
+ * @param {HTMLElement} rootElement - The parent container (e.g., header) to query within
+ * @returns {Array<{ id: string[], lang: string[], classes: string[] }>}
+ *          An array containing a single object with collected ids, lang values, and custom classes
+ */
+function getNavigationMetadataDetails(rootElement) {
+  const excludedClassNames = [
+    'navigation-content',
+    'logo',
+    'search',
+    'language-links',
+    'block',
+  ];
+
+  const groupedMetadata = {
+    id: [],
+    lang: [],
+    classes: [],
+  };
+
+  rootElement.querySelectorAll('.navigation-content').forEach((element) => {
+    // Collect element id
+    if (element.id) {
+      groupedMetadata.id.push(element.id);
+    }
+
+    // Collect lang attribute
+    const lang = element.getAttribute('lang');
+    if (lang) {
+      groupedMetadata.lang.push(lang);
+    }
+
+    // Collect custom (non-excluded) class names
+    const customClasses = [...element.classList].filter(
+      (className) => !excludedClassNames.includes(className),
+    );
+
+    groupedMetadata.classes.push(...customClasses);
+  });
+
+  // Ensure unique values across all fields
+  Object.keys(groupedMetadata).forEach((key) => {
+    groupedMetadata[key] = [...new Set(groupedMetadata[key])];
+  });
+
+  return [groupedMetadata];
+}
+
+/**
  * Loads and decorates the header.
  * @param {Element} block - The header block element.
  */
 export default async function decorate(block) {
   const navMeta = getMetadata('nav');
   const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
-  const fragment = await loadFragment(navPath);
+  const [fragment, placeholders] = await Promise.all([loadFragment(navPath), fetchPlaceholders()]);
   const header = fragment.querySelector('.navigation-content-container');
   if (!header) return;
-
   const nav = createElement('nav', { attributes: { id: 'nav', 'aria-expanded': 'false' } });
-
+  const [navigationMetadata] = getNavigationMetadataDetails(header);
   // Brand (Logo)
   const brandBlock = header.querySelector('.navigation-content[data-type="logo"]');
   if (brandBlock) {
@@ -741,7 +866,8 @@ export default async function decorate(block) {
     const li = buildMenuItem(tool);
     let expandableMenu;
     if (tool.classList.contains('search')) {
-      expandableMenu = createSearchForm(tool);
+      const searchErrorMsg = placeholders?.searchInputError || 'Please enter a valid search term';
+      expandableMenu = createSearchForm(tool, searchErrorMsg);
     } else {
       expandableMenu = buildLevelTwoLanguageLinks(tool);
     }
@@ -777,11 +903,24 @@ export default async function decorate(block) {
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
   decorateExternalLinksUtility(navWrapper);
-  block.append(navWrapper);
+  block.appendChild(navWrapper);
   // build desktop backdrop
   const backdrop = document.createElement('div');
   backdrop.id = 'nav-backdrop';
   backdrop.className = 'nav-backdrop';
   backdrop.setAttribute('aria-hidden', true);
   block.append(backdrop);
+
+  // Set classes
+  block.classList.add(...navigationMetadata.classes);
+
+  // Set id
+  if (navigationMetadata.id.length) {
+    block.setAttribute('id', navigationMetadata.id[0]);
+  }
+
+  // Set lang
+  if (navigationMetadata.lang.length) {
+    block.setAttribute('lang', navigationMetadata.lang[0]);
+  }
 }

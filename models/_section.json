@@ -15,24 +15,6 @@
       }
     },
     {
-      "title": "Hero Section",
-      "id": "hero-section",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/section/v1/section",
-            "template": {
-              "model": "hero-section",
-              "filter": "hero-section",
-              "name": "Hero Section",
-              "identifier": "Hero Section",
-              "section-type": "hero"
-            }
-          }
-        }
-      }
-    },
-    {
       "title": "Grid Section",
       "id": "grid-section",
       "plugins": {
@@ -111,7 +93,7 @@
           "component": "select",
           "valueType": "string",
           "name": "classes_desktopWidth",
-          "label": "Desktop Width",
+          "label": "Section Width",
           "options": [
             {
               "name": "None",
@@ -145,44 +127,21 @@
         },
         {
           "component": "select",
-          "name": "classes_container",
-          "label": "Section Container",
+          "valueType": "string",
+          "name": "classes_contentWidth",
+          "label": "Content Width",
           "options": [
             {
               "name": "None",
-              "value": "none"
+              "value": ""
             },
             {
-              "name": "Press Release Compact Container",
-              "value": "abbvie-container-small"
+              "name": "Content Width Regular (133rem)",
+              "value": "content-regular"
             },
             {
-              "name": "Cards Layout",
-              "value": "grid-column-split-6-3-3"
-            },
-            {
-              "name": "Navy Overlap",
-              "value": "navy-overlap"
-            },
-            {
-              "name": "Highlight",
-              "value": "highlight"
-            },
-            {
-              "name": "Dark",
-              "value": "dark"
-            },
-            {
-              "name": "Navy",
-              "value": "navy"
-            },
-            {
-              "name": "Explore Tenacity",
-              "value": "explore-tenacity"
-            },
-            {
-              "name": "Wide",
-              "value": "section-wide"
+              "name": "Content Width Wide (144rem)",
+              "value": "content-wide"
             }
           ]
         },
@@ -272,8 +231,31 @@
         },
         {
           "component": "select",
+          "name": "classes_margin",
+          "label": "Margin",
+          "options": [
+            {
+              "name": "Default",
+              "value": ""
+            },
+            {
+              "name": "No Bottom Margin",
+              "value": "no-bottom-margin"
+            },
+            {
+              "name": "Add Bottom Margin",
+              "value": "section-bottom-margin"
+            },
+            {
+              "name": "No Side Margin",
+              "value": "no-side-margin"
+            }
+          ]
+        },
+        {
+          "component": "select",
           "name": "classes_padding",
-          "label": "Margin and Padding",
+          "label": "Padding",
           "options": [
             {
               "name": "None",
@@ -284,16 +266,8 @@
               "value": "no-padding"
             },
             {
-              "name": "No Bottom Margin",
-              "value": "no-bottom-margin"
-            },
-            {
               "name": "Section Padding",
               "value": "section-padding"
-            },
-            {
-              "name": "Section Bottom Margin",
-              "value": "section-bottom-margin"
             }
           ]
         },
@@ -466,6 +440,27 @@
         },
         {
           "component": "select",
+          "name": "classes_order",
+          "label": "Mobile Order",
+          "description": "Visual order of this section on mobile. Resets to DOM order on tablet and above.",
+          "options": [
+            { "name": "Default", "value": "" },
+            { "name": "1", "value": "order-1" },
+            { "name": "2", "value": "order-2" },
+            { "name": "3", "value": "order-3" },
+            { "name": "4", "value": "order-4" },
+            { "name": "5", "value": "order-5" },
+            { "name": "6", "value": "order-6" },
+            { "name": "7", "value": "order-7" },
+            { "name": "8", "value": "order-8" },
+            { "name": "9", "value": "order-9" },
+            { "name": "10", "value": "order-10" },
+            { "name": "11", "value": "order-11" },
+            { "name": "12", "value": "order-12" }
+          ]
+        },
+        {
+          "component": "select",
           "name": "classes_bg-color",
           "label": "Background Color",
           "options": [
@@ -572,6 +567,30 @@
           "label": "Section ID",
           "value": "",
           "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "analyticsId",
+          "label": "Analytics ID",
+          "description": "Analytics tracking identifier for this section",
+          "value": "",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "classes_customClass",
+          "label": "Custom Class Name",
+          "description": "Add one or more custom CSS class names (space-separated) to this section",
+          "value": "",
+          "valueType": "string"
+        },
+        {
+          "component": "tab",
+          "label": "Accessibility",
+          "name": "accessibility"
+        },
+        {
+          "...": "_language.json#/language-field"
         }
       ]
     },
@@ -589,6 +608,21 @@
           "name": "name",
           "label": "Section Name",
           "description": "The label shown for this section in the Content Tree",
+          "value": "",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "sectionId",
+          "label": "Section ID",
+          "value": "",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "analyticsId",
+          "label": "Analytics ID",
+          "description": "Analytics tracking identifier for this section",
           "value": "",
           "valueType": "string"
         },
@@ -676,10 +710,11 @@
           "component": "select",
           "name": "classes_padding",
           "label": "Padding",
+          "value": "no-padding",
           "options": [
             {
-              "name": "None",
-              "value": ""
+              "name": "No Padding",
+              "value": "no-padding"
             },
             {
               "name": "Small",
@@ -688,127 +723,122 @@
             {
               "name": "Regular",
               "value": "regular-padding"
+            },
+            {
+              "name": "No Top Padding",
+              "value": "no-top-padding"
+            },
+            {
+              "name": "No Bottom Padding",
+              "value": "no-bottom-padding"
+            },
+            {
+              "name": "No Top & Bottom Padding",
+              "value": "no-top-bottom-padding"
             }
           ]
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "classes_contentWidth",
+          "label": "Container Width",
+          "value": "content-wide",
+          "options": [
+            {
+              "name": "Regular (133rem)",
+              "value": "content-regular"
+            },
+            {
+              "name": "Wide (144rem)",
+              "value": "content-wide"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "classes_borderRadius",
+          "label": "Border Radius",
+          "options": [
+            {
+              "name": "None",
+              "value": "no-radius"
+            },
+            {
+              "name": "Large Radius",
+              "value": "radius-large"
+            },
+            {
+              "name": "Medium Radius",
+              "value": "radius-medium"
+            },
+            {
+              "name": "Small Radius",
+              "value": "radius-small"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "classes_margin",
+          "label": "Margin",
+          "options": [
+            {
+              "name": "Default",
+              "value": ""
+            },
+            {
+              "name": "No Bottom Margin",
+              "value": "no-bottom-margin"
+            },
+            {
+              "name": "Add Bottom Margin",
+              "value": "section-bottom-margin"
+            },
+            {
+              "name": "No Side Margin",
+              "value": "no-side-margin"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "classes_direction",
+          "label": "Direction",
+          "options": [
+            {
+              "name": "Left to Right (LTR)",
+              "value": ""
+            },
+            {
+              "name": "Right to Left (RTL)",
+              "value": "dir-rtl"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "name": "classes_customClass",
+          "label": "Custom Class Name",
+          "description": "Add one or more custom CSS class names (space-separated) to this section",
+          "value": "",
+          "valueType": "string"
         },
         {
           "component": "text",
           "name": "classes_container",
           "label": "Generic Class",
           "value": "grid-container",
-          "readOnly": true
-        }
-      ]
-    },
-    {
-      "id": "hero-section",
-      "title": "Hero Section",
-      "fields": [
-        {
-          "component": "text",
-          "name": "section-type",
-          "value": "hero",
-          "valueType": "string",
           "hidden": true
         },
         {
-          "component": "text",
-          "name": "name",
-          "label": "Section Name",
-          "description": "The label shown for this section in the Content Tree",
-          "value": "",
-          "valueType": "string"
+          "component": "tab",
+          "label": "Accessibility",
+          "name": "accessibility"
         },
         {
-          "component": "select",
-          "name": "bg-color",
-          "label": "Background Color",
-          "options": [
-            {
-              "name": "Not set",
-              "value": ""
-            },
-            {
-              "name": "#ffffff",
-              "value": "ffffff"
-            },
-            {
-              "name": "#071d49",
-              "value": "071d49"
-            },
-            {
-              "name": "#a6b5e0",
-              "value": "a6b5e0"
-            },
-            {
-              "name": "#f1f3ff",
-              "value": "f1f3ff"
-            },
-            {
-              "name": "#fafbff",
-              "value": "fafbff"
-            },
-            {
-              "name": "#666b7a",
-              "value": "666b7a"
-            },
-            {
-              "name": "#b9b4b4",
-              "value": "b9b4b4"
-            },
-            {
-              "name": "#f4f4f4",
-              "value": "f4f4f4"
-            },
-            {
-              "name": "#fafafa",
-              "value": "fafafa"
-            },
-            {
-              "name": "#8a2ecc",
-              "value": "8a2ecc"
-            },
-            {
-              "name": "#a86bde",
-              "value": "a86bde"
-            },
-            {
-              "name": "#0066f5",
-              "value": "0066f5"
-            },
-            {
-              "name": "#479ff8",
-              "value": "479ff8"
-            },
-            {
-              "name": "#cf451c",
-              "value": "cf451c"
-            },
-            {
-              "name": "#f7634f",
-              "value": "f7634f"
-            },
-            {
-              "name": "#338700",
-              "value": "338700"
-            }
-          ]
-        },
-        {
-          "component": "text",
-          "name": "identifier",
-          "label": "ID",
-          "value": "",
-          "valueType": "string",
-          "readOnly": true
-        },
-        {
-          "component": "boolean",
-          "valueType": "boolean",
-          "name": "classes_onlyOne",
-          "label": "Show the first fragment only",
-          "value": false,
-          "description": "When checked, only the first fragment is shown. When unchecked, fragments rotate in authored order on each page visit."
+          "...": "_language.json#/language-field"
         }
       ]
     }
@@ -839,6 +869,7 @@
         "image",
         "quote",
         "search",
+        "search-input",
         "tabs",
         "table",
         "text",
@@ -852,14 +883,63 @@
         "tag-utility-nav",
         "fact-card",
         "brightcove-podcast-player",
-        "custom-image"
+        "custom-image",
+        "editorial-feed",
+        "news-feed",
+        "pipeline-utility-nav",
+        "hero-container",
+        "teaser"
       ]
     },
     {
-      "id": "hero-section",
+      "id": "grid-section",
       "components": [
-        "fragment"
+        "accordion",
+        "breadcrumb",
+        "button",
+        "story-cards",
+        "cards",
+        "carousel",
+        "social-media",
+        "columns",
+        "embed",
+        "fragment",
+        "press-releases",
+        "separator",
+        "story-card",
+        "form",
+        "hero",
+        "navigation-content",
+        "stock-ticker",
+        "eds-form",
+        "embed-form",
+        "image",
+        "quote",
+        "search",
+        "search-input",
+        "tabs",
+        "table",
+        "text",
+        "title",
+        "video",
+        "custom-title",
+        "text-container",
+        "cta",
+        "linklist",
+        "brightcove-video",
+        "tag-utility-nav",
+        "fact-card",
+        "brightcove-podcast-player",
+        "custom-image",
+        "news-feed",
+        "pipeline-utility-nav",
+        "teaser",
+        "editorial-feed"
       ]
+    },
+    {
+      "id": "grid-container",
+      "components": []
     }
   ]
 }

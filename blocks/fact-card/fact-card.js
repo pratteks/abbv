@@ -281,7 +281,7 @@ export default async function decorate(block) {
   // Fetch CF data (same pattern as quote block)
   try {
     const path = await normalizePath(rawPath);
-    const cfData = await fetchDashboardCardData(`${path}?8`, 'cfFactsBaseUrl');
+    const cfData = await fetchDashboardCardData(`${path}`, 'cfFactsBaseUrl');
     renderCfFactCard(card, cfData, options);
     if (card.childNodes.length > 0) {
       block.append(card);

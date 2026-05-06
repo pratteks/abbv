@@ -43,7 +43,7 @@
             "template": {
               "name": "Text Container Text",
               "model": "text-container-text",
-              "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur volutpat consequat dui, sit amet ...</p>"
+              "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur volutpat consequat dui, sit amet ..."
             }
           }
         }

@@ -1,0 +1,229 @@
+{
+  "repoNames": [
+    "author-p157365-e1665873.adobeaemcloud.com",
+    "delivery-p157365-e1665873.adobeaemcloud.com",
+    "author-p157365-e1665798.adobeaemcloud.com",
+    "delivery-p157365-e1665798.adobeaemcloud.com"
+  ],
+  "aemTierType": [
+    "delivery",
+    "author"
+  ],
+  "expiryOptions": {
+    "allowSelectionAndDrag": false
+  },
+  "filterSchema": [
+    {
+      "header": "File Type",
+      "groupKey": "FileTypeGroup",
+      "fields": [
+        {
+          "element": "checkbox",
+          "name": "type",
+          "defaultValue": [
+            "image/*",
+            "video/*",
+            "application/pdf"
+          ],
+          "options": [
+            {
+              "label": "Image",
+              "value": "image/*",
+              "readOnly": true
+            },
+            {
+              "label": "Video",
+              "value": "video/*",
+              "readOnly": true
+            },
+            {
+              "label": "PDF",
+              "value": "application/pdf",
+              "readOnly": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "filterSchemaMapping": {
+    "author-p157365-e1665873.adobeaemcloud.com": [
+      {
+        "header": "File Type",
+        "groupKey": "FileTypeGroup",
+        "fields": [
+          {
+            "element": "checkbox",
+            "name": "type",
+            "defaultValue": [
+              "image/*",
+              "video/*",
+              "application/pdf"
+            ],
+            "options": [
+              {
+                "label": "Image",
+                "value": "image/*",
+                "readOnly": true
+              },
+              {
+                "label": "Video",
+                "value": "video/*",
+                "readOnly": true
+              },
+              {
+                "label": "PDF",
+                "value": "application/pdf",
+                "readOnly": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "header": "Approval Status",
+        "groupKey": "StatusGroup",
+        "fields": [
+          {
+            "element": "radiogroup",
+            "name": "property",
+            "defaultValue": [
+              "dam:assetStatus==approved"
+            ],
+            "options": [
+              {
+                "label": "Approved",
+                "value": "dam:assetStatus==approved"
+              }
+            ],
+            "readOnly": true
+          }
+        ]
+      }
+    ],
+    "author-p157365-e1665798.adobeaemcloud.com": [
+      {
+        "header": "File Type",
+        "groupKey": "FileTypeGroup",
+        "fields": [
+          {
+            "element": "checkbox",
+            "name": "type",
+            "defaultValue": [
+              "image/*",
+              "video/*",
+              "application/pdf"
+            ],
+            "options": [
+              {
+                "label": "Image",
+                "value": "image/*",
+                "readOnly": true
+              },
+              {
+                "label": "Video",
+                "value": "video/*",
+                "readOnly": true
+              },
+              {
+                "label": "PDF",
+                "value": "application/pdf",
+                "readOnly": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "header": "Approval Status",
+        "groupKey": "StatusGroup",
+        "fields": [
+          {
+            "element": "radiogroup",
+            "name": "property",
+            "defaultValue": [
+              "dam:assetStatus==approved"
+            ],
+            "options": [
+              {
+                "label": "Approved",
+                "value": "dam:assetStatus==approved"
+              }
+            ],
+            "readOnly": true
+          }
+        ]
+      }
+    ],
+    "delivery-p157365-e1665873.adobeaemcloud.com": [
+      {
+        "header": "File Type",
+        "groupKey": "FileTypeGroup",
+        "fields": [
+          {
+            "element": "checkbox",
+            "name": "type",
+            "defaultValue": [
+              "image/*",
+              "video/*",
+              "application/pdf"
+            ],
+            "options": [
+              {
+                "label": "Image",
+                "value": "image/*",
+                "readOnly": true
+              },
+              {
+                "label": "Video",
+                "value": "video/*",
+                "readOnly": true
+              },
+              {
+                "label": "PDF",
+                "value": "application/pdf",
+                "readOnly": true
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "delivery-p157365-e1665798.adobeaemcloud.com": [
+      {
+        "header": "File Type",
+        "groupKey": "FileTypeGroup",
+        "fields": [
+          {
+            "element": "checkbox",
+            "name": "type",
+            "defaultValue": [
+              "image/*",
+              "video/*",
+              "application/pdf"
+            ],
+            "options": [
+              {
+                "label": "Image",
+                "value": "image/*",
+                "readOnly": true
+              },
+              {
+                "label": "Video",
+                "value": "video/*",
+                "readOnly": true
+              },
+              {
+                "label": "PDF",
+                "value": "application/pdf",
+                "readOnly": true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "alwaysUseDMDelivery": true,
+  "rootPath": "/content/dam"
+}

@@ -3,7 +3,6 @@
     "id": "main",
     "components": [
       "section",
-      "hero-section",
       "grid-section",
       "grid-container"
     ]
@@ -33,6 +32,7 @@
       "image",
       "quote",
       "search",
+      "search-input",
       "tabs",
       "table",
       "text",
@@ -46,22 +46,21 @@
       "tag-utility-nav",
       "fact-card",
       "brightcove-podcast-player",
-      "custom-image"
+      "custom-image",
+      "editorial-feed",
+      "news-feed",
+      "pipeline-utility-nav",
+      "hero-container",
+      "teaser"
     ]
   },
   {
-    "id": "hero-section",
-    "components": [
-      "fragment"
-    ]
-  },
-  {
-"id": "grid-section",
+    "id": "grid-section",
     "components": [
       "accordion",
       "breadcrumb",
       "button",
-"story-cards",
+      "story-cards",
       "cards",
       "carousel",
       "social-media",
@@ -80,6 +79,7 @@
       "image",
       "quote",
       "search",
+      "search-input",
       "tabs",
       "table",
       "text",
@@ -88,10 +88,16 @@
       "custom-title",
       "text-container",
       "cta",
-"brightcove-video",
+      "linklist",
+      "brightcove-video",
       "tag-utility-nav",
+      "fact-card",
       "brightcove-podcast-player",
-      "custom-image"
+      "custom-image",
+      "news-feed",
+      "pipeline-utility-nav",
+      "teaser",
+      "editorial-feed"
     ]
   },
   {
@@ -143,7 +149,19 @@
     "id": "custom-title",
     "components": []
   },
+  {
+    "id": "editorial-feed",
+    "components": [
+      "category-item"
+    ]
+  },
   {},
+  {
+    "id": "hero-container",
+    "components": [
+      "hero-container-item"
+    ]
+  },
   {
     "id": "linklist",
     "components": [
@@ -165,6 +183,10 @@
     "components": [
       "number"
     ]
+  },
+  {
+    "id": "search-input",
+    "components": []
   },
   {
     "id": "social-media",

@@ -85,6 +85,7 @@ export async function buildBreadcrumbTrail(config, indexData, redirectData) {
     homeTitle,
     enableCurrentPage,
     enableRedirectTitle,
+    enableHiddenItems,
   } = config;
 
   const currentPath = window.location.pathname
@@ -120,7 +121,7 @@ export async function buildBreadcrumbTrail(config, indexData, redirectData) {
   const totalSegments = enableCurrentPage ? segments.length : segments.length - 1;
 
   for (let i = startIndex; i < totalSegments; i += 1) {
-    const itemPath = `/${segments.slice(0, i + 1).join('/')}`;
+    const itemPath = `/${segments.slice(startIndex, i + 1).join('/')}`;
 
     const li = document.createElement('li');
     let title;
@@ -131,7 +132,7 @@ export async function buildBreadcrumbTrail(config, indexData, redirectData) {
     if (isLast && enableCurrentPage) {
       title = formatSegment(matchedItem?.navtitle || segments[i]);
       if (enableRedirectTitle) {
-        title = formatSegment(redirectMatchData?.title || matchedItem?.navtitle || segments[i]);
+        title = formatSegment(redirectMatchData?.navtitle || matchedItem?.navtitle || segments[i]);
       }
       li.textContent = title;
       li.setAttribute('aria-current', 'page');
@@ -141,8 +142,10 @@ export async function buildBreadcrumbTrail(config, indexData, redirectData) {
         title = formatSegment(redirectMatchData?.title || matchedItem?.navtitle || segments[i]);
       }
       const a = document.createElement('a');
+      const span = document.createElement('span');
+      span.textContent = title;
       a.href = itemPath;
-      a.textContent = title;
+      a.append(span);
       li.append(a);
     }
 
@@ -152,7 +155,9 @@ export async function buildBreadcrumbTrail(config, indexData, redirectData) {
       firstChild.textContent = homeTitle;
     }
 
-    ol.append(li);
+    if (!(matchedItem?.hidefromnavigation === 'true' && !enableHiddenItems)) {
+      ol.append(li);
+    }
   }
 
   nav.append(ol);
@@ -167,39 +172,39 @@ export async function buildBreadcrumbTrail(config, indexData, redirectData) {
  */
 function extractConfig(block) {
   // xwalk: fields have data-aue-prop attributes
-  const propElements = block.querySelectorAll('[data-aue-prop]');
-  if (propElements.length > 0) {
-    const getField = (name) => {
-      const el = block.querySelector(`[data-aue-prop="${name}"]`);
-      return el || null;
-    };
-    const getTextVal = (name, defaultVal = '') => {
-      const el = getField(name);
-      return el?.textContent?.trim() || defaultVal;
-    };
-    const getBoolVal = (name, defaultVal) => {
-      const val = getTextVal(name, '').toLowerCase();
-      if (val === 'true') return true;
-      if (val === 'false') return false;
-      return defaultVal;
-    };
-    const getLinkVal = (name) => {
-      const el = getField(name);
-      const a = el?.querySelector('a');
-      return a?.getAttribute('href') || el?.textContent?.trim() || '';
-    };
+  // const propElements = block.querySelectorAll('[data-aue-prop]');
+  // if (propElements.length > 0) {
+  //   const getField = (name) => {
+  //     const el = block.querySelector(`[data-aue-prop="${name}"]`);
+  //     return el || null;
+  //   };
+  //   const getTextVal = (name, defaultVal = '') => {
+  //     const el = getField(name);
+  //     return el?.textContent?.trim() || defaultVal;
+  //   };
+  //   const getBoolVal = (name, defaultVal) => {
+  //     const val = getTextVal(name, '').toLowerCase();
+  //     if (val === 'true') return true;
+  //     if (val === 'false') return false;
+  //     return defaultVal;
+  //   };
+  //   const getLinkVal = (name) => {
+  //     const el = getField(name);
+  //     const a = el?.querySelector('a');
+  //     return a?.getAttribute('href') || el?.textContent?.trim() || '';
+  //   };
 
-    return {
-      id: getTextVal('id'),
-      customClass: getTextVal('customClass'),
-      homePagePath: getLinkVal('homePagePath'),
-      homeTitle: getTextVal('homeTitle'),
-      enableBreadcrumb: getBoolVal('enableBreadcrumb', true),
-      enableHiddenItems: getBoolVal('enableHiddenItems', false),
-      enableCurrentPage: getBoolVal('enableCurrentPage', true),
-      enableRedirectTitle: getBoolVal('enableRedirectTitle', true),
-    };
-  }
+  //   return {
+  //     id: getTextVal('id'),
+  //     customClass: getTextVal('customClass'),
+  //     homePagePath: getLinkVal('homePagePath'),
+  //     homeTitle: getTextVal('homeTitle'),
+  //     enableBreadcrumb: getBoolVal('enableBreadcrumb', true),
+  //     enableHiddenItems: getBoolVal('enableHiddenItems', false),
+  //     enableCurrentPage: getBoolVal('enableCurrentPage', true),
+  //     enableRedirectTitle: getBoolVal('enableRedirectTitle', true),
+  //   };
+  // }
 
   // Document-based fallback: fields in sequential cells
   const rows = [...block.querySelectorAll(':scope > div')];

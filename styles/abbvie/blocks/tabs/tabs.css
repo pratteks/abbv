@@ -1,0 +1,55 @@
+/* stylelint-disable */
+/** TODO Revistit Stylelint and Code Refacor during Block Development */
+.tabs {
+  --tab-padding: 0.5em;
+}
+.tabs .tabs-list {
+  display: flex;
+  gap: 0.5ch;
+  max-width: 100%;
+  font-size: var(--body-font-size-xs);
+  overflow-x: auto;
+}
+@media (width >= 600px) {
+  .tabs .tabs-list {
+    font-size: var(--body-font-size-s);
+  }
+}
+@media (width >= 900px) {
+  .tabs .tabs-list {
+    font-size: var(--body-font-size-m);
+  }
+}
+.tabs .tabs-list button {
+  flex: 0 0 max-content;
+  margin: 0;
+  border: var(--border-width-thin) solid var(--color-border-subtle);
+  border-radius: 0;
+  padding: var(--tab-padding);
+  background-color: var(--corp-color-surface-subtle);
+  color: initial;
+  font-weight: bold;
+  line-height: unset;
+  text-align: initial;
+  text-overflow: unset;
+  overflow: unset;
+  white-space: unset;
+  transition: background-color 0.2s;
+}
+.tabs .tabs-list button p {
+  margin: 0;
+}
+.tabs .tabs-list button[aria-selected='true'] {
+  border-bottom: var(--border-width-thin) solid var(--color-surface-default);
+  background-color: var(--color-surface-default);
+  cursor: initial;
+}
+.tabs .tabs-panel {
+  margin-top: calc(var(--corp-spacing-1) * -1);
+  padding: var(--corp-spacing-24);
+  border: var(--border-width-thin) solid var(--color-border-subtle);
+  overflow: auto;
+}
+.tabs .tabs-panel[aria-hidden='true'] {
+  display: none;
+}

@@ -217,16 +217,16 @@ function updateAllHeros() {
 /* styles/tokens.css */
 :root {
   /* Spacing tokens */
-  --spacing-xs: 8px;
-  --spacing-sm: 16px;
-  --spacing-md: 24px;
-  --spacing-lg: 32px;
-  --spacing-xl: 48px;
+  --corp-spacing-xs: 8px;
+  --corp-spacing-sm: 16px;
+  --corp-spacing-md: 24px;
+  --corp-spacing-lg: 32px;
+  --corp-spacing-xl: 48px;
   
   /* Typography tokens */
-  --font-size-h1: 48px;
-  --font-size-h2: 36px;
-  --font-size-body: 16px;
+  --corp-font-size-h1: 48px;
+  --corp-font-size-h2: 36px;
+  --corp-font-size-body: 16px;
   --line-height-heading: 1.2;
   --line-height-body: 1.6;
   
@@ -245,14 +245,14 @@ function updateAllHeros() {
 ```css
 /* blocks/hero/hero.css */
 .hero {
-  padding: var(--spacing-xl) var(--spacing-md);
+  padding: var(--corp-spacing-xl) var(--corp-spacing-md);
   background-color: var(--color-primary);
 }
 
 .hero h1 {
-  font-size: var(--font-size-h1);
+  font-size: var(--corp-font-size-h1);
   line-height: var(--line-height-heading);
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--corp-spacing-md);
 }
 
 .hero-cta {
@@ -270,8 +270,8 @@ function updateAllHeros() {
 
 /* ✅ GOOD: Token-based */
 .hero {
-  padding: var(--spacing-xl) var(--spacing-md);
-  font-size: var(--font-size-h2);
+  padding: var(--corp-spacing-xl) var(--corp-spacing-md);
+  font-size: var(--corp-font-size-h2);
 }
 ```
 
@@ -323,7 +323,7 @@ div.hero .content h1.title { }  /* Specificity: 0,2,3 */
 /* styles/abbvie/tokens.css */
 :root {
   --brand-primary: #071D49;
-  --brand-hero-padding: var(--spacing-xl);
+  --brand-hero-padding: var(--corp-spacing-xl);
 }
 
 /* blocks/hero/abbvie/_hero.css */
@@ -469,7 +469,7 @@ export const HeroAPI = {
   align-items: center;
   justify-content: center;
   min-height: var(--hero-height, 600px);
-  padding: var(--spacing-xl) var(--spacing-md);
+  padding: var(--corp-spacing-xl) var(--corp-spacing-md);
   background-color: var(--color-background);
   background-size: cover;
   background-position: center;
@@ -513,16 +513,16 @@ export const HeroAPI = {
 }
 
 .hero h1 {
-  font-size: var(--font-size-h1);
+  font-size: var(--corp-font-size-h1);
   line-height: var(--line-height-heading);
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--corp-spacing-md);
   color: var(--color-text);
 }
 
 .hero p {
-  font-size: var(--font-size-body);
+  font-size: var(--corp-font-size-body);
   line-height: var(--line-height-body);
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--corp-spacing-lg);
   color: var(--color-text);
 }
 
@@ -530,7 +530,7 @@ export const HeroAPI = {
 @media (max-width: 768px) {
   .hero {
     min-height: calc(var(--hero-height, 600px) * 0.6);
-    padding: var(--spacing-lg) var(--spacing-sm);
+    padding: var(--corp-spacing-lg) var(--corp-spacing-sm);
   }
 }
 ```

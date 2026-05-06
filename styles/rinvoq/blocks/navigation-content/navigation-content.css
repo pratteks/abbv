@@ -1,0 +1,45 @@
+/* styling here used exclusively to make preview easier to look at */
+main .header-content {
+  position: relative;
+  background-color: var(--color-gray-light);
+  padding: var(--corp-spacing-20);
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+}
+main .header-content .navigation-content-preview-heading {
+  font-weight: var(--corp-font-weight-medium);
+}
+main .header-content .navigation-content-preview-link {
+  border-color: var(--corp-color-link-default);
+  background-color: transparent;
+  color: var(--corp-color-link-default);
+}
+main .header-content .navigation-content-preview-tools-link {
+  display: flex;
+  min-width: calc(57 * var(--px-to-rem));
+  min-height: calc(24 * var(--px-to-rem));
+  gap: 0;
+  opacity: var(--opacity-full);
+  font-family: var(--roboto-medium-font-family);
+  font-size: var(--corp-font-size-16);
+  font-weight: var(--corp-font-weight-medium);
+  line-height: var(--corp-typography-lineheight-body-lg);
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: var(--corp-color-link-secondary);
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  background-color: transparent;
+}
+main .header-content::before {
+  position: absolute;
+  content: attr(data-type);
+  font-size: var(--corp-font-size-10);
+  font-weight: var(--corp-font-weight-medium);
+  color: var(--color-blue-grey-500);
+  top: var(--corp-spacing-10);
+  inset-inline-start: var(--corp-spacing-10);
+}

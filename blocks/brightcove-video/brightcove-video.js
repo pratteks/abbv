@@ -125,7 +125,7 @@ function getCellBool(row) {
 function getCellPicture(row) {
   if (!row) return null;
   resolveImageReference(row.firstElementChild || row);
-  return row.querySelector('picture');
+  return row.querySelector('picture') || row.querySelector('img');
 }
 
 /**
@@ -239,7 +239,7 @@ function createIcon(iconType, fontIconName, imageIcon) {
   }
   if (iconType === 'icon-font' && fontIconName) {
     const span = document.createElement('span');
-    span.className = `bcvideo-icon bcvideo-icon-font icon-${fontIconName}`;
+    span.className = `bcvideo-icon bcvideo-icon-font icon-abbvie-${fontIconName}`;
     return span;
   }
   return null;
@@ -293,6 +293,10 @@ function buildOverlay(cfg) {
   if (cfg.posterType === 'custom' && cfg.posterImage) {
     const posterWrap = document.createElement('div');
     posterWrap.className = 'bcvideo-poster';
+    const img = cfg.posterImage.querySelector('img') || cfg.posterImage;
+    if (img && cfg.posterAlt) {
+      img.setAttribute('alt', cfg.posterAlt);
+    }
     posterWrap.append(cfg.posterImage);
     overlay.append(posterWrap);
   } else if (cfg.posterType === 'color' && cfg.colorOverlay) {
@@ -306,7 +310,7 @@ function buildOverlay(cfg) {
   overlayContent.className = 'bcvideo-overlay-content';
 
   if (cfg.overlayTitle && cfg.videoContentLayout === 'none') {
-    const title = document.createElement('h2');
+    const title = document.createElement('div');
     title.className = 'bcvideo-overlay-title';
     title.textContent = cfg.overlayTitle;
     overlayContent.append(title);
@@ -504,7 +508,9 @@ function loadPlayer(container, cfg, options = {}) {
   if (cfg.videoCaption) videoEl.setAttribute('title', cfg.videoCaption);
 
   container.append(videoEl);
-  container.classList.add('bcvideo-playing');
+  if (!options.preloadOnly) {
+    container.classList.add('bcvideo-playing');
+  }
 
   // Load Brightcove SDK, then access the Player API
   loadBrightcoveScript(account, player).then(() => {
@@ -524,6 +530,55 @@ function loadPlayer(container, cfg, options = {}) {
         return;
       }
       bcPlayer.ready(function onReady() {
+        // GTM analytics — ported from AEM _brightcoveplayer.js
+        const dl = () => { window.dataLayer = window.dataLayer || []; return window.dataLayer; };
+        const PROGRESS_POINTS = [25, 50, 75];
+        const progressReached = {};
+        let playFired = false;
+        let completeFired = false;
+
+        this.on('play', () => {
+          if (!playFired && this.mediainfo) {
+            playFired = true;
+            dl().push({
+              event: 'video_start',
+              video_name: this.mediainfo.name,
+              video_length: this.duration(),
+              video_id: this.mediainfo.id,
+            });
+          }
+        });
+
+        this.on('timeupdate', () => {
+          if (!this.mediainfo || !this.duration()) return;
+          const pct = Math.floor((this.currentTime() / this.duration()) * 100);
+          PROGRESS_POINTS.forEach((threshold) => {
+            if (pct === threshold && !progressReached[threshold]) {
+              progressReached[threshold] = true;
+              dl().push({
+                event: 'video_progress',
+                video_name: this.mediainfo.name,
+                video_length: this.duration(),
+                video_id: this.mediainfo.id,
+                percent: String(threshold),
+              });
+            }
+          });
+        });
+
+        this.on('ended', () => {
+          if (!completeFired && this.mediainfo) {
+            completeFired = true;
+            dl().push({
+              event: 'video_complete',
+              video_name: this.mediainfo.name,
+              video_length: this.duration(),
+              video_id: this.mediainfo.id,
+              percent: '100',
+            });
+          }
+        });
+
         const reapplyCaptions = () => applyCaptionsPolicy(this, cfg.enableCaptions);
 
         // Force controls state at runtime
@@ -641,11 +696,20 @@ export default function decorate(block) {
   const overlay = buildOverlay(cfg);
   videoContainer.append(overlay);
 
+  // For brightcove poster type, preload the player behind the overlay
+  // so Brightcove's native thumbnail is visible through the overlay.
+  if (cfg.posterType === 'brightcove') {
+    videoContainer.classList.add('bcvideo-preload');
+    loadPlayer(videoContainer, cfg, { preloadOnly: true });
+  }
+
   // Click overlay to start video
   overlay.addEventListener('click', () => {
+    videoContainer.classList.remove('bcvideo-preload');
     if (!playExistingPlayer(videoContainer)) {
       loadPlayer(videoContainer, cfg);
     }
+    videoContainer.classList.add('bcvideo-playing');
     overlay.hidden = true;
   });
 
@@ -675,10 +739,12 @@ export default function decorate(block) {
 
   if (cfg.videoContentLayout !== 'none') {
     if (cfg.overlayTitle) {
-      const title = document.createElement('h3');
+      const p = document.createElement('p');
+      const title = document.createElement('b');
       title.className = 'bcvideo-content-title';
       title.textContent = cfg.overlayTitle;
-      contentArea.append(title);
+      p.append(title);
+      contentArea.append(p);
     }
     if (cfg.overlayDescription) {
       const desc = document.createElement('div');

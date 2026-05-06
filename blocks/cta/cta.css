@@ -1,6 +1,5 @@
 .cta {
     --cta-custom-icon-image-size: 1em;
-    --cta-unset : unset;
 }
 
 /* -------------------------------------------------------
@@ -11,14 +10,22 @@
     background: none;
     border: none;
     outline: none;
-    margin-bottom: var(--spacing-16);
     white-space: break-spaces;
     text-align: left;
 }
 
+.cta a.button {
+    text-align: unset;
+    white-space: normal;
+}
+
+.cta .button-container {
+   margin-bottom: var(--corp-spacing-16);
+}
+
 @media (--bp-tablet) {
-    .cta .button {
-        margin-bottom: var(--spacing-24);
+    .cta .button-container {
+        margin-bottom: var(--corp-spacing-24);
     }
 }
 
@@ -28,49 +35,60 @@
 
    .default-cta a.button,
    :where(.light-theme).default-cta .button {
-    align-items: center;
-    color: var(--color-accent-blue);
-    cursor: pointer;
-    display: flex;
-    font-family: var(--roboto-bold-font-family);
-    font-size: var(--font-size-16);
-    font-weight: var(--font-weight-700);
-    line-height: var(--line-height-20);
-    padding: var(--spacing-12) var(--spacing-32);
-    margin: var(--spacing-00);
-    border: var(--spacing-01) solid var(--color-accent-blue);
-    border-radius: var(--border-radius-00);
-    background-color: var(--cta-unset);
-    text-decoration: none;
-    width: fit-content;
-    text-transform: var(--font-uppercase);
+        align-items: center;
+        color: var(--color-accent-blue);
+        cursor: pointer;
+        display: flex;
+        font-family: var(--roboto-bold-font-family);
+        font-size: var(--corp-font-size-16);
+        font-weight: var(--corp-font-weight-bold);
+        line-height: var(--corp-typography-lineheight-body-sm);
+        letter-spacing: var(--corp-typography-letterspacing-wide-em);
+        padding: var(--corp-spacing-12) var(--corp-spacing-32);
+        margin: 0;
+        border: var(--border-width-thin) solid var(--color-accent-blue);
+        border-radius: 0;
+        background-color: unset;
+        text-decoration: none;
+        text-align: unset;
+        white-space: normal;
+        width: fit-content;
+        text-transform: var(--text-transform-uppercase);
     }
 
     .cta .button:focus {
-        outline: var(--spacing-01) solid var(--color-navy-dark);
+        outline: var(--corp-spacing-1) solid var(--color-navy-dark);
     }
 
     @media (--bp-tablet) {
         .default-cta a.button {
-            font-size: var(--font-size-14);
+            font-size: var(--corp-font-size-14);
         }
     }
 
     .default-cta .button:hover,
-    :where(.light-theme).default-cta .button:hover {
-        color: var(--background-color);
+    :where(.light-theme).default-cta .button:hover,
+    :where(.light-theme).default-cta .button:focus-visible {
+        color: var(--color-surface-default);
         background-color: var(--color-accent-blue);
     }
 
     :where(.dark-theme).default-cta a.button {
-        color: var(--background-color);
-        border: var(--spacing-01) solid var(--background-color);
-        background-color: var(--cta-unset);
+        color: var(--color-surface-default);
+        border: var(--border-width-thin) solid var(--color-surface-default);
+        background-color: unset;
     }
 
-    :where(.dark-theme).default-cta .button:hover {
-        background-color: var(--background-color);
-        color: var(--text-color);
+    :where(.dark-theme).default-cta .button:hover,
+     :where(.dark-theme).default-cta .button:focus-visible {
+        background-color: var(--color-surface-default);
+        color: var(--corp-color-text-default);
+    }
+
+    @media (--bp-desktop)  {
+        .default-cta a.button {
+            padding: var(--corp-spacing-16) var(--corp-spacing-40);
+        }
     }
 
    /* -------------------------------------------------------
@@ -84,46 +102,42 @@
     cursor: pointer;
     display: flex;
     font-family: var(--roboto-bold-font-family);
-    font-size: var(--font-size-16);
-    font-weight: var(--font-weight-800);
-    line-height: var(--spacing-20);
-    padding: var(--spacing-00);
-    margin: var(--spacing-00);
+    font-size: var(--corp-font-size-16);
+    font-weight: var(--corp-font-weight-extrabold);
+    line-height: var(--corp-spacing-20);
+    padding: 0;
+    margin: 0;
     border: none;
-    border-radius: var(--border-radius-00);
-    background-color: var(--cta-unset);
-    text-decoration: var(--cta-unset);;
+    border-radius: 0;
+    background-color: unset;
+    text-decoration: unset;
     width: fit-content;
 }
 
-@media (--bp-tablet) {
-    .external-cta a.button {
-        font-size: var(--font-size-14);
-    }
-}
-
 .external-cta .button:hover,
-:where(.light-theme).external-cta .button:hover {
-    color: var(--text-color);
-    background-color: var(--cta-unset);
+:where(.light-theme).external-cta .button:hover,
+ :where(.light-theme).external-cta .button:focus-visible {
+    color: var(--corp-color-text-default);
+    background-color: unset;
 }
 
 :where(.dark-theme).external-cta a.button {
     color: var(--color-accent-blue-light);
 }
 
-:where(.dark-theme).external-cta .button:hover {
+:where(.dark-theme).external-cta .button:hover,
+:where(.dark-theme).external-cta .button:focus-visible {
     color: var(--color-blue-light);
-    background-color: var(--cta-unset);
+    background-color: unset;
 }
 
 .external-cta a.button::after {
     color: inherit;
     content: '\e900';
-    font-family: var(--icon-font-family);
-    font-size: var(--font-size-12);
-    margin-left: var(--spacing-12);
-    margin-right: var(--spacing-03);
+    font-family: var(--corp-icon-font-family);
+    font-size: var(--corp-font-size-12);
+    margin-left: var(--corp-spacing-12);
+    margin-right: var(--corp-spacing-3);
     transform: scale(.8);
     transition: color .1s ease;
 }
@@ -134,21 +148,21 @@
 .internal-cta a.button,
 :where(.light-theme).internal-cta a.button {
     align-items: center;
-    color: var(--story-card-link-color);
+    color: var(--color-accent-blue);
     cursor: pointer;
     display: flex;
     font-family: var(--roboto-bold-font-family);
-    font-size: var(--font-size-16);
-    font-weight: var(--font-weight-700);
-    letter-spacing: var(--letter-spacing-wide-06);
-    line-height: var(--line-height-20);
-    padding: var(--spacing-00);
-    margin: var(--spacing-00);
+    font-size: var(--corp-font-size-16);
+    font-weight: var(--corp-font-weight-bold);
+    letter-spacing: var(--corp-typography-letterspacing-wide-em);
+    line-height: var(--corp-typography-lineheight-body-sm);
+    padding: 0;
+    margin: 0;
     text-decoration: none;
-    text-transform: var(--font-uppercase);
+    text-transform: var(--text-transform-uppercase);
     border: none;
-    border-radius: var(--border-radius-00);
-    background-color: var(--cta-unset);
+    border-radius: 0;
+    background-color: unset;
     width: fit-content;
 }
 
@@ -157,19 +171,21 @@
 }
 
 .internal-cta .button:hover,
-:where(.light-theme).internal-cta .button:hover {
+:where(.light-theme).internal-cta .button:hover,
+:where(.light-theme).internal-cta .button:focus-visible {
     color: var(--color-navy-dark);
-    background-color: var(--cta-unset);
+    background-color: unset;
 }
 
-:where(.dark-theme).internal-cta .button:hover {
+:where(.dark-theme).internal-cta .button:hover,
+:where(.dark-theme).internal-cta .button:focus-visible {
     color: var(--color-blue-light);
 }
 
 @media (--bp-tablet) {
     .internal-cta a.button,
     :where(.light-theme).internal-cta a.button {
-        font-size: var(--font-size-14);
+        font-size: var(--corp-font-size-14);
     }
 }
 
@@ -177,10 +193,10 @@
     color: inherit;
     content: '\e901';
     display: flex;
-    font-family: var(--icon-font-family);
-    font-size: var(--font-size-12);
-    margin-left: var(--spacing-12);
-    margin-right: var(--spacing-03);
+    font-family: var(--corp-icon-font-family);
+    font-size: var(--corp-font-size-12);
+    margin-left: var(--corp-spacing-12);
+    margin-right: var(--corp-spacing-30);
     transition: color .1s ease;
     vertical-align: middle;
 }
@@ -197,18 +213,18 @@
     align-items: center;
     background: none;
     border: none;
-    border-radius: var(--border-radius-00);
-    color: var(--story-card-link-color);
+    border-radius: 0;
+    color: var(--color-accent-blue);
     cursor: pointer;
     display: flex;
     font-family: var(--roboto-bold-font-family);
-    font-size: var(--font-size-16);
-    font-weight: var(--font-weight-700);
-    letter-spacing: var(--letter-spacing-wide-06);
-    line-height: var(--line-height-20);
-    padding: var(--spacing-00);
+    font-size: var(--corp-font-size-16);
+    font-weight: var(--corp-font-weight-bold);
+    letter-spacing: var(--corp-typography-letterspacing-wide-em);
+    line-height: var(--corp-typography-lineheight-body-sm);
+    padding: 0;
     text-decoration: none;
-    text-transform: var(--font-uppercase);
+    text-transform: var(--text-transform-uppercase);
     width: fit-content;
 }
 
@@ -217,19 +233,21 @@
 }
 
 .back-cta .button:hover,
-:where(.light-theme).back-cta .button:hover {
-    color: var(--text-color);
-    background-color: var(--cta-unset);
+:where(.light-theme).back-cta .button:hover,
+:where(.light-theme).back-cta .button:focus-visible {
+    color: var(--corp-color-text-default);
+    background-color: unset;
 }
 
-:where(.dark-theme).back-cta .button:hover {
+:where(.dark-theme).back-cta .button:hover,
+:where(.dark-theme).back-cta .button:focus-visible {
     color: var(--color-blue-light);
 }
 
 @media (--bp-tablet) {
     .back-cta a.button,
     :where(.light-theme).back-cta a.button {
-        font-size: var(--font-size-14);
+        font-size: var(--corp-font-size-14);
     }
 }
 
@@ -237,10 +255,10 @@
     color: inherit;
     content: '\e903';
     display: flex;
-    font-family: var(--icon-font-family);
-    font-size: var(--font-size-12);
-    margin-left: var(--spacing-03);
-    margin-right: var(--spacing-12);
+    font-family: var(--corp-icon-font-family);
+    font-size: var(--corp-font-size-12);
+    margin-left: var(--corp-spacing-3);
+    margin-right: var(--corp-spacing-12);
     transform: scale(.8);
     transition: color .1s ease;
 }
@@ -272,18 +290,18 @@
 }
 
 .cta .cta-icon-left > .cta-custom-icon {
-    margin-left: var(--spacing-03);
-    margin-right: var(--spacing-12);
+    margin-left: var(--corp-spacing-3);
+    margin-right: var(--corp-spacing-12);
 }
 
 .cta .cta-icon-right > .cta-custom-icon {
-    margin-left: var(--spacing-12);
-    margin-right: var(--spacing-03);
+    margin-left: var(--corp-spacing-12);
+    margin-right: var(--corp-spacing-3);
 }
 
 .cta .cta-custom-icon-font {
-    font-family: var(--icon-font-family);
-    font-size: var(--font-size-12);
+    font-family: var(--corp-icon-font-family);
+    font-size: var(--corp-font-size-12);
     transform: scale(.8);
 }
 

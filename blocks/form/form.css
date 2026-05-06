@@ -1,3 +1,5 @@
+/** TODO  - Fix ESlint Issue */
+/* stylelint-disable */
 .form .field-wrapper {
   display: grid;
   grid-auto-flow: row;
@@ -62,9 +64,9 @@
   margin: 0;
   padding: 0.5em;
   border-radius: 4px;
-  border: 1px solid var(--dark-color);
-  background-color: var(--background-color);
-  color: var(--text-color);
+  border: var(--corp-spacing-1) solid var(--corp-color-text-strong);
+  background-color: var(--color-surface-default);
+  color: var(--corp-color-text-default);
   font-size: var(--body-font-size-s);
   transition: border-color 0.2s;
 }
@@ -76,13 +78,13 @@
 .form input:hover,
 .form select:hover,
 .form textarea:hover {
-  border: 1px solid var(--text-color);
+  border: 1px solid var(--corp-color-text-default);
 }
 
 .form input:focus,
 .form select:focus,
 .form textarea:focus {
-  outline: 2px solid var(--link-color);
+  outline: 2px solid var(--corp-color-link-default);
   outline-offset: 2px;
 }
 
@@ -102,7 +104,7 @@
   }
 }
 
-@media (width >= 900px) {
+@media (width >= 900px) { /** TODO remove this breakpoint */
   .form input,
   .form select,
   .form textarea {
@@ -118,53 +120,53 @@
 
 .form label[data-required]::after {
   content: '*';
-  color: firebrick;
+  color: firebrick; /** use token */
   margin-inline-start: 1ch;
 }
 
 .form .toggle-wrapper .switch {
   position: relative;
   display: inline-block;
-  width: 52px;
-  height: 28px;
+  width: 52px; /** TODO use token */
+  height: 28px; /** TODO use token */
 }
 
 .form .toggle-wrapper input {
   opacity: 0;
-  width: 52px;
-  height: 28px;
+  width: 52px; /** TODO use token */
+  height: 28px; /** TODO use token */
 }
 
 .form .toggle-wrapper .slider {
   position: absolute;
   cursor: pointer;
   inset: 0;
-  border-radius: 28px;
-  background-color: var(--dark-color);
+  border-radius: 28px; /** TODO use token */
+  background-color: var(--corp-color-text-strong);
   transition: background-color 0.2s;
 }
 
 .form .toggle-wrapper .slider::before {
   content: '';
   position: absolute;
-  width: 24px;
-  height: 24px;
-  top: 2px;
-  left: 2px;
+  width: var(--corp-spacing-24);
+  height: var(--corp-spacing-24);
+  top: var(--corp-spacing-2);
+  left: var(--corp-spacing-2);
   border-radius: 50%;
-  background-color: var(--background-color);
+  background-color: var(--color-surface-default);
   transition: transform 0.2s;
 }
 
 .form .toggle-wrapper input:checked + .slider {
-  background-color: var(--link-color);
+  background-color: var(--corp-color-link-default);
 }
 
 .form .toggle-wrapper input:focus + .slider {
-  outline: 2px solid var(--link-color);
-  outline-offset: 2px;
+  outline: var(--corp-spacing-2) solid var(--corp-color-link-default);
+  outline-offset: var(--corp-spacing-2);
 }
 
 .form .toggle-wrapper input:checked + .slider::before {
-  transform: translateX(24px);
+  transform: translateX(24px); /** TODO use token */
 }

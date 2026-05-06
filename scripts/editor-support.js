@@ -10,7 +10,7 @@ import {
   loadSections,
 } from './aem.js';
 import { decorateRichtext } from './editor-support-rte.js';
-import { decorateMain } from './scripts.js';
+import { decorateMain, decorateSectionBackgrounds } from './scripts.js';
 
 function getState(block) {
   if (block.matches('.accordion')) {
@@ -114,6 +114,7 @@ async function applyChanges(event) {
           decorateIcons(newSection);
           decorateRichtext(newSection);
           decorateSections(parentElement);
+          decorateSectionBackgrounds(parentElement);
           decorateBlocks(parentElement);
           await loadSections(parentElement);
           element.remove();
@@ -123,6 +124,7 @@ async function applyChanges(event) {
           decorateButtons(parentElement);
           decorateIcons(parentElement);
           decorateRichtext(parentElement);
+          decorateSectionBackgrounds(parentElement.closest('main') || parentElement);
         }
         return true;
       }

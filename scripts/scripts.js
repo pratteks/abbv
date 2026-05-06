@@ -13,6 +13,10 @@ import {
   waitForFirstImage,
 } from './aem.js';
 
+import {
+  initFooterReturnScrollOnHistoryRestore,
+  shouldRunOutsideAuthorEdit,
+} from './utils.js';
 /**
  * Moves all the attributes from a given elmenet to another given element.
  * @param {Element} from the element to copy attributes from
@@ -43,8 +47,26 @@ export function moveInstrumentation(from, to) {
     to,
     [...from.attributes]
       .map(({ nodeName }) => nodeName)
-      .filter((attr) => attr.startsWith('data-aue-') || attr.startsWith('data-richtext-')),
+      .filter(
+        (attr) => attr.startsWith('data-aue-') || attr.startsWith('data-richtext-'),
+      ),
   );
+}
+
+/**
+ * True when an anchor href should be treated as an image asset (DAM, DM, Franklin media, etc.).
+ * Excludes obvious video destinations so mixed cells resolve the correct target.
+ * @param {string} href
+ * @returns {boolean}
+ */
+function isResolvableImageReferenceHref(href) {
+  if (!href) return false;
+  if (/youtube\.com|youtu\.be|vimeo\.com/i.test(href)) return false;
+  return /\.(jpg|jpeg|png|gif|webp|svg|avif)(\?|$)/i.test(href)
+    || href.includes('scene7.com')
+    || href.includes('/is/image/')
+    || href.includes('/content/dam/')
+    || href.includes('media_');
 }
 
 /**
@@ -56,18 +78,132 @@ export function moveInstrumentation(from, to) {
  */
 export function resolveImageReference(container) {
   if (!container || container.querySelector('picture, img')) return;
-  const link = container.querySelector('a');
+  const link = [...container.querySelectorAll('a[href]')].find((a) => isResolvableImageReferenceHref(a.href));
   if (!link?.href) return;
   const { href } = link;
-  if (!/\.(jpg|jpeg|png|gif|webp|svg)(\?|$)/i.test(href)
-    && !href.includes('scene7.com')
-    && !href.includes('/is/image/')) return;
   const img = document.createElement('img');
   img.src = href;
   img.alt = link.title || link.textContent || '';
   img.loading = 'lazy';
   const wrapper = link.closest('.button-container') || link.closest('p') || link;
   wrapper.replaceWith(img);
+}
+
+function isUsableImageUrl(value) {
+  const normalized = `${value || ''}`.trim();
+  if (!normalized) return false;
+
+  return normalized.startsWith('/')
+    || normalized.startsWith('http')
+    || /\.(jpg|jpeg|png|gif|webp|svg)(\?|$)/i.test(normalized)
+    || normalized.includes('scene7.com')
+    || normalized.includes('/is/image/');
+}
+
+function resolveSectionBackgroundUrl(section) {
+  const datasetBackground = `${section.dataset.background || ''}`.trim();
+  if (isUsableImageUrl(datasetBackground)) {
+    return datasetBackground;
+  }
+
+  const backgroundField = section.querySelector('[data-aue-prop="background"]');
+  if (backgroundField) {
+    resolveImageReference(backgroundField);
+    const fieldImage = backgroundField.querySelector('img');
+    if (isUsableImageUrl(fieldImage?.src)) {
+      return fieldImage.src;
+    }
+
+    const fieldLink = backgroundField.querySelector('a[href]');
+    if (isUsableImageUrl(fieldLink?.href)) {
+      return fieldLink.href;
+    }
+  }
+
+  const backgroundImage = section.querySelector('img[data-background]');
+  if (isUsableImageUrl(backgroundImage?.src)) {
+    return backgroundImage.src;
+  }
+
+  const backgroundLink = section.querySelector('a[data-background], [data-background] a[href]');
+  if (isUsableImageUrl(backgroundLink?.href)) {
+    return backgroundLink.href;
+  }
+
+  return '';
+}
+
+function extractSectionBackgroundMedia(section) {
+  const backgroundField = section.querySelector('[data-aue-prop="background"]');
+  if (backgroundField) {
+    resolveImageReference(backgroundField);
+    const media = backgroundField.querySelector('picture, img');
+    if (media) return media.cloneNode(true);
+  }
+
+  const existingMedia = section.querySelector('img[data-background], picture[data-background]');
+  if (existingMedia) return existingMedia.cloneNode(true);
+
+  return null;
+}
+
+function renderSectionBackgroundMedia(section) {
+  const existing = section.querySelector(':scope > .section-background-media');
+  const media = extractSectionBackgroundMedia(section);
+
+  if (!media) {
+    existing?.remove();
+    return;
+  }
+
+  const wrapper = existing || document.createElement('div');
+  wrapper.className = 'section-background-media';
+  wrapper.setAttribute('aria-hidden', 'true');
+
+  const image = media.tagName === 'IMG' ? media : media.querySelector('img');
+  if (image) {
+    image.alt = '';
+    image.loading = 'eager';
+    image.fetchPriority = 'high';
+  }
+
+  wrapper.replaceChildren(media);
+  if (!existing) section.prepend(wrapper);
+}
+
+function applySectionBackground(section, idx, allSections) {
+  const bg = resolveSectionBackgroundUrl(section);
+  const isAuthorEdit = !shouldRunOutsideAuthorEdit();
+  if (!bg) {
+    section.style.removeProperty('background-image');
+    delete section.dataset.background;
+    if (isAuthorEdit) {
+      renderSectionBackgroundMedia(section);
+    } else {
+      section.querySelector(':scope > .section-background-media')?.remove();
+    }
+    return '';
+  }
+
+  const id = `section-bg-${idx}`;
+  section.id = section.id || id;
+  section.dataset.background = bg;
+  section.style.backgroundImage = `url('${bg}')`;
+
+  const sectionIndex = allSections.indexOf(section);
+  const isAboveFold = sectionIndex < 2;
+  const bgImg = section.querySelector('img[data-background], [data-aue-prop="background"] img');
+  if (bgImg) {
+    bgImg.loading = isAboveFold ? 'eager' : 'lazy';
+    bgImg.fetchPriority = isAboveFold ? 'high' : 'auto';
+  }
+
+  if (isAuthorEdit) {
+    renderSectionBackgroundMedia(section);
+  } else {
+    section.querySelector(':scope > .section-background-media')?.remove();
+  }
+  return `#${section.id} { background-image: url('${bg}'); }`;
 }
 
 /**
@@ -87,7 +223,9 @@ function autolinkModals(doc) {
     const origin = e.target.closest('a');
     if (origin && origin.href && origin.href.includes('/modals/')) {
       e.preventDefault();
-      const { openModal } = await import(`${window.hlx.codeBasePath}/blocks/modal/modal.js`);
+      const { openModal } = await import(
+        `${window.hlx.codeBasePath}/blocks/modal/modal.js`
+      );
       openModal(origin.href);
     }
   });
@@ -173,8 +311,6 @@ function a11yLinks(main) {
  * @param {Element} main The main element
  */
 function addGridSectionsWrapper(main) {
-  if (document.querySelector('iframe[src*="author"]')) return;
-
   let group = [];
   let currentContainer = null;
 
@@ -207,27 +343,13 @@ function addGridSectionsWrapper(main) {
  * first 2 sections = above fold (eager, high priority), rest = lazy.
  * @param {Element} main The main element
  */
-function decorateSectionBackgrounds(main) {
+export function decorateSectionBackgrounds(main) {
   const rules = [];
   const allSections = [...main.querySelectorAll('.section')];
 
-  main.querySelectorAll('.section[data-background]').forEach((section, idx) => {
-    const bg = section.dataset.background;
-    if (bg) {
-      const id = `section-bg-${idx}`;
-      section.id = section.id || id;
-      section.style.backgroundImage = `url('${bg}')`;
-      rules.push(`#${section.id} { background-image: url('${bg}'); }`);
-
-      // Auto-derive loading strategy from section position
-      const sectionIndex = allSections.indexOf(section);
-      const isAboveFold = sectionIndex < 2;
-      const bgImg = section.querySelector('img[data-background]');
-      if (bgImg) {
-        bgImg.loading = isAboveFold ? 'eager' : 'lazy';
-        bgImg.fetchPriority = isAboveFold ? 'high' : 'auto';
-      }
-    }
+  main.querySelectorAll('.section').forEach((section, idx) => {
+    const rule = applySectionBackground(section, idx, allSections);
+    if (rule) rules.push(rule);
   });
   if (rules.length) {
     const style = document.createElement('style');
@@ -245,28 +367,37 @@ function decorateSectionBackgrounds(main) {
  * @param {Element} main The main element
  */
 function decorateFragmentRotation(main) {
-  main.querySelectorAll('.section[data-section-type="hero"]').forEach((section) => {
-    const fragmentWrappers = [...section.querySelectorAll(':scope > .fragment-wrapper')];
-    if (fragmentWrappers.length < 2) return;
+  main
+    .querySelectorAll('.section[data-section-type="hero"]')
+    .forEach((section) => {
+      const fragmentWrappers = [
+        ...section.querySelectorAll(':scope > .fragment-wrapper'),
+      ];
+      if (fragmentWrappers.length < 2) return;
 
-    if (section.classList.contains('onlyone')) {
-      // Show only the first fragment, remove the rest
-      fragmentWrappers.slice(1).forEach((fw) => fw.remove());
-    } else {
-      // Rotate fragments in authored order across page loads
-      const pagePath = window.location.pathname;
-      const sectionIndex = [...main.querySelectorAll('.section')].indexOf(section);
-      const storageKey = `fragment-rotation-${pagePath}-${sectionIndex}`;
+      if (section.classList.contains('onlyone')) {
+        // Show only the first fragment, remove the rest
+        fragmentWrappers.slice(1).forEach((fw) => fw.remove());
+      } else {
+        // Rotate fragments in authored order across page loads
+        const pagePath = window.location.pathname;
+        const sectionIndex = [...main.querySelectorAll('.section')].indexOf(
+          section,
+        );
+        const storageKey = `fragment-rotation-${pagePath}-${sectionIndex}`;
 
-      const lastIndex = parseInt(sessionStorage.getItem(storageKey) ?? '-1', 10);
-      const nextIndex = (lastIndex + 1) % fragmentWrappers.length;
-      sessionStorage.setItem(storageKey, nextIndex.toString());
+        const lastIndex = parseInt(
+          sessionStorage.getItem(storageKey) ?? '-1',
+          10,
+        );
+        const nextIndex = (lastIndex + 1) % fragmentWrappers.length;
+        sessionStorage.setItem(storageKey, nextIndex.toString());
 
-      fragmentWrappers.forEach((fw, i) => {
-        if (i !== nextIndex) fw.remove();
-      });
-    }
-  });
+        fragmentWrappers.forEach((fw, i) => {
+          if (i !== nextIndex) fw.remove();
+        });
+      }
+    });
 }
 
 /**
@@ -282,7 +413,6 @@ export function decorateMain(main) {
   decorateSections(main);
   decorateSectionBackgrounds(main);
   decorateBlocks(main);
-  addGridSectionsWrapper(main);
   // Run after decorateBlocks (which assigns fragment-wrapper class) but before loadSection
   decorateFragmentRotation(main);
   // add aria-label to links
@@ -305,7 +435,10 @@ async function loadEager(doc) {
     decorateMain(main);
 
     // Inject breadcrumbs for pages without a hero block
-    if (!main.querySelector('.hero') && getMetadata('breadcrumbs').toLowerCase() !== 'false') {
+    if (
+      !main.querySelector('.hero')
+      && getMetadata('breadcrumbs').toLowerCase() !== 'false'
+    ) {
       // const breadcrumbs = buildBreadcrumbs();
       // if (breadcrumbs) {
       //   const firstWrapper = main.querySelector('.section > .default-content-wrapper');
@@ -340,6 +473,10 @@ async function loadLazy(doc) {
   const main = doc.querySelector('main');
   await loadSections(main);
 
+  if (shouldRunOutsideAuthorEdit()) {
+    addGridSectionsWrapper(main);
+  }
+
   const { hash } = window.location;
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) element.scrollIntoView();
@@ -362,6 +499,7 @@ function loadDelayed() {
 }
 
 async function loadPage() {
+  initFooterReturnScrollOnHistoryRestore();
   await loadEager(document);
   await loadLazy(document);
   loadDelayed();

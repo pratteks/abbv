@@ -159,8 +159,8 @@ export default async function decorate(block) {
 /* All selectors MUST be scoped to block */
 main .my-block {
   /* Use CSS custom properties for consistency */
-  background-color: var(--background-color);
-  color: var(--text-color);
+  background-color: var(--color-surface-default);
+  color: var(--corp-color-text-default);
   font-family: var(--body-font-family);
   max-width: var(--max-content-width);
 
@@ -196,7 +196,7 @@ main .my-block .item {
 
 /* Variants - most are CSS-only */
 main .my-block.dark {
-  background-color: var(--dark-color);
+  background-color: var(--corp-color-text-strong);
   color: var(--clr-white);
 }
 ```

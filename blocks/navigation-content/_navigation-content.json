@@ -10,18 +10,6 @@
             "template": {
               "name": "Navigation Content",
               "model": "navigation-content",
-              "content_searchIcon": ":icon-search:",
-              "megamenutitle": "",
-              "megamenudescription": "",
-              "megamenu_link": "",
-              "megamenu_linktText": "",
-              "megamenudashboardlinks": "",
-              "megamenucardtitle": "",
-              "megamenucardcontent": "",
-              "megamenucard_link": "",
-              "megamenucard_linkText": "",
-              "megamenudashboardcard": "",
-              "dashboardcardType": "light",
               "language": "lang:none",
               "blockId": "id:"
             }
@@ -147,7 +135,6 @@
           "component": "text",
           "name": "content_searchIcon",
           "label": "Search Icon",
-          "value": ":icon-search:",
           "condition": {
             "in": [
               {
@@ -163,6 +150,40 @@
           "component": "text",
           "name": "content_searchLabel",
           "label": "Search Label",
+          "condition": {
+            "in": [
+              {
+                "var": "classes"
+              },
+              [
+                "search"
+              ]
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "searchButtonPlaceholderMobile",
+          "label": "Search Button Placeholder Text (Mobile View)",
+          "description": "Placeholder text for the search action/button optimized for mobile view. Optional; used when mobile-specific label differs from desktop.",
+          "condition": {
+            "in": [
+              {
+                "var": "classes"
+              },
+              [
+                "search"
+              ]
+            ]
+          }
+        },
+        {
+          "component": "aem-content",
+          "valueType": "string",
+          "name": "content_searchResultsPagePath",
+          "label": "Search Results Page Path",
+          "description": "Enter the path for the search results page.",
           "condition": {
             "in": [
               {

@@ -79,29 +79,29 @@ This document provides detailed guidelines for CSS and JavaScript development du
   --font-family-secondary: 'Roboto', Arial, sans-serif;
   
   /* Exact font sizes from source */
-  --font-size-h1: 48px;
-  --font-size-h2: 36px;
-  --font-size-h3: 28px;
-  --font-size-body: 16px;
-  --font-size-small: 14px;
+  --corp-font-size-h1: 48px;
+  --corp-font-size-h2: 36px;
+  --corp-font-size-h3: 28px;
+  --corp-font-size-body: 16px;
+  --corp-font-size-small: 14px;
   
   /* Exact line heights */
   --line-height-heading: 1.2;
   --line-height-body: 1.6;
   
   /* Exact font weights */
-  --font-weight-light: 300;
+  --corp-font-weight-light: 300;
   --font-weight-normal: 400;
-  --font-weight-medium: 500;
-  --font-weight-bold: 700;
+  --corp-font-weight-medium: 500;
+  --corp-font-weight-bold: 700;
 }
 
 /* Apply consistently */
 h1 {
   font-family: var(--font-family-primary);
-  font-size: var(--font-size-h1);
+  font-size: var(--corp-font-size-h1);
   line-height: var(--line-height-heading);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--corp-font-weight-medium);
 }
 ```
 

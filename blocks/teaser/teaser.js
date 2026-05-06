@@ -1,3 +1,5 @@
+import { applyCommonProps } from '../../scripts/utils.js';
+
 /**
  * Teaser Block — two-column layout with optional CTA button
  *
@@ -10,6 +12,9 @@
  *   Row 5: buttonType (<p>primary|secondary|link-external</p>)
  *   Row 6: clickType (<p>_self|_blank</p>)
  *   Row 7: ariaLabel (<p>text</p>)
+ *   Row 8: blockId              (id:<value> → sets id attribute; handled by applyCommonProps)
+ *   Row 9: classes_commonCustomClass (CSS class — handled by framework)
+ *   Row 10: language            (lang:<code> → sets lang attribute; handled by applyCommonProps)
  *
  * Decorated structure:
  *   .teaser
@@ -19,6 +24,7 @@
  *       .teaser-right  (description + optional button)
  */
 export default function decorate(block) {
+  applyCommonProps(block);
   const rows = block.querySelectorAll(':scope > div');
   if (rows.length < 3) return;
 

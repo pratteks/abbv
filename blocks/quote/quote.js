@@ -11,14 +11,16 @@ import { applyCommonProps } from '../../scripts/utils.js';
 // Row  4: attributionImage
 // Row  5: quoteFragment
 // Row  6: backgroundImage
-// Row  7: backgroundImageAlt
-// Row  8: classes_theme          (CSS class — no JS handling)
-// Row  9: classes_contentAlignment (CSS class — no JS handling)
-// Row 10: classes_contentWidth   (CSS class — no JS handling)
-// Row 11: blockId                (handled by applyCommonProps)
-// Row 12: classes_commonCustomClass (handled by applyCommonProps)
-// Row 13: language
-// Row 14: analyticsInteractionId
+// Row  7: backgroundImagePreset
+// Row  8: backgroundImageModifiers
+// Row  9: backgroundImageAlt
+// Row 10: classes_theme          (CSS class — no JS handling)
+// Row 11: classes_contentAlignment (CSS class — no JS handling)
+// Row 12: classes_contentWidth   (CSS class — no JS handling)
+// Row 13: blockId                (handled by applyCommonProps)
+// Row 14: classes_commonCustomClass (handled by applyCommonProps)
+// Row 15: language
+// Row 16: analyticsInteractionId
 const ROW = {
   QUOTE_TYPE: 0,
   QUOTATION: 1,
@@ -27,9 +29,11 @@ const ROW = {
   ATTRIBUTION_IMAGE: 4,
   QUOTE_FRAGMENT: 5,
   BACKGROUND_IMAGE: 6,
-  BACKGROUND_IMAGE_ALT: 7,
-  LANGUAGE: 13,
-  ANALYTICS_ID: 14,
+  BACKGROUND_IMAGE_PRESET: 7,
+  BACKGROUND_IMAGE_MODIFIERS: 8,
+  BACKGROUND_IMAGE_ALT: 9,
+  LANGUAGE: 15,
+  ANALYTICS_ID: 16,
 };
 
 /**
@@ -260,7 +264,9 @@ function renderCfQuote(blockquote, quoteData) {
   if (quoteText) {
     const quotation = document.createElement('div');
     quotation.className = 'quote-quotation';
-    quotation.textContent = quoteText;
+    const quotationParagraph = document.createElement('p');
+    quotationParagraph.textContent = quoteText;
+    quotation.append(quotationParagraph);
     blockquote.append(quotation);
   }
 
@@ -368,6 +374,33 @@ async function decorateFragmentQuote(rows) {
 }
 
 /**
+ * Appends preset and modifier parameters to all src/srcset URLs in a picture element.
+ * @param {Element} picture
+ * @param {string} preset
+ * @param {string} modifiers
+ */
+function applyImageParams(picture, preset, modifiers) {
+  if (!picture || (!preset && !modifiers)) return;
+  const els = [picture.querySelector('img'), ...picture.querySelectorAll('source')];
+  els.forEach((el) => {
+    if (!el) return;
+    const attr = el.tagName === 'IMG' ? 'src' : 'srcset';
+    const url = el.getAttribute(attr);
+    if (!url) return;
+    const params = new URLSearchParams();
+    if (preset) params.set('preset', preset);
+    if (modifiers) {
+      modifiers.split('&').forEach((part) => {
+        const [k, v = ''] = part.split('=');
+        if (k.trim()) params.set(k.trim(), v.trim());
+      });
+    }
+    const sep = url.includes('?') ? '&' : '?';
+    el.setAttribute(attr, `${url}${sep}${params.toString()}`);
+  });
+}
+
+/**
  * Quote Block — supports Regular (inline) and Content Fragment modes
  * with an optional background image.
  * @param {Element} block
@@ -383,6 +416,8 @@ export default async function decorate(block) {
   // const lang = isSimpleFormat ? 'en' : getCellText(rows[ROW.LANGUAGE]) || 'en';
   // Background image (shared by both modes)
   let bgPicture = isSimpleFormat ? null : rows[ROW.BACKGROUND_IMAGE]?.querySelector('picture');
+  const bgPreset = isSimpleFormat ? '' : getCellText(rows[ROW.BACKGROUND_IMAGE_PRESET]);
+  const bgModifiers = isSimpleFormat ? '' : getCellText(rows[ROW.BACKGROUND_IMAGE_MODIFIERS]);
   // const bgAlt = isSimpleFormat ? '' : getCellText(rows[ROW.BACKGROUND_IMAGE_ALT]);
 
   let blockquote = null;
@@ -417,6 +452,7 @@ export default async function decorate(block) {
 
   // Add background image if authored
   if (bgPicture) {
+    applyImageParams(bgPicture, bgPreset, bgModifiers);
     block.classList.add('quote-has-background');
     const bgWrapper = document.createElement('div');
     bgWrapper.className = 'quote-background-image';

@@ -22,8 +22,8 @@
       "fields": [
         {
           "component": "tab",
-          "label": "Properties",
-          "name": "properties"
+          "label": "Overview",
+          "name": "overview"
         },
         {
           "component": "text",
@@ -84,67 +84,6 @@
         {
           "component": "select",
           "valueType": "string",
-          "name": "classes_grid",
-          "value": "",
-          "label": "Grid Layout",
-          "options": [
-            {
-              "name": "Default",
-              "value": ""
-            },
-            {
-              "name": "Two Columns — Equal Split, Double Divider (5/1/5/1)",
-              "value": "grid-5-5"
-            },
-            {
-              "name": "Two Columns — Right Slightly Wider, With Divider (5/1/6)",
-              "value": "grid-5-6"
-            },
-            {
-              "name": "Two Columns — Left Slightly Wider, With Divider (6/1/5)",
-              "value": "grid-6-5"
-            },
-            {
-              "name": "Two Columns — Dominant Left, With Divider (7/1/4)",
-              "value": "grid-7-4"
-            },
-            {
-              "name": "Two Columns — Strong Left, With Divider (8/1/3)",
-              "value": "grid-8-3"
-            },
-            {
-              "name": "Two Columns — Equal (50/50)",
-              "value": "grid-6-6"
-            },
-            {
-              "name": "Two Columns — Main Content with Two Sidebars (8/2/2)",
-              "value": "grid-8-2-2"
-            },
-            {
-              "name": "Two Columns — Narrow Left, Wide Right (1/5/6)",
-              "value": "grid-1-5-6"
-            },
-            {
-              "name": "Two Columns — Framed Equal (1/5/5/1)",
-              "value": "grid-1-5-5-1"
-            },
-            {
-              "name": "Two Columns — Narrow Left, Wide Right (1/5)",
-              "value": "grid-1-5"
-            },
-            {
-              "name": "Three Columns — Equal (4/4/4)",
-              "value": "grid-4-4-4"
-            },
-            {
-              "name": "Four Columns — Equal (3/3/3/3)",
-              "value": "grid-3-3-3-3"
-            }
-          ]
-        },
-        {
-          "component": "select",
-          "valueType": "string",
           "name": "classes_order",
           "value": "",
           "label": "Content Order (Mobile)",
@@ -175,7 +114,7 @@
               "value": "square-list"
             },
             {
-              "name": "List Style Type Square",
+              "name": "List Style Type bullet",
               "value": "bullet-list"
             }
           ]

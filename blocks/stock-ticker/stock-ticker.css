@@ -1,211 +1,206 @@
-:root {
-  /* Brand Base */
-  --color-brand-primary: var(--highlight-dark-background-color);
-  --color-brand-dark: var(--footer-link-color);
-
-  /* Text */
-  --color-text-muted: #555;
-
-  /* Stock Change Tokens */
-  --stock-up: #338700;
-  --stock-down: #cf451c;
-  --stock-neutral: #607d8b;
-
-  /* Background */
-  --stock-bg: var(--background-color);
-  --stock-border: transparent;
-}
-
-/* ---------------------------------------------
-   STOCK TICKER BASE STYLES
---------------------------------------------- */
-
 .stock-ticker {
-  border-radius: .8rem;
-  background-color: var(--stock-bg);
-  border: .1rem solid var(--stock-border);
+    --stock-ticker-text-color: var(--corp-color-text-default);
+    --stock-ticker-tracking-wide-sm: 0.04em;
+
+    background-color: var(--color-white);
+    border: var(--corp-separator-hairline) solid var(--color-border-container);
 }
 
-.stock-ticker .stock-wrapper {
-  font-family: var(--body-font-family);
-  min-height: 27rem;
-  padding: 2.4rem 3.2rem;
+.stock-ticker .content-container {
+    min-height: 27rem;
+    padding: var(--corp-spacing-24) var(--corp-spacing-32);
 }
 
-/* HEADER */
-.stock-ticker .stock-header {
-  margin-bottom: 2.4rem;
-  display: flex;
-  gap: .8rem;
-  font-weight: var(--font-weight-700);
-  font-family: var(--roboto-bold-font-family);
+.stock-ticker .data-container {
+    margin-bottom: var(--corp-spacing-24);
 }
 
-.stock-ticker .stock-header .symbol {
-  color: var(--color-brand-dark);
+/* Symbol and date share typography; colors differ below. */
+.stock-ticker .symbol,
+.stock-ticker .date {
+    font-family: var(--roboto-bold-font-family);
+    font-size: var(--corp-font-size-12);
+    font-weight: var(--corp-font-weight-bold);
+    letter-spacing: var(--stock-ticker-tracking-wide-sm);
+    line-height: var(--corp-typography-lineheight-tight-sm);
+    margin-right: var(--corp-spacing-10);
+    text-transform: var(--text-transform-uppercase);
 }
 
-.stock-ticker .stock-header .timestamp{
-  color: var(--color-text-muted);
+.stock-ticker .symbol {
+    color: var(--stock-ticker-text-color);
 }
 
-.stock-ticker .stock-header .timestamp,
-.stock-ticker .stock-header .symbol{
-  font-size: 1.2rem;
-  letter-spacing: .04em;
-  line-height: 1.6rem;
-  margin-right: 1.2rem;
-  text-transform: uppercase;
+.stock-ticker .date {
+    color: var(--color-gray-dark);
 }
 
-/* PRICE */
-.stock-ticker .price {
-  color: var(--color-brand-primary);
-  font-family: var(--heading-font-family);
-  font-size: 5.6rem;
-  font-weight: var(--font-weight-700);
-  letter-spacing: -.02em;
-  line-height: 6.4rem;
+.stock-ticker .trade-container {
+    align-items: baseline;
+    display: flex;
 }
 
-.stock-ticker .fraction {
-    color: var(--color-brand-primary);;
+.stock-ticker .last-trade-decimal,
+.stock-ticker .last-trade-fraction {
+    color: var(--color-accent-blue);
+}
+
+.stock-ticker .last-trade-decimal {
+    font-family: var(--heading-font-family);
+    font-size: var(--heading-font-size-xl);
+    font-weight: var(--corp-font-weight-semibold-alt);
+    letter-spacing: var(--corp-typography-letterspacing-tight-em-sm);
+    line-height: var(--corp-typography-lineheight-display-lg);
+}
+
+.stock-ticker .last-trade-fraction {
     font-family: var(--heading-font-family-bold);
-    font-size: 2.4rem;
-    font-weight: var(--font-weight-700);
-    line-height: 2.8rem;
+    font-size: var(--corp-font-size-24);
+    font-weight: var(--corp-font-weight-extrabold);
+    line-height: var(--corp-typography-lineheight-relaxed-sm);
 }
 
-/* CHANGE LINE */
-.stock-ticker .change {
-  display: flex;
-  align-items: center;
-  gap: .8rem;
-  color: var(--color-brand-dark);
-  font-family: "Roboto Regular", Helvetica, Arial, sans-serif;
-  font-size: 1.3rem;
-  font-weight: var(--font-weight-400);
-  line-height: 2rem;
-  margin-top: 1.6rem;
+/* Change indicator shares typography and spacing; color varies by direction. */
+.stock-ticker .decimal-green,
+.stock-ticker .decimal-red,
+.stock-ticker .decimal-zero {
+    font-family: var(--body-font-family);
+    font-size: var(--corp-font-size-13);
+    font-weight: var(--corp-font-weight-regular);
+    line-height: var(--corp-typography-lineheight-body-sm);
+    margin-top: var(--corp-spacing-16);
 }
 
-/* SOURCE */
+.stock-ticker .decimal-green {
+    color: var(--color-accent-green);
+}
+
+.stock-ticker .decimal-red {
+    color: var(--color-error);
+}
+
+.stock-ticker .decimal-zero {
+    color: var(--stock-ticker-text-color);
+}
+
+/* CSS triangles: shared geometry for up/down indicators. */
+.stock-ticker .up-icon,
+.stock-ticker .down-icon {
+    border-left: var(--corp-spacing-8) solid transparent;
+    border-right: var(--corp-spacing-8) solid transparent;
+    display: inline-block;
+    height: 0;
+    margin-right: var(--corp-spacing-12);
+    vertical-align: middle;
+    width: 0;
+}
+
+.stock-ticker .up-icon {
+    border-bottom: var(--corp-spacing-10) solid var(--color-accent-green);
+}
+
+.stock-ticker .down-icon {
+    border-top: var(--corp-spacing-10) solid var(--color-error);
+}
+
 .stock-ticker .source {
-  color: var(--color-brand-dark);
-  font-family: "Roboto Regular", Helvetica, Arial, sans-serif;
-  font-size: 1.2rem;
-  font-weight: var(--font-weight-400);
-  letter-spacing: .04em;
-  line-height: 1.6rem;
-  margin-top: 1.6rem;
-  text-transform: uppercase;
+    color: var(--stock-ticker-text-color);
+    font-family: var(--body-font-family);
+    font-size: var(--corp-font-size-12);
+    font-weight: var(--corp-font-weight-regular);
+    letter-spacing: var(--stock-ticker-tracking-wide-sm);
+    line-height: var(--corp-typography-lineheight-tight-sm);
+    margin-top: var(--corp-spacing-12);
+    text-transform: var(--text-transform-uppercase);
 }
 
-/* ---------------------------------------------
-   CHANGE COLORS
---------------------------------------------- */
-
-.change.green {
-  color: var(--stock-up);
+.stock-ticker .stock-error {
+    color: var(--color-gray-dark);
+    font-family: var(--body-font-family);
+    font-size: var(--corp-font-size-14);
+    line-height: var(--corp-typography-lineheight-body-sm);
+    padding: var(--corp-spacing-16) 0;
 }
 
-.change.red {
-  color: var(--stock-down);
+/* Dark theme overrides. Date, source, symbol, and neutral change all collapse to white. */
+.stock-ticker.dark-theme {
+    background-color: var(--color-navy-dark);
+    color: var(--color-white);
 }
 
-.change.blue-grey {
-  color: var(--stock-neutral);
+.stock-ticker.dark-theme .date,
+.stock-ticker.dark-theme .decimal-zero,
+.stock-ticker.dark-theme .source,
+.stock-ticker.dark-theme .symbol {
+    color: var(--color-white);
 }
 
-/* ---------------------------------------------
-   ICON TRIANGLES (fixed with ::before)
---------------------------------------------- */
+/* Tablet: larger type for headline price and change indicator. */
+@media (--bp-tablet) {
+    .stock-ticker .last-trade-decimal {
+        font-size: var(--corp-font-size-64);
+        line-height: var(--corp-typography-lineheight-display-xl);
+    }
 
-.up-icon::before,
-.down-icon::before,
-.neutral-icon::before {
-  display: inline-block;
-  margin-right: .8rem;
-  content: "";
+    .stock-ticker .last-trade-fraction {
+        font-size: var(--corp-font-size-30);
+        line-height: var(--corp-typography-lineheight-relaxed-xl);
+    }
+
+    .stock-ticker .decimal-green,
+    .stock-ticker .decimal-red,
+    .stock-ticker .decimal-zero {
+        font-size: var(--corp-font-size-16);
+        line-height: var(--corp-typography-lineheight-body-md);
+    }
+
+    .stock-ticker .up-icon {
+        border-bottom: var(--corp-spacing-16) solid var(--color-accent-green);
+        border-left: var(--corp-spacing-10) solid transparent;
+        border-right: var(--corp-spacing-10) solid transparent;
+    }
+
+    .stock-ticker .down-icon {
+        border-top: var(--corp-spacing-16) solid var(--color-error);
+        border-left: var(--corp-spacing-10) solid transparent;
+        border-right: var(--corp-spacing-10) solid transparent;
+    }
 }
 
-/* GREEN UP TRIANGLE */
-.change.green .up-icon::before {
-  width: 0;
-  height: 0;
-  border-left: .8rem solid transparent;
-  border-right: .8rem solid transparent;
-  border-bottom: 1.2rem solid var(--stock-up);
+/* Narrow desktop range: prevent price overflow when container is constrained. */
+@media (744px <= width <= 1279px) {
+    .stock-ticker .trade-container {
+        overflow: hidden;
+    }
 }
 
-/* RED DOWN TRIANGLE */
-.change.red .down-icon::before {
-  width: 0;
-  height: 0;
-  border-left: .8rem solid transparent;
-  border-right: .8rem solid transparent;
-  border-top: 1.2rem solid var(--stock-down);
-}
+/* Desktop: container cap and largest type scale. */
+@media (--bp-desktop) {
+    .stock-ticker {
+        max-width: 295.25px;
+    }
 
-/* GREY DOT (neutral) */
-.change.blue-grey .neutral-icon::before {
-  content: "•";
-  font-size: 1.6rem;
-}
+    .stock-ticker .symbol,
+    .stock-ticker .date {
+        font-size: var(--corp-font-size-14);
+        line-height: var(--corp-typography-lineheight-body-sm);
+    }
 
-/* ---------------------------------------------
-   RESPONSIVE
---------------------------------------------- */
+    .stock-ticker .last-trade-decimal {
+        font-size: var(--corp-font-size-80);
+        letter-spacing: -0.03em;
+        line-height: var(--corp-typography-lineheight-display-2xl);
+    }
 
-@media (width >= 744px) {
-  .stock-ticker .price {
-    font-size: 6.4rem;
-    line-height: 6.8rem;
-  }
+    .stock-ticker .last-trade-fraction {
+        font-size: var(--corp-font-size-40);
+        line-height: var(--corp-typography-lineheight-heading-md);
+    }
 
-  .stock-ticker .change {
-    font-size: 1.6rem;
-    line-height: 2.2rem;
-  }
-
-  .change.green .up-icon::before {
-    border-left: 1rem solid transparent;
-    border-right: 1rem solid transparent;
-    border-bottom: 1.6rem solid var(--stock-up);
-  }
-
-  .change.red .down-icon::before {
-    border-left: 1rem solid transparent;
-    border-right: 1rem solid transparent;
-    border-top: 1.6rem solid var(--stock-down);
-  }
-
-  .trade-container .fraction {
-    font-size: 3rem;
-    line-height: 3.4rem;
-  }
-}
-
-@media (width >= 1024px) {
-  .stock-ticker .price {
-    font-size: 8rem;
-    line-height: 8.4rem;
-    letter-spacing: -.03em;
-  }
-
-  .stock-ticker .change {
-    font-size: 1.8rem;
-    line-height: 2.4rem;
-  }
-
-  .trade-container .fraction {
-    font-size: 4rem;
-    line-height: 4.4rem;
-  }
-
-  .stock-ticker .stock-header .timestamp,
-  .stock-ticker .stock-header .symbol {
-    font-size: 1.4rem;
-    line-height: 2rem;
-  }
+    .stock-ticker .decimal-green,
+    .stock-ticker .decimal-red,
+    .stock-ticker .decimal-zero {
+        font-size: var(--corp-font-size-18);
+        line-height: var(--corp-typography-lineheight-body-lg);
+    }
 }

@@ -1,48 +1,137 @@
-/*
- * Copyright 2025 Adobe. All rights reserved.
- * This file is licensed to you under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License. You may obtain a copy
- * of the License at http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under
- * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
- * OF ANY KIND, either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
- */
+export function detectLanguage() {
+  const htmlLang = document.documentElement.lang;
+  if (htmlLang) return htmlLang.toLowerCase();
 
-import { toCamelCase } from './aem.js';
+  // Example: /fr/some/page.html → "fr"
+  const [, maybeLang] = window.location.pathname.split('/');
+  if (maybeLang && maybeLang.length === 2) {
+    return maybeLang.toLowerCase();
+  }
+  return 'en';
+}
+
+const PLACEHOLDERS_CACHE_PREFIX = 'abbvie-placeholders';
+const placeholderFetches = new Map();
+
+function toClassName(value) {
+  return `${value || ''}`
+    .toLowerCase()
+    .replace(/[^0-9a-z]/gi, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+function toCamelCase(value) {
+  return toClassName(value).replace(/-([a-z])/g, (match) => match[1].toUpperCase());
+}
+
+function getCacheKey(lang) {
+  const normalizedLang = `${lang || 'default'}`.trim().toLowerCase() || 'default';
+  return `${PLACEHOLDERS_CACHE_PREFIX}-${normalizedLang}`;
+}
+
+function getCachedPlaceholders(cacheKey) {
+  try {
+    const cached = sessionStorage.getItem(cacheKey);
+    if (!cached) return null;
+
+    const placeholders = JSON.parse(cached);
+    if (
+      placeholders
+      && typeof placeholders === 'object'
+      && !Array.isArray(placeholders)
+    ) {
+      return placeholders;
+    }
+  } catch {
+    try {
+      sessionStorage.removeItem(cacheKey);
+    } catch {
+      /* sessionStorage may be unavailable */
+    }
+  }
+
+  return null;
+}
+
+function setCachedPlaceholders(cacheKey, placeholders) {
+  try {
+    sessionStorage.setItem(cacheKey, JSON.stringify(placeholders));
+  } catch {
+    /* sessionStorage may be full or unavailable */
+  }
+}
+
+function getRowKey(row) {
+  return row?.key ?? row?.Key ?? row?.name ?? row?.Name;
+}
+
+function getRowValue(row) {
+  return row?.text ?? row?.Text ?? row?.value ?? row?.Value;
+}
+
+function addPlaceholder(placeholders, key, value) {
+  const rawKey = `${key || ''}`.trim();
+  if (!rawKey || value == null) return;
+
+  placeholders[rawKey] = `${value}`;
+
+  const camelKey = toCamelCase(rawKey);
+  if (camelKey && !Object.prototype.hasOwnProperty.call(placeholders, camelKey)) {
+    placeholders[camelKey] = `${value}`;
+  }
+}
+
+function normalizePlaceholders(payload) {
+  const data = payload?.data ?? payload;
+
+  if (Array.isArray(data)) {
+    return data.reduce((placeholders, row) => {
+      addPlaceholder(placeholders, getRowKey(row), getRowValue(row));
+      return placeholders;
+    }, {});
+  }
+
+  if (data && typeof data === 'object') {
+    return Object.entries(data).reduce((placeholders, [key, value]) => {
+      addPlaceholder(placeholders, key, value);
+      return placeholders;
+    }, {});
+  }
+
+  return {};
+}
 
 /**
- * Gets placeholders object.
- * @param {string} [prefix] Location of placeholders
- * @returns {object} Window placeholders object
+ * Load placeholder dictionary for a given language.
+ * Defaults to the current page language when no lang is provided.
+ * @param {string} [lang]
+ * @returns {Promise<Record<string, string>>}
  */
-// eslint-disable-next-line import/prefer-default-export
-export async function fetchPlaceholders(prefix = 'default') {
-  window.placeholders = window.placeholders || {};
-  if (!window.placeholders[prefix]) {
-    window.placeholders[prefix] = new Promise((resolve) => {
-      fetch(`${prefix === 'default' ? '' : prefix}/placeholders.json`)
-        .then((resp) => {
-          if (resp.ok) {
-            return resp.json();
-          }
-          return {};
-        }).then((json) => {
-          const placeholders = {};
-          json.data
-            .filter((placeholder) => placeholder.Key)
-            .forEach((placeholder) => {
-              placeholders[toCamelCase(placeholder.Key)] = placeholder.Text;
-            });
-          window.placeholders[prefix] = placeholders;
-          resolve(window.placeholders[prefix]);
-        }).catch(() => {
-          // error loading placeholders
-          window.placeholders[prefix] = {};
-          resolve(window.placeholders[prefix]);
-        });
-    });
+export async function fetchPlaceholders(lang = detectLanguage()) {
+  const cacheKey = getCacheKey(lang);
+  const cached = getCachedPlaceholders(cacheKey);
+
+  if (cached) {
+    return cached;
   }
-  return window.placeholders[`${prefix}`];
+
+  if (!placeholderFetches.has(cacheKey)) {
+    placeholderFetches.set(cacheKey, (async () => {
+      const url = '/placeholders.json';
+      const resp = await fetch(url, { cache: 'no-store' });
+      if (!resp.ok) {
+        return {};
+      }
+
+      const placeholders = normalizePlaceholders(await resp.json());
+      setCachedPlaceholders(cacheKey, placeholders);
+
+      return placeholders;
+    })().catch(() => ({})).finally(() => {
+      placeholderFetches.delete(cacheKey);
+    }));
+  }
+
+  return placeholderFetches.get(cacheKey);
 }

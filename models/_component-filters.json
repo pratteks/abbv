@@ -3,7 +3,6 @@
     "id": "main",
     "components": [
       "section",
-      "hero-section",
       "grid-section",
       "grid-container"
     ]

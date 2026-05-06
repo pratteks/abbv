@@ -9,6 +9,9 @@ export default function decorate(block) {
       const iconCell = cells[0];
       const linkCell = cells[1];
 
+      iconCell.classList.add('media-icon');
+      linkCell.classList.add('media-link');
+      row.classList.add('media-item');
       const iconElement = iconCell.querySelector('img, picture');
       const linkText = linkCell.textContent.trim();
 
@@ -33,6 +36,7 @@ export default function decorate(block) {
 
         row.innerHTML = '';
         row.appendChild(link);
+        row.classList.remove('media-item');
         row.classList.add('social-link-item');
       }
     }

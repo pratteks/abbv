@@ -1,5 +1,5 @@
 import { resolveImageReference, moveInstrumentation } from '../../scripts/scripts.js';
-import decorateExternalLinksUtility from '../../scripts/utils.js';
+import decorateExternalLinksUtility, { applyCommonProps } from '../../scripts/utils.js';
 /*
  * Accordion Block
  * Recreate an accordion
@@ -32,10 +32,10 @@ function gteConfigIcons(block) {
   const headingText = block.children[0].textContent.trim();
   const expandAllText = block.children[1].textContent.trim();
   const collapseAllText = block.children[2].textContent.trim();
-  const expandAllIcon = `icon-${block.children[3].textContent.trim()}`;
-  const collapseAllIcon = `icon-${block.children[4].textContent.trim()}`;
-  const expandIcon = `item-icon-${block.children[5].textContent.trim()}`;
-  const collapseIcon = `item-icon-${block.children[6].textContent.trim()}`;
+  const expandAllIcon = `icon-abbvie-${block.children[3].textContent.trim()}`;
+  const collapseAllIcon = `icon-abbvie-${block.children[4].textContent.trim()}`;
+  const expandIcon = `icon-abbvie-${block.children[5].textContent.trim()}`;
+  const collapseIcon = `icon-abbvie-${block.children[6].textContent.trim()}`;
   const expandAllIconImage = getIconImage(block.children[7]);
   const collapseAllIconImage = getIconImage(block.children[8]);
   const expandIconImage = getIconImage(block.children[9]);
@@ -82,48 +82,79 @@ function decorateHeading(block, headingText) {
 function addExpandCollapseAllButton(block, cfg) {
   const headingWrapper = block.querySelector('.accordion-block-heading-wrapper');
   const expandAllBtn = document.createElement('button');
-  expandAllBtn.className = `accordion-expand-all ${cfg.expandAllIcon}`;
+  expandAllBtn.className = 'accordion-expand-all';
   expandAllBtn.type = 'button';
-  expandAllBtn.textContent = cfg.expandAllText;
-  expandAllBtn.setAttribute('aria-label', cfg.ariaExpandAllLabel);
-  if (block.classList.contains('accordion-icon-image')) {
+
+  const textSpan = document.createElement('span');
+  textSpan.className = 'accordion-expand-all-text';
+
+  const isImageIcon = block.classList.contains('accordion-icon-image');
+  let icon = null;
+
+  if (isImageIcon) {
+    expandAllBtn.append(textSpan);
     const buttonWrapper = document.createElement('span');
     buttonWrapper.className = 'accordion-expand-all-wrapper';
+    buttonWrapper.appendChild(expandAllBtn);
     if (cfg.expandAllIconImage) {
       cfg.expandAllIconImage.classList.add('accordion-expand-all-image-icon');
-      buttonWrapper.appendChild(expandAllBtn);
       buttonWrapper.appendChild(cfg.expandAllIconImage);
-    } if (cfg.collapseAllIconImage) {
+    }
+    if (cfg.collapseAllIconImage) {
       cfg.collapseAllIconImage.classList.add('accordion-collapse-all-image-icon');
       buttonWrapper.appendChild(cfg.collapseAllIconImage);
     }
+    buttonWrapper.addEventListener('click', (e) => {
+      if (e.target !== expandAllBtn && !expandAllBtn.contains(e.target)) {
+        expandAllBtn.click();
+      }
+    });
     headingWrapper.append(buttonWrapper);
   } else {
+    icon = document.createElement('i');
+    icon.className = 'accordion-expand-all-icon';
+    icon.setAttribute('aria-hidden', 'true');
+    expandAllBtn.append(textSpan, icon);
     headingWrapper.append(expandAllBtn);
   }
 
+  function updateButtonState(allOpen) {
+    textSpan.textContent = allOpen ? cfg.collapseAllText : cfg.expandAllText;
+    expandAllBtn.setAttribute('aria-label', allOpen ? cfg.ariaCollapseAllLabel : cfg.ariaExpandAllLabel);
+    expandAllBtn.classList.toggle('expanded', allOpen);
+    if (icon) {
+      icon.className = `accordion-expand-all-icon ${allOpen ? cfg.collapseAllIcon : cfg.expandAllIcon}`;
+    }
+  }
+
+  let showingCollapse = false;
+
   expandAllBtn.addEventListener('click', () => {
     const allDetails = block.querySelectorAll('details.accordion-item');
-    const allOpen = [...allDetails].every((d) => d.open);
-    allDetails.forEach((d) => { d.open = !allOpen; });
-    expandAllBtn.classList.toggle('expanded', !allOpen);
-    expandAllBtn.classList.toggle(cfg.expandAllIcon, allOpen);
-    expandAllBtn.classList.toggle(cfg.collapseAllIcon, !allOpen);
-    expandAllBtn.textContent = allOpen ? cfg.expandAllText : cfg.collapseAllText;
-    expandAllBtn.setAttribute('aria-label', allOpen ? cfg.ariaCollapseAllLabel : cfg.ariaExpandAllLabel);
+    allDetails.forEach((d) => { d.open = !showingCollapse; });
+    showingCollapse = !showingCollapse;
+    updateButtonState(showingCollapse);
   });
 
-  // Update button text when individual items are toggled
+  // Set initial state based on which items are actually open
+  const initialDetails = block.querySelectorAll('details.accordion-item');
+  const allInitialOpen = [...initialDetails].every((d) => d.open);
+  const noneInitialOpen = [...initialDetails].every((d) => !d.open);
+  if (allInitialOpen) showingCollapse = true;
+  else if (noneInitialOpen) showingCollapse = false;
+  updateButtonState(showingCollapse);
+
+  // Update button only when all open or all closed
   block.addEventListener('toggle', () => {
     const allDetails = block.querySelectorAll('details.accordion-item');
     [...allDetails].forEach((e) => {
       e.firstElementChild.classList.toggle('open', e.open);
     });
     const allOpen = [...allDetails].every((d) => d.open);
-    expandAllBtn.textContent = allOpen ? cfg.collapseAllText : cfg.expandAllText;
-    expandAllBtn.classList.toggle('expanded', allOpen);
-    expandAllBtn.classList.toggle(cfg.expandAllIcon, !allOpen);
-    expandAllBtn.classList.toggle(cfg.collapseAllIcon, allOpen);
+    const allClosed = [...allDetails].every((d) => !d.open);
+    if (allOpen) showingCollapse = true;
+    else if (allClosed) showingCollapse = false;
+    updateButtonState(showingCollapse);
   }, true);
 }
 
@@ -143,6 +174,7 @@ function closeAllExceptCurrent(block) {
 }
 
 export default function decorate(block) {
+  applyCommonProps(block);
   const cfg = gteConfigIcons(block);
 
   [...block.children].forEach((row) => {
@@ -169,15 +201,18 @@ export default function decorate(block) {
     moveInstrumentation(row, details);
     // Use the third column for additional classes on the details element
     details.className = `${row.children[2].textContent.trim().replaceAll(',', '')}`;
+    const isImageIcon = block.classList.contains('accordion-icon-image');
+
     if (details.classList.contains('defaultopen')) {
-      summary.classList.add(cfg.collapseIcon);
+      if (!isImageIcon) summary.classList.add(cfg.collapseIcon);
       details.setAttribute('open', '');
       details.setAttribute('aria-label', ariaExpandLabel);
     } else {
-      summary.classList.add(cfg.expandIcon);
+      if (!isImageIcon) summary.classList.add(cfg.expandIcon);
       summary.setAttribute('aria-label', ariaCollapseLabel);
     }
-    if (block.classList.contains('accordion-icon-image')) {
+
+    if (isImageIcon) {
       if (cfg.expandIconImage) {
         const expandIcon = cfg.expandIconImage.cloneNode(true);
         expandIcon.classList.add('accordion-expand-image-icon');
@@ -192,8 +227,10 @@ export default function decorate(block) {
 
     details.addEventListener('toggle', () => {
       details.setAttribute('aria-label', details.open ? ariaExpandLabel : ariaCollapseLabel);
-      summary.classList.toggle(cfg.collapseIcon, details.open);
-      summary.classList.toggle(cfg.expandIcon, !details.open);
+      if (!isImageIcon) {
+        summary.classList.toggle(cfg.collapseIcon, details.open);
+        summary.classList.toggle(cfg.expandIcon, !details.open);
+      }
     });
 
     details.append(summary, body);
