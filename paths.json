@@ -1,10 +1,8 @@
 {
   "mappings": [
-    "/content/aem-boilerplate/:/",
-    "/content/aem-boilerplate/configuration:/.helix/config.json",
-    "/content/aem-boilerplate/metadata:/metadata.json"
+    "/content/abbv/:/"
   ],
   "includes": [
-    "/content/aem-boilerplate/"
+     "/content/abbv/"
   ]
 }
