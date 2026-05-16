@@ -8,23 +8,9 @@
           "page": {
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
-              "name": "Carousel",              
+              "name": "Carousel",
+              "model": "carousel",
               "filter": "carousel"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Carousel Slide",
-      "id": "carousel-item",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block/item",
-            "template": {
-              "name": "Carousel Slide",
-              "model": "carousel-item"
             }
           }
         }
@@ -33,36 +19,231 @@
   ],
   "models": [
     {
-      "id": "carousel-item",
+      "id": "carousel",
       "fields": [
         {
-          "component": "reference",
+          "component": "tab",
+          "label": "Overview",
+          "name": "overview"
+        },
+        {
+          "component": "number",
+          "name": "totalSlides",
+          "label": "Total Number of Slides/Items",
+          "valueType": "number",
+          "min": 0,
+          "description": "Number of sibling blocks to pull in as carousel slides. Leave empty or 0 to use inline slide rows."
+        },
+        {
+          "component": "select",
           "valueType": "string",
-          "name": "media_image",
-          "label": "Background Image",
-          "multi": false
+          "name": "carouselType",
+          "value": "static",
+          "label": "Carousel Type",
+          "options": [
+            { "name": "static", "value": "static" },
+            { "name": "dynamic", "value": "dynamic" }
+          ]
+        },
+        {
+          "component": "text",
+          "name": "rssFeedUrl",
+          "label": "RSS Feed URL",
+          "value": "",
+          "valueType": "string",
+          "condition": {
+            "===": [
+              {
+                "var": "carouselType"
+              },
+              "dynamic"
+            ]
+          }
+        },
+        {
+          "component": "number",
+          "name": "numberOfItems",
+          "label": "Number of Items",
+          "valueType": "number",
+          "condition": {
+            "===": [
+              {
+                "var": "carouselType"
+              },
+              "dynamic"
+            ]
+          }
+        },
+        {
+          "component": "boolean",
+          "name": "autoplay",
+          "label": "Automatically transition slides (Autoplay)",
+          "value": false,
+          "valueType": "boolean"
+        },
+        {
+          "component": "number",
+          "name": "slideTransitionTime",
+          "label": "Slide transition time (ms)",
+          "value": 3000,
+          "valueType": "number",
+          "condition": {
+            "===": [
+              {
+                "var": "autoplay"
+              },
+              true
+            ]
+          }
+        },
+        {
+          "component": "boolean",
+          "name": "pauseOnHover",
+          "label": "Enable pause on hover",
+          "value": false,
+          "valueType": "boolean",
+          "condition": {
+            "===": [
+              {
+                "var": "autoplay"
+              },
+              true
+            ]
+          }
+        },
+        {
+          "component": "number",
+          "name": "numberOfSlidesToShow",
+          "label": "Number of Slides to show",
+          "value": 1,
+          "valueType": "number",
+          "min": 1,
+          "max": 3,
+          "description": "Sets how many slides are visible simultaneously(1-3)."
+        },
+        {
+          "component": "boolean",
+          "name": "bypassCarouselOnMobile",
+          "label": "Bypass Carousel on Mobile",
+          "value": false,
+          "valueType": "boolean",
+          "description": "Render items as a non-carousel list on small screens to improve usability/performance."
+        },
+        {
+          "component": "number",
+          "name": "startingSlideIndex",
+          "label": "Starting slide (index)",
+          "value": 1,
+          "valueType": "number",
+          "description": "Specify which slide is initially active."
+        },
+        {
+          "component": "boolean",
+          "name": "centerActiveSlide",
+          "label": "Center the active slide",
+          "description": "Centers the active slide when multiple slides are visible. Effective only when Number of Slides to show is greater than 1.",
+          "value": false,
+          "valueType": "boolean"
+        },
+        {
+          "component": "boolean",
+          "name": "enableLooping",
+          "label": "Enable Looping",
+          "description": "After the last slide, continue from the first slide seamlessly.",
+          "value": false,
+          "valueType": "boolean"
+        },
+        {
+          "component": "boolean",
+          "name": "enableNextPreviousControls",
+          "label": "Enable Next/Previous controls",
+          "description": "Show arrow buttons for manual navigation between slides.",
+          "value": true,
+          "valueType": "boolean"
+        },
+        {
+          "component": "boolean",
+          "name": "enableDotNavigation",
+          "label": "Enable Dot Navigation",
+          "description": "Show dot indicators representing slides for quick navigation",
+          "value": true,
+          "valueType": "boolean"
         },
         {
           "component": "text",
           "valueType": "string",
-          "name": "media_imageAlt",
+          "name": "carouselLabel",
           "value": "",
-          "label": "Bacgkround Alt"
+          "label": "Label (aria-label for carousel)",
+          "description": "Describes the carousel content for assistive technologies."
         },
         {
-          "component": "richtext",
-          "name": "content_text",
+          "component": "text",
+          "valueType": "string",
+          "name": "previousButtonLabel",
           "value": "",
-          "label": "Text",
-          "valueType": "string"
+          "label": "Previous (aria-label for previous button)",
+          "description": "Accessible label describing the Previous control action."
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "nextButtonLabel",
+          "value": "",
+          "label": "Next (aria-label for next button)",
+          "description": "Accessible label describing the Next control action."
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "playButtonLabel",
+          "value": "",
+          "label": "Play (aria-label for Play button)",
+          "description": "Accessible label describing the Play action for autoplay controls."
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "pauseButtonLabel",
+          "value": "",
+          "label": "Pause (aria-label for Pause button)",
+          "description": "Accessible label describing the Pause action for autoplay controls."
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "tablistLabel",
+          "value": "",
+          "label": "Tablist (aria-label for navigation list of items)",
+          "description": "Accessible label describing the Pause action for autoplay controls."
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "itemLabel",
+          "value": false,
+          "label": "Set item (aria-label from slide title)",
+          "description": "When enabled, each slide’s aria-label is derived from its title, improving announce ability."
+        },
+        {
+          "component": "tab",
+          "label": "Styles",
+          "name": "styles"
+        },
+        {
+          "component": "ngaem:dynamic-picklist",
+          "name": "classes_customDynamicClass",
+          "value": "",
+          "label": "Select Block Styles",
+          "valueType": "string",
+          "sourceAEMNodeName": "carousel-picklist-config",
+          "valueSeperator": ","
+        },
+        {
+          "...": "../../models/_common-properties.json#/common-prop"
         }
       ]
     }
   ],
-  "filters": [
-    {
-      "id": "carousel",
-      "components": ["carousel-item"]
-    }
-  ]
+  "filters": []
 }

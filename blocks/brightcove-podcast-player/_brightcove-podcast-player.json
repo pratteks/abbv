@@ -16,9 +16,8 @@
               "playerId": "",
               "podcastTitle": "",
               "podcastThumbnail": "",
-              "analyticsInteractionId": "",
-              "language": "lang:none",
-              "blockId": "id:"
+              "language": "none",
+              "blockId": ""
             }
           }
         }
@@ -85,25 +84,14 @@
           "valueType": "string",
           "name": "podcastThumbnail",
           "label": "Podcast Thumbnail",
-          "configUrl": "https://dm--dev-abbvie-corporate-us-en--abbvie.aem.live/tools/assets-selector/image.config.json"
+          "description": "Select or upload a thumbnail image to represent the podcast content.",
+          "multi": false,
+          "configUrl": "/content/dam/config/image/asset-selector.json"
         },
         {
           "component": "custom-asset-namespace:custom-asset-mimetype",
           "valueType": "string",
           "name": "podcastThumbnailMimeType"
-        },
-        {
-          "component": "tab",
-          "label": "Analytics",
-          "name": "analytics"
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "analyticsInteractionId",
-          "value": "",
-          "label": "Analytics Interaction ID",
-          "description": "Identifier used for tracking interactions in analytics systems. ID must be system generated from hash value of resource path."
         },
         {
           "...": "../../models/_common-properties.json#/common-prop"

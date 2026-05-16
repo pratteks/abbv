@@ -11,8 +11,8 @@
               "name": "Social Media",
               "model": "social-media",
               "filter": "social-media",
-              "language": "lang:none",
-              "blockId": "id:"
+              "language": "none",
+              "blockId": ""
             }
           }
         }
@@ -39,7 +39,7 @@
       "id": "social-media",
       "fields": [
         {
-           "...": "../../models/_common-properties.json#/common-prop"
+          "...": "../../models/_common-properties.json#/common-prop"
         }
       ]
     },

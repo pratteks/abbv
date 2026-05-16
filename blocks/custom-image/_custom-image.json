@@ -10,10 +10,6 @@
             "template": {
               "name": "Custom Image",
               "model": "custom-image",
-              "presetType": "",
-              "imagePreset": "",
-              "rendition": "",
-              "imageModifiers": "",
               "imageAlt": "",
               "getAltFromDAM": false,
               "imageIsDecorative": false,
@@ -28,9 +24,9 @@
               "warnOnLeavePath": "",
               "linkAriaLabel": "",
               "analyticsInteractionId": "",
-              "blockId": "id:",
+              "blockId": "",
               "classes_commonCustomClass": "",
-              "language": "lang:none"
+              "language": "none"
             }
           }
         }
@@ -51,7 +47,8 @@
           "valueType": "string",
           "name": "image",
           "label": "Image",
-          "configUrl": "/content/dam/corporate/asset-selector.json"
+          "configUrl": "/content/dam/config/image/asset-selector.json",
+          "multi": false
         },
         {
           "component": "custom-asset-namespace:custom-asset-mimetype",
@@ -62,8 +59,10 @@
           "component": "text",
           "valueType": "string",
           "name": "imageAlt",
-          "label": "Alt",
-          "value": ""
+          "value": "",
+          "label": "Alternative Text",
+          "description": "Provide alternative text for your image",
+          "required": true
         },
         {
           "component": "boolean",
@@ -131,9 +130,9 @@
             "===": [{ "var": "enableLink" }, true]
           },
           "options": [
-            { "name": "Same Tab",     "value": "_self" },
-            { "name": "New Tab",      "value": "_blank" },
-            { "name": "Modal",        "value": "modal" },
+            { "name": "Same Tab", "value": "_self" },
+            { "name": "New Tab", "value": "_blank" },
+            { "name": "Modal", "value": "modal" },
             { "name": "Hidden Panel", "value": "hidden-panel" }
           ]
         },
@@ -181,11 +180,6 @@
           }
         },
         {
-          "component": "tab",
-          "label": "Accessibility",
-          "name": "accessibility"
-        },
-        {
           "component": "text",
           "valueType": "string",
           "name": "linkAriaLabel",
@@ -195,32 +189,17 @@
         },
         {
           "component": "tab",
-          "label": "Analytics",
-          "name": "analytics"
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "analyticsInteractionId",
-          "value": "",
-          "label": "Analytics Interaction ID",
-          "description": "Analytics interaction identifier for tracking"
-        },
-        {
-          "component": "tab",
           "label": "Styles",
           "name": "styles"
         },
         {
-          "component": "select",
+          "component": "ngaem:dynamic-picklist",
+          "name": "classes_customDynamicClass",
+          "value": "",
+          "label": "Select Block Styles",
           "valueType": "string",
-          "name": "classes_shape",
-          "label": "Shape",
-          "options": [
-            { "name": "Default", "value": "" },
-            { "name": "Circle", "value": "circle" },
-            { "name": "Logo", "value": "logo" }
-          ]
+          "sourceAEMNodeName": "image-picklist-config",
+          "valueSeperator": ","
         },
         {
           "...": "../../models/_common-properties.json#/common-prop"

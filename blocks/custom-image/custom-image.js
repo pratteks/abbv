@@ -1,40 +1,4 @@
-/**
- * Builds the final image src URL by appending preset or smart crop parameters.
- * @param {string} src - Base image URL (query string stripped internally)
- * @param {string} presetType - "image-preset" | "smart-crop" | ""
- * @param {string} imagePreset - Image preset name (e.g. "Feature", "Hero")
- * @param {string} rendition - Smart crop rendition name (e.g. "Square", "Tall")
- * @param {string} modifiers - Raw query string modifiers (e.g. "wid=500&hei=300")
- * @returns {string} Final URL with preset=imagePreset or smartcrop=rendition format
- */
 import { applyCommonProps } from '../../scripts/utils.js';
-
-export function buildImageUrl(src, presetType, imagePreset, rendition, modifiers) {
-  const baseUrl = src.includes('?') ? src.split('?')[0] : src;
-
-  let params;
-
-  if (presetType === 'image-preset' && imagePreset && imagePreset.toLowerCase() !== 'none') {
-    // Image Preset format: ?preset=PresetName
-    params = new URLSearchParams({ preset: imagePreset });
-  } else if (presetType === 'smart-crop' && rendition && rendition.toLowerCase() !== 'none') {
-    // Smart Crop format: ?smartcrop=RenditionName
-    params = new URLSearchParams({ smartcrop: rendition });
-  }
-
-  if (params) {
-    // Apply modifiers to the params
-    if (modifiers) {
-      modifiers.split('&').forEach((p) => {
-        const [k, v] = p.split('=');
-        if (k?.trim()) params.set(k.trim(), v?.trim() ?? '');
-      });
-    }
-    return `${baseUrl}?${params.toString()}`;
-  }
-
-  return modifiers ? `${baseUrl}?${modifiers}` : baseUrl;
-}
 
 /**
  * Row indices matching the xwalk template field order.
@@ -42,27 +6,23 @@ export function buildImageUrl(src, presetType, imagePreset, rendition, modifiers
  */
 const ROW = {
   IMAGE: 0,
-  PRESET_TYPE: 1,
-  IMAGE_PRESET: 2,
-  RENDITION: 3,
-  IMAGE_MODIFIERS: 4,
   // imageAlt — no DOM row; server applies it directly to img.alt from the authored value
-  // GET_ALT_FROM_DAM: 5  — spike, no implementation
-  IMAGE_IS_DECORATIVE: 6,
-  CAPTION: 7,
-  // GET_CAPTION_FROM_DAM: 8 — spike, no implementation
-  DISPLAY_CAPTION_BELOW: 9,
-  ENABLE_LINK: 10,
-  TARGET: 11,
-  CLICK_BEHAVIOR: 12,
-  MODAL_PANEL_ID: 13,
-  ENABLE_WARN_ON_LEAVE: 14,
-  WARN_ON_LEAVE_PATH: 15,
-  LINK_ARIA_LABEL: 16,
-  ANALYTICS_INTERACTION_ID: 17,
-  // Row 18: blockId                (handled by applyCommonProps)
-  // Row 19: classes_commonCustomClass (handled by framework — no JS needed)
-  // Row 20: language               (handled by applyCommonProps)
+  // GET_ALT_FROM_DAM: 1  — spike, no implementation
+  IMAGE_IS_DECORATIVE: 2,
+  CAPTION: 3,
+  // GET_CAPTION_FROM_DAM: 4 — spike, no implementation
+  DISPLAY_CAPTION_BELOW: 5,
+  ENABLE_LINK: 6,
+  TARGET: 7,
+  CLICK_BEHAVIOR: 8,
+  MODAL_PANEL_ID: 9,
+  ENABLE_WARN_ON_LEAVE: 10,
+  WARN_ON_LEAVE_PATH: 11,
+  LINK_ARIA_LABEL: 12,
+  // Row 13: blockId                (handled by applyCommonProps)
+  // Row 14: classes_commonCustomClass (handled by framework — no JS needed)
+  // Row 15: language               (handled by applyCommonProps)
+  // Row 16: analyticsId            (handled by applyCommonProps)
 };
 
 /**
@@ -123,24 +83,20 @@ function applyLink(picture, {
  *
  * Expected row order (authored via xwalk model):
  *   Row 0  – image                   (reference → <picture><img>)
- *   Row 1  – presetType              ("image-preset" | "smart-crop" | "")
- *   Row 2  – imagePreset             (e.g. "Feature", "Hero")
- *   Row 3  – rendition               (e.g. "Square", "Tall")
- *   Row 4  – imageModifiers          (raw query string)
  *   (imageAlt — no DOM row; server sets img.alt directly from authored value)
- *   Row 5  – getAltFromDAM           (spike — no implementation)
- *   Row 6  – imageIsDecorative       ("true" → img.alt = "")
- *   Row 7  – caption                 (figcaption text)
- *   Row 8  – getCaptionFromDAM       (spike — no implementation)
- *   Row 9  – displayCaptionBelowImage ("true" → caption-below class on <figure>)
- *   Row 10 – enableLink              ("true" | "false")
- *   Row 11 – target                  (URL / AEM path)
- *   Row 12 – clickBehavior           ("_self" | "_blank" | "modal" | "hidden-panel")
- *   Row 13 – modalPanelId            (ID string)
- *   Row 14 – enableWarnOnLeave       ("true" | "false")
- *   Row 15 – warnOnLeavePath         (AEM path)
- *   Row 16 – linkAriaLabel           (string; conditional on enableLink)
- *   Row 17 – analyticsInteractionId  (string)
+ *   Row 1  – getAltFromDAM           (spike — no implementation)
+ *   Row 2  – imageIsDecorative       ("true" → img.alt = "")
+ *   Row 3  – caption                 (figcaption text)
+ *   Row 4  – getCaptionFromDAM       (spike — no implementation)
+ *   Row 5  – displayCaptionBelowImage ("true" → caption-below class on <figure>)
+ *   Row 6  – enableLink              ("true" | "false")
+ *   Row 7  – target                  (URL / AEM path)
+ *   Row 8  – clickBehavior           ("_self" | "_blank" | "modal" | "hidden-panel")
+ *   Row 9  – modalPanelId            (ID string)
+ *   Row 10 – enableWarnOnLeave       ("true" | "false")
+ *   Row 11 – warnOnLeavePath         (AEM path)
+ *   Row 12 – linkAriaLabel           (string; conditional on enableLink)
+ *   Row 13 – analyticsInteractionId  (string)
  *
  * @param {HTMLElement} block
  */
@@ -176,10 +132,6 @@ export default function decorate(block) {
   }
 
   // --- Image config ---
-  const presetType = getRowText(rows, ROW.PRESET_TYPE);
-  const imagePreset = getRowText(rows, ROW.IMAGE_PRESET);
-  const rendition = getRowText(rows, ROW.RENDITION);
-  const imageModifiers = getRowText(rows, ROW.IMAGE_MODIFIERS);
   const imageIsDecorative = getRowBool(rows, ROW.IMAGE_IS_DECORATIVE);
 
   // --- Caption ---
@@ -194,24 +146,8 @@ export default function decorate(block) {
   const enableWarnOnLeave = getRowBool(rows, ROW.ENABLE_WARN_ON_LEAVE);
   const warnOnLeavePath = getRowText(rows, ROW.WARN_ON_LEAVE_PATH);
   const linkAriaLabel = getRowText(rows, ROW.LINK_ARIA_LABEL);
-  const analyticsInteractionId = getRowText(rows, ROW.ANALYTICS_INTERACTION_ID);
 
-  // --- Build image URL ---
-  img.src = buildImageUrl(img.src, presetType, imagePreset, rendition, imageModifiers);
   if (imageIsDecorative) img.alt = '';
-
-  // Apply preset/crop to existing source srcsets (Case 2 responsive sources)
-  picture.querySelectorAll('source').forEach((source) => {
-    if (source.srcset) {
-      source.srcset = buildImageUrl(
-        source.srcset,
-        presetType,
-        imagePreset,
-        rendition,
-        imageModifiers,
-      );
-    }
-  });
 
   // --- Optionally wrap in link ---
   const imageContent = enableLink && target
@@ -225,15 +161,11 @@ export default function decorate(block) {
     })
     : picture;
 
-  // --- Apply common props (blockId → id, language → lang) ---
-  applyCommonProps(block);
+  // --- Apply common props (blockId → id, language → lang, analyticsId) ---
+  applyCommonProps(block, 13); // imageAlt is no child row, so common props start at index 13
 
   // --- Build final DOM ---
   block.innerHTML = '';
-
-  if (analyticsInteractionId) {
-    block.dataset.analyticsInteractionId = analyticsInteractionId;
-  }
 
   if (caption) {
     const figure = document.createElement('figure');

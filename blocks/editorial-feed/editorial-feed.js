@@ -1,7 +1,10 @@
 import { decorateIcons } from '../../scripts/aem.js';
 import indexUtils from '../../scripts/index-utils.js';
 import { fetchPlaceholders } from '../../scripts/placeholders.js';
-import { isUEAuthorSurface } from '../../scripts/utils.js';
+import {
+  isUEAuthorSurface, applyCommonProps, createIcon, extractIconSource,
+} from '../../scripts/utils.js';
+import { getConfigValue } from '../../scripts/config.js';
 
 const CARDS_PER_PAGE = 5;
 
@@ -23,15 +26,12 @@ const CARDS_PER_PAGE = 5;
  *  Row 12  – searchIconType
  *  Row 13  – searchFontIcon
  *  Row 14  – searchImageIcon
- *  Row 15  – classes                   (Styles tab, handled by framework)
- *  Row 16  – ariaLabel                 (Accessibility tab, authoring only)
- *  Row 17  – analyticsInteractionId    (Analytics tab)
- *  Row 18  – blockId                   (Common Properties, id: prefix → block.id)
- *  Row 19  – classes_commonCustomClass (Common Properties, handled by framework)
- *  Row 20  – language                  (Common Properties, lang: prefix → block[lang])
+ *  (classes – Styles tab, handled by framework, not a row)
+ *  Row 15  – ariaLabel
+ *  Row 16+ – common properties (blockId, customClass, language — via applyCommonProps)
  *
  *  Category items (editorial-feed-category-item block/items) appear as additional
- *  rows after row 20, each with two cells: title (col 0) and pagePath (col 1).
+ *  rows after common props, each with two cells: title (col 0) and pagePath (col 1).
  */
 const ROW = {
   LIST_SOURCE: 0,
@@ -49,13 +49,10 @@ const ROW = {
   SEARCH_ICON_TYPE: 12,
   SEARCH_FONT_ICON: 13,
   SEARCH_IMAGE_ICON: 14,
-  // Row 15: classes (handled by framework)
-  // Row 16: ariaLabel (authoring only, no JS implementation)
-  ANALYTICS_INTERACTION_ID: 17,
-  BLOCK_ID: 18,
-  // Row 19: classes_commonCustomClass (handled by framework)
-  LANGUAGE: 20,
-  CATEGORY_ITEMS_START: 21,
+  // classes: handled by framework, not a row
+  ARIA_LABEL: 15,
+  // Row 16+: common properties (blockId, customClass, language — via applyCommonProps)
+  CATEGORY_ITEMS_START: 19,
 };
 
 // ─── config readers ──────────────────────────────────────────────────────────
@@ -67,39 +64,10 @@ function parseBoolean(value, fallback = false) {
   return fallback;
 }
 
-function normalizeLang(value) {
-  const v = `${value || ''}`.trim();
-  if (!v || v === 'lang:none' || v === 'none') return '';
-  return v.startsWith('lang:') ? v.slice(5) : v;
-}
-
 function parseExcludedPages(raw) {
   if (!raw) return [];
   try { return JSON.parse(raw); } catch { /* noop */ }
   return raw.split(',').map((p) => p.trim()).filter(Boolean);
-}
-
-/**
- * Extracts image source from a cell element, supporting both anchor tags and picture elements.
- * @param {Element} cell - The cell element to extract from
- * @returns {string} The image source URL or empty string
- */
-function extractImageSrc(cell) {
-  if (!cell) return '';
-
-  // Check for anchor with href first (backward compatibility)
-  const link = cell.querySelector('a[href]');
-  if (link) return link.getAttribute('href');
-
-  // Check for picture > img
-  const picture = cell.querySelector('picture');
-  if (picture) {
-    const img = picture.querySelector('img[src]');
-    if (img) return img.getAttribute('src');
-  }
-
-  // Fallback to text content
-  return cell.textContent?.trim() || '';
 }
 
 /**
@@ -111,9 +79,7 @@ function readSequentialConfig(block) {
   const textAt = (i) => cells[i]?.textContent?.trim() || '';
   const linkAt = (i) => cells[i]?.querySelector('a[href]')?.getAttribute('href') || textAt(i);
 
-  const blockIdRaw = textAt(ROW.BLOCK_ID);
   return {
-    blockId: blockIdRaw.startsWith('id:') ? blockIdRaw.slice(3) : blockIdRaw,
     listSource: textAt(ROW.LIST_SOURCE) || 'news-and-pr',
     parentPage: linkAt(ROW.PARENT_PAGE) || window.location.pathname,
     hideDescription: parseBoolean(textAt(ROW.HIDE_DESCRIPTION)),
@@ -128,52 +94,12 @@ function readSequentialConfig(block) {
     searchPlaceholderText: textAt(ROW.SEARCH_PLACEHOLDER),
     searchIconType: textAt(ROW.SEARCH_ICON_TYPE) || 'none',
     searchFontIcon: textAt(ROW.SEARCH_FONT_ICON),
-    searchImageIcon: extractImageSrc(cells[ROW.SEARCH_IMAGE_ICON]),
-    analyticsInteractionId: textAt(ROW.ANALYTICS_INTERACTION_ID),
-    language: normalizeLang(textAt(ROW.LANGUAGE)),
-  };
-}
-
-/**
- * Reads config from data-aue-prop elements (Universal Editor edit mode).
- */
-function readAuePropConfig(block) {
-  const get = (name) => block.querySelector(`[data-aue-prop="${name}"]`);
-  const textOf = (name, fallback = '') => get(name)?.getAttribute('data-aue-value')
-    ?? get(name)?.textContent?.trim()
-    ?? fallback;
-  const boolOf = (name) => parseBoolean(textOf(name));
-  const linkOf = (name) => get(name)?.querySelector('a[href]')?.getAttribute('href')
-    || get(name)?.getAttribute('data-aue-value')
-    || textOf(name);
-
-  const blockIdRaw = textOf('blockId');
-  return {
-    blockId: blockIdRaw.startsWith('id:') ? blockIdRaw.slice(3) : '',
-    listSource: textOf('listSource', 'news-and-pr'),
-    parentPage: linkOf('parentPage') || window.location.pathname,
-    hideDescription: boolOf('hideDescription'),
-    hideTags: boolOf('hideTags'),
-    hideImage: boolOf('hideImage'),
-    hideDate: boolOf('hideDate'),
-    hideFilters: boolOf('hideFilters'),
-    categoryTags: textOf('categoryTags'),
-    match: textOf('match', 'any'),
-    excludedPages: parseExcludedPages(linkOf('storyPagesToExclude')),
-    browseCategoriesPlaceholderText: textOf('browseCategoriesPlaceholderText'),
-    searchPlaceholderText: textOf('searchPlaceholderText'),
-    searchIconType: textOf('searchIconType', 'none'),
-    searchFontIcon: textOf('searchFontIcon'),
-    searchImageIcon: extractImageSrc(get('searchImageIcon')),
-    analyticsInteractionId: textOf('analyticsInteractionId'),
-    language: normalizeLang(textOf('language')),
+    searchImageIcon: extractIconSource(cells[ROW.SEARCH_IMAGE_ICON]),
+    ariaLabel: textAt(ROW.ARIA_LABEL),
   };
 }
 
 function extractConfig(block) {
-  if (block.querySelector('[data-aue-prop]')) {
-    return readAuePropConfig(block);
-  }
   return readSequentialConfig(block);
 }
 
@@ -232,7 +158,11 @@ async function getAllIndexData() {
 
 async function fetchChildPages(parentPath) {
   const all = await getAllIndexData();
-  const normalizedParent = parentPath.replace(/\/$/, '');
+  const contentBasePath = await getConfigValue('contentBasePath') || '';
+  let normalizedParent = parentPath.replace(/\.html$/, '').replace(/\/$/, '');
+  if (contentBasePath && normalizedParent.startsWith(contentBasePath)) {
+    normalizedParent = normalizedParent.slice(contentBasePath.length);
+  }
   return all.filter((page) => {
     const pagePath = page.path.replace(/\/$/, '');
     return pagePath.startsWith(normalizedParent) && pagePath !== normalizedParent;
@@ -407,9 +337,7 @@ async function buildStoryCard(pageData, hideOptions = {}, placeholders = {}) {
     const readTimeEl = document.createElement('span');
     readTimeEl.className = 'editorial-feed-card-readtime';
 
-    const clockIcon = document.createElement('span');
-    clockIcon.className = 'icon-abbvie-clock';
-    clockIcon.setAttribute('aria-hidden', 'true');
+    const clockIcon = createIcon('clock', 'icon-font');
 
     readTimeEl.appendChild(clockIcon);
     readTimeEl.appendChild(document.createTextNode(` ${readTime}`));
@@ -424,21 +352,11 @@ async function buildStoryCard(pageData, hideOptions = {}, placeholders = {}) {
 }
 
 function buildSearchIcon(searchIconType, searchFontIcon, searchImageIcon) {
-  if (searchIconType === 'icon-font' && searchFontIcon) {
-    const icon = document.createElement('span');
-    icon.className = `editorial-feed-search-icon icon icon-${searchFontIcon}`;
-    icon.setAttribute('aria-hidden', 'true');
-    return icon;
-  }
-  if (searchIconType === 'image' && searchImageIcon) {
-    const icon = document.createElement('span');
-    icon.className = 'editorial-feed-search-icon';
-    const img = document.createElement('img');
-    img.src = searchImageIcon;
-    img.alt = '';
-    img.setAttribute('aria-hidden', 'true');
-    icon.appendChild(img);
-    return icon;
+  const iconSrc = searchIconType === 'icon-font' ? searchFontIcon : searchImageIcon;
+  if (iconSrc) {
+    return createIcon(iconSrc, searchIconType === 'icon-font' ? 'svg' : searchIconType, {
+      additionalClasses: 'editorial-feed-search-icon',
+    });
   }
   return null;
 }
@@ -476,9 +394,9 @@ function buildFilterUI(config = {}, placeholders = {}) {
   triggerLabel.className = 'editorial-feed-category-label';
   triggerLabel.textContent = browseCategoriesPlaceholderText || 'BY CATEGORIES';
 
-  const triggerChevron = document.createElement('span');
-  triggerChevron.className = 'editorial-feed-category-chevron icon-abbvie-chevron-down';
-  triggerChevron.setAttribute('aria-hidden', 'true');
+  const triggerChevron = createIcon('chevron-down', 'icon-font', {
+    additionalClasses: 'editorial-feed-category-chevron',
+  });
 
   trigger.appendChild(triggerLabel);
   trigger.appendChild(triggerChevron);
@@ -530,8 +448,7 @@ function buildFilterUI(config = {}, placeholders = {}) {
   clearButton.className = 'editorial-feed-search-clear';
   clearButton.setAttribute('aria-label', 'Clear search');
   clearButton.style.display = 'none';
-  const clearIcon = document.createElement('span');
-  clearIcon.className = 'icon-abbvie-cross';
+  const clearIcon = createIcon('cross', 'icon-font');
   clearButton.appendChild(clearIcon);
 
   const searchIconEl = buildSearchIcon(searchIconType, searchFontIcon, searchImageIcon);
@@ -611,13 +528,8 @@ export default async function decorate(block) {
     ? parseCategoryItemsFromAue(block)
     : parseCategoryItems(block);
 
-  // Apply common props manually (do not call applyCommonProps — it removes rows
-  // and would break the sequential row index mapping used in delivery mode).
-  if (config.blockId) block.id = config.blockId;
-  if (config.language) block.setAttribute('lang', config.language);
-  if (config.analyticsInteractionId) {
-    block.dataset.analyticsInteractionId = config.analyticsInteractionId;
-  }
+  applyCommonProps(block, 16);
+  if (config.ariaLabel) block.setAttribute('aria-label', config.ariaLabel);
 
   // Preserve category item rows for Universal Editor BEFORE clearing
   let categoryItemElements = [];
@@ -650,9 +562,7 @@ export default async function decorate(block) {
   const loadMoreLabel = document.createElement('span');
   loadMoreLabel.textContent = loadMoreText;
 
-  const loadMoreChevron = document.createElement('span');
-  loadMoreChevron.className = 'icon-abbvie-chevron-down';
-  loadMoreChevron.setAttribute('aria-hidden', 'true');
+  const loadMoreChevron = createIcon('chevron-down', 'icon-font');
 
   loadMoreBtn.appendChild(loadMoreLabel);
   loadMoreBtn.appendChild(loadMoreChevron);

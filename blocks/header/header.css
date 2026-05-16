@@ -6,6 +6,7 @@
   --nav-icon-height: var(--corp-spacing-20);
   --nav-icon-width: var(--corp-spacing-18);
   --space-neg-55: -5.5rem;
+  --letterspacing-wide-048: 0.48px;
 }
 
 @media (--bp-tablet) {
@@ -401,6 +402,7 @@ header nav .nav-item-level-0 .default-content-wrapper>:where(ul)>:where(li[aria-
   margin: 0;
   font-weight: var(--corp-font-weight-regular);
   border-radius: 0;
+  text-wrap: auto;
 }
 
 header nav .nav-item-level-0 :where(.default-content-wrapper) :where(ul) :where(li) :where(button):hover,
@@ -537,6 +539,7 @@ header nav .nav-sections :where(.default-content-wrapper)>:where(ul)>:where(li):
 header nav .nav-item-level-0 :where(.default-content-wrapper)>:where(ul)>:where(li):nth-last-child(1)>:where(button) {
   font-size: var(--corp-font-size-12);
   padding: 0;
+  letter-spacing: var(--letterspacing-wide-048);
 }
 
 header nav .nav-sections .icon,
@@ -1069,6 +1072,7 @@ header nav :where(.nav-tools) .icon.icon-icon-search {
     font-size: var(--corp-font-size-14);
     padding-left: var(--corp-spacing-10);
     padding-right: var(--corp-spacing-10);
+    letter-spacing: var(--corp-typography-letterspacing-wide-lg);
   }
 
   header nav .nav-item-level-0 .default-content-wrapper :where(ul) :where(li) :where(button):where(.selected) {

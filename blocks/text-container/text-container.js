@@ -5,10 +5,20 @@
  * class will be added to the block, and the row will be removed from the DOM.
  * Future enhancements may include support for other properties, such as "id:myid".
  */
+import { resolveImageReference } from '../../scripts/scripts.js';
 import { applyCommonProps } from '../../scripts/utils.js';
 
 export default function decorate(block) {
-  applyCommonProps(block);
+  applyCommonProps(block, 0);
+
+  // Resolve any unresolved image references (DAM links → <picture>)
+  [...block.querySelectorAll(':scope > div')].forEach((row) => {
+    const cell = row.querySelector(':scope > div') || row;
+    if (!cell.querySelector('picture, img') && cell.querySelector('a[href]')) {
+      resolveImageReference(cell);
+    }
+  });
+
   // Unwrap extra div wrapper from each row
   [...block.children].forEach((row) => {
     const child = row.querySelector('div');

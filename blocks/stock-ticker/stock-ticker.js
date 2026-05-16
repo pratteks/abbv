@@ -1,14 +1,7 @@
 import { getConfigValue } from '../../scripts/config.js';
+import { fetchPlaceholders } from '../../scripts/placeholders.js';
 
 const TIMEZONE = 'America/New_York';
-
-function getPlaceholder(key, fallback) {
-  return (
-    document
-      .querySelector(`[data-placeholder="${key}"]`)
-      ?.textContent?.trim() || fallback
-  );
-}
 
 function formatTimestamp(ts, tz) {
   if (!ts) return '';
@@ -70,18 +63,18 @@ export default async function decorate(block) {
   if (blockId) block.id = blockId;
   if (lang) block.setAttribute('lang', lang);
 
-  const stockTickerUrl = await getConfigValue('stock-ticker-url');
-  const stockTickerSiteKey = (await getConfigValue('stock-ticker-site-key'))?.trim() || '';
+  const [stockTickerUrl, stockTickerSiteKey, placeholders] = await Promise.all([
+    getConfigValue('stock-ticker-url'),
+    getConfigValue('stock-ticker-site-key'),
+    fetchPlaceholders(),
+  ]);
 
   const i18n = {
-    unavailable: getPlaceholder(
-      'stock-ticker-data-unavailable',
-      'Data Unavailable',
-    ),
-    ariaPrice: getPlaceholder('stock-ticker-aria-price', 'Current stock price'),
-    ariaUp: getPlaceholder('stock-ticker-aria-up', 'Up'),
-    ariaDown: getPlaceholder('stock-ticker-aria-down', 'Down'),
-    ariaNeutral: getPlaceholder('stock-ticker-aria-neutral', 'Unchanged'),
+    unavailable: placeholders?.stockTickerDataUnavailable || 'Data Unavailable',
+    ariaPrice: placeholders?.stockTickerAriaPrice || 'Current stock price',
+    ariaUp: placeholders?.stockTickerAriaUp || 'Up',
+    ariaDown: placeholders?.stockTickerAriaDown || 'Down',
+    ariaNeutral: placeholders?.stockTickerAriaNeutral || 'Unchanged',
   };
 
   block.innerHTML = `

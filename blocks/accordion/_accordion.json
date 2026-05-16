@@ -11,8 +11,8 @@
               "name": "Accordion",
               "model": "accordion",
               "filter": "accordion",
-              "language": "lang:none",
-              "blockId": "id:"
+              "language": "none",
+              "blockId": ""
             }
           }
         }
@@ -258,11 +258,6 @@
           }
         },
         {
-          "component": "tab",
-          "label": "Accessibility",
-          "name": "accessibility"
-        },
-        {
           "component": "text",
           "valueType": "string",
           "name": "ariaExpandAllLabel",
@@ -282,53 +277,13 @@
           "name": "styles"
         },
         {
-          "component": "select",
+          "component": "ngaem:dynamic-picklist",
+          "name": "classes_customDynamicClass",
+          "value": "",
+          "label": "Select Block Styles",
           "valueType": "string",
-          "name": "classes_desktopWidth",
-          "label": "Desktop Width",
-          "options": [
-            { "name": "None", "value": "accordion-base" },
-            { "name": "XXX-Large (12 column)", "value": "accordion-xxxl" },
-            { "name": "XX-Large (10 column)", "value": "accordion-xxl" },
-            { "name": "X-Large (8 column)", "value": "accordion-xl" },
-            { "name": "Large (7 column)", "value": "accordion-l" },
-            { "name": "Medium (6 column)", "value": "accordion-m" },
-            { "name": "Small (5 column)", "value": "accordion-s" },
-            { "name": "X-Small (4 column)", "value": "accordion-xs" }
-          ]
-        },
-        {
-          "component": "select",
-          "valueType": "string",
-          "name": "classes_alignment",
-          "label": "Alignment",
-          "options": [
-            { "name": "None", "value": "accordion-normal" },
-            { "name": "Align Left", "value": "accordion-left" },
-            { "name": "Align Center", "value": "accordion-center" },
-            { "name": "Align Right", "value": "accordion-right" }
-          ]
-        },
-        {
-          "component": "select",
-          "valueType": "string",
-          "name": "classes_theme",
-          "label": "Theme",
-          "options": [
-            { "name": "None", "value": "accordion-none" },
-            { "name": "Light Theme", "value": "accordion-light" },
-            { "name": "Dark Theme", "value": "accordion-dark" }
-          ]
-        },
-        {
-          "component": "select",
-          "valueType": "string",
-          "name": "classes_margin",
-          "label": "Margin",
-          "options": [
-            { "name": "None", "value": "no-margin" },
-            { "name": "No Bottom Margin", "value": "margin-bottom-0" }
-          ]
+          "sourceAEMNodeName": "accordion-picklist-config",
+          "valueSeperator": ","
         },
         {
           "...": "../../models/_common-properties.json#/common-prop"

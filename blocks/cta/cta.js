@@ -6,14 +6,8 @@
  * @param {HTMLElement} block - The CTA block element to decorate.
  * @returns {void}
  */
-import { applyCommonProps } from '../../scripts/utils.js';
+import { applyCommonProps, createIcon, extractIconSource } from '../../scripts/utils.js';
 import { resolveImageReference } from '../../scripts/scripts.js';
-
-function getCellPicture(row) {
-  if (!row) return null;
-  resolveImageReference(row.firstElementChild || row);
-  return row.querySelector('picture');
-}
 
 function readBlock(block, cfgOrder) {
   const cfg = {};
@@ -21,7 +15,9 @@ function readBlock(block, cfgOrder) {
     if (index >= 1) {
       const key = cfgOrder[index - 1];
       if (key === 'iconImage') {
-        cfg[key] = getCellPicture(row);
+        const cell = row.firstElementChild || row;
+        resolveImageReference(cell);
+        cfg[key] = extractIconSource(cell);
       } else {
         const attrValue = row.textContent.trim();
         if (attrValue) {
@@ -62,18 +58,16 @@ function normalizeIconPosition(iconPosition = '') {
 function createIconNode(cfg, iconType) {
   if (iconType === 'icon-font') {
     if (!cfg.iconFont) return null;
-    const icon = document.createElement('span');
-    icon.className = 'cta-custom-icon cta-custom-icon-font';
-    icon.setAttribute('aria-hidden', 'true');
-    icon.classList.add(`icon-abbvie-${cfg.iconFont.trim()}`);
-    return icon;
+    return createIcon(cfg.iconFont.trim(), 'icon-font', {
+      additionalClasses: ['cta-custom-icon', 'cta-custom-icon-font'],
+    });
   }
 
   if (iconType === 'image') {
     if (!cfg.iconImage) return null;
-    const picture = cfg.iconImage.cloneNode(true);
-    picture.classList.add('cta-custom-icon', 'cta-custom-icon-image');
-    return picture;
+    return createIcon(cfg.iconImage, 'image', {
+      additionalClasses: ['cta-custom-icon', 'cta-custom-icon-image'],
+    });
   }
 
   return null;
@@ -110,7 +104,7 @@ function setIcon(block, cfg) {
 }
 
 export default function decorate(block) {
-  applyCommonProps(block);
+  applyCommonProps(block, 8); // link,linkText is single row, so startIndex for commonProps is 8
   const cfg = readBlock(block, cfgOrder);
   updateAttributes(block, cfg);
   setIcon(block, cfg);

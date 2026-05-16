@@ -23,6 +23,7 @@
  */
 
 import { moveInstrumentation, resolveImageReference } from '../../scripts/scripts.js';
+import { createIcon, extractIconSource } from '../../scripts/utils.js';
 
 /* ── constants ─────────────────────────────────────────────── */
 
@@ -35,12 +36,11 @@ function getCellText(row, col = 0) {
   return cell?.textContent?.trim() ?? '';
 }
 
-function getCellImage(row, col = 0) {
+function getCellIconSource(row, col = 0) {
   const cell = row?.children?.[col];
-  if (!cell) return null;
+  if (!cell) return '';
   resolveImageReference(cell);
-  const img = cell.querySelector('img');
-  return img ? img.getAttribute('src') : null;
+  return extractIconSource(cell);
 }
 
 /**
@@ -69,20 +69,16 @@ function buildSearch({
   const wrapper = document.createElement('div');
   wrapper.className = 'tag-utility-nav-search-container';
 
-  if (iconType === 'image' && iconImageSrc) {
-    const icon = document.createElement('img');
-    icon.src = iconImageSrc;
-    icon.alt = '';
-    icon.setAttribute('aria-hidden', 'true');
-    icon.className = 'tag-utility-nav-search-icon';
-    icon.loading = 'lazy';
-    wrapper.append(icon);
-  }
   if (iconType === 'icon-font' && iconFontName) {
-    const icon = document.createElement('span');
-    icon.className = `tag-utility-nav-search-icon ${iconFontName}`;
-    icon.setAttribute('aria-hidden', 'true');
-    wrapper.append(icon);
+    const icon = createIcon(iconFontName, 'icon-font', {
+      additionalClasses: 'tag-utility-nav-search-icon',
+    });
+    if (icon) wrapper.append(icon);
+  } else if (iconType === 'image' && iconImageSrc) {
+    const icon = createIcon(iconImageSrc, 'image', {
+      additionalClasses: 'tag-utility-nav-search-icon',
+    });
+    if (icon) wrapper.append(icon);
   }
 
   // Field container (input + floating label)
@@ -428,7 +424,7 @@ export default function decorate(block) {
 
   const searchPlaceholder = getCellText(rows[0]) || '';
   const searchFontIcon = getCellText(rows[1]) || '';
-  const iconSrc = getCellImage(rows[2]) || '';
+  const iconSrc = getCellIconSource(rows[2]);
   const searchInID = getCellText(rows[3]) || '';
   const browseCategories = getCellText(rows[4]) || '';
   const clearCategories = getCellText(rows[5]) || '';

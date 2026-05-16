@@ -124,7 +124,7 @@ function decorateFeed(block, responseXml) {
 }
 
 export default async function decorate(block) {
-  applyCommonProps(block);
+  applyCommonProps(block, 2);
   const feedUrl = block.children[0]?.textContent.trim();
   if (feedUrl) {
     const feedList = await fetchFeed(feedUrl);

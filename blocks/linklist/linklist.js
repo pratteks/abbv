@@ -5,6 +5,8 @@ import {
   resolveImageReference,
 } from '../../scripts/scripts.js';
 import decorateExternalLinksUtility, {
+  createIcon,
+  extractIconSource,
   isAuthorEnvironment,
   isEditor,
   isUniversalEditor,
@@ -737,8 +739,7 @@ function readItemConfig(itemEl) {
 
     const categoryTagsVal = readTagsFromCategoryRow(rows[7 + ueShift]);
 
-    const imageIconSrc = rows[10 + ueShift]?.querySelector('img')?.getAttribute('src')
-      || cl(10 + ueShift);
+    const imageIconSrc = extractIconSource(rows[10 + ueShift]);
 
     docConfig = {
       id: ct(0),
@@ -767,7 +768,7 @@ function readItemConfig(itemEl) {
       || cleanLabel(anchorEl?.getAttribute('title'))
       || cleanLabel(anchorEl?.textContent)
       || '';
-    const imageIconSrc = rows[10 + ueShift]?.querySelector('img')?.getAttribute('src') || cl(10 + ueShift);
+    const imageIconSrc = extractIconSource(rows[10 + ueShift]);
 
     docConfig = {
       id: ct(0),
@@ -1181,43 +1182,6 @@ async function buildChildPageItems(cfg, rootPath) {
   return { items, reason: null };
 }
 
-function buildFontIcon(fontIcon) {
-  if (!fontIcon) return null;
-  const raw = fontIcon.trim();
-  let cls;
-  const colonMatch = raw.match(/^:([a-z0-9-]+):$/i);
-  if (colonMatch) {
-    cls = `icon-abbvie-${colonMatch[1]}`;
-  } else if (raw.startsWith('icon-abbvie-')) {
-    cls = raw;
-  } else if (raw.startsWith('icon-')) {
-    cls = `icon-abbvie-${raw.slice('icon-'.length)}`;
-  } else if (!raw.includes(' ')) {
-    cls = `icon-abbvie-${raw}`;
-  } else {
-    cls = raw;
-  }
-  const wrap = document.createElement('span');
-  wrap.className = 'linklist-item-icon linklist-item-icon--font';
-  wrap.setAttribute('aria-hidden', 'true');
-  const inner = document.createElement('span');
-  inner.className = cls;
-  wrap.append(inner);
-  return wrap;
-}
-
-function buildImageIcon(src) {
-  if (!src) return null;
-  const wrap = document.createElement('span');
-  wrap.className = 'linklist-item-icon linklist-item-icon--image';
-  const img = document.createElement('img');
-  img.src = src;
-  img.alt = '';
-  img.setAttribute('role', 'presentation');
-  wrap.append(img);
-  return wrap;
-}
-
 function tagIdToDisplayLabel(rawId) {
   const trimmed = String(rawId || '').trim();
   if (!trimmed) return '';
@@ -1471,15 +1435,32 @@ function buildListItem(item, variant, tagLookup) {
 
   let iconEl = null;
   if (item.iconType === 'font' && item.fontIcon) {
-    iconEl = buildFontIcon(item.fontIcon);
+    iconEl = createIcon(item.fontIcon, 'icon-font', {
+      wrapperClass: 'linklist-item-icon linklist-item-icon--font',
+    });
   } else if (item.iconType === 'image' && item.imageIcon) {
-    iconEl = buildImageIcon(item.imageIcon);
+    iconEl = createIcon(item.imageIcon, 'image', {
+      additionalClasses: ['linklist-item-icon', 'linklist-item-icon--image'],
+    });
   }
+
+  const mainHref = String(item.link || '').trim();
+  const iconHref = String(item.iconLink || '').trim();
+  const bothSetAndDiffer = !!mainHref && !!iconHref && mainHref !== iconHref;
+  // Effective shared href: prefer mainHref, fall back to iconHref.
+  const sharedHref = mainHref || iconHref;
+  const shareSingleAnchor = !!iconEl
+    && !item.cookieConsentLink
+    && !bothSetAndDiffer
+    && !!sharedHref
+    && sharedHref !== '#';
 
   const wrapIconLink = (node) => {
     if (!node || item.cookieConsentLink) return node;
+    if (shareSingleAnchor) return node;
 
-    const href = item.iconLink || item.link;
+    // Two-anchor path: icon gets its own href (iconLink preferred, fallback to main).
+    const href = iconHref || mainHref;
     if (!href || href === '#') return node;
 
     const a = document.createElement('a');
@@ -1490,11 +1471,6 @@ function buildListItem(item, variant, tagLookup) {
       a.target = '_blank';
       a.rel = 'noopener noreferrer';
     }
-
-    // Duplicate link for visuals only; primary name comes from the text anchor.
-    a.setAttribute('aria-hidden', 'true');
-    a.setAttribute('tabindex', '-1');
-    // a.setAttribute('title', item.linkText || '');
     a.append(node);
     return a;
   };
@@ -1502,37 +1478,82 @@ function buildListItem(item, variant, tagLookup) {
   const anchor = document.createElement('a');
   anchor.className = 'linklist-link';
   if (!item.cookieConsentLink) {
-    anchor.href = item.link || '#';
+    // When sharing, use the resolved sharedHref so a label-only click works
+    // even when only iconLink was authored. Otherwise behave as before.
+    anchor.href = shareSingleAnchor ? sharedHref : item.link || '#';
   }
   const labelSpan = document.createElement('span');
   labelSpan.className = 'linklist-link-text';
   labelSpan.textContent = item.linkText || '';
-  anchor.append(labelSpan);
+
+  const effectiveIconPosition = item.iconPosition || 'before';
+  const isRowsArrows = variant === 'rows-with-arrows';
+  // Rows-with-arrows: arrow is the anchor's ::after. An "after" icon must live
+  // *inside* the anchor after the label so it sits next to the text, not as a
+  // flex sibling past the arrow.
+  const iconAfterInsideLink = Boolean(
+    iconEl && effectiveIconPosition === 'after' && isRowsArrows,
+  );
+
+  // ── footer-legal: move trailing icon outside the anchor when no iconLink ──
+  // This prevents the icon from being a clickable area when the author has not
+  // set a separate icon destination — the icon is purely decorative in that case.
+  const moveIconOutsideAnchor = variant === 'footer-legal'
+    && !!iconEl
+    && effectiveIconPosition === 'after'
+    && !iconHref;
+
+  // Deferred trailing slot — populated below, appended to row after anchor.
+  let deferredTrailingSlot = null;
+
+  // Build anchor inner content based on whether we're sharing the anchor.
+  if (shareSingleAnchor && iconEl && effectiveIconPosition === 'before') {
+    const iconSlot = document.createElement('span');
+    iconSlot.className = 'linklist-item-icon-leading';
+    iconSlot.setAttribute('aria-hidden', 'true');
+    iconSlot.append(iconEl);
+    anchor.append(iconSlot, labelSpan);
+  } else if (shareSingleAnchor && iconEl && effectiveIconPosition === 'after') {
+    anchor.append(labelSpan);
+    const iconSlot = document.createElement('span');
+    iconSlot.className = 'linklist-item-icon-trailing';
+    iconSlot.setAttribute('aria-hidden', 'true');
+    iconSlot.append(iconEl);
+
+    if (moveIconOutsideAnchor) {
+      // Defer placement — icon will be appended to row after the anchor.
+      deferredTrailingSlot = iconSlot;
+    } else {
+      anchor.append(iconSlot);
+    }
+  } else {
+    anchor.append(labelSpan);
+  }
+
   if (item.ariaLabel) anchor.setAttribute('aria-label', item.ariaLabel);
   bindLinkBehavior(anchor, item);
 
   const row = document.createElement('div');
   row.className = 'linklist-item-row';
 
-  const effectiveIconPosition = item.iconPosition || 'before';
-  const isRowsArrows = variant === 'rows-with-arrows';
-  // Rows-with-arrows: arrow is the anchor's ::after. An "after" icon must live *inside* the
-  // anchor after the label so it sits next to the text, not as a flex sibling past the arrow.
-  const iconAfterInsideLink = Boolean(
-    iconEl && effectiveIconPosition === 'after' && isRowsArrows,
-  );
-
-  if (iconEl && effectiveIconPosition !== 'after') row.append(wrapIconLink(iconEl));
-  row.append(anchor);
-  if (iconEl && effectiveIconPosition === 'after' && !iconAfterInsideLink) {
-    row.append(wrapIconLink(iconEl));
-  }
-  if (iconAfterInsideLink) {
+  if (shareSingleAnchor) {
+    row.append(anchor);
+    // Append the deferred trailing icon outside the anchor for footer-legal
+    // items that have no separate iconLink — icon is decorative only.
+    if (deferredTrailingSlot) row.append(deferredTrailingSlot);
+  } else if (iconAfterInsideLink) {
+    row.append(anchor);
     const slot = document.createElement('span');
     slot.className = 'linklist-item-icon-trailing';
     slot.setAttribute('aria-hidden', 'true');
     slot.append(iconEl);
     anchor.append(slot);
+  } else {
+    if (iconEl && effectiveIconPosition !== 'after') row.append(wrapIconLink(iconEl));
+    row.append(anchor);
+    if (iconEl && effectiveIconPosition === 'after') {
+      row.append(wrapIconLink(iconEl));
+    }
   }
 
   const forceDetailedSlots = variant === 'detailed-list';
@@ -1729,7 +1750,7 @@ export default async function decorate(block) {
   );
 
   const applyBlockIcon = (item) => {
-    if (variant !== 'icons' || src !== 'icons') return item;
+    if (variant !== 'icons') return item;
     if (!cfg.fontIcon) return item;
     return {
       ...item,
@@ -1873,8 +1894,9 @@ export default async function decorate(block) {
 
   if (src === 'child-pages') {
     childPageResult.items.forEach((data) => {
-      if (!isItemRenderable(data)) return;
-      list.append(buildListItem(data, variant, tagLookup));
+      const enriched = applyBlockIcon(data);
+      if (!isItemRenderable(enriched)) return;
+      list.append(buildListItem(enriched, variant, tagLookup));
     });
   } else {
     itemEls.forEach((el, i) => {

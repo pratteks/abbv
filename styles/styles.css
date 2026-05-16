@@ -15,7 +15,7 @@
   font-family: roboto-fallback;
   size-adjust: 100.06%;
   ascent-override: 95%;
-  src: local('Arial');
+  src: local("Arial");
 }
 
 /* ========================================================================
@@ -74,10 +74,15 @@ footer .footer[data-block-status="loaded"] {
 /* Breadcrumbs are now inside the hero block, not the header */
 
 /* ========================================================================
-   Typography
+   Typography (h1 - h6, h1-size - h6-size)
    ======================================================================== */
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--heading-font-family-bold);
   font-weight: var(--corp-font-weight-extrabold);
   margin-bottom: var(--corp-spacing-24);
@@ -114,72 +119,6 @@ h6 {
   line-height: var(--corp-typography-lineheight-relaxed-lg);
 }
 
-@media (width >= 744px) {
-  h1 {
-    font-size: var(--corp-font-size-40);
-    line-height: var(--corp-typography-lineheight-heading-md);
-  }
-
-  h2 {
-    font-size: var(--corp-font-size-36);
-    line-height: var(--corp-spacing-40);
-  }
-
-  h3 {
-    font-size: var(--corp-font-size-32);
-    line-height: var(--corp-typography-lineheight-relaxed-3xl);
-  }
-
-  h4 {
-    font-size: var(--corp-font-size-30);
-    line-height: var(--corp-typography-lineheight-relaxed-xl);
-  }
-
-  h5 {
-    font-size: var(--corp-font-size-28);
-    line-height: var(--corp-typography-lineheight-relaxed-lg);
-  }
-
-  h6 {
-    font-size: var(--corp-font-size-28);
-    line-height: var(--corp-typography-lineheight-relaxed-lg);
-  }
-}
-
-@media (width >= 1024px) {
-  h1 {
-    font-size: var(--corp-font-size-64);
-    line-height: var(--corp-typography-lineheight-display-xl);
-    letter-spacing: var(--corp-typography-letterspacing-tight-em-sm);
-  }
-
-  h2 {
-    font-size: var(--corp-font-size-56);
-    line-height: var(--corp-spacing-64);
-    letter-spacing: var(--corp-typography-letterspacing-tight-em-sm);
-  }
-
-  h3 {
-    font-size: var(--heading-font-size-l);
-    line-height: var(--corp-typography-lineheight-heading-xl);
-  }
-
-  h4 {
-    font-size: var(--corp-font-size-40);
-    line-height: var(--corp-typography-lineheight-heading-md);
-  }
-
-  h5 {
-    font-size: var(--corp-font-size-32);
-    line-height: var(--corp-typography-lineheight-relaxed-3xl);
-  }
-
-  h6 {
-    font-size: var(--corp-font-size-24);
-    line-height: var(--corp-typography-lineheight-relaxed-sm);
-  }
-}
-
 p,
 dl,
 ol,
@@ -204,131 +143,374 @@ p {
   margin-bottom: var(--corp-spacing-30);
 }
 
+.h1-size,
+.h1-size h2,
+.h1-size h3,
+.h1-size h4,
+.h1-size h5,
+.h1-size h6 {
+  font-size: var(--corp-font-size-30);
+  line-height: var(--corp-typography-lineheight-relaxed-xl);
+}
+
+.h2-size,
+.h2-size h1,
+.h2-size h3,
+.h2-size h4,
+.h2-size h5,
+.h2-size h6,
+.h2-size p,
+.quote-h2 {
+  font-size: var(--corp-font-size-28);
+  line-height: var(--corp-typography-lineheight-relaxed-lg);
+}
+
+.h3-size,
+.h3-size h1,
+.h3-size h2,
+.h3-size h4,
+.h3-size h5,
+.h3-size h6,
+.h3-size p,
+.quote-h3 {
+  font-size: var(--corp-font-size-26);
+  line-height: var(--corp-typography-lineheight-relaxed-md);
+}
+
+.h4-size,
+.h4-size h1,
+.h4-size h2,
+.h4-size h3,
+.h4-size h5,
+.h4-size h6,
+.h4-size p,
+.quote-h4 {
+  font-size: var(--corp-font-size-24);
+  line-height: var(--corp-typography-lineheight-relaxed-sm);
+}
+
+.h5-size,
+.h5-size h1,
+.h5-size h2,
+.h5-size h3,
+.h5-size h4,
+.h5-size h6,
+.h5-size p,
+.quote-h5 {
+  font-size: var(--corp-font-size-20);
+  line-height: var(--corp-typography-lineheight-body-lg);
+}
+
+.h6-size,
+.h6-size h1,
+.h6-size h2,
+.h6-size h3,
+.h6-size h4,
+.h6-size h5,
+.h6-size p {
+  font-size: var(--corp-font-size-28);
+  line-height: var(--corp-typography-lineheight-relaxed-lg);
+}
+
+@media (width >= 744px) {
+  h1 {
+    font-size: var(--corp-font-size-40);
+    line-height: var(--corp-typography-lineheight-heading-md);
+  }
+
+  h2 {
+    font-size: var(--corp-font-size-36);
+    line-height: var(--corp-typography-lineheight-heading-sm);
+  }
+
+  h3 {
+    font-size: var(--corp-font-size-32);
+    line-height: var(--corp-typography-lineheight-relaxed-3xl);
+  }
+
+  h4 {
+    font-size: var(--corp-font-size-30);
+    line-height: var(--corp-typography-lineheight-relaxed-xl);
+  }
+
+  h5 {
+    font-size: var(--corp-font-size-28);
+    line-height: var(--corp-typography-lineheight-relaxed-lg);
+  }
+
+  .h1-size,
+  .h1-size h2,
+  .h1-size h3,
+  .h1-size h4,
+  .h1-size h5,
+  .h1-size h6 {
+    font-size: var(--corp-font-size-40);
+    line-height: var(--corp-typography-lineheight-heading-md);
+  }
+
+  .h2-size,
+  .h2-size h1,
+  .h2-size h3,
+  .h2-size h4,
+  .h2-size h5,
+  .h2-size h6,
+  .h2-size p,
+  .quote-h2 {
+    font-size: var(--corp-font-size-36);
+    line-height: var(--corp-typography-lineheight-heading-sm);
+  }
+
+  .h3-size,
+  .h3-size h1,
+  .h3-size h2,
+  .h3-size h4,
+  .h3-size h5,
+  .h3-size h6,
+  .h3-size p,
+  .quote-h3 {
+    font-size: var(--corp-font-size-32);
+    line-height: var(--corp-typography-lineheight-relaxed-3xl);
+  }
+
+  .h4-size,
+  .h4-size h1,
+  .h4-size h2,
+  .h4-size h3,
+  .h4-size h5,
+  .h4-size h6,
+  .h4-size p,
+  .quote-h4 {
+    font-size: var(--corp-font-size-30);
+    line-height: var(--corp-typography-lineheight-relaxed-xl);
+  }
+
+  .h5-size,
+  .h5-size h1,
+  .h5-size h2,
+  .h5-size h3,
+  .h5-size h4,
+  .h5-size h6,
+  .h5-size p,
+  .quote-h5 {
+    font-size: var(--corp-font-size-28);
+    line-height: var(--corp-typography-lineheight-relaxed-lg);
+  }
+}
+
+@media (width >= 1024px) {
+  h1 {
+    font-size: var(--corp-font-size-64);
+    letter-spacing: var(--corp-typography-letterspacing-tight-em-sm);
+    line-height: var(--corp-typography-lineheight-display-xl);
+  }
+
+  h2 {
+    font-size: var(--corp-font-size-56);
+    line-height: var(--corp-typography-lineheight-display-xl);
+    letter-spacing: var(--corp-typography-letterspacing-tight-em-sm);
+  }
+
+  h3 {
+    font-size: var(--corp-font-size-48);
+    line-height: var(--corp-typography-lineheight-display-sm);
+  }
+
+  h4 {
+    font-size: var(--corp-font-size-40);
+    line-height: var(--corp-typography-lineheight-heading-md);
+  }
+
+  h5 {
+    font-size: var(--corp-font-size-32);
+    line-height: var(--corp-typography-lineheight-relaxed-3xl);
+  }
+
+  .h1-size,
+  .h1-size h2,
+  .h1-size h3,
+  .h1-size h4,
+  .h1-size h5,
+  .h1-size h6 {
+    font-size: var(--corp-font-size-64);
+    letter-spacing: var(--corp-typography-letterspacing-tight-em-sm);
+    line-height: var(--corp-typography-lineheight-display-xl);
+  }
+
+  .h2-size,
+  .h2-size h1,
+  .h2-size h3,
+  .h2-size h4,
+  .h2-size h5,
+  .h2-size h6,
+  .h2-size p,
+  .quote-h2 {
+    font-size: var(--corp-font-size-56);
+    line-height: var(--corp-typography-lineheight-display-xl);
+    letter-spacing: var(--corp-typography-letterspacing-tight-em-sm);
+  }
+
+  .h3-size,
+  .h3-size h1,
+  .h3-size h2,
+  .h3-size h4,
+  .h3-size h5,
+  .h3-size h6,
+  .h3-size p,
+  .quote-h3 {
+    font-size: var(--corp-font-size-48);
+    line-height: var(--corp-typography-lineheight-display-sm);
+  }
+
+  .h4-size,
+  .h4-size h1,
+  .h4-size h2,
+  .h4-size h3,
+  .h4-size h5,
+  .h4-size h6,
+  .h4-size p,
+  .quote-h4 {
+    font-size: var(--corp-font-size-40);
+    line-height: var(--corp-typography-lineheight-heading-md);
+  }
+
+  .h5-size,
+  .h5-size h1,
+  .h5-size h2,
+  .h5-size h3,
+  .h5-size h4,
+  .h5-size h6,
+  .h5-size p,
+  .quote-h5 {
+    font-size: var(--corp-font-size-32);
+    line-height: var(--corp-typography-lineheight-relaxed-3xl);
+  }
+}
+
 /* rte body unica custom classes */
 
 .body-unica-32-reg p {
-    color: var(--corp-color-text-default);
-    font-family: var(--roboto-small-font-family);
-    font-size: var(--corp-font-size-20);
-    font-weight: var(--corp-font-weight-regular);
-    line-height: var(--corp-typography-lineheight-body-xl);
+  color: var(--corp-color-text-default);
+  font-family: var(--roboto-small-font-family);
+  font-size: var(--corp-font-size-20);
+  font-weight: var(--corp-font-weight-regular);
+  line-height: var(--corp-typography-lineheight-body-xl);
 }
 
 .body-unica-26-reg p {
-    color: var(--corp-color-text-default);
-    font-family: var(--body-font-family);
-    font-size: var(--corp-font-size-16);
-    font-weight: var(--corp-font-weight-regular);
-    line-height: var(--corp-typography-lineheight-body-md);
+  color: var(--corp-color-text-default);
+  font-family: var(--body-font-family);
+  font-size: var(--corp-font-size-16);
+  font-weight: var(--corp-font-weight-regular);
+  line-height: var(--corp-typography-lineheight-body-md);
 }
 
 .body-unica-24-reg p {
-    color: var(--corp-color-text-default);
-    font-family: var(--body-font-family);
-    font-size: var(--corp-font-size-18);
-    font-weight: var(--corp-font-weight-regular);
-    line-height: var(--corp-typography-lineheight-body-lg);
+  color: var(--corp-color-text-default);
+  font-family: var(--body-font-family);
+  font-size: var(--corp-font-size-18);
+  font-weight: var(--corp-font-weight-regular);
+  line-height: var(--corp-typography-lineheight-body-lg);
 }
 
 .body-unica-20-reg p {
-    color: var(--corp-color-text-default);
-    font-family: var(--body-font-family);
-    font-size: var(--corp-font-size-14);
-    font-weight: var(--corp-font-weight-regular);
-    line-height: var(--corp-typography-lineheight-body-sm);
+  color: var(--corp-color-text-default);
+  font-family: var(--body-font-family);
+  font-size: var(--corp-font-size-14);
+  font-weight: var(--corp-font-weight-regular);
+  line-height: var(--corp-typography-lineheight-body-sm);
 }
 
 .body-unica-18-reg p {
-    color: var(--corp-color-text-default);
-    font-family: var(--body-font-family);
-    font-size: var(--corp-font-size-13);
-    font-weight: var(--corp-font-weight-regular);
-    line-height: var(--corp-typography-lineheight-body-sm);
+  color: var(--corp-color-text-default);
+  font-family: var(--body-font-family);
+  font-size: var(--corp-font-size-13);
+  font-weight: var(--corp-font-weight-regular);
+  line-height: var(--corp-typography-lineheight-body-sm);
 }
 
 .body-unica-16-reg p {
-    color: var(--corp-color-text-default);
-    font-family: var(--body-font-family);
-    font-size: var(--corp-font-size-12);
-    font-weight: var(--corp-font-weight-regular);
-    line-height: var(--corp-typography-lineheight-tight-sm);
+  color: var(--corp-color-text-default);
+  font-family: var(--body-font-family);
+  font-size: var(--corp-font-size-12);
+  font-weight: var(--corp-font-weight-regular);
+  line-height: var(--corp-typography-lineheight-tight-sm);
 }
 
 .body-unica-14-reg p {
-    color: var(--corp-color-text-default);
-    font-family: var(--body-font-family);
-    font-size: var(--corp-font-size-12);
-    font-weight: var(--corp-font-weight-regular);
-    line-height: var(--corp-typography-lineheight-tight-sm);
+  color: var(--corp-color-text-default);
+  font-family: var(--body-font-family);
+  font-size: var(--corp-font-size-12);
+  font-weight: var(--corp-font-weight-regular);
+  line-height: var(--corp-typography-lineheight-tight-sm);
 }
 
-@media(width >= 744px) {
-    .body-unica-32-reg p {
-        font-size: var(--corp-font-size-24);
-        line-height: var(--corp-typography-lineheight-relaxed-md);
-    }
+@media (width >= 744px) {
+  .body-unica-32-reg p {
+    font-size: var(--corp-font-size-24);
+    line-height: var(--corp-typography-lineheight-relaxed-md);
+  }
 
-    .body-unica-26-reg p {
-        font-size: var(--corp-font-size-22);
-        line-height: var(--corp-typography-lineheight-relaxed-md);
-    }
+  .body-unica-26-reg p {
+    font-size: var(--corp-font-size-22);
+    line-height: var(--corp-typography-lineheight-relaxed-md);
+  }
 
-    .body-unica-24-reg p {
-        font-size: var(--corp-font-size-20);
-        line-height: var(--corp-typography-lineheight-body-xl);
-    }
+  .body-unica-24-reg p {
+    font-size: var(--corp-font-size-20);
+    line-height: var(--corp-typography-lineheight-body-xl);
+  }
 
-    .body-unica-20-reg p {
-        font-size: var(--corp-font-size-18);
-        line-height: var(--corp-typography-lineheight-body-lg);
-    }
+  .body-unica-20-reg p {
+    font-size: var(--corp-font-size-18);
+    line-height: var(--corp-typography-lineheight-body-lg);
+  }
 
-    .body-unica-18-reg p {
-        font-size: var(--corp-font-size-16);
-        line-height: var(--corp-typography-lineheight-body-md);
-    }
+  .body-unica-18-reg p {
+    font-size: var(--corp-font-size-16);
+    line-height: var(--corp-typography-lineheight-body-md);
+  }
 
-    .body-unica-16-reg p {
-        font-size: var(--corp-font-size-14);
-        line-height: var(--corp-typography-lineheight-body-sm);
-    }
+  .body-unica-16-reg p {
+    font-size: var(--corp-font-size-14);
+    line-height: var(--corp-typography-lineheight-body-sm);
+  }
 }
 
-@media(width >= 1024px) {
-    .body-unica-32-reg p {
-        font-size: var(--corp-font-size-32);
-        line-height: var(--corp-typography-lineheight-heading-sm);
-    }
+@media (width >= 1024px) {
+  .body-unica-32-reg p {
+    font-size: var(--corp-font-size-32);
+    line-height: var(--corp-typography-lineheight-heading-sm);
+  }
 
-    .body-unica-26-reg p {
-        font-size: var(--corp-font-size-26);
-        line-height: var(--corp-typography-lineheight-relaxed-lg);
-    }
+  .body-unica-26-reg p {
+    font-size: var(--corp-font-size-26);
+    line-height: var(--corp-typography-lineheight-relaxed-lg);
+  }
 
-    .body-unica-24-reg p {
-        font-size: var(--corp-font-size-24);
-        line-height: var(--corp-typography-lineheight-relaxed-lg);
-    }
+  .body-unica-24-reg p {
+    font-size: var(--corp-font-size-24);
+    line-height: var(--corp-typography-lineheight-relaxed-lg);
+  }
 
-    .body-unica-20-reg p {
-        font-size: var(--corp-font-size-20);
-        line-height: var(--corp-typography-lineheight-body-lg);
-    }
+  .body-unica-20-reg p {
+    font-size: var(--corp-font-size-20);
+    line-height: var(--corp-typography-lineheight-body-lg);
+  }
 
-    .body-unica-18-reg p {
-        font-size: var(--corp-font-size-18);
-        line-height: var(--corp-typography-lineheight-body-lg);
-    }
+  .body-unica-18-reg p {
+    font-size: var(--corp-font-size-18);
+    line-height: var(--corp-typography-lineheight-body-lg);
+  }
 
-    .body-unica-16-reg p {
-        font-size: var(--corp-font-size-16);
-        line-height: var(--corp-typography-lineheight-body-sm);
-    }
+  .body-unica-16-reg p {
+    font-size: var(--corp-font-size-16);
+    line-height: var(--corp-typography-lineheight-body-sm);
+  }
 
-    .body-unica-14-reg p {
-        font-size: var(--corp-font-size-14);
-        line-height: var(--corp-typography-lineheight-body-sm);
-    }
+  .body-unica-14-reg p {
+    font-size: var(--corp-font-size-14);
+    line-height: var(--corp-typography-lineheight-body-sm);
+  }
 }
 
 /* body unica custom classes - end */
@@ -362,7 +544,7 @@ pre {
 
 pre {
   padding: 1.6rem;
-  border-radius: .8rem;
+  border-radius: 0.8rem;
   background-color: var(--color-surface-highlight);
   overflow-x: auto;
   white-space: pre;
@@ -479,6 +661,7 @@ main > .section {
   margin-bottom: var(--corp-spacing-32);
   margin-left: var(--corp-spacing-20);
   margin-right: var(--corp-spacing-20);
+  row-gap: var(--corp-spacing-15);
 }
 
 main > .section:first-of-type {
@@ -494,6 +677,7 @@ main > .section > div {
     margin-bottom: var(--corp-spacing-80);
     margin-left: var(--corp-spacing-70);
     margin-right: var(--corp-spacing-70);
+    row-gap: var(--corp-spacing-20);
   }
 }
 
@@ -513,11 +697,29 @@ main > .section > div {
   }
 }
 
-
-
 /* ========================================================================
    Utilities
    ======================================================================== */
+
+.spacing-bottom {
+  margin-bottom: var(--corp-spacing-32);
+}
+
+@media (width >= 744px) {
+  .spacing-bottom {
+    margin-bottom: var(--corp-spacing-80);
+  }
+}
+
+.padding-bottom {
+  padding-bottom: var(--corp-spacing-56);
+}
+
+@media (width >= 744px) {
+  .padding-bottom {
+    padding-bottom: var(--corp-spacing-80);
+  }
+}
 
 .sr-only {
   position: absolute;
@@ -534,7 +736,6 @@ main > .section > div {
   display: none !important; /* stylelint-disable-line declaration-no-important */
 }
 
-
 .bg-f4f4f4 {
   background-color: var(--color-gray-light);
 }
@@ -545,21 +746,20 @@ main > .section > div {
   padding-top: 3.2rem;
 }
 
-
-@media(width >= 744px) {
-    .section-padding {
-      padding-left: 7rem;
-      padding-right: 7rem;
-      padding-top: 5.6rem;
-    }
+@media (width >= 744px) {
+  .section-padding {
+    padding-left: 7rem;
+    padding-right: 7rem;
+    padding-top: 5.6rem;
+  }
 }
 
-@media(width >= 1024px) {
-    .section-padding {
-      padding-left: 5.5rem;
-      padding-right: 5.5rem;
-      padding-top: 8rem;
-    }
+@media (width >= 1024px) {
+  .section-padding {
+    padding-left: 5.5rem;
+    padding-right: 5.5rem;
+    padding-top: 8rem;
+  }
 }
 
 /* abbvie container styles */
@@ -571,13 +771,14 @@ main > .section > div {
   margin-right: var(--corp-spacing-20);
 }
 
+/* inner cmp-container base setup */
 /* stylelint-disable-next-line no-descending-specificity */
-/* inner cmp-container base setup */ .abbvie-container div {
+.abbvie-container div {
   grid-column: 1 / span 6;
 }
 
 .abbvie-separator hr {
-    border: var(--border-width-thin) solid var(--color-gray-medium);
+  border: var(--border-width-thin) solid var(--color-gray-medium);
 }
 
 @media (width >=744px) {
@@ -589,8 +790,8 @@ main > .section > div {
   }
 
   .abbvie-container div {
-  grid-column: 1 / span 8;
-}
+    grid-column: 1 / span 8;
+  }
 }
 
 @media (width >= 1024px) {

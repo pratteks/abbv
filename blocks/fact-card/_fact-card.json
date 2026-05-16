@@ -10,8 +10,8 @@
             "template": {
               "name": "Fact Card",
               "model": "fact-card",
-              "language": "lang:none",
-              "blockId": "id:"
+              "language": "none",
+              "blockId": ""
             }
           }
         }
@@ -44,20 +44,6 @@
         },
         {
           "component": "select",
-          "name": "classes_cardColor",
-          "label": "Card Color",
-          "description": "Choose the background color for this card.",
-          "valueType": "string",
-          "value": "",
-          "options": [
-            { "name": "Default", "value": "" },
-            { "name": "Light (Light With Stroke)", "value": "light-theme-stroke" },
-            { "name": "Medium (Light Blue)", "value": "medium-theme" },
-            { "name": "Dark (Navy)", "value": "dark-theme" }
-          ]
-        },
-        {
-          "component": "select",
           "name": "imagePreset",
           "label": "Image Preset",
           "description": "Choose a predefined image rendition or crop configuration.",
@@ -65,8 +51,12 @@
           "value": "",
           "options": [
             { "name": "None", "value": "" },
-            { "name": "testImagePreset1", "value": "testImagePreset1" },
-            { "name": "testImagePreset2", "value": "testImagePreset2" }
+            { "name": "Feature", "value": "Feature" },
+            { "name": "Hero", "value": "Hero" },
+            { "name": "Responsive", "value": "Responsive" },
+            { "name": "Square", "value": "Square" },
+            { "name": "Tall", "value": "Tall" },
+            { "name": "VideoThumbnail", "value": "VideoThumbnail" }
           ],
           "condition": {
             "===": [{ "var": "hideImage" }, false]
@@ -85,16 +75,17 @@
         },
         {
           "component": "tab",
-          "label": "Analytics",
-          "name": "analytics"
+          "label": "Styles",
+          "name": "styles"
         },
         {
-          "component": "text",
-          "name": "analyticsInteractionId",
-          "label": "Analytics Interaction ID",
-          "description": "Identifier used for tracking interactions in analytics systems.",
+          "component": "ngaem:dynamic-picklist",
+          "name": "classes_customDynamicClass",
           "value": "",
-          "valueType": "string"
+          "label": "Select Block Styles",
+          "valueType": "string",
+          "sourceAEMNodeName": "fact-card-picklist-config",
+          "valueSeperator": ","
         },
         {
            "...": "../../models/_common-properties.json#/common-prop"

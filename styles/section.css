@@ -15,18 +15,212 @@
   overflow: hidden;
 }
 
-:where(html.adobe-ue-edit) .section[data-background] > .section-background-media {
+:where(html.adobe-ue-edit)
+  .section[data-background]
+  > .section-background-media {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: var(--corp-z-index-negative);
 }
 
-:where(html.adobe-ue-edit) .section[data-background] > .section-background-media :where(picture, img) {
+:where(html.adobe-ue-edit)
+  .section[data-background]
+  > .section-background-media
+  :where(picture, img) {
   width: 100%;
   height: 100%;
   display: block;
   object-fit: cover;
+}
+
+/* ========================================================================
+   Section Container Width (12-column grid, mirrors AEM cmp-container-* spans)
+   Mobile: all container sizes are full width by default (no override needed).
+   Desktop: 12-column grid activates with per-size column spans.
+   ======================================================================== */
+
+.section.container-full-width {
+  max-width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Tablet (8-col): small → xxx-small constrain; larger sizes remain full width */
+@media (width >= 744px) {
+  .section.container-small,
+  .section.container-x-small,
+  .section.container-xx-small,
+  .section.container-xxx-small {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: var(--corp-gap-lg);
+  }
+
+  /* Default (centered) column spans at tablet */
+  .section.container-small > :where(div) {
+    grid-column: 1 / 8;
+  } /* 7 of 8 */
+  .section.container-x-small > :where(div) {
+    grid-column: 2 / 8;
+  } /* 6 of 8 */
+  .section.container-xx-small > :where(div) {
+    grid-column: 2 / 7;
+  } /* 5 of 8 */
+  .section.container-xxx-small > :where(div) {
+    grid-column: 3 / 7;
+  } /* 4 of 8 */
+
+  /* Left-aligned at tablet */
+  .section.container-small.align-left > :where(div) {
+    grid-column: 1 / 8;
+  }
+
+  .section.container-x-small.align-left > :where(div) {
+    grid-column: 1 / 7;
+  }
+
+  .section.container-xx-small.align-left > :where(div) {
+    grid-column: 1 / 6;
+  }
+
+  .section.container-xxx-small.align-left > :where(div) {
+    grid-column: 1 / 5;
+  }
+
+  /* Right-aligned at tablet */
+  .section.container-small.align-right > :where(div) {
+    grid-column: 2 / -1;
+  }
+
+  .section.container-x-small.align-right > :where(div) {
+    grid-column: 3 / -1;
+  }
+
+  .section.container-xx-small.align-right > :where(div) {
+    grid-column: 4 / -1;
+  }
+
+  .section.container-xxx-small.align-right > :where(div) {
+    grid-column: 5 / -1;
+  }
+}
+
+/* Desktop (12-col): all sizes apply column spans */
+@media (width >= 1024px) {
+  .section.container-xxx-large,
+  .section.container-xx-large,
+  .section.container-x-large,
+  .section.container-large,
+  .section.container-medium,
+  .section.container-small,
+  .section.container-x-small,
+  .section.container-xx-small,
+  .section.container-xxx-small {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--corp-gap-lg);
+  }
+
+  /* Default (centered) column spans at desktop */
+  .section.container-xxx-large > :where(div) {
+    grid-column: 1 / -1;
+  } /* 12 col */
+  .section.container-xx-large > :where(div) {
+    grid-column: 1 / 12;
+  } /* 11 col */
+  .section.container-x-large > :where(div) {
+    grid-column: 2 / 12;
+  } /* 10 col */
+  .section.container-large > :where(div) {
+    grid-column: 2 / 11;
+  } /*  9 col */
+  .section.container-medium > :where(div) {
+    grid-column: 3 / 11;
+  } /*  8 col */
+  .section.container-small > :where(div) {
+    grid-column: 3 / 10;
+  } /*  7 col */
+  .section.container-x-small > :where(div) {
+    grid-column: 4 / 10;
+  } /*  6 col */
+  .section.container-xx-small > :where(div) {
+    grid-column: 4 / 9;
+  } /*  5 col */
+  .section.container-xxx-small > :where(div) {
+    grid-column: 5 / 9;
+  } /*  4 col */
+
+  /* Left-aligned at desktop */
+  .section.container-xx-large.align-left > :where(div) {
+    grid-column: 1 / 12;
+  }
+
+  .section.container-x-large.align-left > :where(div) {
+    grid-column: 1 / 11;
+  }
+
+  .section.container-large.align-left > :where(div) {
+    grid-column: 1 / 10;
+  }
+
+  .section.container-medium.align-left > :where(div) {
+    grid-column: 1 / 9;
+  }
+
+  .section.container-small.align-left > :where(div) {
+    grid-column: 1 / 8;
+  }
+
+  .section.container-x-small.align-left > :where(div) {
+    grid-column: 1 / 7;
+  }
+
+  .section.container-xx-small.align-left > :where(div) {
+    grid-column: 1 / 6;
+  }
+
+  .section.container-xxx-small.align-left > :where(div) {
+    grid-column: 1 / 5;
+  }
+
+  /* Right-aligned at desktop */
+  .section.container-xx-large.align-right > :where(div) {
+    grid-column: 2 / -1;
+  }
+
+  .section.container-x-large.align-right > :where(div) {
+    grid-column: 3 / -1;
+  }
+
+  .section.container-large.align-right > :where(div) {
+    grid-column: 4 / -1;
+  }
+
+  .section.container-medium.align-right > :where(div) {
+    grid-column: 5 / -1;
+  }
+
+  .section.container-small.align-right > :where(div) {
+    grid-column: 6 / -1;
+  }
+
+  .section.container-x-small.align-right > :where(div) {
+    grid-column: 7 / -1;
+  }
+
+  .section.container-xx-small.align-right > :where(div) {
+    grid-column: 8 / -1;
+  }
+
+  .section.container-xxx-small.align-right > :where(div) {
+    grid-column: 9 / -1;
+  }
+
+  .section.container-fill-right-margin {
+    margin-right: 0;
+    padding-right: 0;
+  }
 }
 
 /* ========================================================================
@@ -41,57 +235,9 @@
   max-width: var(--corp-layout-container-max-width-lg); /* 144rem */
 }
 
-
-/* ---- Section Desktop Width (12-column grid system) ---- */
-@media (width >= 1024px) {
-  .section.section-xxl,
-  .section.section-xl,
-  .section.section-l,
-  .section.section-m,
-  .section.section-s,
-  .section.section-xs {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: var(--corp-gap-lg);
-  }
-
-  /* Default (centered) grid columns for each size */
-  .section.section-xxl > div { grid-column: 1 / -1; }
-  .section.section-xl > div  { grid-column: 3 / 11; }
-  .section.section-l > div   { grid-column: 4 / 11; }
-  .section.section-m > div   { grid-column: 4 / 10; }
-  .section.section-s > div   { grid-column: 5 / 10; }
-  .section.section-xs > div  { grid-column: 5 / 9; }
-
-  /* LEFT aligned */
-  .section.section-xl.align-left > :where(div)  { grid-column: 1 / 9; }
-  .section.section-l.align-left > :where(div)   { grid-column: 1 / 8; }
-  .section.section-m.align-left > :where(div)   { grid-column: 1 / 7; }
-  .section.section-s.align-left > :where(div)   { grid-column: 1 / 6; }
-  .section.section-xs.align-left > :where(div)  { grid-column: 1 / 5; }
-
-  /* RIGHT aligned */
-  .section.section-xl.align-right > :where(div)  { grid-column: 5 / -1; }
-  .section.section-l.align-right > :where(div)   { grid-column: 6 / -1; }
-  .section.section-m.align-right > :where(div)   { grid-column: 7 / -1; }
-  .section.section-s.align-right > :where(div)   { grid-column: 8 / -1; }
-  .section.section-xs.align-right > :where(div)  { grid-column: 9 / -1; }
-
-  /* CENTER aligned */
-  .section.section-xl.align-center > :where(div)  { grid-column: 3 / 11; }
-  .section.section-l.align-center > :where(div)   { grid-column: 3 / 10; }
-  .section.section-m.align-center > :where(div)   { grid-column: 4 / 10; }
-  .section.section-s.align-center > :where(div)   { grid-column: 4 / 9; }
-  .section.section-xs.align-center > :where(div)  { grid-column: 5 / 9; }
-}
-
 /* ========================================================================
    Section Spacing Modifiers
    ======================================================================== */
-
-.section.no-bottom-margin {
-  margin-bottom: 0;
-}
 
 .section.section-bottom-margin {
   margin-bottom: var(--corp-spacing-80);
@@ -114,32 +260,50 @@
 }
 
 /* ========================================================================
-   Section Alignment
+   Section Alignment (grid-column positioning via container width rules above)
    ======================================================================== */
 
-.section.align-left  { text-align: left; }
-.section.align-right { text-align: right; }
-.section.align-center { text-align: center; }
-
-.section.dir-rtl { direction: rtl; }
+.section.dir-rtl {
+  direction: rtl;
+}
 
 /* ========================================================================
    Section Border Radius
    ======================================================================== */
 
-.section.radius-large {
-  border-top-left-radius: var(--corp-spacing-80);
+.section.large-radius {
+  border-top-left-radius: var(--corp-spacing-32);
   overflow: clip;
 }
 
-.section.radius-medium {
-  border-top-left-radius: var(--border-radius-subtle);
+.section.medium-radius {
+  border-top-left-radius: var(--corp-spacing-24);
   overflow: clip;
 }
 
-.section.radius-small {
+.section.small-radius {
   border-top-left-radius: var(--corp-spacing-16);
   overflow: clip;
+}
+
+@media (width >= 744px) {
+  .section.large-radius {
+    border-top-left-radius: var(--corp-spacing-64);
+  }
+
+  .section.medium-radius {
+    border-top-left-radius: var(--corp-spacing-40);
+  }
+
+  .section.small-radius {
+    border-top-left-radius: var(--corp-spacing-24);
+  }
+}
+
+@media (width >= 1024px) {
+  .section.large-radius {
+    border-top-left-radius: var(--corp-spacing-80);
+  }
 }
 
 /* ========================================================================
@@ -147,13 +311,13 @@
    ======================================================================== */
 
 .section.linear-gradient,
-.section.semi-transparent {
+.section.semi-transparent-layer {
   isolation: isolate;
   position: relative;
 }
 
 .section.linear-gradient::after {
-  content: '';
+  content: "";
   background: linear-gradient(0deg, rgb(0 0 0 / 90%) 42.91%, transparent);
   height: 100%;
   left: 0;
@@ -164,8 +328,8 @@
   z-index: var(--corp-z-index-negative);
 }
 
-.section.semi-transparent::after {
-  content: '';
+.section.semi-transparent-layer::after {
+  content: "";
   background: var(--corp-semi-transparent-color);
   height: 100%;
   left: 0;
@@ -177,16 +341,17 @@
 }
 
 /* ========================================================================
-   Grid Container
+   Grid Container (outer wrapper)
+   Grid setup (display, columns, gap, margins) already provided by .abbvie-container
+   in styles.css — aem.js adds that class to every section automatically.
+   Only grid-container-specific overrides are defined here.
    ======================================================================== */
 
 .section.grid-container {
-  max-width: var(--corp-layout-container-max-width-lg);
-  padding: 0;
-  margin-bottom: 0;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: var(--corp-spacing-20, 1rem);
+  margin-bottom: var(--corp-spacing-32);
+  padding-block-start: 0;
+  padding-inline: 0;
+  row-gap: var(--corp-spacing-20);
 }
 
 .section.grid-container.section-bottom-margin {
@@ -194,69 +359,376 @@
 }
 
 @media (width >= 744px) {
-  .section.grid-container.section-bottom-margin {
-  margin-bottom: var(--corp-spacing-80);
-}
-  
-}
-
-.section.grid-container.content-regular {
-  max-width: var(--corp-layout-container-max-width-md);
-}
-
-/* Grid Section children: stack to full width by default */
-.section.grid-container > :where(.section) {
-  grid-column: 1 / -1;
-  margin: 0;
-  padding: 0;
-  min-width: 0;
-  overflow: clip;
-  display: block;
-}
-
-/* Column spans — same literal value at both tablet (8-col) and desktop (12-col) */
-@media (width >= 744px) {
   .section.grid-container {
-    grid-template-columns: repeat(8, 1fr);
+    margin-bottom: var(--corp-spacing-80);
   }
 
-  .section.grid-container > :where(.section.grid-cols-1)  { grid-column: span 1; }
-  .section.grid-container > :where(.section.grid-cols-2)  { grid-column: span 2; }
-  .section.grid-container > :where(.section.grid-cols-3)  { grid-column: span 3; }
-  .section.grid-container > :where(.section.grid-cols-4)  { grid-column: span 4; }
-  .section.grid-container > :where(.section.grid-cols-5)  { grid-column: span 5; }
-  .section.grid-container > :where(.section.grid-cols-6)  { grid-column: span 6; }
-  .section.grid-container > :where(.section.grid-cols-7)  { grid-column: span 7; }
-  .section.grid-container > :where(.section.grid-cols-8)  { grid-column: span 8; }
-  .section.grid-container > :where(.section.grid-cols-9)  { grid-column: span 9; }
-  .section.grid-container > :where(.section.grid-cols-10) { grid-column: span 10; }
-  .section.grid-container > :where(.section.grid-cols-11) { grid-column: span 11; }
-  .section.grid-container > :where(.section.grid-cols-12) { grid-column: span 12; }
+  .section.grid-container.section-bottom-margin {
+    margin-bottom: var(--corp-spacing-80);
+  }
 }
 
 @media (width >= 1024px) {
   .section.grid-container {
-    grid-template-columns: repeat(12, 1fr);
+    row-gap: 0;
   }
 }
 
-/* Grid section mobile order — resets to DOM order at tablet and above */
-.section.order-1  { order: 1; }
-.section.order-2  { order: 2; }
-.section.order-3  { order: 3; }
-.section.order-4  { order: 4; }
-.section.order-5  { order: 5; }
-.section.order-6  { order: 6; }
-.section.order-7  { order: 7; }
-.section.order-8  { order: 8; }
-.section.order-9  { order: 9; }
-.section.order-10 { order: 10; }
-.section.order-11 { order: 11; }
-.section.order-12 { order: 12; }
+@media (width >= 1440px) {
+  .section.grid-container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: var(--corp-layout-container-max-width-lg);
+  }
+
+  .section.grid-container.content-regular {
+    max-width: var(--corp-layout-container-max-width-md);
+  }
+}
+
+/* ========================================================================
+   Grid Section (child sections — col-span only)
+   Default: full width across all breakpoints.
+   Use grid-cols-* to span specific column counts.
+   ======================================================================== */
+
+.section.grid-section {
+  display: block;
+}
+
+/* Mobile: full width by default */
+.section.grid-container > :where(.section) {
+  grid-column: 1 / -1;
+  margin: 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* Tablet (8-col) + Desktop (12-col): span values apply at both */
+@media (width >= 744px) {
+  .section.grid-container > :where(.section.grid-cols-1) {
+    grid-column: span 1;
+  }
+
+  .section.grid-container > :where(.section.grid-cols-2) {
+    grid-column: span 2;
+  }
+
+  .section.grid-container > :where(.section.grid-cols-3) {
+    grid-column: span 3;
+  }
+
+  .section.grid-container > :where(.section.grid-cols-4) {
+    grid-column: span 4;
+  }
+
+  .section.grid-container > :where(.section.grid-cols-5) {
+    grid-column: span 5;
+  }
+
+  .section.grid-container > :where(.section.grid-cols-6) {
+    grid-column: span 6;
+  }
+
+  .section.grid-container > :where(.section.grid-cols-7) {
+    grid-column: span 7;
+  }
+
+  .section.grid-container > :where(.section.grid-cols-8) {
+    grid-column: span 8;
+  }
+
+  .section.grid-container > :where(.section.grid-cols-9) {
+    grid-column: span 9;
+  }
+
+  .section.grid-container > :where(.section.grid-cols-10) {
+    grid-column: span 10;
+  }
+
+  .section.grid-container > :where(.section.grid-cols-11) {
+    grid-column: span 11;
+  }
+
+  .section.grid-container > :where(.section.grid-cols-12) {
+    grid-column: span 12;
+  }
+
+}
+
+/* Grid section mobile order — mobile only */
+@media (width < 744px) {
+  .section.order-1 {
+    order: 1;
+  }
+
+  .section.order-2 {
+    order: 2;
+  }
+
+  .section.order-3 {
+    order: 3;
+  }
+
+  .section.order-4 {
+    order: 4;
+  }
+
+  .section.order-5 {
+    order: 5;
+  }
+
+  .section.order-6 {
+    order: 6;
+  }
+
+  .section.order-7 {
+    order: 7;
+  }
+
+  .section.order-8 {
+    order: 8;
+  }
+
+  .section.order-9 {
+    order: 9;
+  }
+
+  .section.order-10 {
+    order: 10;
+  }
+
+  .section.order-11 {
+    order: 11;
+  }
+
+  .section.order-12 {
+    order: 12;
+  }
+}
+
+/* ========================================================================
+   Pre-built Grid Templates
+   ======================================================================== */
+
+/* grid-half-page-2: 2 equal columns */
+.section.grid-half-page-2 > :where(div) {
+  grid-column: 1 / span 6;
+}
 
 @media (width >= 744px) {
-  .section.grid-container > :where(.section[class*="order-"]) {
-    order: 0;
+  .section.grid-half-page-2 > :where(div) {
+    grid-column: auto / span 4;
+  }
+}
+
+@media (width >= 1024px) {
+  .section.grid-half-page-2 > :where(div) {
+    grid-column: auto / span 6;
+  }
+}
+
+/* grid-half-page-3: 2 stacked left + 1 tall right */
+.section.grid-half-page-3 > :where(div:nth-child(1)),
+.section.grid-half-page-3 > :where(div:nth-child(2)),
+.section.grid-half-page-3 > :where(div:nth-child(3)) {
+  grid-column: 1 / span 6;
+}
+
+@media (width >= 744px) {
+  .section.grid-half-page-3 > :where(div:nth-child(1)) {
+    grid-column: 1 / span 4;
+  }
+
+  .section.grid-half-page-3 > :where(div:nth-child(2)) {
+    grid-column: 1 / span 4;
+    grid-row: 2;
+  }
+
+  .section.grid-half-page-3 > :where(div:nth-child(3)) {
+    grid-column: auto / span 4;
+    grid-row: auto / span 2;
+  }
+}
+
+@media (width >= 1024px) {
+  .section.grid-half-page-3 > :where(div:nth-child(1)) {
+    grid-column: 1 / span 6;
+    grid-row: unset;
+  }
+
+  .section.grid-half-page-3 > :where(div:nth-child(2)) {
+    grid-column: 1 / span 6;
+    grid-row: unset;
+  }
+
+  .section.grid-half-page-3 > :where(div:nth-child(3)) {
+    grid-column: auto / span 6;
+    grid-row: unset;
+  }
+}
+
+/* grid-full-page-4: 4-child dashboard */
+.section.grid-full-page-4 > :where(div:nth-child(1)),
+.section.grid-full-page-4 > :where(div:nth-child(2)),
+.section.grid-full-page-4 > :where(div:nth-child(3)),
+.section.grid-full-page-4 > :where(div:nth-child(4)) {
+  grid-column: 1 / span 6;
+}
+
+@media (width >= 744px) {
+  .section.grid-full-page-4 > :where(div:nth-child(1)) {
+    grid-column: 1 / span 8;
+  }
+
+  .section.grid-full-page-4 > :where(div:nth-child(2)) {
+    grid-column: 1 / span 8;
+  }
+
+  .section.grid-full-page-4 > :where(div:nth-child(3)) {
+    grid-column: 1 / span 4;
+  }
+
+  .section.grid-full-page-4 > :where(div:nth-child(4)) {
+    grid-column: auto / span 4;
+  }
+}
+
+@media (width >= 1024px) {
+  .section.grid-full-page-4 > :where(div:nth-child(1)) {
+    grid-column: 1 / span 6;
+    grid-row: unset;
+  }
+
+  .section.grid-full-page-4 > :where(div:nth-child(2)) {
+    grid-column: 1 / span 9;
+    grid-row: 2;
+  }
+
+  .section.grid-full-page-4 > :where(div:nth-child(3)) {
+    grid-column: auto / span 3;
+    grid-row: unset;
+  }
+
+  .section.grid-full-page-4 > :where(div:nth-child(4)) {
+    grid-column: auto / span 3;
+    grid-row: 1 / span 2;
+  }
+}
+
+/* grid-full-page-5-v1: 5-child dashboard v1 */
+.section.grid-full-page-5-v1 > :where(div:nth-child(1)),
+.section.grid-full-page-5-v1 > :where(div:nth-child(2)),
+.section.grid-full-page-5-v1 > :where(div:nth-child(3)),
+.section.grid-full-page-5-v1 > :where(div:nth-child(4)),
+.section.grid-full-page-5-v1 > :where(div:nth-child(5)) {
+  grid-column: 1 / span 6;
+}
+
+@media (width >= 744px) {
+  .section.grid-full-page-5-v1 > :where(div:nth-child(1)) {
+    grid-column: 1 / span 4;
+  }
+
+  .section.grid-full-page-5-v1 > :where(div:nth-child(2)) {
+    grid-column: auto / span 4;
+  }
+
+  .section.grid-full-page-5-v1 > :where(div:nth-child(3)) {
+    grid-column: 1 / span 8;
+  }
+
+  .section.grid-full-page-5-v1 > :where(div:nth-child(4)) {
+    grid-column: 1 / span 4;
+  }
+
+  .section.grid-full-page-5-v1 > :where(div:nth-child(5)) {
+    grid-column: auto / span 4;
+  }
+}
+
+@media (width >= 1024px) {
+  .section.grid-full-page-5-v1 > :where(div:nth-child(1)) {
+    grid-column: 1 / span 3;
+    grid-row: unset;
+  }
+
+  .section.grid-full-page-5-v1 > :where(div:nth-child(2)) {
+    grid-column: auto / span 3;
+    grid-row: unset;
+  }
+
+  .section.grid-full-page-5-v1 > :where(div:nth-child(3)) {
+    grid-column: 1 / span 9;
+    grid-row: 2;
+  }
+
+  .section.grid-full-page-5-v1 > :where(div:nth-child(4)) {
+    grid-column: auto / span 3;
+    grid-row: unset;
+  }
+
+  .section.grid-full-page-5-v1 > :where(div:nth-child(5)) {
+    grid-column: auto / span 3;
+    grid-row: 1 / span 2;
+  }
+}
+
+/* grid-full-page-5-v2: 5-child dashboard v2 */
+.section.grid-full-page-5-v2 > :where(div:nth-child(1)),
+.section.grid-full-page-5-v2 > :where(div:nth-child(2)),
+.section.grid-full-page-5-v2 > :where(div:nth-child(3)),
+.section.grid-full-page-5-v2 > :where(div:nth-child(4)),
+.section.grid-full-page-5-v2 > :where(div:nth-child(5)) {
+  grid-column: 1 / span 6;
+}
+
+@media (width >= 744px) {
+  .section.grid-full-page-5-v2 > :where(div:nth-child(1)) {
+    grid-column: 1 / span 8;
+  }
+
+  .section.grid-full-page-5-v2 > :where(div:nth-child(2)) {
+    grid-column: 1 / span 8;
+  }
+
+  .section.grid-full-page-5-v2 > :where(div:nth-child(3)) {
+    grid-column: 1 / span 4;
+  }
+
+  .section.grid-full-page-5-v2 > :where(div:nth-child(4)) {
+    grid-column: auto / span 4;
+  }
+
+  .section.grid-full-page-5-v2 > :where(div:nth-child(5)) {
+    grid-column: 1 / span 4;
+  }
+}
+
+@media (width >= 1024px) {
+  .section.grid-full-page-5-v2 > :where(div:nth-child(1)) {
+    grid-column: 1 / span 6;
+    grid-row: unset;
+  }
+
+  .section.grid-full-page-5-v2 > :where(div:nth-child(2)) {
+    grid-column: 1 / span 9;
+    grid-row: 2;
+  }
+
+  .section.grid-full-page-5-v2 > :where(div:nth-child(3)) {
+    grid-column: auto / span 3;
+    grid-row: unset;
+  }
+
+  .section.grid-full-page-5-v2 > :where(div:nth-child(4)) {
+    grid-column: auto / span 3;
+    grid-row: unset;
+  }
+
+  .section.grid-full-page-5-v2 > :where(div:nth-child(5)) {
+    grid-column: auto / span 3;
+    grid-row: 2;
   }
 }
 
@@ -291,22 +763,69 @@
    Section Background Color Classes
    ======================================================================== */
 
-.section.bg-ffffff { background-color: var(--color-white); }
-.section.bg-071d49 { background-color: var(--color-navy-dark); }
-.section.bg-a6b5e0 { background-color: var(--color-blue-light); }
-.section.bg-f1f3ff { background-color: var(--color-blue-very-light); }
-.section.bg-fafbff { background-color: var(--color-blue-ultra-light); }
-.section.bg-666b7a { background-color: var(--color-gray-dark); }
-.section.bg-b9b4b4 { background-color: var(--color-gray-medium); }
-.section.bg-f4f4f4 { background-color: var(--color-gray-light); }
-.section.bg-fafafa { background-color: var(--color-gray-extra-light); }
-.section.bg-8a2ecc { background-color: var(--color-purple-primary); }
-.section.bg-a86bde { background-color: var(--color-purple-light); }
-.section.bg-0066f5 { background-color: var(--color-accent-blue); }
-.section.bg-479ff8 { background-color: var(--color-accent-blue-light); }
-.section.bg-cf451c { background-color: var(--color-orange-dark); }
-.section.bg-f7634f { background-color: var(--color-orange-light); }
-.section.bg-338700 { background-color: var(--color-green-primary); }
+.section.bg-ffffff {
+  background-color: var(--color-white);
+}
+
+.section.bg-071d49 {
+  background-color: var(--color-navy-dark);
+}
+
+.section.bg-a6b5e0 {
+  background-color: var(--color-blue-light);
+}
+
+.section.bg-f1f3ff {
+  background-color: var(--color-blue-very-light);
+}
+
+.section.bg-fafbff {
+  background-color: var(--color-blue-ultra-light);
+}
+
+.section.bg-666b7a {
+  background-color: var(--color-gray-dark);
+}
+
+.section.bg-b9b4b4 {
+  background-color: var(--color-gray-medium);
+}
+
+.section.bg-f4f4f4 {
+  background-color: var(--color-gray-light);
+}
+
+.section.bg-fafafa {
+  background-color: var(--color-gray-extra-light);
+}
+
+.section.bg-8a2ecc {
+  background-color: var(--color-purple-primary);
+}
+
+.section.bg-a86bde {
+  background-color: var(--color-purple-light);
+}
+
+.section.bg-0066f5 {
+  background-color: var(--color-accent-blue);
+}
+
+.section.bg-479ff8 {
+  background-color: var(--color-accent-blue-light);
+}
+
+.section.bg-cf451c {
+  background-color: var(--color-orange-dark);
+}
+
+.section.bg-f7634f {
+  background-color: var(--color-orange-light);
+}
+
+.section.bg-338700 {
+  background-color: var(--color-green-primary);
+}
 
 /* Combined layout for all colored sections */
 .section.bg-ffffff,
@@ -328,53 +847,8 @@
   overflow: hidden;
   margin-left: auto;
   margin-right: auto;
-  padding: var(--corp-spacing-40) var(--corp-spacing-35) var(--corp-spacing-80);
 }
 
-@media (width >= 744px) {
-  .section.bg-ffffff,
-  .section.bg-071d49,
-  .section.bg-a6b5e0,
-  .section.bg-f1f3ff,
-  .section.bg-fafbff,
-  .section.bg-666b7a,
-  .section.bg-b9b4b4,
-  .section.bg-f4f4f4,
-  .section.bg-fafafa,
-  .section.bg-8a2ecc,
-  .section.bg-a86bde,
-  .section.bg-0066f5,
-  .section.bg-479ff8,
-  .section.bg-cf451c,
-  .section.bg-f7634f,
-  .section.bg-338700 {
-    padding: var(--corp-spacing-56) var(--corp-spacing-70) var(--corp-spacing-80);
-    min-height: 26rem;
-  }
-}
-
-@media (width >= 1024px) {
-  .section.bg-ffffff,
-  .section.bg-071d49,
-  .section.bg-a6b5e0,
-  .section.bg-f1f3ff,
-  .section.bg-fafbff,
-  .section.bg-666b7a,
-  .section.bg-b9b4b4,
-  .section.bg-f4f4f4,
-  .section.bg-fafafa,
-  .section.bg-8a2ecc,
-  .section.bg-a86bde,
-  .section.bg-0066f5,
-  .section.bg-479ff8,
-  .section.bg-cf451c,
-  .section.bg-f7634f,
-  .section.bg-338700 {
-    padding: var(--corp-spacing-80) var(--corp-spacing-55);
-    max-width: var(--corp-layout-container-max-width-lg);
-    min-height: var(--corp-spacing-320);
-  }
-}
 
 @media (width >= 1440px) {
   .section.bg-ffffff > div,
@@ -393,11 +867,9 @@
   .section.bg-cf451c > div,
   .section.bg-f7634f > div,
   .section.bg-338700 > div {
-    max-width: var(--corp-layout-container-max-width-lg);
     margin: 0;
   }
 }
-
 
 /* No-radius override for colored sections */
 .section.bg-ffffff.no-radius,
@@ -539,7 +1011,8 @@
 @media (width >= 744px) {
   .section.dark,
   .section.navy {
-    padding: var(--corp-spacing-56) var(--corp-spacing-70) var(--corp-spacing-80);
+    padding: var(--corp-spacing-56) var(--corp-spacing-70)
+      var(--corp-spacing-80);
   }
 }
 
@@ -586,7 +1059,8 @@
 
 @media (width >= 744px) {
   .section.purple {
-    padding: var(--corp-spacing-56) var(--corp-spacing-70) var(--corp-spacing-80);
+    padding: var(--corp-spacing-56) var(--corp-spacing-70)
+      var(--corp-spacing-80);
   }
 }
 
@@ -620,7 +1094,7 @@
 }
 
 .section.navy-overlap::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -649,7 +1123,8 @@
   }
 
   .section.navy-overlap > .default-content-wrapper {
-    padding: var(--corp-spacing-40) var(--corp-spacing-50) var(--corp-spacing-10);
+    padding: var(--corp-spacing-40) var(--corp-spacing-50)
+      var(--corp-spacing-10);
   }
 }
 
@@ -663,8 +1138,96 @@
   }
 
   .section.navy-overlap > .default-content-wrapper {
-    padding: var(--corp-spacing-40) var(--corp-spacing-60) var(--corp-spacing-10);
+    padding: var(--corp-spacing-40) var(--corp-spacing-60)
+      var(--corp-spacing-10);
   }
+}
+
+/* ========================================================================
+   Section Position Modifiers (AEM: overlap-predecessor, footer-overlap, etc.)
+   ======================================================================== */
+
+.section.overlap-predecessor {
+  position: relative;
+  z-index: var(--corp-z-index-base);
+  margin-top: var(--hero-overlap);
+}
+
+.section.footer-overlap {
+  position: relative;
+  z-index: var(--corp-z-index-base);
+  margin-bottom: calc(-1 * var(--corp-spacing-80));
+}
+
+.section.homepage-overlap {
+  position: relative;
+  z-index: var(--corp-z-index-base);
+  margin-top: calc(-1 * var(--corp-spacing-100));
+}
+
+.section.minimize-n-maximize {
+  height: 0;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+}
+
+@media (width >= 1024px) {
+  .section.minimize-n-maximize {
+    height: auto;
+    overflow: visible;
+  }
+}
+
+/* ========================================================================
+   Section Desktop Height Modifiers (AEM: height-* classes)
+   ======================================================================== */
+
+@media (width >= 1024px) {
+  .section.height-short {
+    min-height: var(--corp-section-height-sm);
+  }
+
+  .section.height-tall {
+    min-height: var(--corp-section-height-lg);
+  }
+
+  .section.height-x-tall {
+    min-height: var(--corp-section-height-xl);
+  }
+
+  .section.height-xx-tall {
+    min-height: var(--corp-section-height-2xl);
+  }
+}
+
+/* ========================================================================
+   Section Desktop Grid Behavior (AEM: static, float)
+   ======================================================================== */
+
+@media (width >= 1024px) {
+  .section.float {
+    float: left;
+    width: auto;
+  }
+
+  .section.float::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .section.large-radius {
+    border-top-left-radius: var(--corp-spacing-80);
+  }
+}
+
+/* ========================================================================
+   Section Mega Nav Padding
+   ======================================================================== */
+
+.section.mega-nav-padding {
+  padding-left: calc(8.3333% + 0.1667rem);
 }
 
 /* Padding overrides — must be last to win over all bg-*, dark, navy, navy-overlap rules */
@@ -683,4 +1246,9 @@
 .section.no-top-bottom-padding {
   padding-top: 0;
   padding-bottom: 0;
+}
+
+/* Margin overrides - must be last to win over grid and position modifiers */
+.section.no-bottom-margin {
+  margin-bottom: 0;
 }

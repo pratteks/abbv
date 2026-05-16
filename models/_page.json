@@ -75,10 +75,16 @@
           "label": "Card Description"
         },
         {
-          "component": "reference",
+          "component": "custom-asset-namespace:custom-asset",
           "valueType": "string",
           "name": "cardImage",
-          "label": "Card Image"
+          "label": "Card Image",
+          "configUrl": "/content/dam/config/image/asset-selector.json"
+        },
+        {
+          "component": "custom-asset-namespace:custom-asset-mimetype",
+          "valueType": "string",
+          "name": "cardImageMimeType"
         },
         {
           "component": "text",

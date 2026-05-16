@@ -10,15 +10,13 @@ import { applyCommonProps } from '../../scripts/utils.js';
  * 2  (classes_cardColor)      — handled by framework, not a row
  * 3  imagePreset             select
  * 4  imageModifiers          text
- * 5  analyticsInteractionId  text
- * 6+ common properties       — handled by framework (blockId, customClass, language)
+ * 5+ common properties       — handled by applyCommonProps (blockId, language, analyticsId)
  */
 const ROW = {
   CONTENT_FRAGMENT: 0,
   HIDE_IMAGE: 1,
   IMAGE_PRESET: 2,
   IMAGE_MODIFIERS: 3,
-  ANALYTICS_ID: 4,
 };
 
 /**
@@ -163,7 +161,7 @@ function renderCfFactCard(card, cfData, options = {}) {
       // Apply image preset (Smart Crop rendition)
       if (options.imagePreset) {
         const separator = src.includes('?') ? '&' : '?';
-        src = `${src}${separator}$${options.imagePreset}$`;
+        src = `${src}${separator}preset=${options.imagePreset}`;
       }
       // Apply additional image modifiers (width, quality, etc.)
       if (options.imageModifiers) {
@@ -236,7 +234,7 @@ export default async function decorate(block) {
   if (!rows.length) return;
 
   // Apply common properties (id, language) from _common-properties.json
-  applyCommonProps(block);
+  applyCommonProps(block, 4);
 
   // Re-read rows after common props removed their rows
   const remainingRows = [...block.children];
@@ -260,15 +258,8 @@ export default async function decorate(block) {
   const hideImage = getCellText(remainingRows[ROW.HIDE_IMAGE]).toLowerCase() === 'true';
   const imagePreset = getCellText(remainingRows[ROW.IMAGE_PRESET]);
   const imageModifiers = getCellText(remainingRows[ROW.IMAGE_MODIFIERS]);
-  const analyticsId = getCellText(remainingRows[ROW.ANALYTICS_ID]);
-
   // Clear block content
   block.textContent = '';
-
-  // Apply analytics tracking
-  if (analyticsId) {
-    block.setAttribute('data-analytics-id', analyticsId);
-  }
 
   if (!rawPath) return;
 

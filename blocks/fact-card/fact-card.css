@@ -1,21 +1,27 @@
-.section.fact-card-container {
-  row-gap: var(--corp-spacing-20);
-  min-height: 21.6rem;
-  padding-bottom: var(--corp-spacing-20);
+:root {
+  --fact-card-height: auto;
+  --fact-card-min-height: 36.8rem;
 }
 
-/* Mobile: single column, full width */
-.section.fact-card-container .fact-card-wrapper {
-  grid-column: 1 / span 6;
+@media (--bp-tablet) {
+  :root {
+    --fact-card-height: 25.4rem;
+  }
+}
+
+@media (--bp-desktop) {
+  :root {
+    --fact-card-height: 27rem;
+  }
+}
+
+.section.fact-card-container {
+  min-height: 21.6rem;
 }
 
 /* Block wrapper */
 .fact-card {
-  --fact-card-height: 27rem;
-  --fact-card-min-height: 36.8rem;
-  
   transition: all 0.2s;
-  height: 100%;
 }
 
 /* Inner card container — mobile: auto height */
@@ -28,6 +34,7 @@
 
 /* Content area — 24px 32px consistent across all breakpoints */
 .fact-card .fact-card-content {
+  height: var(--fact-card-height);
   padding: var(--corp-spacing-24) var(--corp-spacing-32);
   overflow: hidden;
 }
@@ -117,7 +124,12 @@
 /* Medium theme (light blue) — 1px transparent border */
 .fact-card.medium-theme .fact-card-inner {
   background-color: var(--color-surface-highlight);
-  border: 1px solid transparent;
+  border: var(--border-width-thin) solid transparent;
+}
+
+.fact-card.medium-theme-stroke .fact-card-inner {
+  background-color: var(--color-surface-highlight);
+  border: var(--border-width-thin) solid var(--color-border-container);
 }
 
 /* Light theme no stroke — white, no border */
@@ -129,6 +141,29 @@
 /* Size medium vertical — tall card with image on top */
 .fact-card.size-medium-vertical .fact-card-content {
   height: var(--fact-card-height);
+}
+
+/* Tall card with image — full height */
+.fact-card .fact-card-inner:has(.fact-card-image) {
+  height: 100%;
+}
+
+.fact-card.size-large .fact-card-inner {
+  gap: 0;
+  height: auto;
+}
+
+.fact-card:where(.hide-image) .fact-card-inner .fact-card-image {
+  display: none;
+}
+
+.fact-card:where(.show-image) .fact-card-inner:has(.fact-card-image),
+.fact-card:where(.hide-image) .fact-card-inner:has(.fact-card-image) {
+  height: auto;
+}
+
+.fact-card:where(.show-image) :where(.fact-card-inner):has(.fact-card-image) .fact-card-content {
+  height: auto;
 }
 
 /* =====================================================
@@ -151,19 +186,20 @@
   grid-column: 1 / span 6;
 }
 
-/* Tall card with image — full height */
-.fact-card .fact-card-inner:has(.fact-card-image) {
-  height: 100%;
-}
-
 /* ---- Fact Card Feature Grid Tablet (>= 744px): 2 cols x 2 rows ---- */
 @media (--bp-tablet) {
-    .section.fact-card-container {
+  .section.fact-card-container {
     min-height: var(--fact-card-min-height);
   }
 
-  .section.fact-card-container .fact-card-wrapper {
-    grid-column: auto / span 4;
+  .fact-card.size-medium-horizontal .fact-card-inner {
+    flex-direction: row;
+    gap: 0;
+    height: auto;
+  }
+
+  .fact-card.size-medium-horizontal .fact-card-image {
+    width: 50%;
   }
 
   .fact-card .fact-card-eyebrow {
@@ -238,14 +274,6 @@
 @media (--bp-desktop) {
     .section.fact-card-container {
     min-height: 44.8rem;
-  }
-
-  .section.fact-card-container .fact-card-wrapper {
-    grid-column: auto / span 3;
-  }
-
-  .fact-card .fact-card-content {
-    height: var(--fact-card-height);
   }
 
   .fact-card .fact-card-data-point {

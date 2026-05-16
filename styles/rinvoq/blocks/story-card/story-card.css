@@ -1142,3 +1142,28 @@
     line-height: var(--corp-typography-lineheight-relaxed-lg);
   }
 }
+
+/* ================================================================
+   Carousel (default) context overrides
+   ================================================================ */
+
+.carousel:where(.carousel-default) .story-card.is-side-panel :where(.story-card-title) {
+  font-size: var(--corp-font-size-18);
+  font-family: var(--heading-font-family);
+  font-weight: var(--corp-font-weight-semibold-alt);
+  line-height: var(--corp-typography-lineheight-body-md);
+}
+
+@media (min-width: 744px) {
+  .carousel:where(.carousel-default) .story-card.is-side-panel :where(.story-card-title) {
+    font-size: var(--corp-font-size-30);
+    line-height: var(--corp-typography-lineheight-relaxed-xl);
+  }
+}
+
+@media (min-width: 1024px) {
+  .carousel:where(.carousel-default) .story-card.is-side-panel :where(.story-card-title) {
+    font-size: var(--corp-font-size-40);
+    line-height: var(--corp-typography-lineheight-heading-md);
+  }
+}

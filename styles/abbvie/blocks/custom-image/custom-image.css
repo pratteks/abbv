@@ -30,7 +30,7 @@
 
 /* Variant: circle — crops image into a perfect circle */
 
-.custom-image.circle picture img {
+.custom-image.cmp-image--rounded picture img {
     border-radius: 50%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
@@ -38,21 +38,21 @@
 
 /* Variant: logo — constrains image to logo dimensions */
 
-.custom-image.logo picture img {
+.custom-image.cmp-image--abbvie-logo picture img {
     height: 1.6rem;
     max-width: 8.8rem;
     object-fit: cover;
 }
 
 @media (width >= 744px) {
-    .custom-image.logo picture img {
+    .custom-image.cmp-image--abbvie-logo picture img {
         height: 1.4rem;
         max-width: 8rem;
     }
 }
 
 @media (width >= 1024px) {
-    .custom-image.logo picture img {
+    .custom-image.cmp-image--abbvie-logo picture img {
         height: 2rem;
         max-width: 11.2rem;
     }

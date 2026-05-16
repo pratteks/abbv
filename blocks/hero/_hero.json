@@ -38,16 +38,11 @@
           ]
         },
         {
-          "component": "custom-asset-namespace:custom-asset",
+          "component": "reference",
           "valueType": "string",
           "name": "image",
           "label": "Image",
-          "configUrl": "https://dm--dev-abbvie-corporate-us-en--abbvie.aem.live/tools/assets-selector/image.config.json"
-        },
-        {
-          "component": "custom-asset-namespace:custom-asset-mimetype",
-          "valueType": "string",
-          "name": "imageMimeType"
+          "multi": false
         },
         {
           "component": "text",

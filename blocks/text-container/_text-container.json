@@ -11,8 +11,8 @@
               "name": "Text Container",
               "model": "text-container",
               "filter": "text-container",
-              "language": "lang:none",
-              "blockId": "id:"
+              "language": "none",
+              "blockId": ""
             }
           }
         }
@@ -60,141 +60,13 @@
           "name": "styles"
         },
         {
-          "component": "select",
-          "name": "classes_textWidth",
-          "label": "Text Container Width",
-          "options": [
-            {
-              "name": "Full Width",
-              "value": "full-width"
-            },
-            {
-              "name": "Large Width",
-              "value": "large-width"
-            },
-            {
-              "name": "Content Width",
-              "value": "content-width"
-            },
-            {
-              "name": "Narrow Width",
-              "value": "narrow-width"
-            }
-          ]
-        },
-        {
-          "component": "select",
-          "name": "classes_textTopSpacing",
-          "label": "Text Container Top Spacing",
-          "options": [
-            {
-              "name": "Tight",
-              "value": "mt-tight"
-            },
-            {
-              "name": "Compact",
-              "value": "mt-compact"
-            },
-            {
-              "name": "Comfortable",
-              "value": "mt-comfortable"
-            },
-            {
-              "name": "Spacious",
-              "value": "mt-spacious"
-            }
-          ]
-        },
-        {
-          "component": "select",
-          "name": "classes_textBottomSpacing",
-          "label": "Text Container Bottom Spacing",
-          "options": [
-            {
-              "name": "Tight",
-              "value": "mb-tight"
-            },
-            {
-              "name": "Compact",
-              "value": "mb-compact"
-            },
-            {
-              "name": "Comfortable",
-              "value": "mb-comfortable"
-            },
-            {
-              "name": "Spacious",
-              "value": "mb-spacious"
-            }
-          ]
-        },
-        {
-          "component": "select",
-          "name": "classes_textAlignment",
-          "label": "Text Alignment",
-          "options": [
-            {
-              "name": "Left",
-              "value": "align-left"
-            },
-            {
-              "name": "Center",
-              "value": "align-center"
-            },
-            {
-              "name": "Right",
-              "value": "align-right"
-            },
-            {
-              "name": "Justify",
-              "value": "align-justify"
-            }
-          ]
-        },
-        {
-          "component": "select",
-          "name": "classes_textDirection",
-          "label": "Text Direction",
-          "options": [
-            {
-              "name": "Left to Right",
-              "value": "text-ltr"
-            },
-            {
-              "name": "Right to Left",
-              "value": "text-rtl"
-            }
-          ]
-        },
-        {
-          "component": "select",
-          "name": "classes_theme",
-          "label": "Theme",
-          "options": [
-            {
-              "name": "Light",
-              "value": "theme-light"
-            },
-            {
-              "name": "Dark",
-              "value": "theme-dark"
-            }
-          ]
-        },
-        {
-          "component": "select",
-          "name": "classes_columns",
-          "label": "Columns",
-          "options": [
-            {
-              "name": "One column",
-              "value": "text-one-column"
-            },
-            {
-              "name": "Two columns",
-              "value": "text-two-columns"
-            }
-          ]
+          "component": "ngaem:dynamic-picklist",
+          "name": "classes_customDynamicClass",
+          "value": "",
+          "label": "Select Text Block Styles",
+          "valueType": "string",
+          "sourceAEMNodeName": "text-picklist-config",
+          "valueSeperator": ","
         },
         {
           "...": "../../models/_common-properties.json#/common-prop"
@@ -205,11 +77,17 @@
       "id": "text-container-image",
       "fields": [
         {
-          "component": "reference",
+          "component": "custom-asset-namespace:custom-asset",
           "valueType": "string",
           "name": "image",
           "label": "Image",
+          "configUrl": "/content/dam/config/image/asset-selector.json",
           "multi": false
+        },
+        {
+          "component": "custom-asset-namespace:custom-asset-mimetype",
+          "valueType": "string",
+          "name": "imageMimeType"
         },
         {
           "component": "text",
@@ -236,10 +114,7 @@
   "filters": [
     {
       "id": "text-container",
-      "components": [
-        "text-container-image",
-        "text-container-text"
-      ]
+      "components": ["text-container-image", "text-container-text"]
     }
   ]
 }

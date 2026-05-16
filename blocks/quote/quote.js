@@ -14,13 +14,9 @@ import { applyCommonProps } from '../../scripts/utils.js';
 // Row  7: backgroundImagePreset
 // Row  8: backgroundImageModifiers
 // Row  9: backgroundImageAlt
-// Row 10: classes_theme          (CSS class — no JS handling)
-// Row 11: classes_contentAlignment (CSS class — no JS handling)
-// Row 12: classes_contentWidth   (CSS class — no JS handling)
-// Row 13: blockId                (handled by applyCommonProps)
-// Row 14: classes_commonCustomClass (handled by applyCommonProps)
-// Row 15: language
-// Row 16: analyticsInteractionId
+// Row 10: blockId                (handled by applyCommonProps)
+// Row 11: language               (handled by applyCommonProps)
+// Row 12: analyticsId            (handled by applyCommonProps)
 const ROW = {
   QUOTE_TYPE: 0,
   QUOTATION: 1,
@@ -32,8 +28,6 @@ const ROW = {
   BACKGROUND_IMAGE_PRESET: 7,
   BACKGROUND_IMAGE_MODIFIERS: 8,
   BACKGROUND_IMAGE_ALT: 9,
-  LANGUAGE: 15,
-  ANALYTICS_ID: 16,
 };
 
 /**
@@ -87,7 +81,6 @@ async function normalizePath(rawPath) {
 function decorateSimpleQuote(rows) {
   const blockquote = document.createElement('blockquote');
   // if (lang) blockquote.setAttribute('lang', lang);
-  applyCommonProps(blockquote);
 
   // Row 0: quotation
   const quotationCell = rows[0]?.firstElementChild;
@@ -142,7 +135,6 @@ function decorateSimpleQuote(rows) {
 function decorateBasicQuote(rows) {
   const blockquote = document.createElement('blockquote');
   // if (lang) blockquote.setAttribute('lang', lang);
-  applyCommonProps(blockquote);
 
   // Quotation (richtext)
   const quotationCell = rows[ROW.QUOTATION]?.firstElementChild;
@@ -321,7 +313,7 @@ async function decorateFragmentQuote(rows) {
   if (cell) {
     const link = cell.querySelector('a');
     if (link) {
-      rawPath = link.getAttribute('href');
+      rawPath = link.textContent.trim() || link.getAttribute('href').trim();
     } else {
       const text = cell.textContent.trim();
       if (text && text.startsWith('/')) {
@@ -335,7 +327,6 @@ async function decorateFragmentQuote(rows) {
   blockquote.className = 'quote-fragment';
 
   // if (lang) blockquote.setAttribute('lang', lang);
-  applyCommonProps(blockquote);
 
   // Try loading as a page fragment (normalized path)
   try {
@@ -432,7 +423,13 @@ export default async function decorate(block) {
   } catch (e) {
     // Decoration failed — ensure block is still cleaned up below
   }
-  applyCommonProps(blockquote);
+
+  // If no quotation was authored, suppress the entire block
+  if (blockquote && quoteType !== 'content-fragment' && !blockquote.querySelector('.quote-quotation')) {
+    blockquote = null;
+  }
+
+  applyCommonProps(block, 9); // altText on image -> separate row, so common props start at index 9
   block.textContent = '';
 
   // Look for background image in preceding default content (imported pattern:
@@ -458,6 +455,11 @@ export default async function decorate(block) {
     bgWrapper.className = 'quote-background-image';
     bgWrapper.append(bgPicture);
     block.append(bgWrapper);
+  }
+
+  if (!blockquote && !bgPicture) {
+    block.hidden = true;
+    return;
   }
 
   if (blockquote) {

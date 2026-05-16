@@ -44,6 +44,14 @@
   margin-bottom: 0;
 }
 
+.tag-utility-nav-search-icon picture,
+.tag-utility-nav-search-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 /* Search field wrapper */
 
 .tag-utility-nav-search-field {

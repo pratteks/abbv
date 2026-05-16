@@ -563,15 +563,12 @@
           }
         },
         {
-          "component": "reference",
+          "component": "custom-asset-namespace:custom-asset",
           "valueType": "string",
           "name": "imageIcon",
           "label": "Image Icon",
           "value": "",
-          "multi": false,
-          "accepts": [
-            "image/*"
-          ],
+          "configUrl": "/content/dam/config/image/asset-selector.json",
           "condition": {
             "===": [
               {
@@ -580,6 +577,11 @@
               "image"
             ]
           }
+        },
+        {
+          "component": "custom-asset-namespace:custom-asset-mimetype",
+          "valueType": "string",
+          "name": "imageIconMimeType"
         },
         {
           "component": "select",

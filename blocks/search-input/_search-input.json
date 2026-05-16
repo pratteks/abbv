@@ -11,8 +11,8 @@
               "name": "Search Input",
               "model": "search-input",
               "filter": "search-input",
-              "blockId": "id:",
-              "language": "lang:en"
+              "blockId": "",
+              "language": "en"
             }
           }
         }
@@ -49,19 +49,6 @@
           "name": "searchButtonPlaceholderMobile",
           "label": "Search Button Placeholder Text (Mobile View)",
           "description": "Placeholder text for the search action/button optimized for mobile view. Optional; used when mobile-specific label differs from desktop."
-        },
-        {
-          "component": "tab",
-          "label": "Analytics",
-          "name": "analytics"
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "analyticsInteractionId",
-          "value": "",
-          "label": "Analytics Interaction ID",
-          "description": "Identifier used for tracking interactions in analytics systems. ID must be system generated from hash value of resource path."
         },
         {
           "...": "../../models/_common-properties.json#/common-prop"

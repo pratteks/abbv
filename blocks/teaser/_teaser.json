@@ -10,8 +10,8 @@
             "template": {
               "name": "Teaser",
               "model": "teaser",
-              "language": "lang:none",
-              "blockId": "id:"
+              "language": "none",
+              "blockId": ""
             }
           }
         }
@@ -66,23 +66,6 @@
         },
         {
           "component": "select",
-          "name": "buttonType",
-          "valueType": "string",
-          "value": "",
-          "label": "Type",
-          "options": [
-            {
-              "name": "Internal",
-              "value": "link-internal"
-            },
-            {
-              "name": "External",
-              "value": "link-external"
-            }
-          ]
-        },
-        {
-          "component": "select",
           "valueType": "string",
           "name": "clickType",
           "value": "_self",
@@ -106,6 +89,20 @@
           "value": "",
           "label": "Aria Label",
           "description": "Defines a concise, descriptive label read by screen readers for the teaser region."
+        },
+        {
+          "component": "tab",
+          "label": "Styles",
+          "name": "styles"
+        },
+        {
+          "component": "ngaem:dynamic-picklist",
+          "name": "classes_customDynamicClass",
+          "value": "",
+          "label": "Select Block Styles",
+          "valueType": "string",
+          "sourceAEMNodeName": "teaser-picklist-config",
+          "valueSeperator": ","
         },
         {
           "...": "../../models/_common-properties.json#/common-prop"

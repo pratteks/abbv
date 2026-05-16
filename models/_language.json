@@ -4,114 +4,115 @@
       "component": "select",
       "name": "language",
       "label": "Language",
+      "value": "none",
       "options": [
         {
           "name": "None",
-          "value": "lang:none"
+          "value": "none"
         },
         {
           "name": "Bulgarian",
-          "value": "lang:bg"
+          "value": "bg"
         },
         {
           "name": "Chinese",
-          "value": "lang:zh"
+          "value": "zh"
         },
         {
           "name": "Chinese (Taiwan)",
-          "value": "lang:zh-TW"
+          "value": "zh-TW"
         },
         {
           "name": "Czech",
-          "value": "lang:cs"
+          "value": "cs"
         },
         {
           "name": "Danish",
-          "value": "lang:da"
+          "value": "da"
         },
         {
           "name": "Dutch",
-          "value": "lang:nl"
+          "value": "nl"
         },
         {
           "name": "English",
-          "value": "lang:en"
+          "value": "en"
         },
         {
           "name": "Finnish",
-          "value": "lang:fi"
+          "value": "fi"
         },
         {
           "name": "French",
-          "value": "lang:fr"
+          "value": "fr"
         },
         {
           "name": "German",
-          "value": "lang:de"
+          "value": "de"
         },
         {
           "name": "Greek",
-          "value": "lang:el"
+          "value": "el"
         },
         {
           "name": "Hebrew",
-          "value": "lang:he"
+          "value": "he"
         },
         {
           "name": "Hungarian",
-          "value": "lang:hu"
+          "value": "hu"
         },
         {
           "name": "Italian",
-          "value": "lang:it"
+          "value": "it"
         },
         {
           "name": "Japanese",
-          "value": "lang:ja"
+          "value": "ja"
         },
         {
           "name": "Korean",
-          "value": "lang:ko"
+          "value": "ko"
         },
         {
           "name": "Norwegian",
-          "value": "lang:no"
+          "value": "no"
         },
         {
           "name": "Polish",
-          "value": "lang:pl"
+          "value": "pl"
         },
         {
           "name": "Portuguese",
-          "value": "lang:pt"
+          "value": "pt"
         },
         {
           "name": "Russian",
-          "value": "lang:ru"
+          "value": "ru"
         },
         {
           "name": "Slovak",
-          "value": "lang:sk"
+          "value": "sk"
         },
         {
           "name": "Slovenian",
-          "value": "lang:sl"
+          "value": "sl"
         },
         {
           "name": "Spanish",
-          "value": "lang:es"
+          "value": "es"
         },
         {
           "name": "Swedish",
-          "value": "lang:sv"
+          "value": "sv"
         },
         {
           "name": "Turkish",
-          "value": "lang:tr"
+          "value": "tr"
         },
         {
           "name": "Ukrainian",
-          "value": "lang:uk"
+          "value": "uk"
         }
       ]
     }

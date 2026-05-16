@@ -45,12 +45,7 @@ function isBooleanLikeValue(value) {
 // ─────────────────────────────────────────────────────────────────────────────
 
 function getVideoConfig(block) {
-  const textRows = [...block.querySelectorAll(':scope > div')].filter((row) => {
-    const cell = row.querySelector(':scope > div');
-    if (!cell) return false;
-    if (cell.querySelector('a, picture, img')) return false;
-    return !!cell;
-  });
+  const textRows = [...block.querySelectorAll(':scope > div')].filter((row) => row.querySelector(':scope > div'));
 
   const getText = (row) => row?.querySelector(':scope > div')?.textContent?.trim()
     || row?.textContent?.trim()
@@ -66,13 +61,13 @@ function getVideoConfig(block) {
 
   const get = (i) => (textRows[i] ? getText(textRows[i]) : undefined);
 
-  placeholderAlt = get(0);
-  overlayTitle = get(1);
-  overlayDescription = get(2);
-  overlayBtnText = get(3);
-  videoContentLayout = get(4) || 'none';
-  overlayButtonIconType = get(5) || '';
-  overlayButtonFontIcon = get(6) || '';
+  placeholderAlt = get(2);
+  overlayTitle = get(3);
+  overlayDescription = get(4);
+  overlayBtnText = get(5);
+  videoContentLayout = get(6) || 'none';
+  overlayButtonIconType = get(7) || '';
+  overlayButtonFontIcon = get(8) || '';
   const featureRowValues = textRows
     .map((row) => getText(row))
     .filter(isBooleanLikeValue);
@@ -546,7 +541,7 @@ function buildContentArea(config) {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default async function decorate(block) {
-  applyCommonProps(block);
+  applyCommonProps(block, 14);
   const config = getVideoConfig(block);
   const section = block.closest('.section');
 

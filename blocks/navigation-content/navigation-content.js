@@ -1,7 +1,7 @@
 import { applyCommonProps } from '../../scripts/utils.js';
 
 export default async function decorate(block) {
-  applyCommonProps(block);
+  applyCommonProps(block, 11);
 
   const type = [...block.classList].find((c) => ['logo', 'search', 'language-links'].includes(c));
   block.dataset.type = type || 'navigation-content';

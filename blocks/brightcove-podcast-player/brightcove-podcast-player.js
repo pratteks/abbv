@@ -22,7 +22,9 @@ const ACCOUNT_MAP = {
  *  2 playerId              text
  *  3 podcastTitle           text
  *  4 podcastThumbnail       reference
- *  5 analyticsInteractionId text
+ *  5 id                     handled by applyCommonProps()
+ *  6 lang                   handled by applyCommonProps()
+ *  7 analyticsId            handled by applyCommonProps()
  */
 const ROW = {
   VIDEO_ID: 0,
@@ -30,7 +32,6 @@ const ROW = {
   PLAYER_ID: 2,
   PODCAST_TITLE: 3,
   PODCAST_THUMBNAIL: 4,
-  ANALYTICS_INTERACTION_ID: 5,
 };
 
 /**
@@ -66,7 +67,6 @@ function readBlock(block) {
     playerId: getCellText(rows[ROW.PLAYER_ID]),
     podcastTitle: getCellText(rows[ROW.PODCAST_TITLE]),
     podcastThumbnail: getCellPicture(rows[ROW.PODCAST_THUMBNAIL]),
-    analyticsInteractionId: getCellText(rows[ROW.ANALYTICS_INTERACTION_ID]),
   };
 }
 
@@ -240,16 +240,11 @@ function loadPlayer(container, cfg, imgContainer, titleEl) {
 }
 
 export default function decorate(block) {
-  applyCommonProps(block);
+  applyCommonProps(block, 5);
   const cfg = readBlock(block);
 
   // Clear block content for rebuild
   block.textContent = '';
-
-  // Analytics data attribute
-  if (cfg.analyticsInteractionId) {
-    block.setAttribute('data-analytics-interaction-id', cfg.analyticsInteractionId);
-  }
 
   // Outer podcast wrapper
   const podcast = document.createElement('div');

@@ -17,9 +17,8 @@
               "classes_theme": "quote-none",
               "classes_contentAlignment": "quote-align-none",
               "classes_contentWidth": "quote-content-col-none",
-              "language": "lang:none",
-              "blockId": "id:",
-              "analyticsInteractionId": ""
+              "language": "none",
+              "blockId": ""
             }
           }
         }
@@ -102,11 +101,12 @@
           }
         },
         {
-          "component": "reference",
+          "component": "custom-asset-namespace:custom-asset",
           "valueType": "string",
           "name": "attributionImage",
           "label": "Attribution Image",
           "description": "Select an image of the author",
+          "configUrl": "/content/dam/config/image/asset-selector.json",
           "multi": false,
           "condition": {
             "in": [
@@ -116,6 +116,11 @@
               ["basic"]
             ]
           }
+        },
+        {
+          "component": "custom-asset-namespace:custom-asset-mimetype",
+          "valueType": "string",
+          "name": "attributionImageMimeType"
         },
         {
           "component": "aem-content",
@@ -131,18 +136,44 @@
               ["content-fragment"]
             ]
           }
-        },     
+        },
         {
           "component": "custom-asset-namespace:custom-asset",
           "valueType": "string",
           "name": "backgroundImage",
           "label": "Background Image",
-          "configUrl": "https://dm--dev-abbvie-corporate-us-en--abbvie.aem.live/tools/assets-selector/image.config.json"
+          "description": "Select a background image for the quote",
+          "configUrl": "/content/dam/config/image/asset-selector.json",
+          "multi": false
         },
         {
           "component": "custom-asset-namespace:custom-asset-mimetype",
           "valueType": "string",
           "name": "backgroundImageMimeType"
+        },      
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "backgroundImagePreset",
+          "value": "",
+          "label": "Background Image Preset",
+          "description": "Select an image preset from the available preset renditions",
+          "options": [
+            { "name": "None", "value": "" },
+            { "name": "Feature", "value": "Feature" },
+            { "name": "Hero", "value": "Hero" },
+            { "name": "Responsive", "value": "Responsive" },
+            { "name": "Square", "value": "Square" },
+            { "name": "Tall", "value": "Tall" },
+            { "name": "VideoThumbnail", "value": "VideoThumbnail" }
+          ]
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "backgroundImageModifiers",
+          "label": "Background Image Modifiers",
+          "description": "Specify additional image modifier parameters"
         },
          {
           "component": "text",
@@ -158,59 +189,16 @@
           "name": "styles"
         },
         {
-          "component": "select",
+          "component": "ngaem:dynamic-picklist",
+          "name": "classes_customDynamicClass",
+          "value": "",
+          "label": "Select Block Styles",
           "valueType": "string",
-          "name": "classes_theme",
-          "label": "Theme",
-          "options": [
-            { "name": "None", "value": "quote-none" },
-            { "name": "Light Theme", "value": "quote-light" },
-            { "name": "Dark Theme", "value": "quote-dark" }
-          ]
-        },
-        {
-          "component": "select",
-          "valueType": "string",
-          "name": "classes_contentAlignment",
-          "label": "Content Alignment",
-          "value": "quote-align-none",
-          "options": [
-            { "name": "None", "value": "quote-align-none" },
-            { "name": "Left", "value": "quote-align-left" },
-            { "name": "Center", "value": "quote-align-center" },
-            { "name": "Right", "value": "quote-align-right" }
-          ]
-        },
-        {
-          "component": "select",
-          "valueType": "string",
-          "name": "classes_contentWidth",
-          "label": "Content Width",
-          "value": "quote-content-col-none",
-          "options": [
-            { "name": "Default (No Columns)", "value": "quote-content-col-none" },
-            { "name": "Narrow", "value": "quote-content-col-1" },
-            { "name": "Small", "value": "quote-content-col-3" },
-            { "name": "Medium", "value": "quote-content-col-6" },
-            { "name": "Wide", "value": "quote-content-col-9" },
-            { "name": "Full Width", "value": "quote-content-col-12" }
-          ]
+          "sourceAEMNodeName": "quote-picklist-config",
+          "valueSeperator": ","
         },
         {
           "...": "../../models/_common-properties.json#/common-prop"
-        },
-        {
-          "component": "tab",
-          "label": "Analytics",
-          "name": "analytics"
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "analyticsInteractionId",
-          "value": "",
-          "label": "Analytics Interaction ID",
-          "description": "Identifier used to tag this component's interactions for analytics and reporting"
         }
       ]
     }

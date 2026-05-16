@@ -100,12 +100,6 @@
    ======================================================================== */
 
 @media (--bp-desktop) {
-   .abbvie-container .news-feed-wrapper {
-      grid-column: 1 / span 9;
-      grid-column-start: 2;
-      transform: translateX(calc(var(--corp-layout-multiplier-direction-value, 1) * 100% / 18));
-  }
-
   .news-feed-wrapper .newsfeed {
     margin: 0 0 var(--corp-spacing-80);
   }

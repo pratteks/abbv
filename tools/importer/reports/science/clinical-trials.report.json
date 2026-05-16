@@ -1,0 +1,16 @@
+{
+  "status": "success",
+  "url": "https://www.abbvie.com/science/clinical-trials.html",
+  "path": "science/clinical-trials",
+  "timestamp": "2026-03-22T06:33:22.548Z",
+  "title": "Clinical Trials | AbbVie",
+  "template": "clinical-trials",
+  "blocks": [
+    "hero",
+    "cta",
+    "cta",
+    "columns",
+    "columns",
+    "accordion"
+  ]
+}

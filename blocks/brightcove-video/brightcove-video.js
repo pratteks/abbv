@@ -1,6 +1,10 @@
 import { resolveImageReference } from '../../scripts/scripts.js';
+import { createIcon, extractIconSource, applyCommonProps } from '../../scripts/utils.js';
+import { fetchPlaceholders } from '../../scripts/placeholders.js';
 
 const DEFAULT_PLAYER = 'default';
+const BC_PLAYERS_BASE = 'https://players.brightcove.net';
+const BC_API_BASE = 'https://edge.api.brightcove.com/playback/v1/accounts';
 
 /*
  * Row indices — must match the field order in _brightcove-video.json
@@ -26,30 +30,31 @@ const DEFAULT_PLAYER = 'default';
  * 17 defaultPlaylistVideoId       text       (conditional)
  * 18 playlistType                 select     (conditional)
  * 19 videoContentLayout           select
- * 20 playlistLayout               select     (conditional)
- * 21 enablePlaylistThumbnailMeta  boolean    (conditional)
- * 22 enableAutoplay               boolean
- * 23 enableLoop                   boolean
- * 24 enableCaptions               boolean
- * 25 enableVideoChapters          boolean
- * 26 enableRecommendedVideo       boolean
- * 27 enablePlayerControls         boolean
- * 28 enableSocialShare            boolean
- * 29 enableTranscript             boolean
- * 30 transcriptType               select     (conditional)
- * 31 showTranscriptLabel          text       (conditional)
- * 32 hideTranscriptLabel          text       (conditional)
- * 33 transcriptClickBehavior      select     (conditional)
- * 34 modalHiddenPanelId           text       (conditional)
- * 35 transcriptLink               aem-content(conditional)
- * 36 transcriptButtonIconType     select     (conditional)
- * 37 transcriptShowFontIcon       text       (conditional)
- * 38 transcriptShowImageIcon      reference  (conditional)
- * 39 transcriptHideFontIcon       text       (conditional)
- * 40 transcriptHideImageIcon      reference  (conditional)
- * 41 transcriptLinkIconPosition   select     (conditional)
- * 42 playButtonAriaLabel          text
- * 43 videoCaption                 text
+ * 20 enablePlaylistThumbnailMeta  boolean    (conditional)
+ * 21 captionTitle                 text
+ * 22 captionDescription           text
+ * 23 playButtonAriaLabel          text
+ * 24 videoCaption                 text
+ * 25 enableAutoplay               boolean
+ * 26 enableLoop                   boolean
+ * 27 enableCaptions               boolean
+ * 28 enableVideoChapters          boolean
+ * 29 enableRecommendedVideo       boolean
+ * 30 enablePlayerControls         boolean
+ * 31 enableSocialShare            boolean
+ * 32 enableTranscript             boolean
+ * 33 transcriptType               select     (conditional)
+ * 34 showTranscriptLabel          text       (conditional)
+ * 35 hideTranscriptLabel          text       (conditional)
+ * 36 transcriptClickBehavior      select     (conditional)
+ * 37 modalHiddenPanelId           text       (conditional)
+ * 38 transcriptLink               aem-content(conditional)
+ * 39 transcriptButtonIconType     select     (conditional)
+ * 40 transcriptShowFontIcon       text       (conditional)
+ * 41 transcriptShowImageIcon      reference  (conditional)
+ * 42 transcriptHideFontIcon       text       (conditional)
+ * 43 transcriptHideImageIcon      reference  (conditional)
+ * 44 transcriptLinkIconPosition   select     (conditional)
  */
 const ROW = {
   PROJECT_NUMBER: 0,
@@ -72,30 +77,31 @@ const ROW = {
   DEFAULT_PLAYLIST_VIDEO_ID: 17,
   PLAYLIST_TYPE: 18,
   VIDEO_CONTENT_LAYOUT: 19,
-  PLAYLIST_LAYOUT: 20,
-  ENABLE_PLAYLIST_THUMBNAIL_METADATA: 21,
-  ENABLE_AUTOPLAY: 22,
-  ENABLE_LOOP: 23,
-  ENABLE_CAPTIONS: 24,
-  ENABLE_VIDEO_CHAPTERS: 25,
-  ENABLE_RECOMMENDED_VIDEO: 26,
-  ENABLE_PLAYER_CONTROLS: 27,
-  ENABLE_SOCIAL_SHARE: 28,
-  ENABLE_TRANSCRIPT: 29,
-  TRANSCRIPT_TYPE: 30,
-  SHOW_TRANSCRIPT_LABEL: 31,
-  HIDE_TRANSCRIPT_LABEL: 32,
-  TRANSCRIPT_CLICK_BEHAVIOR: 33,
-  MODAL_HIDDEN_PANEL_ID: 34,
-  TRANSCRIPT_LINK: 35,
-  TRANSCRIPT_BUTTON_ICON_TYPE: 36,
-  TRANSCRIPT_SHOW_FONT_ICON: 37,
-  TRANSCRIPT_SHOW_IMAGE_ICON: 38,
-  TRANSCRIPT_HIDE_FONT_ICON: 39,
-  TRANSCRIPT_HIDE_IMAGE_ICON: 40,
-  TRANSCRIPT_LINK_ICON_POSITION: 41,
-  PLAY_BUTTON_ARIA_LABEL: 42,
-  VIDEO_CAPTION: 43,
+  ENABLE_PLAYLIST_THUMBNAIL_METADATA: 20,
+  CAPTION_TITLE: 21,
+  CAPTION_DESCRIPTION: 22,
+  PLAY_BUTTON_ARIA_LABEL: 23,
+  VIDEO_CAPTION: 24,
+  ENABLE_AUTOPLAY: 25,
+  ENABLE_LOOP: 26,
+  ENABLE_CAPTIONS: 27,
+  ENABLE_VIDEO_CHAPTERS: 28,
+  ENABLE_RECOMMENDED_VIDEO: 29,
+  ENABLE_PLAYER_CONTROLS: 30,
+  ENABLE_SOCIAL_SHARE: 31,
+  ENABLE_TRANSCRIPT: 32,
+  TRANSCRIPT_TYPE: 33,
+  SHOW_TRANSCRIPT_LABEL: 34,
+  HIDE_TRANSCRIPT_LABEL: 35,
+  TRANSCRIPT_CLICK_BEHAVIOR: 36,
+  MODAL_HIDDEN_PANEL_ID: 37,
+  TRANSCRIPT_LINK: 38,
+  TRANSCRIPT_BUTTON_ICON_TYPE: 39,
+  TRANSCRIPT_SHOW_FONT_ICON: 40,
+  TRANSCRIPT_SHOW_IMAGE_ICON: 41,
+  TRANSCRIPT_HIDE_FONT_ICON: 42,
+  TRANSCRIPT_HIDE_IMAGE_ICON: 43,
+  TRANSCRIPT_LINK_ICON_POSITION: 44,
 };
 
 /**
@@ -129,6 +135,19 @@ function getCellPicture(row) {
 }
 
 /**
+ * Extract an icon source from a row cell using extractIconSource.
+ * Resolves AEM image references before extraction.
+ * @param {Element} row
+ * @returns {HTMLPictureElement|string}
+ */
+function getCellIconSource(row) {
+  if (!row) return '';
+  const cell = row.firstElementChild || row;
+  resolveImageReference(cell);
+  return extractIconSource(cell);
+}
+
+/**
  * Get a link URL from a row (for aem-content fields).
  * Falls back to plain text if no anchor tag is present.
  * @param {Element} row
@@ -159,7 +178,7 @@ function readBlock(block) {
     overlayButtonText: getCellText(rows[ROW.OVERLAY_BUTTON_TEXT]) || '',
     overlayButtonIconType: getCellText(rows[ROW.OVERLAY_BUTTON_ICON_TYPE]) || '',
     overlayButtonFontIcon: getCellText(rows[ROW.OVERLAY_BUTTON_FONT_ICON]) || '',
-    overlayButtonImageIcon: getCellPicture(rows[ROW.OVERLAY_BUTTON_IMAGE_ICON]),
+    overlayButtonImageIcon: getCellIconSource(rows[ROW.OVERLAY_BUTTON_IMAGE_ICON]),
     iconPosition: getCellText(rows[ROW.ICON_POSITION]) || '',
     playerType: getCellText(rows[ROW.PLAYER_TYPE]) || '',
     accountId: getCellText(rows[ROW.ACCOUNT_ID]) || '',
@@ -169,8 +188,9 @@ function readBlock(block) {
     defaultPlaylistVideoId: getCellText(rows[ROW.DEFAULT_PLAYLIST_VIDEO_ID]),
     playlistType: getCellText(rows[ROW.PLAYLIST_TYPE]) || '',
     videoContentLayout: getCellText(rows[ROW.VIDEO_CONTENT_LAYOUT]) || '',
-    playlistLayout: getCellText(rows[ROW.PLAYLIST_LAYOUT]) || '',
     enablePlaylistThumbnailMetadata: getCellBool(rows[ROW.ENABLE_PLAYLIST_THUMBNAIL_METADATA]),
+    captionTitle: getCellText(rows[ROW.CAPTION_TITLE]),
+    captionDescription: getCellText(rows[ROW.CAPTION_DESCRIPTION]),
     enableAutoplay: getCellBool(rows[ROW.ENABLE_AUTOPLAY]),
     enableLoop: getCellBool(rows[ROW.ENABLE_LOOP]),
     enableCaptions: getCellBool(rows[ROW.ENABLE_CAPTIONS]),
@@ -187,9 +207,9 @@ function readBlock(block) {
     transcriptLink: getCellLink(rows[ROW.TRANSCRIPT_LINK]),
     transcriptButtonIconType: getCellText(rows[ROW.TRANSCRIPT_BUTTON_ICON_TYPE]) || '',
     transcriptShowFontIcon: getCellText(rows[ROW.TRANSCRIPT_SHOW_FONT_ICON]) || '',
-    transcriptShowImageIcon: getCellPicture(rows[ROW.TRANSCRIPT_SHOW_IMAGE_ICON]),
+    transcriptShowImageIcon: getCellIconSource(rows[ROW.TRANSCRIPT_SHOW_IMAGE_ICON]),
     transcriptHideFontIcon: getCellText(rows[ROW.TRANSCRIPT_HIDE_FONT_ICON]) || '',
-    transcriptHideImageIcon: getCellPicture(rows[ROW.TRANSCRIPT_HIDE_IMAGE_ICON]),
+    transcriptHideImageIcon: getCellIconSource(rows[ROW.TRANSCRIPT_HIDE_IMAGE_ICON]),
     transcriptLinkIconPosition: getCellText(rows[ROW.TRANSCRIPT_LINK_ICON_POSITION]) || '',
     playButtonAriaLabel: getCellText(rows[ROW.PLAY_BUTTON_ARIA_LABEL]),
     videoCaption: getCellText(rows[ROW.VIDEO_CAPTION]),
@@ -212,7 +232,7 @@ function loadBrightcoveScript(account, player) {
   if (!bcScripts[key]) {
     bcScripts[key] = new Promise((resolve, reject) => {
       const script = document.createElement('script');
-      script.src = `https://players.brightcove.net/${key}/index.min.js`;
+      script.src = `${BC_PLAYERS_BASE}/${key}/index.min.js`;
       script.onload = resolve;
       script.onerror = reject;
       document.head.append(script);
@@ -221,26 +241,49 @@ function loadBrightcoveScript(account, player) {
   return bcScripts[key];
 }
 
+const policyKeyCache = {};
+
+/**
+ * Fetch and cache the Brightcove policy key for a given account/player.
+ * @param {string} account
+ * @param {string} player
+ * @returns {Promise<string>} policy key
+ */
+function fetchPolicyKey(account, player) {
+  const key = `${account}/${player}`;
+  if (!policyKeyCache[key]) {
+    policyKeyCache[key] = fetch(
+      `${BC_PLAYERS_BASE}/${account}/${player}_default/config.json`,
+    )
+      .then((r) => r.json())
+      .then((config) => {
+        const pk = config?.video_cloud?.policy_key;
+        if (!pk) throw new Error('No policy key');
+        return pk;
+      });
+  }
+  return policyKeyCache[key];
+}
+
 let playerCount = 0;
 
 /**
  * Create the icon element for buttons (font icon or image).
  * @param {string} iconType - 'icon-font' or 'image'
  * @param {string} fontIconName - Font icon class name
- * @param {Element|null} imageIcon - Picture element for image icon
+ * @param {HTMLPictureElement|string} imageIcon - Picture element or URL for image icon
  * @returns {Element|null}
  */
-function createIcon(iconType, fontIconName, imageIcon) {
-  if (iconType === 'image' && imageIcon) {
-    const span = document.createElement('span');
-    span.className = 'bcvideo-icon bcvideo-icon-image';
-    span.append(imageIcon.cloneNode(true));
-    return span;
-  }
+function buildBcIcon(iconType, fontIconName, imageIcon) {
   if (iconType === 'icon-font' && fontIconName) {
-    const span = document.createElement('span');
-    span.className = `bcvideo-icon bcvideo-icon-font icon-abbvie-${fontIconName}`;
-    return span;
+    return createIcon(fontIconName, 'icon-font', {
+      additionalClasses: ['bcvideo-icon', 'bcvideo-icon-font'],
+    });
+  }
+  if (iconType === 'image' && imageIcon) {
+    return createIcon(imageIcon, 'image', {
+      additionalClasses: ['bcvideo-icon', 'bcvideo-icon-image'],
+    });
   }
   return null;
 }
@@ -259,7 +302,7 @@ function buildPlayButton(cfg) {
     btn.setAttribute('aria-label', cfg.playButtonAriaLabel);
   }
 
-  const icon = createIcon(
+  const icon = buildBcIcon(
     cfg.overlayButtonIconType,
     cfg.overlayButtonFontIcon,
     cfg.overlayButtonImageIcon,
@@ -270,6 +313,7 @@ function buildPlayButton(cfg) {
   textSpan.textContent = cfg.overlayButtonText;
 
   if (icon && cfg.iconPosition === 'right') {
+    icon.classList.add('icon-right');
     btn.append(textSpan, icon);
   } else if (icon) {
     btn.append(icon, textSpan);
@@ -330,6 +374,57 @@ function buildOverlay(cfg) {
 }
 
 /**
+ * Fetch transcript text from Brightcove for a given video.
+ * Looks up the policy key, fetches video metadata, and returns
+ * the transcript text matching the page language.
+ * @param {object} cfg - Block configuration
+ * @returns {Promise<string>}
+ */
+function fetchBrightcoveTranscript(cfg) {
+  const account = cfg.accountId;
+  const player = cfg.playerId || DEFAULT_PLAYER;
+  const apiBase = `${BC_API_BASE}/${account}`;
+
+  const extractTranscript = (video) => {
+    const lang = document.documentElement.lang || 'en';
+    const matchLang = (t) => t.src_lang?.startsWith(lang);
+    const isHttps = (t) => t.src?.startsWith('https');
+    const transcripts = video.transcripts || [];
+    const entry = transcripts.find((t) => matchLang(t) && isHttps(t))
+      || transcripts.find((t) => isHttps(t))
+      || transcripts[0];
+    if (!entry?.src) throw new Error('No transcript available');
+    return fetch(entry.src).then((r) => r.text());
+  };
+
+  return fetchPolicyKey(account, player)
+    .then((pk) => {
+      const headers = { Accept: `application/json;pk=${pk}` };
+      // Single video — fetch directly
+      if (cfg.playerType !== 'playlist') {
+        return fetch(`${apiBase}/videos/${cfg.videoId}`, { headers })
+          .then((r) => r.json())
+          .then(extractTranscript);
+      }
+      // Playlist with default video ID — fetch that video
+      if (cfg.defaultPlaylistVideoId) {
+        return fetch(`${apiBase}/videos/${cfg.defaultPlaylistVideoId}`, { headers })
+          .then((r) => r.json())
+          .then(extractTranscript);
+      }
+      // Playlist without default — get first video from playlist
+      return fetch(`${apiBase}/playlists/${cfg.playlistId}`, { headers })
+        .then((r) => r.json())
+        .then((pl) => {
+          const firstVideo = (pl.videos || [])[0];
+          if (!firstVideo) throw new Error('Empty playlist');
+          return extractTranscript(firstVideo);
+        });
+    })
+    .then((text) => text.trim());
+}
+
+/**
  * Build the transcript UI.
  * @param {object} cfg
  * @returns {Element}
@@ -338,13 +433,13 @@ function buildTranscript(cfg) {
   const wrapper = document.createElement('div');
   wrapper.className = 'bcvideo-transcript';
 
-  const showIcon = createIcon(
+  const showIcon = buildBcIcon(
     cfg.transcriptButtonIconType,
     cfg.transcriptShowFontIcon,
     cfg.transcriptShowImageIcon,
   );
 
-  const hideIcon = createIcon(
+  const hideIcon = buildBcIcon(
     cfg.transcriptButtonIconType,
     cfg.transcriptHideFontIcon,
     cfg.transcriptHideImageIcon,
@@ -380,7 +475,10 @@ function buildTranscript(cfg) {
       link.addEventListener('click', (e) => {
         e.preventDefault();
         const panel = document.getElementById(cfg.modalHiddenPanelId);
-        if (panel) panel.classList.toggle('is-visible');
+        if (panel) {
+          panel.classList.toggle('is-visible');
+          panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       });
     }
 
@@ -418,6 +516,38 @@ function buildTranscript(cfg) {
     panel.setAttribute('role', 'region');
     panel.setAttribute('aria-label', 'Video transcript');
 
+    let transcriptVideoId = '';
+
+    const loadBrightcoveTranscript = () => {
+      const currentId = wrapper.dataset.videoId || '';
+      if (transcriptVideoId === currentId && panel.textContent) return;
+      transcriptVideoId = currentId;
+      panel.textContent = 'Loading transcript…';
+      const overrideCfg = currentId
+        ? { ...cfg, videoId: currentId, playerType: 'single' }
+        : cfg;
+      fetchBrightcoveTranscript(overrideCfg)
+        .then((text) => {
+          panel.textContent = text || 'No transcript text available.';
+        })
+        .catch(() => {
+          panel.textContent = 'Transcript could not be loaded.';
+        });
+    };
+
+    const resetTranscript = () => {
+      transcriptVideoId = '';
+      panel.textContent = '';
+      panel.hidden = true;
+      toggleBtn.setAttribute('aria-expanded', 'false');
+      showLabel.hidden = false;
+      showLabel.classList.remove('hide');
+      hideLabel.hidden = true;
+      hideLabel.classList.add('hide');
+    };
+
+    wrapper.addEventListener('transcript:reset', resetTranscript);
+
     toggleBtn.addEventListener('click', () => {
       const expanded = toggleBtn.getAttribute('aria-expanded') === 'true';
       toggleBtn.setAttribute('aria-expanded', String(!expanded));
@@ -426,38 +556,12 @@ function buildTranscript(cfg) {
       hideLabel.hidden = expanded;
       hideLabel.classList.toggle('hide', expanded);
       panel.hidden = expanded;
+      if (!expanded) loadBrightcoveTranscript();
     });
     wrapper.append(toggleBtn, panel);
   }
 
   return wrapper;
-}
-
-/**
- * Enforce authored caption settings on Brightcove/video.js UI and tracks.
- * @param {object} player
- * @param {boolean} enableCaptions
- */
-function applyCaptionsPolicy(player, enableCaptions) {
-  if (!player) return;
-
-  if (player.controlBar && player.controlBar.subsCapsButton) {
-    if (enableCaptions) player.controlBar.subsCapsButton.show();
-    else player.controlBar.subsCapsButton.hide();
-  }
-
-  const applyToTracks = (tracks) => {
-    if (!tracks || typeof tracks.length !== 'number') return;
-    for (let i = 0; i < tracks.length; i += 1) {
-      const track = tracks[i];
-      if (track.kind === 'captions' || track.kind === 'subtitles') {
-        track.mode = enableCaptions ? 'showing' : 'disabled';
-      }
-    }
-  };
-
-  applyToTracks(player.textTracks && player.textTracks());
-  applyToTracks(player.remoteTextTracks && player.remoteTextTracks());
 }
 
 /**
@@ -484,22 +588,27 @@ function loadPlayer(container, cfg, options = {}) {
   videoEl.setAttribute('data-embed', 'default');
   videoEl.className = 'video-js bcvideo-player';
 
-  // Video / playlist ID
+  // Video / playlist ID — Brightcove only allows one catalog parameter
   if (cfg.playerType === 'playlist') {
-    if (cfg.playlistId) videoEl.setAttribute('data-playlist-id', cfg.playlistId);
-    if (cfg.defaultPlaylistVideoId) videoEl.setAttribute('data-video-id', cfg.defaultPlaylistVideoId);
+    if (cfg.defaultPlaylistVideoId) {
+      videoEl.setAttribute('data-video-id', cfg.defaultPlaylistVideoId);
+    } else if (cfg.playlistId) {
+      videoEl.setAttribute('data-playlist-id', cfg.playlistId);
+    }
   } else if (cfg.videoId) {
     videoEl.setAttribute('data-video-id', cfg.videoId);
   }
 
-  // Autoplay and loop — kept as HTML attributes (same behaviour as before)
-  if (cfg.enableAutoplay) videoEl.setAttribute('autoplay', '');
+  // Loop attribute
   if (cfg.enableLoop) videoEl.setAttribute('loop', '');
 
-  // Browsers typically require muted inline playback for scripted autoplay.
-  if (cfg.enableAutoplay || attemptAutoplay) {
-    videoEl.setAttribute('muted', '');
+  // Autoplay via attemptAutoplay
+  if (attemptAutoplay) {
+    videoEl.setAttribute('autoplay', '');
     videoEl.setAttribute('playsinline', '');
+    if (cfg.playerType === 'playlist') {
+      videoEl.setAttribute('muted', '');
+    }
   }
 
   // Controls — only add attribute when enabled
@@ -579,8 +688,6 @@ function loadPlayer(container, cfg, options = {}) {
           }
         });
 
-        const reapplyCaptions = () => applyCaptionsPolicy(this, cfg.enableCaptions);
-
         // Force controls state at runtime
         this.controls(cfg.enablePlayerControls);
         if (this.controlBar && typeof this.controlBar.hide === 'function') {
@@ -588,40 +695,9 @@ function loadPlayer(container, cfg, options = {}) {
           else this.controlBar.hide();
         }
 
-        // Re-apply across lifecycle because Brightcove can attach/reselect tracks after ready.
-        reapplyCaptions();
-        ['loadstart', 'loadedmetadata', 'loadeddata', 'canplay', 'play', 'beforeplaylistitem', 'playlistitem']
-          .forEach((eventName) => this.on(eventName, reapplyCaptions));
-
-        const textTracks = this.textTracks && this.textTracks();
-        if (textTracks && typeof textTracks.addEventListener === 'function') {
-          textTracks.addEventListener('addtrack', reapplyCaptions);
-          textTracks.addEventListener('change', reapplyCaptions);
-        }
-
-        const remoteTracks = this.remoteTextTracks && this.remoteTextTracks();
-        if (remoteTracks && typeof remoteTracks.addEventListener === 'function') {
-          remoteTracks.addEventListener('addtrack', reapplyCaptions);
-          remoteTracks.addEventListener('change', reapplyCaptions);
-        }
-
-        this.one('dispose', () => {
-          if (textTracks && typeof textTracks.removeEventListener === 'function') {
-            textTracks.removeEventListener('addtrack', reapplyCaptions);
-            textTracks.removeEventListener('change', reapplyCaptions);
-          }
-          if (remoteTracks && typeof remoteTracks.removeEventListener === 'function') {
-            remoteTracks.removeEventListener('addtrack', reapplyCaptions);
-            remoteTracks.removeEventListener('change', reapplyCaptions);
-          }
-        });
-
-        if (cfg.enableAutoplay || attemptAutoplay) {
-          this.muted(true);
-          this.autoplay('muted');
+        if (attemptAutoplay && cfg.playerType !== 'playlist') {
           const playAttempt = this.play();
           if (playAttempt && typeof playAttempt.catch === 'function') {
-            // If autoplay is blocked by browser policy, restore overlay for manual start.
             playAttempt.catch(() => {
               if (typeof onAutoplayBlocked === 'function') onAutoplayBlocked();
             });
@@ -655,17 +731,171 @@ function playExistingPlayer(container) {
  * @param {string} captionText
  * @returns {Element|null}
  */
-function buildCaption(captionText) {
-  if (!captionText) return null;
-  const caption = document.createElement('p');
-  caption.className = 'bcvideo-caption';
-  caption.textContent = captionText;
-  return caption;
+function buildCaption(cfg) {
+  if (!cfg.captionTitle && !cfg.captionDescription) return null;
+  const wrapper = document.createElement('div');
+  wrapper.className = 'bcvideo-caption';
+  if (cfg.captionTitle) {
+    const p = document.createElement('p');
+    const b = document.createElement('b');
+    b.className = 'bcvideo-content-title';
+    b.textContent = cfg.captionTitle;
+    p.append(b);
+    wrapper.append(p);
+  }
+  if (cfg.captionDescription) {
+    const p = document.createElement('p');
+    p.className = 'bcvideo-content-desc';
+    p.textContent = cfg.captionDescription;
+    wrapper.append(p);
+  }
+  return wrapper;
 }
 
-export default function decorate(block) {
-  const cfg = readBlock(block);
+const CARDS_VISIBLE = 6;
 
+function formatDuration(ms) {
+  if (!ms) return '';
+  const totalSeconds = Math.floor(ms / 1000);
+  const m = Math.floor(totalSeconds / 60);
+  const s = totalSeconds % 60;
+  return `${m}:${s.toString().padStart(2, '0')}`;
+}
+
+function buildPlaylistCards(cfg, block, videoContainer, placeholders) {
+  const account = cfg.accountId;
+  const player = cfg.playerId || DEFAULT_PLAYER;
+
+  const base = `${BC_API_BASE}/${account}`;
+  fetchPolicyKey(account, player)
+    .then((pk) => fetch(`${base}/playlists/${cfg.playlistId}`, {
+      headers: { Accept: `application/json;pk=${pk}` },
+    }))
+    .then((r) => r?.json())
+    .then((pl) => {
+      const videos = pl?.videos || [];
+      if (!videos.length) return;
+
+      const container = document.createElement('div');
+      container.className = 'video-card-container';
+
+      videos.forEach((video, idx) => {
+        const card = document.createElement('div');
+        card.className = 'video-card';
+        if (idx >= CARDS_VISIBLE) card.classList.add('video-card-hidden');
+        card.dataset.videoId = video.id;
+
+        const thumbWrap = document.createElement('div');
+        thumbWrap.className = 'thumbnail-wrapper';
+        if (video.poster) {
+          const img = document.createElement('img');
+          img.src = video.poster;
+          img.alt = video.name || '';
+          img.loading = 'lazy';
+          thumbWrap.append(img);
+        }
+        if (video.duration) {
+          const dur = document.createElement('span');
+          dur.className = 'video-card-duration';
+          dur.textContent = formatDuration(video.duration);
+          thumbWrap.append(dur);
+        }
+
+        const textWrap = document.createElement('div');
+        textWrap.className = 'video-text';
+        const h2 = document.createElement('h2');
+        h2.textContent = video.name || '';
+        textWrap.append(h2);
+        if (video.description) {
+          const desc = document.createElement('div');
+          desc.className = 'video-desc';
+          desc.textContent = video.description;
+          textWrap.append(desc);
+        }
+
+        card.append(thumbWrap, textWrap);
+
+        card.addEventListener('click', () => {
+          const el = videoContainer.querySelector('video-js');
+          if (!el || typeof window.videojs === 'undefined') return;
+          const bcPlayer = window.videojs.getPlayer(el.id);
+          if (!bcPlayer) return;
+          bcPlayer.catalog.getVideo(video.id, (err, v) => {
+            if (err) return;
+            bcPlayer.catalog.load(v);
+            if (cfg.enableAutoplay) bcPlayer.play();
+          });
+          const title = block.querySelector('#primaryVideoTitle');
+          const desc = block.querySelector('#primaryVideoDesc');
+          if (title) title.textContent = video.name || '';
+          if (desc) desc.textContent = video.description || '';
+          container.querySelectorAll('.video-card')
+            .forEach((c) => c.classList.remove('is-active'));
+          card.classList.add('is-active');
+          const transcript = block.querySelector('.bcvideo-transcript');
+          if (transcript) {
+            transcript.dataset.videoId = video.id;
+            transcript.dispatchEvent(new Event('transcript:reset'));
+          }
+          block.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        container.append(card);
+      });
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'bcvideo-card-wrapper';
+      wrapper.append(container);
+
+      if (videos.length) {
+        const toggleWrap = document.createElement('div');
+        toggleWrap.className = 'video-card-toggle-wrap';
+        const toggleBtn = document.createElement('button');
+        toggleBtn.className = 'video-card-toggle';
+        toggleBtn.type = 'button';
+        const label = document.createElement('span');
+        label.className = 'video-card-toggle-label';
+        label.textContent = placeholders.showMore;
+        const chev = document.createElement('i');
+        chev.className = 'video-card-toggle-chev icon-abbvie-chevron-down';
+        chev.setAttribute('aria-hidden', 'true');
+        toggleBtn.append(label, chev);
+        let expanded = false;
+
+        toggleBtn.addEventListener('click', () => {
+          expanded = !expanded;
+          container.querySelectorAll('.video-card-hidden')
+            .forEach((c) => { c.style.display = expanded ? '' : 'none'; });
+          label.textContent = expanded ? placeholders.showLess : placeholders.showMore;
+          toggleBtn.classList.toggle('is-expanded', expanded);
+        });
+
+        container.querySelectorAll('.video-card-hidden')
+          .forEach((c) => { c.style.display = 'none'; });
+
+        if (videos.length > CARDS_VISIBLE) {
+          toggleWrap.append(toggleBtn);
+        }
+        wrapper.append(toggleWrap);
+      }
+
+      block.append(wrapper);
+    })
+    .catch(() => {});
+}
+
+async function getPlaceholders() {
+  const placeholders = await fetchPlaceholders();
+  return {
+    showMore: placeholders.showMore || 'SHOW MORE',
+    showLess: placeholders.showLess || 'SHOW LESS',
+  };
+}
+
+export default async function decorate(block) {
+  applyCommonProps(block, 45);
+  const cfg = readBlock(block);
+  const placeholders = await getPlaceholders();
   // Clear block content for rebuild
   block.textContent = '';
 
@@ -674,7 +904,6 @@ export default function decorate(block) {
   block.classList.add(`bcvideo-content-${cfg.videoContentLayout}`);
 
   if (cfg.playerType === 'playlist') {
-    block.classList.add(`bcvideo-playlist-layout-${cfg.playlistLayout}`);
     block.classList.add(`bcvideo-playlist-${cfg.playlistType}`);
     if (cfg.enablePlaylistThumbnailMetadata) {
       block.classList.add('bcvideo-playlist-meta');
@@ -684,7 +913,6 @@ export default function decorate(block) {
   // Feature classes
   if (cfg.enableAutoplay) block.classList.add('bcvideo-autoplay');
   if (cfg.enableLoop) block.classList.add('bcvideo-loop');
-  if (cfg.enableCaptions) block.classList.add('bcvideo-captions');
   if (cfg.enableVideoChapters) block.classList.add('bcvideo-chapters');
   if (cfg.enableSocialShare) block.classList.add('bcvideo-social');
 
@@ -692,45 +920,33 @@ export default function decorate(block) {
   const videoContainer = document.createElement('div');
   videoContainer.className = 'bcvideo-container';
 
-  // Build overlay (shown before play)
-  const overlay = buildOverlay(cfg);
-  videoContainer.append(overlay);
+  if (cfg.playerType === 'playlist') {
+    // Playlist mode — load player immediately, Brightcove handles its own UI
+    loadPlayer(videoContainer, cfg, {
+      attemptAutoplay: cfg.enableAutoplay,
+    });
+  } else {
+    // Single video — show overlay, load on click
+    const overlay = buildOverlay(cfg);
+    videoContainer.append(overlay);
 
-  // For brightcove poster type, preload the player behind the overlay
-  // so Brightcove's native thumbnail is visible through the overlay.
-  if (cfg.posterType === 'brightcove') {
-    videoContainer.classList.add('bcvideo-preload');
-    loadPlayer(videoContainer, cfg, { preloadOnly: true });
-  }
-
-  // Click overlay to start video
-  overlay.addEventListener('click', () => {
-    videoContainer.classList.remove('bcvideo-preload');
-    if (!playExistingPlayer(videoContainer)) {
-      loadPlayer(videoContainer, cfg);
+    if (cfg.posterType === 'brightcove') {
+      videoContainer.classList.add('bcvideo-preload');
+      loadPlayer(videoContainer, cfg, { preloadOnly: true });
     }
-    videoContainer.classList.add('bcvideo-playing');
-    overlay.hidden = true;
-  });
 
-  // Autoplay: load player when visible (via IntersectionObserver)
-  if (cfg.enableAutoplay) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          observer.disconnect();
-          overlay.hidden = true;
-          loadPlayer(videoContainer, cfg, {
-            attemptAutoplay: true,
-            onAutoplayBlocked: () => {
-              overlay.hidden = false;
-              videoContainer.classList.remove('bcvideo-playing');
-            },
-          });
+    overlay.addEventListener('click', () => {
+      videoContainer.classList.remove('bcvideo-preload');
+      if (cfg.enableAutoplay) {
+        if (!playExistingPlayer(videoContainer)) {
+          loadPlayer(videoContainer, cfg, { attemptAutoplay: true });
         }
-      });
-    }, { threshold: 0.5 });
-    observer.observe(videoContainer);
+      } else if (!videoContainer.querySelector('video-js')) {
+        loadPlayer(videoContainer, cfg);
+      }
+      videoContainer.classList.add('bcvideo-playing');
+      overlay.hidden = true;
+    });
   }
 
   // Build content area (title/description below/beside video)
@@ -758,22 +974,69 @@ export default function decorate(block) {
   const mainWrapper = document.createElement('div');
   mainWrapper.className = 'bcvideo-main';
 
-  if (cfg.videoContentLayout === 'left') {
+  if (cfg.videoContentLayout === 'left' && contentArea.hasChildNodes() && cfg.playerType !== 'playlist') {
     mainWrapper.append(contentArea, videoContainer);
-  } else if (cfg.videoContentLayout === 'right') {
+  } else if (cfg.videoContentLayout === 'right' && contentArea.hasChildNodes() && cfg.playerType !== 'playlist') {
     mainWrapper.append(videoContainer, contentArea);
   } else {
     mainWrapper.append(videoContainer);
-    if (cfg.videoContentLayout === 'bottom') {
+    if (cfg.videoContentLayout === 'bottom' && contentArea.hasChildNodes() && cfg.playerType !== 'playlist') {
       mainWrapper.append(contentArea);
     }
   }
 
   block.append(mainWrapper);
 
-  // Video caption
-  const caption = buildCaption(cfg.videoCaption);
-  if (caption) block.append(caption);
+  // Playlist mode — add title/desc from Brightcove metadata below video
+  if (cfg.playerType === 'playlist') {
+    const primaryTitle = document.createElement('h2');
+    primaryTitle.id = 'primaryVideoTitle';
+    primaryTitle.className = 'bcvideo-primary-title';
+
+    const primaryDesc = document.createElement('div');
+    primaryDesc.id = 'primaryVideoDesc';
+    primaryDesc.className = 'bcvideo-primary-desc';
+
+    block.append(primaryTitle, primaryDesc);
+
+    const populateMeta = () => {
+      const el = videoContainer.querySelector('video-js');
+      if (!el || typeof window.videojs === 'undefined') {
+        requestAnimationFrame(populateMeta);
+        return;
+      }
+      const bcPlayer = window.videojs.getPlayer(el.id);
+      if (!bcPlayer) {
+        requestAnimationFrame(populateMeta);
+        return;
+      }
+      const update = () => {
+        const mi = bcPlayer.mediainfo;
+        if (mi) {
+          primaryTitle.textContent = mi.name || '';
+          primaryDesc.textContent = mi.description || '';
+          const transcript = block.querySelector('.bcvideo-transcript');
+          if (transcript) transcript.dataset.videoId = mi.id || '';
+        }
+      };
+      bcPlayer.ready(() => {
+        update();
+        bcPlayer.on('loadedmetadata', update);
+        bcPlayer.on('playlistitem', update);
+      });
+    };
+    populateMeta();
+
+    if (cfg.playlistType === 'cards' && cfg.playlistId) {
+      buildPlaylistCards(cfg, block, videoContainer, placeholders);
+    }
+  }
+
+  // Video caption (single video only, when captions enabled)
+  if (cfg.playerType !== 'playlist' && cfg.enableCaptions) {
+    const caption = buildCaption(cfg);
+    if (caption) block.append(caption);
+  }
 
   // Transcript
   if (cfg.enableTranscript) {

@@ -1,0 +1,15 @@
+{
+  "status": "success",
+  "url": "https://www.abbvie.com/science/partner-with-us/abbvie-ventures.html",
+  "path": "science/partner-with-us/abbvie-ventures",
+  "timestamp": "2026-03-29T12:38:51.432Z",
+  "title": "AbbVie Ventures | AbbVie",
+  "template": "abbvie-ventures",
+  "blocks": [
+    "hero",
+    "accordion",
+    "accordion",
+    "accordion",
+    "accordion"
+  ]
+}

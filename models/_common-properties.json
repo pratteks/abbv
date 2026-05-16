@@ -2,8 +2,8 @@
   "common-prop": [
     {
       "component": "tab",
-      "label": "Common Properties",
-      "name": "commonProperties"
+      "label": "Advanced",
+      "name": "advanced"
     },
     {
       "component": "text",
@@ -11,10 +11,11 @@
       "name": "blockId",
       "valueFormat": "regexp",
       "label": "ID",
+      "value": "",
       "description": "Unique identifier for this block",
       "validation": {
-        "regExp": "^id:\\S*$",
-        "customErrorMsg": "ID must start with 'id:' and contain no spaces"
+        "regExp": "^\\S*$",
+        "customErrorMsg": "ID must not contain spaces"
       }
     },
     {
@@ -25,7 +26,26 @@
       "description": "Custom CSS class to apply to this block"
     },
     {
+      "component": "tab",
+      "label": "Accessibility",
+      "name": "accessibility"
+    },
+    {
       "...": "_language.json#/language-field"
+    },
+    {
+      "component": "tab",
+      "label": "Analytics",
+      "name": "analytics_tab"
+    },
+    {
+      "component": "text",
+      "valueType": "string",
+      "name": "analytics_id",
+      "readOnly": true,
+      "value": "",
+      "label": "Analytics Interaction ID",
+      "description": "Analytics Interaction ID used for tracking interactions with this block."
     }
   ]
 }

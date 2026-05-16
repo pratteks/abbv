@@ -1,39 +1,19 @@
-import { createOptimizedPicture, toClassName } from '../../scripts/aem.js';
+import { toClassName } from '../../scripts/aem.js';
 import { getConfigValue } from '../../scripts/config.js';
 import indexUtils from '../../scripts/index-utils.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 import { isUniversalEditor } from '../../scripts/utils.js';
-import { buildImageUrl } from '../custom-image/custom-image.js';
-import { fetchPlaceholders, detectLanguage } from '../../scripts/placeholders.js';
+import {
+  fetchPlaceholders,
+  detectLanguage,
+} from '../../scripts/placeholders.js';
 
 const DEFAULT_CTA_TEXT = 'Read Story';
-const IMAGE_BREAKPOINTS = {
-  default: [
-    { media: '(min-width: 1024px)', width: '1200' },
-    { media: '(min-width: 744px)', width: '900' },
-    { width: '750' },
-  ],
-  landscape: [
-    { media: '(min-width: 1024px)', width: '1200' },
-    { media: '(min-width: 744px)', width: '900' },
-    { width: '750' },
-  ],
-  wide: [
-    { media: '(min-width: 1024px)', width: '1600' },
-    { media: '(min-width: 744px)', width: '1200' },
-    { width: '900' },
-  ],
-  square: [
-    { media: '(min-width: 1024px)', width: '900' },
-    { media: '(min-width: 744px)', width: '700' },
-    { width: '600' },
-  ],
-  portrait: [
-    { media: '(min-width: 1024px)', width: '900' },
-    { media: '(min-width: 744px)', width: '700' },
-    { width: '600' },
-  ],
-};
+const IMAGE_BREAKPOINTS = [
+  { media: '(min-width: 1024px)', width: '1200' },
+  { media: '(min-width: 744px)', width: '900' },
+  { width: '750' },
+];
 const metadataCache = new Map();
 
 function toDisplayUppercase(value) {
@@ -53,7 +33,9 @@ function getFieldText(source, name, fallback = '') {
 }
 
 function isPathLikeValue(value) {
-  return /^(?:\/|https?:\/\/|urn:aemconnection:|content\/)/i.test(`${value || ''}`.trim());
+  return /^(?:\/|https?:\/\/|urn:aemconnection:|content\/)/i.test(
+    `${value || ''}`.trim(),
+  );
 }
 
 function toTrimmedString(value) {
@@ -81,7 +63,9 @@ function buildOpenApiAssetUrl(value) {
     return '';
   }
 
-  const deliveryHost = repositoryId.startsWith('http') ? repositoryId : `https://${repositoryId}`;
+  const deliveryHost = repositoryId.startsWith('http')
+    ? repositoryId
+    : `https://${repositoryId}`;
   const safeHost = deliveryHost.replace(/\/+$/, '');
   const nameParts = name.split('.');
   const format = nameParts.length > 1 ? nameParts.pop() : '';
@@ -111,7 +95,9 @@ function extractPathLikeReference(value, depth = 0) {
       value?.image,
       value?.asset,
       buildOpenApiAssetUrl(value),
-    ].map((entry) => extractPathLikeReference(entry, depth + 1)).find(Boolean);
+    ]
+      .map((entry) => extractPathLikeReference(entry, depth + 1))
+      .find(Boolean);
 
     return candidate || '';
   }
@@ -143,10 +129,12 @@ function getElementReferenceValue(element) {
     'value',
   ];
 
-  return attributeNames
-    .map((attributeName) => element.getAttribute(attributeName))
-    .map((attributeValue) => extractPathLikeReference(attributeValue))
-    .find(Boolean) || '';
+  return (
+    attributeNames
+      .map((attributeName) => element.getAttribute(attributeName))
+      .map((attributeValue) => extractPathLikeReference(attributeValue))
+      .find(Boolean) || ''
+  );
 }
 
 function getFieldLink(source, name) {
@@ -243,7 +231,9 @@ function normalizePageReference(reference, rootPath) {
   try {
     const url = new URL(normalizedReference, window.location.href);
     const authorPath = normalizeSitePath(url.pathname);
-    const inferredPath = !rootPath ? inferSitePathFromAuthorPath(authorPath) : '';
+    const inferredPath = !rootPath
+      ? inferSitePathFromAuthorPath(authorPath)
+      : '';
     const path = normalizeSitePath(
       rootPath && authorPath.startsWith(rootPath)
         ? authorPath.slice(rootPath.length) || '/'
@@ -253,7 +243,9 @@ function normalizePageReference(reference, rootPath) {
       || !!(rootPath && authorPath.startsWith(rootPath))
       || !!inferredPath
       || authorPath.startsWith('/content/');
-    const href = internal ? `${path}${url.search}${url.hash}` || path : url.href;
+    const href = internal
+      ? `${path}${url.search}${url.hash}` || path
+      : url.href;
 
     return {
       href,
@@ -261,7 +253,8 @@ function normalizePageReference(reference, rootPath) {
       internal,
       htmlHref: internal && path !== '/' ? `${path}.html` : href,
       sourcePath: authorPath,
-      sourceHtmlHref: internal && authorPath !== '/' ? `${authorPath}.html` : href,
+      sourceHtmlHref:
+        internal && authorPath !== '/' ? `${authorPath}.html` : href,
     };
   } catch {
     return null;
@@ -290,7 +283,9 @@ function isDefaultMetaImageReference(reference) {
 
   try {
     const url = new URL(normalized, window.location.href);
-    return /\/default-meta-image\.(png|jpe?g|webp|gif|svg)$/i.test(url.pathname);
+    return /\/default-meta-image\.(png|jpe?g|webp|gif|svg)$/i.test(
+      url.pathname,
+    );
   } catch {
     return /default-meta-image\.(png|jpe?g|webp|gif|svg)$/i.test(normalized);
   }
@@ -306,9 +301,11 @@ function normalizeStoryImageReference(reference) {
 }
 
 function isDynamicMediaUrl(url) {
-  return url.hostname.includes('scene7.com')
+  return (
+    url.hostname.includes('scene7.com')
     || url.pathname.includes('/is/image/')
-    || url.pathname.includes('/adobe/assets/');
+    || url.pathname.includes('/adobe/assets/')
+  );
 }
 
 function isOpenApiDeliveryUrl(url) {
@@ -382,7 +379,12 @@ async function buildStoryData(source = {}) {
     title: cleanDisplayTitle(getProp(source, ['cardTitle', 'cardtitle'])),
     description: getProp(source, ['cardDescription', 'carddescription']),
     image: normalizeStoryImageReference(imageReference),
-    imageAlt: getProp(source, ['cardImageAlt', 'cardimagealt', 'pageImageAlt', 'pageimagealt']),
+    imageAlt: getProp(source, [
+      'cardImageAlt',
+      'cardimagealt',
+      'pageImageAlt',
+      'pageimagealt',
+    ]),
     ctaText: getProp(source, ['ctaText', 'ctatext']),
     ctaAltText: getProp(source, ['ctaAltText', 'ctaalttext']),
     publicationDate: getProp(source, ['publicationDate', 'publicationdate']),
@@ -420,13 +422,12 @@ function readSequentialConfig(source, rootPath) {
       id: '',
       customClass: '',
       page: normalizePageReference(
-        cells[2]?.querySelector('a[href]')?.getAttribute('href') || cells[2]?.textContent?.trim(),
+        cells[2]?.querySelector('a[href]')?.getAttribute('href')
+          || cells[2]?.textContent?.trim(),
         rootPath,
       ),
       openInNewTab: false,
       hideImage: false,
-      imagePreset: '',
-      imageModifiers: '',
       language: '',
       legacySizeStyle: cells[0]?.textContent?.trim() || '',
       legacyLayoutStyle: cells[1]?.textContent?.trim() || '',
@@ -434,16 +435,19 @@ function readSequentialConfig(source, rootPath) {
   }
 
   const textAt = (index) => cells[index]?.textContent?.trim() || '';
-  const linkAt = (index) => (
-    cells[index]?.querySelector('a[href]')?.getAttribute('href') || textAt(index)
-  );
+  const linkAt = (index) => cells[index]?.querySelector('a[href]')?.getAttribute('href')
+    || textAt(index);
 
   // Detect extended layout: new model puts overview fields (storyCardVariant,
   // hide* booleans) before the properties tab fields. The page link moves
   // from index 2 (legacy 9-col) to index 8 (extended 15-col). We detect
   // the extended layout when index 0 holds a known storyCardVariant value.
   const firstCell = textAt(0);
-  const isExtended = firstCell === 'cardInfo' || firstCell === 'storyCardInfo' || firstCell === 'leaderInfo' || firstCell === 'sidePanel' || firstCell === 'relatedContent';
+  const isExtended = firstCell === 'cardInfo'
+    || firstCell === 'storyCardInfo'
+    || firstCell === 'leaderInfo'
+    || firstCell === 'sidePanel'
+    || firstCell === 'relatedContent';
 
   if (isExtended) {
     return {
@@ -457,10 +461,8 @@ function readSequentialConfig(source, rootPath) {
       customClass: textAt(7),
       page: normalizePageReference(linkAt(8), rootPath),
       openInNewTab: parseBoolean(textAt(9), false),
-      imagePreset: toClassName(textAt(10)),
-      imageModifiers: textAt(11),
-      ctaLabel: textAt(12),
-      language: normalizeLang(textAt(14)),
+      ctaLabel: textAt(10),
+      language: normalizeLang(textAt(12)),
       legacySizeStyle: '',
       legacyLayoutStyle: '',
     };
@@ -472,9 +474,7 @@ function readSequentialConfig(source, rootPath) {
     page: normalizePageReference(linkAt(2), rootPath),
     openInNewTab: parseBoolean(textAt(3), false),
     hideImage: parseBoolean(textAt(4), false),
-    imagePreset: toClassName(textAt(5)),
-    imageModifiers: textAt(6),
-    language: normalizeLang(textAt(8)),
+    language: normalizeLang(textAt(6)),
     legacySizeStyle: '',
     legacyLayoutStyle: '',
   };
@@ -523,33 +523,47 @@ function extractConfig(block, rootPath) {
   }
 
   return {
-    storyCardVariant: getFieldText(source, 'storyCardVariant') || getFieldText(source, 'storyCardType') || 'cardInfo',
+    storyCardVariant:
+      getFieldText(source, 'storyCardVariant')
+      || getFieldText(source, 'storyCardType')
+      || 'cardInfo',
     hidePublicationDate: getFieldBoolean(source, 'hidePublicationDate'),
     hideReadTime: getFieldBoolean(source, 'hideReadTime'),
-    hideRole: getFieldBoolean(source, 'hideRole') || getFieldBoolean(source, 'hideTitle'),
+    hideRole:
+      getFieldBoolean(source, 'hideRole')
+      || getFieldBoolean(source, 'hideTitle'),
     hideDescription: getFieldBoolean(source, 'hideDescription'),
     id: getFieldText(source, 'id', sequentialConfig.id),
-    customClass: getFieldText(source, 'customClass')
+    customClass:
+      getFieldText(source, 'customClass')
       || getFieldText(source, 'classes_customClass')
       || sequentialConfig.customClass,
-    page: normalizePageReference(
-      getFieldLink(source, 'page') || getFieldLink(source, 'page-path'),
-      rootPath,
-    ) || sequentialConfig.page,
+    page:
+      normalizePageReference(
+        getFieldLink(source, 'page') || getFieldLink(source, 'page-path'),
+        rootPath,
+      ) || sequentialConfig.page,
     openInNewTab: getFieldElement(source, 'openInNewTab')
       ? getFieldBoolean(source, 'openInNewTab', sequentialConfig.openInNewTab)
       : sequentialConfig.openInNewTab,
     hideImage: getFieldElement(source, 'hideImage')
       ? getFieldBoolean(source, 'hideImage', sequentialConfig.hideImage)
       : sequentialConfig.hideImage,
-    imagePreset: toClassName(getFieldText(source, 'imagePreset')) || sequentialConfig.imagePreset,
-    imageModifiers: getFieldText(source, 'imageModifiers', sequentialConfig.imageModifiers),
-    ctaLabel: getFieldText(source, 'ctaLabel') || getFieldText(source, 'ctaText'),
+    ctaLabel:
+      getFieldText(source, 'ctaLabel') || getFieldText(source, 'ctaText'),
     language: getFieldElement(source, 'language')
       ? normalizeLang(getFieldText(source, 'language'))
       : sequentialConfig.language,
-    legacySizeStyle: getFieldText(source, 'size-style', sequentialConfig.legacySizeStyle),
-    legacyLayoutStyle: getFieldText(source, 'standard-style', sequentialConfig.legacyLayoutStyle),
+    legacySizeStyle: getFieldText(
+      source,
+      'size-style',
+      sequentialConfig.legacySizeStyle,
+    ),
+    legacyLayoutStyle: getFieldText(
+      source,
+      'standard-style',
+      sequentialConfig.legacyLayoutStyle,
+    ),
     legacyContent,
   };
 }
@@ -568,7 +582,9 @@ function getStoryCardData(pageReference) {
 
     if (pageReference.internal) {
       try {
-        const pageProps = await indexUtils.getPageProperties(pageReference.path);
+        const pageProps = await indexUtils.getPageProperties(
+          pageReference.path,
+        );
         indexData = await buildStoryData(pageProps);
         valid = valid || !!pageProps;
       } catch {
@@ -586,48 +602,12 @@ function getStoryCardData(pageReference) {
   return pending;
 }
 
-function parseImageModifiers(modifiers = '') {
-  const tokens = modifiers
-    .split(/[,&\n]+/)
-    .flatMap((token) => token.trim().split(/\s+/))
-    .map((token) => token.trim())
-    .filter(Boolean);
-
-  return tokens.reduce((acc, token) => {
-    if (token.includes('=')) {
-      const [key, ...valueParts] = token.split('=');
-      const value = valueParts.join('=').trim();
-      if (key && value) {
-        acc.queryModifiers.push([key.trim(), value]);
-      }
-      return acc;
-    }
-
-    acc.classModifiers.push(token);
-    return acc;
-  }, { classModifiers: [], queryModifiers: [] });
-}
-
-function applyImageModifiersToPicture(picture, imageModifiers = '') {
-  if (!picture || !imageModifiers) return picture;
-
-  picture.querySelectorAll('source').forEach((source) => {
-    if (source.srcset) {
-      source.srcset = buildImageUrl(source.srcset, '', '', '', imageModifiers);
-    }
-  });
-
-  const img = picture.querySelector('img');
-  if (img?.src) {
-    img.src = buildImageUrl(img.src, '', '', '', imageModifiers);
-  }
-
-  return picture;
-}
-
 function removeBlock(block) {
   const wrapper = block.parentElement;
-  if (wrapper?.classList.contains('story-card-wrapper') && wrapper.childElementCount === 1) {
+  if (
+    wrapper?.classList.contains('story-card-wrapper')
+    && wrapper.childElementCount === 1
+  ) {
     wrapper.remove();
     return;
   }
@@ -642,7 +622,7 @@ function createAnalyticsInteractionId(block) {
 
   // Keep the runtime ID deterministic without needing server-side state.
   const hash = [...resourcePath].reduce((acc, character) => {
-    const value = (acc * 31) + character.charCodeAt(0);
+    const value = acc * 31 + character.charCodeAt(0);
     return value % 2147483647;
   }, 7);
 
@@ -680,7 +660,11 @@ function getAuthoringMarkupContainer(block) {
   return authoringData;
 }
 
-function replaceRenderedContent(block, content, preserveAuthoringMarkup = false) {
+function replaceRenderedContent(
+  block,
+  content,
+  preserveAuthoringMarkup = false,
+) {
   if (!preserveAuthoringMarkup) {
     block.replaceChildren(content);
     return;
@@ -701,9 +685,11 @@ function parsePublicationDate(value) {
     const day = Number(dateOnlyMatch[3]);
     const date = new Date(Date.UTC(year, month - 1, day));
 
-    if (date.getUTCFullYear() === year
+    if (
+      date.getUTCFullYear() === year
       && date.getUTCMonth() === month - 1
-      && date.getUTCDate() === day) {
+      && date.getUTCDate() === day
+    ) {
       return {
         date,
         dateTime: normalized,
@@ -741,15 +727,11 @@ function formatPublicationDate(value) {
       day: 'numeric',
       year: 'numeric',
       ...(parsedDate.timeZone ? { timeZone: parsedDate.timeZone } : {}),
-    }).format(parsedDate.date).toUpperCase(),
+    })
+      .format(parsedDate.date)
+      .toUpperCase(),
     dateTime: parsedDate.dateTime,
   };
-}
-
-function removePrefixedClasses(element, prefix) {
-  [...element.classList]
-    .filter((className) => className.startsWith(prefix))
-    .forEach((className) => element.classList.remove(className));
 }
 
 function applyBlockOptions(block, config, analyticsId) {
@@ -762,16 +744,18 @@ function applyBlockOptions(block, config, analyticsId) {
     'hide-role',
     'hide-description',
   );
-  removePrefixedClasses(block, 'preset-');
 
   if (config.id) {
     block.id = config.id;
   }
 
   if (config.customClass) {
-    config.customClass.split(/\s+/).filter(Boolean).forEach((cls) => {
-      block.classList.add(cls);
-    });
+    config.customClass
+      .split(/\s+/)
+      .filter(Boolean)
+      .forEach((cls) => {
+        block.classList.add(cls);
+      });
   }
 
   if (config.language) {
@@ -790,8 +774,6 @@ function applyBlockOptions(block, config, analyticsId) {
 
   if (config.hideImage) {
     block.classList.add('is-text-only');
-  } else if (config.imagePreset) {
-    block.classList.add(`preset-${config.imagePreset}`);
   }
 
   if (config.hidePublicationDate) block.classList.add('hide-publication-date');
@@ -813,64 +795,50 @@ function renderAuthorPlaceholder(
   applyBlockOptions(block, config, analyticsId);
   block.classList.add('is-placeholder', 'is-text-only');
   block.classList.remove('has-image', 'opens-new-tab');
-  replaceRenderedContent(block, buildAuthorPlaceholder(message), preserveAuthoringMarkup);
+  replaceRenderedContent(
+    block,
+    buildAuthorPlaceholder(message),
+    preserveAuthoringMarkup,
+  );
 }
 
-function buildDynamicMediaUrl(src, width, preset, imageModifiers) {
+function buildDynamicMediaUrl(src, width) {
   const url = new URL(src, window.location.href);
-  const modifiers = parseImageModifiers(imageModifiers);
   const openApiDelivery = isOpenApiDeliveryUrl(url);
   const widthParam = openApiDelivery ? 'width' : 'wid';
   const defaultQualityParam = openApiDelivery ? 'max-quality' : 'qlt';
 
   ['ts', 'dpr'].forEach((param) => url.searchParams.delete(param));
 
-  modifiers.queryModifiers.forEach(([key, value]) => {
-    if (key === 'quality' && !openApiDelivery) {
-      url.searchParams.set('qlt', value);
-      return;
-    }
-
-    if (key === 'max-quality' && !openApiDelivery) {
-      url.searchParams.set('qlt', value);
-      return;
-    }
-
-    url.searchParams.set(key, value);
-  });
-
   if (width && !url.searchParams.has(widthParam)) {
     url.searchParams.set(widthParam, width);
-  }
-
-  if (preset && !url.searchParams.has('preset')) {
-    url.searchParams.set('preset', preset);
   }
 
   if (openApiDelivery && !url.searchParams.has('auto-format')) {
     url.searchParams.set('auto-format', 'true');
   }
 
-  if (!url.searchParams.has('quality') && !url.searchParams.has('qlt')
-    && !url.searchParams.has('max-quality')) {
+  if (
+    !url.searchParams.has('quality')
+    && !url.searchParams.has('qlt')
+    && !url.searchParams.has('max-quality')
+  ) {
     url.searchParams.set(defaultQualityParam, '85');
   }
 
   return url.toString();
 }
 
-function buildPictureElement(src, alt, preset, imageModifiers = '') {
+function buildPictureElement(src, alt) {
   if (!src) return null;
-
-  const breakpoints = IMAGE_BREAKPOINTS[preset] || IMAGE_BREAKPOINTS.default;
 
   try {
     const url = new URL(src, window.location.href);
     if (isDynamicMediaUrl(url)) {
       const picture = document.createElement('picture');
-      breakpoints.forEach((breakpoint, index) => {
-        const dmUrl = buildDynamicMediaUrl(src, breakpoint.width, preset, imageModifiers);
-        if (index < breakpoints.length - 1) {
+      IMAGE_BREAKPOINTS.forEach((breakpoint, index) => {
+        const dmUrl = buildDynamicMediaUrl(src, breakpoint.width);
+        if (index < IMAGE_BREAKPOINTS.length - 1) {
           const source = document.createElement('source');
           if (breakpoint.media) {
             source.media = breakpoint.media;
@@ -887,13 +855,6 @@ function buildPictureElement(src, alt, preset, imageModifiers = '') {
         picture.append(image);
       });
       return picture;
-    }
-
-    if (url.origin === window.location.origin) {
-      const picture = createOptimizedPicture(url.pathname, alt, false, breakpoints);
-      return isDamAssetUrl(url)
-        ? applyImageModifiersToPicture(picture, imageModifiers)
-        : picture;
     }
   } catch {
     // Fallback to a regular image element below when the URL cannot be normalized.
@@ -936,7 +897,8 @@ function buildMetaElement(data, config = {}) {
 
   const isCardInfo = config.storyCardVariant === 'cardInfo';
   const isStoryInfo = config.storyCardVariant === 'storyCardInfo';
-  const isSidePanelOrRelated = config.storyCardVariant === 'sidePanel' || config.storyCardVariant === 'relatedContent';
+  const isSidePanelOrRelated = config.storyCardVariant === 'sidePanel'
+    || config.storyCardVariant === 'relatedContent';
   const readTimeInCta = (isCardInfo || isSidePanelOrRelated) && !isStoryInfo;
   if (!config.hideReadTime && data.readTime && !readTimeInCta) {
     const readTime = document.createElement('span');
@@ -949,8 +911,10 @@ function buildMetaElement(data, config = {}) {
 }
 
 function isLeaderCard(block) {
-  return block.classList.contains('story-cards-grid-item')
-    && block.closest('.story-cards')?.classList.contains('leader-cards-grid');
+  return (
+    block.classList.contains('story-cards-grid-item')
+    && block.closest('.story-cards')?.classList.contains('leader-cards-grid')
+  );
 }
 
 function buildCard(block, config, data, analyticsId) {
@@ -990,7 +954,9 @@ function buildCard(block, config, data, analyticsId) {
   link.dataset.analyticsInteractionId = analyticsId;
   link.dataset.analyticsTrack = analyticsId;
   link.dataset.analyticsContentType = 'story-card';
-  link.dataset.analyticsLinkText = toDisplayUppercase(data.ctaText || DEFAULT_CTA_TEXT);
+  link.dataset.analyticsLinkText = toDisplayUppercase(
+    data.ctaText || DEFAULT_CTA_TEXT,
+  );
   link.dataset.analyticsComponentTitle = data.title;
 
   if (config.openInNewTab) {
@@ -1005,19 +971,9 @@ function buildCard(block, config, data, analyticsId) {
     const figure = document.createElement('div');
     figure.className = 'story-card-image card-image-container';
 
-    if (config.imageModifiers) {
-      parseImageModifiers(config.imageModifiers).classModifiers
-        .map((modifier) => toClassName(modifier))
-        .filter(Boolean)
-        .forEach((modifier) => figure.classList.add(modifier));
-      figure.dataset.imageModifiers = config.imageModifiers;
-    }
-
     const picture = buildPictureElement(
       data.image,
       data.imageAlt || data.title || '',
-      config.imagePreset,
-      config.imageModifiers,
     );
     if (picture) {
       picture.querySelector('img')?.classList.add('card-image');
@@ -1045,7 +1001,10 @@ function buildCard(block, config, data, analyticsId) {
         eyebrowLink.className = eyebrowEl.className;
         eyebrowLink.textContent = eyebrowEl.textContent;
         eyebrowLink.setAttribute('role', eyebrowEl.getAttribute('role') || '');
-        eyebrowLink.setAttribute('aria-level', eyebrowEl.getAttribute('aria-level') || '');
+        eyebrowLink.setAttribute(
+          'aria-level',
+          eyebrowEl.getAttribute('aria-level') || '',
+        );
         eyebrowEl.replaceWith(eyebrowLink);
       }
     }
@@ -1091,7 +1050,10 @@ function buildCard(block, config, data, analyticsId) {
     }
     ctaContainer.append(cta);
 
-    const readTimeInCta = (config.storyCardVariant === 'cardInfo' || isSidePanel || isRelatedContent) && !leaderCard;
+    const readTimeInCta = (config.storyCardVariant === 'cardInfo'
+        || isSidePanel
+        || isRelatedContent)
+      && !leaderCard;
     if (readTimeInCta && !config.hideReadTime && data.readTime) {
       const inlineReadTime = document.createElement('span');
       inlineReadTime.className = 'story-card-read-time story-card-read-time-inline';
@@ -1166,7 +1128,10 @@ export default async function decorateStoryCard(block) {
   applyBlockOptions(block, config, analyticsId);
 
   const storyResponse = await getStoryCardData(config.page);
-  const storyData = mergeStoryData(storyResponse?.data || {}, config.legacyContent || {});
+  const storyData = mergeStoryData(
+    storyResponse?.data || {},
+    config.legacyContent || {},
+  );
   if (config.ctaLabel) storyData.ctaText = config.ctaLabel;
 
   if (!storyResponse?.valid || !storyData.title) {
@@ -1186,5 +1151,9 @@ export default async function decorateStoryCard(block) {
   }
 
   block.classList.remove('is-placeholder');
-  replaceRenderedContent(block, buildCard(block, config, storyData, analyticsId), authorMode);
+  replaceRenderedContent(
+    block,
+    buildCard(block, config, storyData, analyticsId),
+    authorMode,
+  );
 }

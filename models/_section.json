@@ -65,24 +65,18 @@
           "description": "The label shown for this section in the Content Tree"
         },
         {
-          "component": "reference",
+          "component": "custom-asset-namespace:custom-asset",
+          "valueType": "string",
           "name": "background",
           "label": "Background Image",
-          "valueType": "string"
+          "description": "Background image for this section.",
+          "configUrl": "/content/dam/config/image/asset-selector.json",
+          "multi": false
         },
         {
-          "component": "text",
-          "name": "backgroundAlt",
-          "label": "Background Image Alt",
-          "value": "",
-          "valueType": "string"
-        },
-        {
-          "component": "text",
-          "name": "sectionId",
-          "label": "Section ID",
-          "value": "",
-          "valueType": "string"
+          "component": "custom-asset-namespace:custom-asset-mimetype",
+          "valueType": "string",
+          "name": "backgroundMimeType"
         },
         {
           "component": "tab",
@@ -90,277 +84,16 @@
           "name": "styles"
         },
         {
-          "component": "select",
-          "valueType": "string",
-          "name": "classes_desktopWidth",
-          "label": "Section Width",
-          "options": [
-            {
-              "name": "None",
-              "value": "section-base"
-            },
-            {
-              "name": "XX-Large (12 column)",
-              "value": "section-xxl"
-            },
-            {
-              "name": "X-Large (8 column)",
-              "value": "section-xl"
-            },
-            {
-              "name": "Large (7 column)",
-              "value": "section-l"
-            },
-            {
-              "name": "Medium (6 column)",
-              "value": "section-m"
-            },
-            {
-              "name": "Small (5 column)",
-              "value": "section-s"
-            },
-            {
-              "name": "X-Small (4 column)",
-              "value": "section-xs"
-            }
-          ]
-        },
-        {
-          "component": "select",
-          "valueType": "string",
-          "name": "classes_contentWidth",
-          "label": "Content Width",
-          "options": [
-            {
-              "name": "None",
-              "value": ""
-            },
-            {
-              "name": "Content Width Regular (133rem)",
-              "value": "content-regular"
-            },
-            {
-              "name": "Content Width Wide (144rem)",
-              "value": "content-wide"
-            }
-          ]
-        },
-        {
-          "component": "select",
-          "name": "classes_height",
-          "label": "Height",
-          "options": [
-            {
-              "name": "Default",
-              "value": ""
-            },
-            {
-              "name": "Tall",
-              "value": "height-tall"
-            }
-          ]
-        },
-        {
-          "component": "select",
-          "name": "classes_borderRadius",
-          "label": "Border Radius",
-          "options": [
-            {
-              "name": "None",
-              "value": "no-radius"
-            },
-            {
-              "name": "Large Radius",
-              "value": "radius-large"
-            },
-            {
-              "name": "Medium Radius",
-              "value": "radius-medium"
-            },
-            {
-              "name": "Small Radius",
-              "value": "radius-small"
-            },
-            {
-              "name": "Medium Radius (Hero)",
-              "value": "medium-radius"
-            }
-          ]
-        },
-        {
-          "component": "select",
-          "name": "classes_transparency",
-          "label": "Transparency",
-          "options": [
-            {
-              "name": "None",
-              "value": "none"
-            },
-            {
-              "name": "Semi Transparent",
-              "value": "semi-transparent"
-            },
-            {
-              "name": "Linear Gradient",
-              "value": "linear-gradient"
-            }
-          ]
-        },
-        {
-          "component": "select",
-          "name": "classes_alignment",
-          "label": "Text Alignment",
-          "options": [
-            {
-              "name": "None",
-              "value": "no-align"
-            },
-            {
-              "name": "Left",
-              "value": "align-left"
-            },
-            {
-              "name": "Right",
-              "value": "align-right"
-            },
-            {
-              "name": "Center",
-              "value": "align-center"
-            }
-          ]
-        },
-        {
-          "component": "select",
-          "name": "classes_margin",
-          "label": "Margin",
-          "options": [
-            {
-              "name": "Default",
-              "value": ""
-            },
-            {
-              "name": "No Bottom Margin",
-              "value": "no-bottom-margin"
-            },
-            {
-              "name": "Add Bottom Margin",
-              "value": "section-bottom-margin"
-            },
-            {
-              "name": "No Side Margin",
-              "value": "no-side-margin"
-            }
-          ]
-        },
-        {
-          "component": "select",
-          "name": "classes_padding",
-          "label": "Padding",
-          "options": [
-            {
-              "name": "None",
-              "value": ""
-            },
-            {
-              "name": "No Padding",
-              "value": "no-padding"
-            },
-            {
-              "name": "Section Padding",
-              "value": "section-padding"
-            }
-          ]
-        },
-        {
-          "component": "select",
-          "name": "classes_bg-color",
-          "label": "Background Color",
-          "options": [
-            {
-              "name": "Not Set",
-              "value": ""
-            },
-            {
-              "name": "White",
-              "value": "bg-ffffff"
-            },
-            {
-              "name": "Dark Navy Blue",
-              "value": "bg-071d49"
-            },
-            {
-              "name": "Light Periwinkle Blue",
-              "value": "bg-a6b5e0"
-            },
-            {
-              "name": "Very Light Lavender",
-              "value": "bg-f1f3ff"
-            },
-            {
-              "name": "Soft Off White",
-              "value": "bg-fafbff"
-            },
-            {
-              "name": "Slate Gray",
-              "value": "bg-666b7a"
-            },
-            {
-              "name": "Warm Gray",
-              "value": "bg-b9b4b4"
-            },
-            {
-              "name": "Light Gray",
-              "value": "bg-f4f4f4"
-            },
-            {
-              "name": "Snow White",
-              "value": "bg-fafafa"
-            },
-            {
-              "name": "Royal Purple",
-              "value": "bg-8a2ecc"
-            },
-            {
-              "name": "Soft Purple",
-              "value": "bg-a86bde"
-            },
-            {
-              "name": "Bright Blue",
-              "value": "bg-0066f5"
-            },
-            {
-              "name": "Sky Blue",
-              "value": "bg-479ff8"
-            },
-            {
-              "name": "Burnt Orange",
-              "value": "bg-cf451c"
-            },
-            {
-              "name": "Coral Red",
-              "value": "bg-f7634f"
-            },
-            {
-              "name": "Forest Green",
-              "value": "bg-338700"
-            }
-          ]
-        },
-        {
-          "component": "text",
-          "name": "classes_customClass",
-          "label": "Custom Class Name",
-          "description": "Add one or more custom CSS class names (space-separated) to this section",
+          "component": "ngaem:dynamic-picklist",
+          "name": "classes_customDynamicClass",
           "value": "",
-          "valueType": "string"
+          "label": "Select Block Styles",
+          "valueType": "string",
+          "sourceAEMNodeName": "section-picklist-config",
+          "valueSeperator": ","
         },
         {
-          "component": "tab",
-          "label": "Accessibility",
-          "name": "accessibility"
-        },
-        {
-          "...": "_language.json#/language-field"
+          "...": "./_common-properties.json#/common-prop"
         }
       ]
     },
@@ -369,228 +102,42 @@
       "title": "Grid Section",
       "fields": [
         {
+          "component": "text",
+          "name": "name",
+          "label": "Section Name",
+          "id": "grid-section",
+          "description": "The label shown for this section in the Content Tree",
+          "value": "",
+          "valueType": "string"
+        },
+        {
           "component": "tab",
           "label": "Properties",
           "name": "properties"
         },
         {
           "component": "text",
-          "name": "name",
-          "label": "Section Name",
-          "description": "The label shown for this section in the Content Tree",
-          "value": "",
-          "valueType": "string"
-        },
-        {
-          "component": "select",
-          "name": "classes_gridCols",
-          "label": "Grid Columns",
-          "required": true,
-          "description": "Number of equal-width columns in this grid section",
-          "options": [
-            {
-              "name": "1 Column",
-              "value": "grid-cols-1"
-            },
-            {
-              "name": "2 Columns",
-              "value": "grid-cols-2"
-            },
-            {
-              "name": "3 Columns",
-              "value": "grid-cols-3"
-            },
-            {
-              "name": "4 Columns",
-              "value": "grid-cols-4"
-            },
-            {
-              "name": "5 Columns",
-              "value": "grid-cols-5"
-            },
-            {
-              "name": "6 Columns",
-              "value": "grid-cols-6"
-            },
-            {
-              "name": "7 Columns",
-              "value": "grid-cols-7"
-            },
-            {
-              "name": "8 Columns",
-              "value": "grid-cols-8"
-            },
-            {
-              "name": "9 Columns",
-              "value": "grid-cols-9"
-            },
-            {
-              "name": "10 Columns",
-              "value": "grid-cols-10"
-            },
-            {
-              "name": "11 Columns",
-              "value": "grid-cols-11"
-            },
-            {
-              "name": "12 Columns",
-              "value": "grid-cols-12"
-            }
-          ]
-        },
-        {
-          "component": "select",
-          "name": "classes_order",
-          "label": "Mobile Order",
-          "description": "Visual order of this section on mobile. Resets to DOM order on tablet and above.",
-          "options": [
-            { "name": "Default", "value": "" },
-            { "name": "1", "value": "order-1" },
-            { "name": "2", "value": "order-2" },
-            { "name": "3", "value": "order-3" },
-            { "name": "4", "value": "order-4" },
-            { "name": "5", "value": "order-5" },
-            { "name": "6", "value": "order-6" },
-            { "name": "7", "value": "order-7" },
-            { "name": "8", "value": "order-8" },
-            { "name": "9", "value": "order-9" },
-            { "name": "10", "value": "order-10" },
-            { "name": "11", "value": "order-11" },
-            { "name": "12", "value": "order-12" }
-          ]
-        },
-        {
-          "component": "select",
-          "name": "classes_bg-color",
-          "label": "Background Color",
-          "options": [
-            {
-              "name": "Not Set",
-              "value": ""
-            },
-            {
-              "name": "White",
-              "value": "bg-ffffff"
-            },
-            {
-              "name": "Dark Navy Blue",
-              "value": "bg-071d49"
-            },
-            {
-              "name": "Light Periwinkle Blue",
-              "value": "bg-a6b5e0"
-            },
-            {
-              "name": "Very Light Lavender",
-              "value": "bg-f1f3ff"
-            },
-            {
-              "name": "Soft Off White",
-              "value": "bg-fafbff"
-            },
-            {
-              "name": "Slate Gray",
-              "value": "bg-666b7a"
-            },
-            {
-              "name": "Warm Gray",
-              "value": "bg-b9b4b4"
-            },
-            {
-              "name": "Light Gray",
-              "value": "bg-f4f4f4"
-            },
-            {
-              "name": "Snow White",
-              "value": "bg-fafafa"
-            },
-            {
-              "name": "Royal Purple",
-              "value": "bg-8a2ecc"
-            },
-            {
-              "name": "Soft Purple",
-              "value": "bg-a86bde"
-            },
-            {
-              "name": "Bright Blue",
-              "value": "bg-0066f5"
-            },
-            {
-              "name": "Sky Blue",
-              "value": "bg-479ff8"
-            },
-            {
-              "name": "Burnt Orange",
-              "value": "bg-cf451c"
-            },
-            {
-              "name": "Coral Red",
-              "value": "bg-f7634f"
-            },
-            {
-              "name": "Forest Green",
-              "value": "bg-338700"
-            }
-          ]
-        },
-        {
-          "component": "select",
-          "name": "classes_borderRadius",
-          "label": "Border Radius",
-          "options": [
-            {
-              "name": "None",
-              "value": "no-radius"
-            },
-            {
-              "name": "Large Radius",
-              "value": "radius-large"
-            },
-            {
-              "name": "Medium Radius",
-              "value": "radius-medium"
-            },
-            {
-              "name": "Small Radius",
-              "value": "radius-small"
-            },
-            {
-              "name": "Medium Radius (Hero)",
-              "value": "medium-radius"
-            }
-          ]
-        },
-        {
-          "component": "text",
-          "name": "sectionId",
-          "label": "Section ID",
-          "value": "",
-          "valueType": "string"
-        },
-        {
-          "component": "text",
-          "name": "analyticsId",
-          "label": "Analytics ID",
-          "description": "Analytics tracking identifier for this section",
-          "value": "",
-          "valueType": "string"
-        },
-        {
-          "component": "text",
-          "name": "classes_customClass",
-          "label": "Custom Class Name",
-          "description": "Add one or more custom CSS class names (space-separated) to this section",
-          "value": "",
-          "valueType": "string"
+          "name": "classes_container",
+          "label": "Generic Class",
+          "value": "grid-section",
+          "hidden": true
         },
         {
           "component": "tab",
-          "label": "Accessibility",
-          "name": "accessibility"
+          "label": "Styles",
+          "name": "styles"
         },
         {
-          "...": "_language.json#/language-field"
+          "component": "ngaem:dynamic-picklist",
+          "name": "classes_customDynamicClass",
+          "value": "",
+          "label": "Select Block Styles",
+          "valueType": "string",
+          "sourceAEMNodeName": "grid-section-picklist-config",
+          "valueSeperator": ","
+        },
+        {
+          "...": "./_common-properties.json#/common-prop"
         }
       ]
     },
@@ -606,222 +153,8 @@
         {
           "component": "text",
           "name": "name",
-          "label": "Section Name",
-          "description": "The label shown for this section in the Content Tree",
-          "value": "",
-          "valueType": "string"
-        },
-        {
-          "component": "text",
-          "name": "sectionId",
-          "label": "Section ID",
-          "value": "",
-          "valueType": "string"
-        },
-        {
-          "component": "text",
-          "name": "analyticsId",
-          "label": "Analytics ID",
-          "description": "Analytics tracking identifier for this section",
-          "value": "",
-          "valueType": "string"
-        },
-        {
-          "component": "tab",
-          "label": "Styles",
-          "name": "styles"
-        },
-        {
-          "component": "select",
-          "name": "classes_bg-color",
-          "label": "Background Color",
-          "options": [
-            {
-              "name": "Not Set",
-              "value": ""
-            },
-            {
-              "name": "White",
-              "value": "bg-ffffff"
-            },
-            {
-              "name": "Dark Navy Blue",
-              "value": "bg-071d49"
-            },
-            {
-              "name": "Light Periwinkle Blue",
-              "value": "bg-a6b5e0"
-            },
-            {
-              "name": "Very Light Lavender",
-              "value": "bg-f1f3ff"
-            },
-            {
-              "name": "Soft Off White",
-              "value": "bg-fafbff"
-            },
-            {
-              "name": "Slate Gray",
-              "value": "bg-666b7a"
-            },
-            {
-              "name": "Warm Gray",
-              "value": "bg-b9b4b4"
-            },
-            {
-              "name": "Light Gray",
-              "value": "bg-f4f4f4"
-            },
-            {
-              "name": "Snow White",
-              "value": "bg-fafafa"
-            },
-            {
-              "name": "Royal Purple",
-              "value": "bg-8a2ecc"
-            },
-            {
-              "name": "Soft Purple",
-              "value": "bg-a86bde"
-            },
-            {
-              "name": "Bright Blue",
-              "value": "bg-0066f5"
-            },
-            {
-              "name": "Sky Blue",
-              "value": "bg-479ff8"
-            },
-            {
-              "name": "Burnt Orange",
-              "value": "bg-cf451c"
-            },
-            {
-              "name": "Coral Red",
-              "value": "bg-f7634f"
-            },
-            {
-              "name": "Forest Green",
-              "value": "bg-338700"
-            }
-          ]
-        },
-        {
-          "component": "select",
-          "name": "classes_padding",
-          "label": "Padding",
-          "value": "no-padding",
-          "options": [
-            {
-              "name": "No Padding",
-              "value": "no-padding"
-            },
-            {
-              "name": "Small",
-              "value": "small-padding"
-            },
-            {
-              "name": "Regular",
-              "value": "regular-padding"
-            },
-            {
-              "name": "No Top Padding",
-              "value": "no-top-padding"
-            },
-            {
-              "name": "No Bottom Padding",
-              "value": "no-bottom-padding"
-            },
-            {
-              "name": "No Top & Bottom Padding",
-              "value": "no-top-bottom-padding"
-            }
-          ]
-        },
-        {
-          "component": "select",
-          "valueType": "string",
-          "name": "classes_contentWidth",
-          "label": "Container Width",
-          "value": "content-wide",
-          "options": [
-            {
-              "name": "Regular (133rem)",
-              "value": "content-regular"
-            },
-            {
-              "name": "Wide (144rem)",
-              "value": "content-wide"
-            }
-          ]
-        },
-        {
-          "component": "select",
-          "name": "classes_borderRadius",
-          "label": "Border Radius",
-          "options": [
-            {
-              "name": "None",
-              "value": "no-radius"
-            },
-            {
-              "name": "Large Radius",
-              "value": "radius-large"
-            },
-            {
-              "name": "Medium Radius",
-              "value": "radius-medium"
-            },
-            {
-              "name": "Small Radius",
-              "value": "radius-small"
-            }
-          ]
-        },
-        {
-          "component": "select",
-          "name": "classes_margin",
-          "label": "Margin",
-          "options": [
-            {
-              "name": "Default",
-              "value": ""
-            },
-            {
-              "name": "No Bottom Margin",
-              "value": "no-bottom-margin"
-            },
-            {
-              "name": "Add Bottom Margin",
-              "value": "section-bottom-margin"
-            },
-            {
-              "name": "No Side Margin",
-              "value": "no-side-margin"
-            }
-          ]
-        },
-        {
-          "component": "select",
-          "valueType": "string",
-          "name": "classes_direction",
-          "label": "Direction",
-          "options": [
-            {
-              "name": "Left to Right (LTR)",
-              "value": ""
-            },
-            {
-              "name": "Right to Left (RTL)",
-              "value": "dir-rtl"
-            }
-          ]
-        },
-        {
-          "component": "text",
-          "name": "classes_customClass",
-          "label": "Custom Class Name",
-          "description": "Add one or more custom CSS class names (space-separated) to this section",
+          "label": "Grid Container Name",
+          "description": "The label shown for this grid container in the Content Tree",
           "value": "",
           "valueType": "string"
         },
@@ -833,12 +166,35 @@
           "hidden": true
         },
         {
-          "component": "tab",
-          "label": "Accessibility",
-          "name": "accessibility"
+          "component": "custom-asset-namespace:custom-asset",
+          "valueType": "string",
+          "name": "background",
+          "label": "Background Image",
+          "description": "Background image for this section.",
+          "configUrl": "/content/dam/config/image/asset-selector.json",
+          "multi": false
         },
         {
-          "...": "_language.json#/language-field"
+          "component": "custom-asset-namespace:custom-asset-mimetype",
+          "valueType": "string",
+          "name": "backgroundMimeType"
+        },
+        {
+          "component": "tab",
+          "label": "Styles",
+          "name": "styles"
+        },
+        {
+          "component": "ngaem:dynamic-picklist",
+          "name": "classes_customDynamicClass",
+          "value": "",
+          "label": "Select Block Styles",
+          "valueType": "string",
+          "sourceAEMNodeName": "grid-container-picklist-config",
+          "valueSeperator": ","
+        },
+        {
+          "...": "./_common-properties.json#/common-prop"
         }
       ]
     }

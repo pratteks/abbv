@@ -10,8 +10,8 @@
             "template": {
               "name": "News Feed",
               "model": "news-feed",
-              "blockId": "id:",
-              "language": "lang:none"
+              "blockId": "",
+              "language": "none"
             }
           }
         }

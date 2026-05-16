@@ -312,3 +312,28 @@
     width: var(--cta-custom-icon-image-size);
 }
 
+/* -------------------------------------------------------
+   OneTrust cookie settings button
+   ------------------------------------------------------- */
+
+.ot-sdk-show-settings {
+    color: var(--corp-color-text-default);
+    cursor: pointer;
+    font-family: "Roboto Regular", Helvetica, Arial, sans-serif;
+    font-size: var(--corp-font-size-12);
+    font-weight: var(--corp-font-weight-regular);
+    letter-spacing: var(--corp-typography-letterspacing-wide-em-xs);
+    line-height: var(--corp-spacing-16);
+    text-transform: uppercase;
+}
+
+.ot-sdk-show-settings:focus,
+.ot-sdk-show-settings:hover {
+    font-family: var(--roboto-bold-font-family);
+    font-weight: var(--corp-font-weight-bold);
+}
+
+.linklist .list__item .ot-sdk-show-settings {
+    text-transform: unset;
+}
+

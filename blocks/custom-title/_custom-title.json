@@ -13,8 +13,8 @@
               "filter": "custom-title",
               "title": "",
               "titleType": "h1",
-              "language": "lang:none",
-              "blockId": "id:"
+              "language": "none",
+              "blockId": ""
             }
           }
         }
@@ -26,6 +26,11 @@
       "id": "custom-title",
       "fields": [
         {
+          "component": "tab",
+          "label": "Overview",
+          "name": "overview"
+        },
+        {
           "component": "text",
           "valueType": "string",
           "name": "title",
@@ -36,6 +41,15 @@
           "component": "tab",
           "label": "Styles",
           "name": "styles"
+        },
+        {
+          "component": "ngaem:dynamic-picklist",
+          "name": "classes_customDynamicClass",
+          "value": "",
+          "label": "Select Block Styles",
+          "valueType": "string",
+          "sourceAEMNodeName": "title-picklist-config",
+          "valueSeperator": ","
         },
         {
           "component": "select",
@@ -50,53 +64,6 @@
             { "name": "H4", "value": "h4" },
             { "name": "H5", "value": "h5" },
             { "name": "H6", "value": "h6" }
-          ]
-        },
-        {
-          "component": "select",
-          "valueType": "string",
-          "name": "classes_alignment",
-          "value": "align-left",
-          "label": "Alignment",
-          "options": [
-            { "name": "Left",   "value": "align-left" },
-            { "name": "Center", "value": "align-center" },
-            { "name": "Right",  "value": "align-right" }
-          ]
-        },
-        {
-          "component": "select",
-          "valueType": "string",
-          "name": "classes_fontWeight",
-          "value": "",
-          "label": "Font Weight",
-          "options": [
-            { "name": "Default", "value": "" },
-            { "name": "Medium",  "value": "weight-medium" },
-            { "name": "Book",    "value": "weight-book" }
-          ]
-        },
-        {
-          "component": "select",
-          "valueType": "string",
-          "name": "classes_format",
-          "value": "",
-          "label": "Format",
-          "options": [
-            { "name": "None",                        "value": "" },
-            { "name": "Outdented with Accent Color", "value": "format-outdented" },
-            { "name": "Raised Cap",                  "value": "format-raised" }
-          ]
-        },
-        {
-          "component": "select",
-          "valueType": "string",
-          "name": "classes_theme",
-          "value": "theme-light",
-          "label": "Theme",
-          "options": [
-            { "name": "Light", "value": "theme-light" },
-            { "name": "Dark",  "value": "theme-dark" }
           ]
         },
         {

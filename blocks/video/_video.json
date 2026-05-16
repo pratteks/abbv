@@ -11,8 +11,8 @@
               "name": "Video",
               "model": "video",
               "filter": "video",
-              "language": "lang:none",
-              "blockId": "id:"
+              "language": "none",
+              "blockId": ""
             }
           }
         }
@@ -35,11 +35,17 @@
           "label": "Video"
         },
         {
-          "component": "reference",
+          "component": "custom-asset-namespace:custom-asset",
           "valueType": "string",
           "name": "placeholderImage",
           "label": "Poster Image",
+          "configUrl": "/content/dam/config/image/asset-selector.json",
           "multi": false
+        },
+        {
+          "component": "custom-asset-namespace:custom-asset-mimetype",
+          "valueType": "string",
+          "name": "placeholderImageMimeType"
         },
         {
           "component": "text",
@@ -216,6 +222,20 @@
           "label": "Allow Fullscreen",
           "value": true,
           "valueType": "boolean"
+        },
+        {
+          "component": "tab",
+          "label": "Styles",
+          "name": "styles"
+        },
+        {
+          "component": "ngaem:dynamic-picklist",
+          "name": "classes_customDynamicClass",
+          "value": "",
+          "label": "Select Block Styles",
+          "valueType": "string",
+          "sourceAEMNodeName": "video-picklist-config",
+          "valueSeperator": ","
         },
         {
           "...": "../../models/_common-properties.json#/common-prop"

@@ -15,7 +15,7 @@ function sanitize(str) {
 }
 
 export default async function decorate(block) {
-  applyCommonProps(block);
+  applyCommonProps(block, 3);
 
   const placeholders = await fetchPlaceholders();
   const rows = [...block.children];
@@ -26,15 +26,9 @@ export default async function decorate(block) {
     || window.location.pathname;
   const placeholderDesktop = rows[1]?.textContent?.trim() || 'Search';
   const placeholderMobile = rows[2]?.textContent?.trim() || placeholderDesktop;
-  const analyticsId = rows[3]?.textContent?.trim() || '';
 
   // Clear authored content
   block.innerHTML = '';
-
-  // Analytics Interaction ID
-  if (analyticsId) {
-    block.dataset.analyticsInteractionId = analyticsId;
-  }
 
   // Build the search form
   const form = document.createElement('form');

@@ -16,108 +16,6 @@
   font-weight: var(--corp-font-weight-extrabold);
 }
 
-/* Heading sizes — base (mobile) */
-
-.custom-title h1.custom-title-heading {
-  font-size: var(--corp-font-size-30);
-  line-height: var(--corp-typography-lineheight-relaxed-xl);
-}
-
-.custom-title h2.custom-title-heading {
-  font-size: var(--corp-font-size-28);
-  line-height: var(--corp-typography-lineheight-relaxed-lg);
-}
-
-.custom-title h3.custom-title-heading {
-  font-size: var(--corp-font-size-26);
-  line-height: var(--corp-typography-lineheight-relaxed-md);
-}
-
-.custom-title h4.custom-title-heading {
-  font-size: var(--corp-font-size-24);
-  line-height: var(--corp-typography-lineheight-relaxed-sm);
-}
-
-.custom-title h5.custom-title-heading {
-  font-size: var(--corp-font-size-20);
-  line-height: var(--corp-typography-lineheight-body-lg);
-}
-
-.custom-title h6.custom-title-heading {
-  font-size: var(--corp-font-size-28);
-  line-height: var(--corp-typography-lineheight-relaxed-lg);
-}
-
-/* Heading sizes — tablet (≥744px) */
-
-@media (--be-tablet) {
-  .custom-title h1.custom-title-heading {
-    font-size: var(--corp-font-size-40);
-    line-height: var(--corp-typography-lineheight-heading-md);
-  }
-
-  .custom-title h2.custom-title-heading {
-    font-size: var(--corp-font-size-36);
-    line-height: var(--corp-typography-lineheight-heading-sm);
-  }
-
-  .custom-title h3.custom-title-heading {
-    font-size: var(--corp-font-size-32);
-    line-height: var(--corp-typography-lineheight-relaxed-3xl);
-  }
-
-  .custom-title h4.custom-title-heading {
-    font-size: var(--corp-font-size-30);
-    line-height: var(--corp-typography-lineheight-relaxed-xl);
-  }
-
-  .custom-title h5.custom-title-heading {
-    font-size: var(--corp-font-size-28);
-    line-height: var(--corp-typography-lineheight-relaxed-lg);
-  }
-
-  .custom-title h6.custom-title-heading {
-    font-size: var(--corp-font-size-28);
-    line-height: var(--corp-typography-lineheight-relaxed-lg);
-  }
-}
-
-/* Heading sizes — desktop (≥1024px) */
-
-@media (min-width: 1024px) {
-  .custom-title h1.custom-title-heading {
-    font-size: var(--corp-font-size-64);
-    line-height: var(--corp-typography-lineheight-display-xl);
-    letter-spacing: var(--corp-typography-letterspacing-tight-em-sm);
-  }
-
-  .custom-title h2.custom-title-heading {
-    font-size: var(--corp-font-size-56);
-    line-height: var(--corp-spacing-64);
-    letter-spacing: var(--corp-typography-letterspacing-tight-em-sm);
-  }
-
-  .custom-title h3.custom-title-heading {
-    font-size: var(--heading-font-size-l);
-    line-height: var(--corp-typography-lineheight-heading-xl);
-  }
-
-  .custom-title h4.custom-title-heading {
-    font-size: var(--corp-font-size-40);
-    line-height: var(--corp-typography-lineheight-heading-md);
-  }
-
-  .custom-title h5.custom-title-heading {
-    font-size: var(--corp-font-size-32);
-    line-height: var(--corp-typography-lineheight-relaxed-3xl);
-  }
-
-  .custom-title h6.custom-title-heading {
-    font-size: var(--corp-font-size-24);
-    line-height: var(--corp-typography-lineheight-relaxed-sm);
-  }
-}
-
 /* Alignment */
 
 .custom-title.align-left   .custom-title-heading { text-align: left; }
@@ -126,19 +24,34 @@
 
 .custom-title.align-right  .custom-title-heading { text-align: right; }
 
-/* Font Weight
-   Default : F37 Lineca Medium, 800
-   Medium  : F37 Lineca Medium, 500
-   Book    : F37 Lineca Book,   400 */
+/* =============================================================
+   Decorative Title Size
+   Decouples visual scale from semantic heading level.
+   Maps to: .title.h1-size / .title.h2-size / etc. (AEM clientlib)
+   ============================================================= */
 
-.custom-title.weight-medium .custom-title-heading {
-  font-family: var(--heading-font-family-bold);
-  font-weight: var(--corp-font-weight-medium);
+.custom-title.h1-size .custom-title-heading,
+.custom-title.h2-size .custom-title-heading,
+.custom-title.h3-size .custom-title-heading,
+.custom-title.h4-size .custom-title-heading,
+.custom-title.h5-size .custom-title-heading {
+  font-family: var(--heading-font-family);
+  font-weight: var(--corp-font-weight-semibold-alt);
 }
 
-.custom-title.weight-book .custom-title-heading {
+/* =============================================================
+   Font Weight
+   Maps to: .book-weight / .medium-weight (AEM clientlib)
+   ============================================================= */
+
+.custom-title.book-weight .custom-title-heading {
   font-family: var(--heading-font-family);
-  font-weight: var(--corp-font-weight-regular);
+  font-weight: var(--corp-font-weight-semibold-alt);
+}
+
+.custom-title.medium-weight .custom-title-heading {
+  font-family: var(--heading-font-family-bold);
+  font-weight: var(--corp-font-weight-extrabold);
 }
 
 /* Format: Outdented — first letter changes to brand accent blue */
@@ -198,13 +111,13 @@
 
 /* Theme: Light — no background, navy text (inherits from project default) */
 
-.custom-title.theme-light .custom-title-heading {
+.custom-title.light-theme .custom-title-heading {
   color: var(--corp-color-text-default);
 }
 
 /* Theme: Dark — no background, text changes to white */
 
-.custom-title.theme-dark .custom-title-heading {
+.custom-title.dark-theme .custom-title-heading {
   color: var(--color-white);
 }
 
@@ -213,4 +126,33 @@
 .former-heading .custom-title h2 {
   text-align: center;
   font-weight: var(--corp-font-weight-extrabold);
+}
+
+/* Width variations */
+
+@media (min-width: 1024px) {
+  .custom-title.full-width,
+  .custom-title.large-width,
+  .custom-title.content-width,
+  .custom-title.narrow-width {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--corp-gap-lg);
+  }
+
+  .custom-title.full-width > div {
+    grid-column: 1 / span 12;
+  }
+
+  .custom-title.large-width > div {
+    grid-column: 2 / span 10;
+  }
+
+  .custom-title.content-width > div {
+    grid-column: 3 / span 8;
+  }
+
+  .custom-title.narrow-width > div {
+    grid-column: 4 / span 6;
+  }
 }

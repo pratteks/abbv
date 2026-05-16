@@ -42,7 +42,7 @@
   text-decoration: none;
   color: var(--footer-link-color);
   display: flex;
-  align-items: center;  
+  align-items: center;
   text-transform: uppercase;
   font-size: var(--corp-font-size-12);
   line-height: var(--corp-typography-lineheight-relaxed-md);
@@ -69,7 +69,7 @@
   display: flex;
   align-items: center;
   gap: var(--corp-spacing-4);
-} 
+}
 
 .footer .footer-columns {
   display: grid;
@@ -94,6 +94,13 @@
   font-weight: var(--corp-font-weight-semibold-alt);
 }
 
+.footer-links-primary .linklist--icons li a{
+    gap: 0;
+    margin-bottom: 0;
+    line-height: var(--corp-spacing-20);
+}
+
+
 .footer :where(ul) li a:hover {
   font-family: var(--roboto-bold-font-family);
   font-weight: var(--corp-font-weight-bold);
@@ -107,7 +114,7 @@
   margin-bottom: var(--corp-spacing-20);
 } */
 
-.footer .footer-links-primary :where(li) :where(a):hover {
+.footer .footer-links-primary :where(li) :where(a):hover, .footer .footer-links-primary :where(li) :where(a):focus-visible {
   font-family: var(--heading-font-family-bold);
   font-weight: var(--corp-font-weight-extrabold);
 }
@@ -191,6 +198,10 @@
     margin: 0;
 }
 
+.footer-bottom .linklist--footer-legal .linklist-link {
+  line-height: var(--corp-typography-lineheight-relaxed-md);
+}
+
 .footer .footer-links-tertiary .linklist-items{
     flex-flow: column;
     align-items: flex-start;
@@ -229,6 +240,10 @@
     line-height: var(--corp-typography-lineheight-relaxed-xl);
   }
 
+  .footer-links-primary .linklist--icons li a{
+    line-height: var(--corp-spacing-22);
+}
+
   .footer .footer-links-tertiary ul {
     margin-bottom: var(--corp-spacing-72);
   }
@@ -265,6 +280,7 @@
   top: var(--footer-space-neg-2xl-plus);
   margin-bottom: var(--corp-spacing-24);
   margin-top: 0;
+  line-height: normal;
   right: -6%;
   transform: translateX(-50%);
   font-weight: var(--corp-font-weight-bold);
@@ -321,6 +337,11 @@
     font-size: var(--corp-font-size-40);
     line-height: var(--corp-typography-lineheight-heading-md);
   }
+
+  .footer-links-primary .linklist--icons li a{
+    margin-bottom: 0;
+    line-height: var(--corp-spacing-24);
+}
 
 
   .footer .footer-links-secondary ul,

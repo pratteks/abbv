@@ -1,0 +1,14 @@
+{
+  "status": "success",
+  "url": "https://www.abbvie.com/science/independent-educational-grants.html",
+  "path": "science/independent-educational-grants",
+  "timestamp": "2026-03-29T12:39:03.874Z",
+  "title": "Independent Educational Grants | AbbVie",
+  "template": "educational-grants",
+  "blocks": [
+    "hero",
+    "accordion",
+    "accordion",
+    "accordion"
+  ]
+}

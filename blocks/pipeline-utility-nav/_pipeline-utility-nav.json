@@ -10,8 +10,8 @@
             "template": {
               "name": "Pipeline Utility Nav",
               "model": "pipeline-utility-nav",
-              "language": "lang:none",
-              "blockId": "id:"
+              "language": "none",
+              "blockId": ""
             }
           }
         }
@@ -176,18 +176,6 @@
           "name": "applyLabel",
           "label": "'Apply' Button Label",
           "description": "The text displayed in the apply action button. Defaults to: 'Apply'."
-        },
-        {
-          "component": "tab",
-          "label": "Analytics",
-          "name": "analytics"
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "analyticsInteractionId",
-          "label": "Analytics Interaction ID",
-          "description": "Identifier used for tracking interactions in analytics systems."
         },
         {
           "...": "../../models/_common-properties.json#/common-prop"

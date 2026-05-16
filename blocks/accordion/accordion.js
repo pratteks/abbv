@@ -174,7 +174,7 @@ function closeAllExceptCurrent(block) {
 }
 
 export default function decorate(block) {
-  applyCommonProps(block);
+  applyCommonProps(block, 13);
   const cfg = gteConfigIcons(block);
 
   [...block.children].forEach((row) => {

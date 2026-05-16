@@ -3,18 +3,21 @@ import { applyCommonProps } from '../../scripts/utils.js';
 /**
  * Teaser Block — two-column layout with optional CTA button
  *
- * Content model (7 rows, 1 col each — xwalk field-per-row):
+ * Content model (rows, 1 col each — xwalk field-per-row):
  *   Row 0: eyebrow (<p><strong>text</strong></p> or <p>text</p>)
  *   Row 1: title (<h3>heading</h3>)
  *   Row 2: description (<p>text</p>)
  *   Row 3: buttonText (<p>text</p>)
  *   Row 4: buttonURL (<p><a href="...">url</a></p> or <p>url</p>)
- *   Row 5: buttonType (<p>primary|secondary|link-external</p>)
- *   Row 6: clickType (<p>_self|_blank</p>)
- *   Row 7: ariaLabel (<p>text</p>)
- *   Row 8: blockId              (id:<value> → sets id attribute; handled by applyCommonProps)
- *   Row 9: classes_commonCustomClass (CSS class — handled by framework)
- *   Row 10: language            (lang:<code> → sets lang attribute; handled by applyCommonProps)
+ *   Row 5: clickType (<p>_self|_blank</p>)
+ *   Row 6: ariaLabel (<p>text</p>)
+ *   Row 7: blockId              (id:<value> → sets id attribute; handled by applyCommonProps)
+ *   Row 8: classes_commonCustomClass (CSS class — handled by framework)
+ *   Row 9: language            (lang:<code> → sets lang attribute; handled by applyCommonProps)
+ *
+ * Link type (picklist / config classes on the block — single hyphen, applied as-is):
+ *   teaser-external-link — CTA opens in new tab / external icon
+ *   teaser-internal-link — same-site / internal icon
  *
  * Decorated structure:
  *   .teaser
@@ -24,7 +27,7 @@ import { applyCommonProps } from '../../scripts/utils.js';
  *       .teaser-right  (description + optional button)
  */
 export default function decorate(block) {
-  applyCommonProps(block);
+  applyCommonProps(block, 7);
   const rows = block.querySelectorAll(':scope > div');
   if (rows.length < 3) return;
 
@@ -43,16 +46,14 @@ export default function decorate(block) {
   }
   rows[0].remove();
 
-  // Extract button fields (rows 3, 4, 5) and aria-label (row 6) before rearranging
+  // Extract button fields (rows 3, 4), clickType (row 5), aria-label (row 6) before rearranging
   const buttonText = rows[3]?.textContent?.trim() || '';
   const buttonURLEl = rows[4]?.querySelector('a');
   const buttonURL = buttonURLEl?.href || rows[4]?.textContent?.trim() || '';
-  const buttonType = rows[5]?.textContent?.trim() || '';
-  const clickType = rows[6]?.textContent?.trim() || '_self';
-  const ariaLabel = rows[7]?.textContent?.trim() || '';
+  const clickType = rows[5]?.textContent?.trim() || '_self';
+  const ariaLabel = rows[6]?.textContent?.trim() || '';
 
   // Remove extra rows from DOM (reverse order to preserve indices)
-  if (rows[7]) rows[7].remove();
   if (rows[6]) rows[6].remove();
   if (rows[5]) rows[5].remove();
   if (rows[4]) rows[4].remove();
@@ -76,7 +77,7 @@ export default function decorate(block) {
     p.classList.add('teaser-description');
   });
 
-  // Apply aria-label to the block for accessibility
+  // Apply role and aria-labelledby to the block for accessibility
   if (ariaLabel) {
     block.setAttribute('role', 'region');
     block.setAttribute('aria-labelledby', eyebrowText);
@@ -92,8 +93,7 @@ export default function decorate(block) {
     link.target = clickType;
     link.classList.add('button');
     link.setAttribute('aria-label', ariaLabel);
-    if (buttonType) link.classList.add(buttonType);
-    if (clickType === '_blank' || buttonType === 'link-external') {
+    if (clickType === '_blank') {
       link.rel = 'noopener noreferrer';
     }
     buttonP.appendChild(link);

@@ -127,8 +127,8 @@
                   "name": "Accordion",
                   "model": "accordion",
                   "filter": "accordion",
-                  "language": "lang:none",
-                  "blockId": "id:"
+                  "language": "none",
+                  "blockId": ""
                 }
               }
             }
@@ -182,9 +182,8 @@
                   "playerId": "",
                   "podcastTitle": "",
                   "podcastThumbnail": "",
-                  "analyticsInteractionId": "",
-                  "language": "lang:none",
-                  "blockId": "id:"
+                  "language": "none",
+                  "blockId": ""
                 }
               }
             }
@@ -213,16 +212,17 @@
                   "posterType": "brightcove",
                   "posterImage": "",
                   "posterAlt": "",
-                  "colorOverlay": "",
+                  "colorOverlay": "none",
                   "overlayButtonText": "Watch Video",
                   "overlayButtonIconType": "icon-font",
                   "overlayButtonFontIcon": "play",
                   "overlayButtonImageIcon": "",
                   "iconPosition": "left",
-                  "videoContentLayout": "bottom",
-                  "playlistLayout": "right",
+                  "videoContentLayout": "none",
                   "playlistType": "carousel",
                   "enablePlaylistThumbnailMetadata": false,
+                  "captionTitle": "",
+                  "captionDescription": "",
                   "enableAutoplay": false,
                   "enableLoop": false,
                   "enableCaptions": false,
@@ -244,7 +244,9 @@
                   "transcriptLink": "",
                   "transcriptLinkIconPosition": "after",
                   "playButtonAriaLabel": "",
-                  "videoCaption": ""
+                  "videoCaption": "",
+                  "language": "none",
+                  "blockId": ""
                 }
               }
             }
@@ -290,22 +292,8 @@
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
                   "name": "Carousel",
+                  "model": "carousel",
                   "filter": "carousel"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Carousel Slide",
-          "id": "carousel-item",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block/item",
-                "template": {
-                  "name": "Carousel Slide",
-                  "model": "carousel-item"
                 }
               }
             }
@@ -346,8 +334,8 @@
                   "ariaHidden": false,
                   "iconPosition": "after",
                   "classes": "default-cta",
-                  "language": "lang:none",
-                  "blockId": "id:"
+                  "language": "none",
+                  "blockId": ""
                 }
               }
             }
@@ -363,10 +351,6 @@
                 "template": {
                   "name": "Custom Image",
                   "model": "custom-image",
-                  "presetType": "",
-                  "imagePreset": "",
-                  "rendition": "",
-                  "imageModifiers": "",
                   "imageAlt": "",
                   "getAltFromDAM": false,
                   "imageIsDecorative": false,
@@ -381,9 +365,9 @@
                   "warnOnLeavePath": "",
                   "linkAriaLabel": "",
                   "analyticsInteractionId": "",
-                  "blockId": "id:",
+                  "blockId": "",
                   "classes_commonCustomClass": "",
-                  "language": "lang:none"
+                  "language": "none"
                 }
               }
             }
@@ -402,8 +386,8 @@
                   "filter": "custom-title",
                   "title": "",
                   "titleType": "h1",
-                  "language": "lang:none",
-                  "blockId": "id:"
+                  "language": "none",
+                  "blockId": ""
                 }
               }
             }
@@ -437,10 +421,9 @@
                   "searchImageIcon": "",
                   "classes": "",
                   "ariaLabel": "",
-                  "analyticsInteractionId": "",
-                  "blockId": "id:",
+                  "blockId": "",
                   "classes_commonCustomClass": "",
-                  "language": "lang:none"
+                  "language": "none"
                 }
               }
             }
@@ -518,8 +501,8 @@
                 "template": {
                   "name": "Fact Card",
                   "model": "fact-card",
-                  "language": "lang:none",
-                  "blockId": "id:"
+                  "language": "none",
+                  "blockId": ""
                 }
               }
             }
@@ -679,8 +662,8 @@
                 "template": {
                   "name": "Navigation Content",
                   "model": "navigation-content",
-                  "language": "lang:none",
-                  "blockId": "id:"
+                  "language": "none",
+                  "blockId": ""
                 }
               }
             }
@@ -696,8 +679,8 @@
                 "template": {
                   "name": "News Feed",
                   "model": "news-feed",
-                  "blockId": "id:",
-                  "language": "lang:none"
+                  "blockId": "",
+                  "language": "none"
                 }
               }
             }
@@ -713,8 +696,8 @@
                 "template": {
                   "name": "Pipeline Utility Nav",
                   "model": "pipeline-utility-nav",
-                  "language": "lang:none",
-                  "blockId": "id:"
+                  "language": "none",
+                  "blockId": ""
                 }
               }
             }
@@ -752,9 +735,8 @@
                   "classes_theme": "quote-none",
                   "classes_contentAlignment": "quote-align-none",
                   "classes_contentWidth": "quote-content-col-none",
-                  "language": "lang:none",
-                  "blockId": "id:",
-                  "analyticsInteractionId": ""
+                  "language": "none",
+                  "blockId": ""
                 }
               }
             }
@@ -771,8 +753,8 @@
                   "name": "Search Input",
                   "model": "search-input",
                   "filter": "search-input",
-                  "blockId": "id:",
-                  "language": "lang:en"
+                  "blockId": "",
+                  "language": "en"
                 }
               }
             }
@@ -820,8 +802,8 @@
                   "name": "Social Media",
                   "model": "social-media",
                   "filter": "social-media",
-                  "language": "lang:none",
-                  "blockId": "id:"
+                  "language": "none",
+                  "blockId": ""
                 }
               }
             }
@@ -875,8 +857,6 @@
                   "hideImage": false,
                   "page": "",
                   "openInNewTab": false,
-                  "imagePreset": "",
-                  "imageModifiers": "",
                   "analyticsInteractionId": "",
                   "language": "lang:none",
                   "blockId": "id:"
@@ -1099,8 +1079,8 @@
                 "template": {
                   "name": "Teaser",
                   "model": "teaser",
-                  "language": "lang:none",
-                  "blockId": "id:"
+                  "language": "none",
+                  "blockId": ""
                 }
               }
             }
@@ -1117,8 +1097,8 @@
                   "name": "Text Container",
                   "model": "text-container",
                   "filter": "text-container",
-                  "language": "lang:none",
-                  "blockId": "id:"
+                  "language": "none",
+                  "blockId": ""
                 }
               }
             }
@@ -1166,8 +1146,8 @@
                   "name": "Video",
                   "model": "video",
                   "filter": "video",
-                  "language": "lang:none",
-                  "blockId": "id:"
+                  "language": "none",
+                  "blockId": ""
                 }
               }
             }

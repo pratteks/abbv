@@ -10,8 +10,8 @@
             "template": {
               "name": "Navigation Content",
               "model": "navigation-content",
-              "language": "lang:none",
-              "blockId": "id:"
+              "language": "none",
+              "blockId": ""
             }
           }
         }
@@ -85,10 +85,26 @@
           }
         },
         {
-          "component": "reference",
+          "component": "custom-asset-namespace:custom-asset",
           "name": "content_img",
           "label": "Logo Image",
           "valueType": "string",
+          "configUrl": "/content/dam/config/image/asset-selector.json",
+          "condition": {
+            "in": [
+              {
+                "var": "classes"
+              },
+              [
+                "logo"
+              ]
+            ]
+          }
+        },
+        {
+          "component": "custom-asset-namespace:custom-asset-mimetype",
+          "valueType": "string",
+          "name": "content_imgMimeType",
           "condition": {
             "in": [
               {

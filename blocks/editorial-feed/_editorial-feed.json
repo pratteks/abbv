@@ -28,10 +28,9 @@
               "searchImageIcon": "",
               "classes": "",
               "ariaLabel": "",
-              "analyticsInteractionId": "",
-              "blockId": "id:",
+              "blockId": "",
               "classes_commonCustomClass": "",
-              "language": "lang:none"
+              "language": "none"
             }
           }
         }
@@ -224,6 +223,14 @@
           }
         },
         {
+          "component": "text",
+          "valueType": "string",
+          "name": "ariaLabel",
+          "value": "",
+          "label": "Aria Label",
+          "description": "Provide an aria-label for the editorial feed section to improve screen reader accessibility"
+        },
+        {
           "component": "tab",
           "label": "Styles",
           "name": "styles"
@@ -238,32 +245,6 @@
           "options": [
             { "name": "Default", "value": "" }
           ]
-        },
-        {
-          "component": "tab",
-          "label": "Accessibility",
-          "name": "accessibility"
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "ariaLabel",
-          "value": "",
-          "label": "Aria Label",
-          "description": "Provide an aria-label for the editorial feed section to improve screen reader accessibility"
-        },
-        {
-          "component": "tab",
-          "label": "Analytics",
-          "name": "analytics"
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "analyticsInteractionId",
-          "label": "Analytics Interaction ID",
-          "value": "",
-          "description": "Identifier used to track interactions for analytics reporting"
         },
         {
           "...": "../../models/_common-properties.json#/common-prop"

@@ -1,13 +1,13 @@
+import { applyCommonProps } from '../../scripts/utils.js';
+
 export default function decorate(block) {
+  applyCommonProps(block, 1); // Apply common properties from the first row of the block
   const cells = block.querySelectorAll(':scope > div > div');
-  const idValue = cells[0] ? cells[0].textContent.trim() : '';
-  const showLineValue = cells[1] ? cells[1].textContent.trim() : 'true';
+  const showLineValue = cells[0] ? cells[0].textContent.trim() : 'false';
   const showLine = showLineValue !== 'false';
 
   const wrapper = document.createElement('div');
   wrapper.className = 'abbvie-separator';
-
-  if (idValue) wrapper.id = idValue;
 
   if (showLine) {
     const hr = document.createElement('hr');

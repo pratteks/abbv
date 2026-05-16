@@ -33,9 +33,36 @@
   margin: 0;
   color: var(--corp-color-text-default);
   font-family: var(--heading-font-family-bold);
-  font-size: var(--corp-font-size-28);
   font-weight: var(--corp-font-weight-extrabold);
   line-height: var(--corp-spacing-32);
+}
+
+/* H2: mobile → tablet → desktop */
+
+.teaser.teaser-h2 .teaser-title {
+  font-size: var(--corp-font-size-28);
+  line-height: var(--corp-typography-lineheight-relaxed-lg);
+}
+
+/* H3 / headline-48-med: mobile → tablet → desktop */
+
+.teaser.teaser-h3 .teaser-title {
+  font-size: var(--corp-font-size-26);
+  line-height: var(--corp-typography-lineheight-relaxed-md);
+}
+
+/* H4: mobile → tablet → desktop */
+
+.teaser.teaser-h4 .teaser-title {
+  font-size: var(--corp-font-size-24);
+  line-height: var(--corp-typography-lineheight-relaxed-sm);
+}
+
+/* H5: mobile; tablet + desktop share larger size (mobile-first) */
+
+.teaser.teaser-h5 .teaser-title {
+  font-size: var(--corp-font-size-28);
+  line-height: var(--corp-typography-lineheight-relaxed-lg);
 }
 
 .teaser .teaser-description {
@@ -51,10 +78,11 @@
   margin: var(--corp-spacing-24) 0 0;
 }
 
-/* Button Styles */
+/* Button styles — link icon from block classes (config / picklist):
+ *   teaser-external-link | teaser-internal-link
+ */
 
-.teaser .button.link-internal,
-.teaser .button.link-external {
+.teaser .teaser-right a {
   letter-spacing: var(--corp-typography-letterspacing-wide-em);
   align-items: center;
   color: var(--color-accent-blue);
@@ -74,39 +102,39 @@
   text-transform: uppercase;
 }
 
-.teaser .link-internal:hover,
-.teaser .link-external:hover {
+.teaser :any-link:hover {
   color: var(--corp-color-text-default);
 }
 
-.teaser .link-internal::after {
+/* Shared ::after properties */
+
+.teaser .teaser-right a::after {
   color: inherit;
-  content: '\e901';
-  display: flex;
   font-family: var(--corp-icon-font-family);
   font-size: var(--corp-font-size-14);
   margin-left: var(--corp-spacing-12);
   margin-right: var(--corp-spacing-3);
   transform: scale(0.8);
   transition: color 0.1s ease;
-  vertical-align: middle;
 }
 
-.teaser .link-external::after {
-  color: inherit;
+/* Internal link icon */
+
+.teaser:where(.teaser-internal-link) a.button::after {
+  content: '\e901';
+  display: flex;
+}
+
+/* External link icon */
+
+.teaser:where(.teaser-external-link) a.button::after {
   content: '\e900';
-  font-family: var(--corp-icon-font-family);
-  font-size: var(--corp-font-size-14);
-  margin-left: var(--corp-spacing-12);
-  margin-right: var(--corp-spacing-3);
-   transform: scale(0.8);
-   transition: color 0.1s ease;
 }
 
-/* tablet styles */
+/* Tablet styles */
 
 @media (min-width: 744px) {
-  .teaser {    
+  .teaser {
     margin: 0 auto var(--corp-spacing-80);
   }
 
@@ -121,8 +149,27 @@
   }
 
   .teaser .teaser-title {
-    font-size: var(--corp-font-size-36);
     line-height: var(--corp-spacing-40);
+  }
+
+  .teaser.teaser-h2 .teaser-title {
+    font-size: var(--corp-font-size-36);
+    line-height: var(--corp-typography-lineheight-heading-sm);
+  }
+
+  .teaser.teaser-h3 .teaser-title {
+    font-size: var(--corp-font-size-32);
+    line-height: var(--corp-typography-lineheight-relaxed-3xl);
+  }
+
+  .teaser.teaser-h4 .teaser-title {
+    font-size: var(--corp-font-size-30);
+    line-height: var(--corp-typography-lineheight-relaxed-xl);
+  }
+
+  .teaser.teaser-h5 .teaser-title {
+    font-size: var(--corp-font-size-32);
+    line-height: var(--corp-typography-lineheight-relaxed-3xl);
   }
 
   .teaser .teaser-description {
@@ -130,13 +177,12 @@
     line-height: var(--corp-spacing-26);
   }
 
-  .teaser .button.link-internal,
-  .teaser .button.link-external {
+  .teaser .teaser-right a {
     font-size: var(--corp-font-size-14);
   }
 }
 
-/* desktop styles */
+/* Desktop styles */
 
 @media (min-width: 1024px) {
   .teaser {
@@ -159,12 +205,47 @@
   }
 
   .teaser .teaser-title {
-    font-size: var(--corp-font-size-56);
     line-height: var(--corp-spacing-64);
+  }
+
+  .teaser.teaser-h2 .teaser-title {
+    font-size: var(--corp-font-size-56);
+    line-height: var(--corp-typography-lineheight-display-lg);
+  }
+
+  .teaser.teaser-h3 .teaser-title {
+    font-size: var(--corp-font-size-48);
+    line-height: var(--corp-typography-lineheight-display-sm);
+  }
+
+  .teaser.teaser-h4 .teaser-title {
+    font-size: var(--corp-font-size-40);
+    line-height: var(--corp-typography-lineheight-heading-md);
   }
 
   .teaser .teaser-description {
     font-size: var(--corp-font-size-24);
     line-height: var(--corp-spacing-32);
   }
+}
+
+/* Dark theme overrides */
+
+.teaser.dark-theme .teaser-eyebrow,
+.teaser.dark-theme .teaser-description,
+.teaser.dark-theme .teaser-title {
+  color: var(--color-white);
+}
+
+.teaser.dark-theme :where(.teaser-right .button):any-link {
+  color: var(--color-accent-blue-light);
+  background-color: unset;
+}
+
+.teaser.dark-theme :where(.teaser-right .button:any-link):is(:hover, :focus) {
+  color: var(--color-blue-light);
+}
+
+.teaser.dark-theme :where(.teaser-right .button:any-link:active) {
+  opacity: .5;
 }

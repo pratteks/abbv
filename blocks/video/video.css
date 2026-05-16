@@ -2,8 +2,6 @@
  * Video Block
  */
 
- /** TODO  - Fix ESlint Issue */
-/* stylelint-disable */
 /* ── Block wrapper ───────────────────────────────────────────────────────── */
 .video.video-stage {
   text-align: center;
@@ -41,6 +39,11 @@
 .video.video-stage .video-player-wrap {
   position: absolute;
   inset: 0;
+}
+
+.video .video-overlay > *,
+.video.video-minimal .video-overlay > * {
+  width: 100%;
 }
 
 .video.video-stage .video-media > * {
@@ -88,30 +91,27 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: var(--corp-spacing-2) var(--corp-spacing-5);
+  padding: var(--corp-spacing-2);
   text-align: center;
 }
 
-    .video .video-overlay > * {
-        width: 100%;
-    }
+/* Overlay color variants - lower specificity with :where() */
+:where(.video).video-stage .video-overlay-navy,
+:where(.video).video-stage .video-overlay-gray,
+:where(.video).video-stage .video-overlay-purple {
+  background: var(--color-blue-gray);
+}
 
-.video.video-stage.has-poster .video-overlay-navy {
+:where(.video).video-stage.has-poster .video-overlay-navy {
   background: var(--color-overlay-navy);
 }
 
-.video.video-stage.has-poster .video-overlay-gray {
+:where(.video).video-stage.has-poster .video-overlay-gray {
   background: var(--color-overlay-gray);
 }
 
-.video.video-stage.has-poster .video-overlay-purple {
+:where(.video).video-stage.has-poster .video-overlay-purple {
   background: var(--color-overlay-purple);
-}
-
-.video.video-stage .video-overlay-navy,
-.video.video-stage .video-overlay-gray,
-.video.video-stage .video-overlay-purple {
-  background: var(--color-blue-gray);
 }
 
 /* ── Overlay title ───────────────────────────────────────────────────────── */
@@ -159,6 +159,10 @@ p.video-overlay-title {
     margin-bottom: var(--corp-spacing-10);
     display: block;
   }
+
+  .video.video-stage:where(.video-minimal) .video-overlay-description {
+    display: none;
+  }
 }
 
 @media (--bp-desktop) {
@@ -182,6 +186,10 @@ p.video-overlay-title {
   justify-content: center;
 }
 
+.video.video-stage:where(.video-minimal) .video-controls {
+ position: absolute;
+}
+
 /* ── Play button base ────────────────────────────────────────────────────── */
 
 .video.video-stage .video-play-btn {
@@ -200,6 +208,12 @@ p.video-overlay-title {
   white-space: nowrap;
   cursor: pointer;
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.video.video-stage:where(.video-minimal) .video-play-btn {
+   padding: 0;
+   width: var(--corp-spacing-52);
+   height: var(--corp-spacing-52);
 }
 
 .video-stage .video-play-btn:focus-visible {
@@ -228,6 +242,10 @@ p.video-overlay-title {
   transition: color .1s ease;
 }
 
+.video:where(.video-minimal) .video-play-icon::before {
+  margin: 0;
+}
+
 .video.video-stage .video-play-label,
 .video.video-stage .video-play-time {
   display: inline-block;
@@ -235,6 +253,10 @@ p.video-overlay-title {
   font-size: var(--corp-font-size-16);
   font-family: var(--roboto-bold-font-family);
   letter-spacing: var(--corp-typography-letterspacing-wide-md);
+}
+
+.video.video-stage:where(.video-minimal) .video-play-label {
+   display: none;
 }
 
 /* ── Outline variant ─────────────────────────────────────────────────────── */
@@ -330,7 +352,6 @@ p.video-overlay-title {
 .video.video-stage .video-main {
   display: flex;
   flex-direction: column;
-
   width: 100%;
 }
 
@@ -371,8 +392,7 @@ p.video-overlay-title {
   }
 
   .video.video-stage .video-overlay {
-    padding-right: var(--corp-spacing-40);
-    padding-left: var(--corp-spacing-40);
+    padding: var(--corp-spacing-5);
   }
 
   .video.video-stage .video-play-label,
@@ -396,9 +416,12 @@ p.video-overlay-title {
 }
 
 @media (--bp-desktop) {
-
   .video.video-stage .video-play-btn {
     padding: var(--corp-spacing-16) var(--corp-spacing-40);
+  }
+
+  .video.video-stage:where(.video-minimal) .video-play-btn {
+     padding: 0;
   }
 
     .video .video-overlay > * {

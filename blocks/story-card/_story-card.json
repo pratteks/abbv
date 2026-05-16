@@ -18,8 +18,6 @@
               "hideImage": false,
               "page": "",
               "openInNewTab": false,
-              "imagePreset": "",
-              "imageModifiers": "",
               "analyticsInteractionId": "",
               "language": "lang:none",
               "blockId": "id:"
@@ -142,60 +140,6 @@
           "name": "openInNewTab",
           "label": "Open in New Tab",
           "value": false
-        },
-        {
-          "component": "select",
-          "valueType": "string",
-          "name": "imagePreset",
-          "label": "Image Preset",
-          "value": "",
-          "description": "Optional layout preset used for responsive sizing and aspect-ratio styling.",
-          "condition": {
-            "===": [
-              {
-                "var": "hideImage"
-              },
-              false
-            ]
-          },
-          "options": [
-            {
-              "name": "Default",
-              "value": ""
-            },
-            {
-              "name": "Landscape",
-              "value": "landscape"
-            },
-            {
-              "name": "Wide",
-              "value": "wide"
-            },
-            {
-              "name": "Square",
-              "value": "square"
-            },
-            {
-              "name": "Portrait",
-              "value": "portrait"
-            }
-          ]
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "imageModifiers",
-          "label": "Image Modifiers",
-          "value": "",
-          "condition": {
-            "===": [
-              {
-                "var": "hideImage"
-              },
-              false
-            ]
-          },
-          "description": "Optional Dynamic Media URL modifiers or CSS tokens such as quality=85, rounded, shadow, or contain."
         },
         {
           "component": "text",

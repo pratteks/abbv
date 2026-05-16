@@ -21,32 +21,9 @@
       "id": "separator",
       "fields": [
         {
-          "component": "text",
-          "valueType": "string",
-          "name": "id",
-          "value": "",
-          "label": "Id"
-        },
-        {
-          "component": "select",
-          "name": "classes_height",
-          "value": "",
-          "label": "Height",
-          "options": [
-            { "name": "Default (8px)", "value": "" },
-            { "name": "1px", "value": "separator-height-1" },
-            { "name": "8px", "value": "separator-height-8" },
-            { "name": "16px", "value": "separator-height-16" },
-            { "name": "24px", "value": "separator-height-24" },
-            { "name": "32px", "value": "separator-height-32" },
-            { "name": "48px", "value": "separator-height-48" },
-            { "name": "64px", "value": "separator-height-64" },
-            { "name": "80px", "value": "separator-height-80" },
-            { "name": "96px", "value": "separator-height-96" },
-            { "name": "112px", "value": "separator-height-112" },
-            { "name": "128px", "value": "separator-height-128" },
-            { "name": "144px", "value": "separator-height-144" }
-          ]
+          "component": "tab",
+          "label": "Styles",
+          "name": "styles"
         },
         {
           "component": "boolean",
@@ -54,6 +31,18 @@
           "name": "showLine",
           "value": true,
           "label": "Show Line"
+        },
+        {
+          "component": "ngaem:dynamic-picklist",
+          "name": "classes_customDynamicClass",
+          "value": "",
+          "label": "Select Separator Block Styles",
+          "valueType": "string",
+          "sourceAEMNodeName": "separator-picklist-config",
+          "valueSeperator": ","
+        },
+        {
+          "...": "../../models/_common-properties.json#/common-prop"
         }
       ]
     }

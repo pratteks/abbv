@@ -9,7 +9,8 @@
    ================================================================ */
 .story-card {
   --surface-background-default: var(--color-surface-default, rgb(255 255 255));
-  --border-subtle: var(--corp-separator-hairline, 0.1rem) solid var(--color-border-container, rgb(166 181 224));
+  --border-subtle: var(--corp-separator-hairline, 0.1rem) solid
+    var(--color-border-container, rgb(166 181 224));
   --transition-duration-fast: 0.2s;
   --transition-duration-medium: 0.3s;
   --transition-easing-standard: ease;
@@ -29,7 +30,7 @@
   --story-card-placeholder-min-height: var(--corp-spacing-120);
   --story-card-placeholder-min-height-tablet: var(--corp-spacing-140);
   --story-card-eyebrow-margin-bottom: var(--corp-spacing-38);
-  --story-card-read-time-icon: '\e904';
+  --story-card-read-time-icon: "\e904";
   --story-card-read-time-icon-line-height: 1;
   --story-card-title-font-weight: var(--corp-font-weight-semibold-alt);
   --story-card-description-font-weight: var(--corp-font-weight-regular);
@@ -148,7 +149,8 @@
   flex-direction: column;
   justify-content: center;
   min-height: auto;
-  padding: var(--corp-spacing-64) var(--corp-spacing-35) var(--corp-spacing-120) var(--corp-spacing-35);
+  padding: var(--corp-spacing-64) var(--corp-spacing-35) var(--corp-spacing-120)
+    var(--corp-spacing-35);
 }
 
 .story-card .story-card-content * {
@@ -171,7 +173,7 @@
   text-transform: var(--text-transform-uppercase);
 }
 
-.story-card .story-card-meta> :where(*:not(:first-child))::before {
+.story-card .story-card-meta > :where(*:not(:first-child))::before {
   content: none;
 }
 
@@ -394,7 +396,9 @@
 }
 
 :where(.story-card) .story-card-panel:hover .story-card-image :where(img),
-:where(.story-card .story-card-panel):has(.story-card-link:focus-visible) .story-card-image :where(img) {
+:where(.story-card .story-card-panel):has(.story-card-link:focus-visible)
+  .story-card-image
+  :where(img) {
   transform: scale(var(--motion-hover-scale));
 }
 
@@ -408,8 +412,10 @@
 }
 
 :where(.story-card):hover .story-card-cta::after {
-  border-right: var(--story-card-cta-arrow-stroke-width) solid var(--story-card-text-color);
-  border-bottom: var(--story-card-cta-arrow-stroke-width) solid var(--story-card-text-color);
+  border-right: var(--story-card-cta-arrow-stroke-width) solid
+    var(--story-card-text-color);
+  border-bottom: var(--story-card-cta-arrow-stroke-width) solid
+    var(--story-card-text-color);
 }
 
 /* ================================================================
@@ -508,7 +514,8 @@
   aspect-ratio: var(--story-card-image-ratio-large-title);
 }
 
-.story-card.large-title:not(.hide-description) :where(:is(.story-card-title, .story-card-description)) {
+.story-card.large-title:not(.hide-description)
+  :where(:is(.story-card-title, .story-card-description)) {
   margin-top: var(--corp-spacing-32);
 }
 
@@ -700,7 +707,8 @@
   /* Content */
   .story-card .story-card-content {
     min-height: auto;
-    padding: var(--corp-space-token-xxl, 8rem) var(--corp-spacing-70) var(--corp-spacing-120, 12rem) 0;
+    padding: var(--corp-space-token-xxl, 8rem) var(--corp-spacing-70)
+      var(--corp-spacing-120, 12rem) 0;
   }
 
   /* Meta — row on tablet */
@@ -930,7 +938,8 @@
     grid-column: span 2;
   }
 
-  .story-card.large-title:not(.hide-description) :where(:is(.story-card-title, .story-card-description)) {
+  .story-card.large-title:not(.hide-description)
+    :where(:is(.story-card-title, .story-card-description)) {
     grid-column: span 1;
     margin-top: 0;
   }
@@ -1116,5 +1125,36 @@
   .story-card.large-title .story-card-description {
     font-size: var(--corp-font-size-24);
     line-height: var(--corp-typography-lineheight-relaxed-lg);
+  }
+}
+
+/* ================================================================
+   Carousel (default) context overrides
+   TODO: Need to remove after the implementation of Story card: Themes and styles
+   ================================================================ */
+.carousel:where(.carousel-default)
+  .story-card.is-side-panel
+  :where(.story-card-title) {
+  font-size: var(--corp-font-size-18);
+  font-family: var(--heading-font-family);
+  font-weight: var(--corp-font-weight-semibold-alt);
+  line-height: var(--corp-typography-lineheight-body-md);
+}
+
+@media (--bp-tablet) {
+  .carousel:where(.carousel-default)
+    .story-card.is-side-panel
+    :where(.story-card-title) {
+    font-size: var(--corp-font-size-30);
+    line-height: var(--corp-typography-lineheight-relaxed-xl);
+  }
+}
+
+@media (--bp-desktop) {
+  .carousel:where(.carousel-default)
+    .story-card.is-side-panel
+    :where(.story-card-title) {
+    font-size: var(--corp-font-size-40);
+    line-height: var(--corp-typography-lineheight-heading-md);
   }
 }

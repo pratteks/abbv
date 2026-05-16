@@ -1,9 +1,10 @@
-.abbvie-separator {
-    height: var(--corp-separator-xs);
+.separator {
+    --separator-line-color: var(--color-gray-medium);
 }
 
-.margin-24 .abbvie-separator {
-    margin-bottom: var(--corp-gap-xl);
+.abbvie-separator {
+    height: var(--corp-separator-xs);
+    border-bottom: none;
 }
 
 .separator.separator-height-1 .abbvie-separator {
@@ -52,4 +53,46 @@
 
 .separator.separator-height-144 .abbvie-separator {
     height: var(--corp-section-gap-3xl);
+}
+
+.separator.separator-standard .abbvie-separator {
+    border-bottom: none;
+}
+
+.separator.separator-divider .abbvie-separator {
+    border-bottom: var(--corp-separator-hairline) solid var(--separator-line-color);
+}
+
+.separator.light-theme {
+    --separator-line-color: var(--color-gray-medium);
+}
+
+.separator.dark-theme {
+    --separator-line-color: var(--color-white);
+}
+
+.separator.add-margin-separator .abbvie-separator {
+    margin-left: var(--corp-spacing-35);
+    margin-right: var(--corp-spacing-35);
+}
+
+@media (--bp-tablet) {
+    .separator.add-margin-separator .abbvie-separator {
+        margin-left: var(--corp-spacing-70);
+        margin-right: var(--corp-spacing-70);
+    }
+}
+
+@media (--bp-desktop) {
+    .separator.add-margin-separator .abbvie-separator {
+        margin-left: var(--corp-spacing-55);
+        margin-right: var(--corp-spacing-55);
+    }
+}
+
+@media (--bp-wide) {
+    .separator.add-margin-separator .abbvie-separator {
+        margin-left: auto;
+        margin-right: auto;
+    }
 }

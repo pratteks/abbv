@@ -5,7 +5,7 @@ import { applyCommonProps } from '../../scripts/utils.js';
  * @param {HTMLElement} block
  */
 export default function decorate(block) {
-  applyCommonProps(block);
+  applyCommonProps(block, 1); // titleType is not separate child row, so commonProp start index is 1
   // Add BEM class to heading and unwrap any XWALK-injected spans
 
   const heading = block.querySelector('h1, h2, h3, h4, h5, h6');

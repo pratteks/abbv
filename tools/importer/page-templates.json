@@ -1,0 +1,704 @@
+{
+  "templates": [
+    {
+      "name": "science-page",
+      "urls": [
+        "https://www.abbvie.com/science.html"
+      ],
+      "description": "AbbVie Science landing page with hero, dashboard stats, video embed, content columns, cards, accordion, FAQ CTA band, and footer CTA sections. Note: AbbVie uses Scene7 lazy-loaded images (data-cmp-src) that require resolution during import.",
+      "blocks": [
+        {
+          "name": "hero",
+          "instances": [
+            ".container.cmp-container-full-width.height-tall"
+          ]
+        },
+        {
+          "name": "columns",
+          "instances": [
+            ".container.cmp-container-full-width:has(#container-5ab796dabb)",
+            ".container.cmp-container-xxx-large:has(#title-b50438c68d)",
+            ".container.cmp-container-full-width.footer-overlap"
+          ]
+        },
+        {
+          "name": "embed",
+          "instances": [
+            ".container.cmp-container-full-width:has(.brightcove-video)"
+          ]
+        },
+        {
+          "name": "cards",
+          "instances": [
+            ".grid.cmp-grid-custom .grid-row",
+            ".grid.cmp-grid-full-page-5-v1"
+          ]
+        },
+        {
+          "name": "accordion",
+          "instances": [
+            "#accordion-c31e57db88"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Hero",
+          "selector": [
+            ".container.cmp-container-full-width.height-tall",
+            ".container.overlap-predecessor.cmp-container-xx-large"
+          ],
+          "style": "navy-overlap",
+          "blocks": [
+            "hero"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-2",
+          "name": "At a Glance Text",
+          "selector": ".teaser.light-theme",
+          "style": null,
+          "blocks": [],
+          "defaultContent": [
+            ".teaser.light-theme .cmp-teaser__pretitle",
+            ".teaser.light-theme .cmp-teaser__title",
+            ".teaser.light-theme .cmp-teaser__description"
+          ]
+        },
+        {
+          "id": "section-3",
+          "name": "Dashboard Stats + Core Focus",
+          "selector": ".container.cmp-container-full-width .cmp-grid-full-page-5-v1",
+          "style": "navy",
+          "blocks": [
+            "cards"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-5",
+          "name": "R&D Video",
+          "selector": ".container.cmp-container-full-width:has(.brightcove-video)",
+          "style": null,
+          "blocks": [
+            "embed"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-6",
+          "name": "Explore Our Science",
+          "selector": ".container.cmp-container-full-width:has(#container-5ab796dabb)",
+          "style": null,
+          "blocks": [
+            "columns"
+          ],
+          "defaultContent": []
+        }
+      ]
+    },
+    {
+      "name": "leaders-listing",
+      "urls": [
+        "https://www.abbvie.com/science/our-people/our-rd-leaders.html"
+      ],
+      "description": "R&D Leaders listing page with hero header and grid of leader profile cards",
+      "blocks": [
+        {
+          "name": "story-cards",
+          "instances": [
+            ".cardpagestory.card-standard.card-small"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "section-1-hero",
+          "name": "Hero Header",
+          "selector": [
+            ".container.large-radius.cmp-container-full-width.height-short.no-bottom-margin",
+            ".container.overlap-predecessor.medium-radius.cmp-container-xx-large"
+          ],
+          "style": "navy-overlap",
+          "blocks": [],
+          "defaultContent": [
+            ".title.cmp-title-xx-large h1",
+            ".text.cmp-text-xx-large p"
+          ]
+        },
+        {
+          "id": "section-2-leader-cards",
+          "name": "Leader Profile Cards",
+          "selector": ".grid.aem-GridColumn.aem-GridColumn--default--12",
+          "style": null,
+          "blocks": [
+            "story-cards"
+          ],
+          "defaultContent": []
+        }
+      ]
+    },
+    {
+      "name": "leader-profile",
+      "urls": [
+        "https://www.abbvie.com/science/our-people/our-rd-leaders/andrew-campbell.html",
+        "https://www.abbvie.com/science/our-people/our-rd-leaders/darin-messina.html",
+        "https://www.abbvie.com/science/our-people/our-rd-leaders/jonathon-sedgwick.html",
+        "https://www.abbvie.com/science/our-people/our-rd-leaders/linda-scarazzini.html",
+        "https://www.abbvie.com/science/our-people/our-rd-leaders/mitchell-brin.html"
+      ],
+      "description": "Individual R&D leader profile page with hero and biography columns",
+      "blocks": [
+        {
+          "name": "hero (profile)",
+          "instances": [
+            ".container.overlap-predecessor"
+          ]
+        },
+        {
+          "name": "columns",
+          "instances": [
+            ".grid.aem-GridColumn"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "section-1-hero",
+          "name": "Hero Section (Profile)",
+          "selector": [
+            ".container.medium-radius.cmp-container-full-width.height-short.no-bottom-margin",
+            ".container.overlap-predecessor.medium-radius.cmp-container-xx-large"
+          ],
+          "style": "navy-overlap",
+          "blocks": [
+            "hero (profile)"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-7",
+          "name": "Tenacity / Behind the Science",
+          "selector": ".container.cmp-container-xxx-large:has(#title-b50438c68d)",
+          "style": null,
+          "blocks": [
+            "columns"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-8",
+          "name": "Stories Behind Our Science",
+          "selector": ".container:has(#container-b38daf1189)",
+          "style": null,
+          "blocks": [
+            "cards"
+          ],
+          "defaultContent": [
+            "#title-3311f030ae",
+            "#text-78ba5a63d0"
+          ]
+        },
+        {
+          "id": "section-9",
+          "name": "FAQ + CTA Band",
+          "selector": ".container.cmp-container-full-width:has(#accordion-c31e57db88)",
+          "style": null,
+          "blocks": [
+            "accordion"
+          ],
+          "defaultContent": [
+            "#title-d188a77aca",
+            ".cmp-image:has([data-cmp-src*='Cambridge'])",
+            "#title-cta-bold-science",
+            ".cmp-text:has(a[href*='research-and-development'])"
+          ],
+          "_comment": "Section contains FAQ heading + accordion block + CTA band (image, heading, description, CTA link). CTA band is default content after accordion, styled via CSS as a full-bleed light blue band with 2-column grid layout. FAQ accordion is constrained to 7/12 columns centered (grid-column: 3 / span 7)."
+        },
+        {
+          "id": "section-10",
+          "name": "CTA / Careers",
+          "selector": ".container.cmp-container-full-width.footer-overlap",
+          "style": "highlight",
+          "blocks": [
+            "columns"
+          ],
+          "defaultContent": []
+        }
+      ]
+    },
+    {
+      "name": "clinical-trials",
+      "urls": [
+        "https://www.abbvie.com/science/clinical-trials.html"
+      ],
+      "description": "Clinical trials informational page with hero, two-column content grid, full-width image-text section, accordion for additional info, and multi-column bottom sections",
+      "blocks": [
+        {
+          "name": "hero",
+          "instances": [
+            ".container.large-radius.cmp-container-full-width.height-default.no-bottom-margin",
+            ".container.overlap-predecessor.medium-radius.cmp-container-xx-large"
+          ]
+        },
+        {
+          "name": "cta",
+          "instances": [
+            ".grid.cmp-grid-custom:not(.no-bottom-margin) .grid-row__col-with-2:last-child"
+          ]
+        },
+        {
+          "name": "columns",
+          "instances": [
+            ".container.cmp-container-full-width.height-default:not(.large-radius):not(.no-bottom-margin) .grid",
+            ".grid.cmp-grid-custom:not(.no-bottom-margin):last-of-type"
+          ]
+        },
+        {
+          "name": "accordion",
+          "instances": [
+            ".cmp-accordion"
+          ]
+        },
+        {
+          "name": "publications",
+          "urls": [
+            "https://www.abbvie.com/science/publications.html"
+          ],
+          "description": "Science publications listing page with hero, breadcrumb, flex-section layout (7-col main + 2-col sidebar). Main section has tag-utility-nav search block with filterable publication list. Sidebar has related content card, separator block, and topics list.",
+          "blocks": [
+            {
+              "name": "hero (profile)",
+              "variant": "hero profile body-unica-32-reg",
+              "instances": [
+                ".hero.profile.body-unica-32-reg"
+              ]
+            },
+            {
+              "name": "breadcrumb",
+              "instances": [
+                ".breadcrumb"
+              ]
+            },
+            {
+              "name": "tag-utility-nav",
+              "instances": [
+                ".tag-utility-nav"
+              ]
+            },
+            {
+              "name": "separator",
+              "instances": [
+                ".separator"
+              ]
+            }
+          ],
+          "sections": [
+            {
+              "id": "section-1-hero",
+              "name": "Hero Section",
+              "selector": [
+                ".container.large-radius.cmp-container-full-width.height-default.no-bottom-margin",
+                ".container.overlap-predecessor.medium-radius.cmp-container-xx-large"
+              ],
+              "description": "Science publications listing page with hero, breadcrumb, flex-section layout (7-col main + 2-col sidebar). Main section has tag-utility-nav search block with filterable publication list. Sidebar has related content card, separator block, and topics list.",
+              "blocks": [
+                "hero"
+              ],
+              "defaultContent": []
+            },
+            {
+              "name": "Hero + Breadcrumb",
+              "selector": "div:has(> .hero.profile)",
+              "style": null,
+              "blocks": [
+                "hero (profile)",
+                "breadcrumb"
+              ],
+              "defaultContent": []
+            },
+            {
+              "id": "section-2-about",
+              "name": "About Clinical Trials",
+              "selector": ".grid.cmp-grid-custom:not(.no-bottom-margin)",
+              "style": null,
+              "blocks": [
+                "cta"
+              ],
+              "defaultContent": [
+                ".grid.cmp-grid-custom:not(.no-bottom-margin) .grid-row__col-with-8 .cmp-title h2",
+                ".grid.cmp-grid-custom:not(.no-bottom-margin) .grid-row__col-with-8 .cmp-text"
+              ]
+            },
+            {
+              "name": "partner-with-us",
+              "urls": [
+                "https://www.abbvie.com/science/partner-with-us.html"
+              ],
+              "description": "Science sub-page for partnership information, similar layout to clinical-trials with hero, content sections, and informational blocks",
+              "blocks": [
+                {
+                  "name": "hero",
+                  "instances": [
+                    ".container.large-radius.cmp-container-full-width.height-default.no-bottom-margin",
+                    ".container.overlap-predecessor.medium-radius.cmp-container-xx-large"
+                  ]
+                },
+                {
+                  "name": "cta",
+                  "instances": [
+                    ".grid.cmp-grid-custom .grid-row__col-with-2"
+                  ]
+                },
+                {
+                  "name": "accordion",
+                  "instances": [
+                    ".cmp-accordion"
+                  ]
+                }
+              ],
+              "sections": [
+                {
+                  "id": "section-1-hero",
+                  "name": "Hero Section",
+                  "selector": [
+                    ".container.large-radius.cmp-container-full-width.height-default.no-bottom-margin",
+                    ".container.overlap-predecessor.medium-radius.cmp-container-xx-large"
+                  ],
+                  "style": "navy-overlap",
+                  "blocks": [
+                    "hero"
+                  ],
+                  "defaultContent": []
+                },
+                {
+                  "id": "section-2-about",
+                  "name": "Main Content with Sidebar",
+                  "selector": ".grid.cmp-grid-custom",
+                  "style": null,
+                  "blocks": [
+                    "cta",
+                    "accordion"
+                  ],
+                  "defaultContent": [
+                    ".grid-row__col-with-7 .cmp-title h2",
+                    ".grid-row__col-with-7 .cmp-text"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "abbvie-ventures",
+              "urls": [
+                "https://www.abbvie.com/science/partner-with-us/abbvie-ventures.html"
+              ],
+              "description": "AbbVie Ventures page with hero, sidebar with related content/topics, main content with 2 accordion blocks (investment team, scientists in residence), and related content cards at bottom",
+              "blocks": [
+                {
+                  "name": "hero",
+                  "instances": [
+                    ".container.large-radius.cmp-container-full-width.height-default.no-bottom-margin",
+                    ".container.overlap-predecessor.medium-radius.cmp-container-xx-large"
+                  ]
+                },
+                {
+                  "name": "accordion",
+                  "instances": [
+                    ".cmp-accordion"
+                  ]
+                },
+                {
+                  "name": "cards",
+                  "instances": [
+                    ".container.cmp-container-full-width.no-bottom-margin .grid.cmp-grid-custom .cardpagestory"
+                  ]
+                }
+              ],
+              "sections": [
+                {
+                  "id": "section-1-hero",
+                  "name": "Hero Section",
+                  "selector": [
+                    ".container.large-radius.cmp-container-full-width.height-default.no-bottom-margin",
+                    ".container.overlap-predecessor.medium-radius.cmp-container-xx-large"
+                  ],
+                  "style": "navy-overlap",
+                  "blocks": [
+                    "hero"
+                  ],
+                  "defaultContent": []
+                },
+                {
+                  "id": "section-2-main",
+                  "name": "Main Content with Sidebar",
+                  "selector": ".grid.cmp-grid-custom:first-of-type",
+                  "style": null,
+                  "blocks": [
+                    "accordion"
+                  ],
+                  "defaultContent": [
+                    ".grid-row__col-with-9 .cmp-title h2",
+                    ".grid-row__col-with-9 .cmp-text",
+                    ".grid-row__col-with-2 .cmp-title h2",
+                    ".grid-row__col-with-2 .cmp-text",
+                    ".grid-row__col-with-2 .cmp-image"
+                  ]
+                },
+                {
+                  "id": "section-3-cards",
+                  "name": "Related Content Cards",
+                  "selector": ".container.cmp-container-full-width.no-bottom-margin:has(.cardpagestory)",
+                  "style": null,
+                  "blocks": [
+                    "cards"
+                  ],
+                  "defaultContent": []
+                }
+              ]
+            },
+            {
+              "name": "educational-grants",
+              "urls": [
+                "https://www.abbvie.com/science/independent-educational-grants.html"
+              ],
+              "description": "Independent Educational Grants page with hero, sidebar with topics, main content with CTA, image+goals section, grants list, accordion for therapeutic areas, and full-width apply CTA at bottom",
+              "blocks": [
+                {
+                  "name": "hero",
+                  "instances": [
+                    ".container.large-radius.cmp-container-full-width.height-default.no-bottom-margin",
+                    ".container.overlap-predecessor.medium-radius.cmp-container-xx-large"
+                  ]
+                },
+                {
+                  "name": "accordion",
+                  "instances": [
+                    ".cmp-accordion"
+                  ]
+                }
+              ],
+              "defaultContent": []
+            },
+            {
+              "id": "section-2-about",
+              "name": "Main Content with Sidebar",
+              "selector": ".grid.cmp-grid-custom",
+              "style": null,
+              "blocks": [
+                "cta",
+                "accordion"
+              ],
+              "defaultContent": [
+                ".grid-row__col-with-7 .cmp-title h2",
+                ".grid-row__col-with-7 .cmp-text"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "abbvie-ventures",
+          "urls": [
+            "https://www.abbvie.com/science/partner-with-us/abbvie-ventures.html"
+          ],
+          "description": "AbbVie Ventures page with hero, sidebar with related content/topics, main content with 2 accordion blocks (investment team, scientists in residence), and related content cards at bottom",
+          "blocks": [
+            {
+              "name": "hero",
+              "instances": [
+                ".container.large-radius.cmp-container-full-width.height-default.no-bottom-margin",
+                ".container.overlap-predecessor.medium-radius.cmp-container-xx-large"
+              ]
+            },
+            {
+              "name": "accordion",
+              "instances": [
+                ".cmp-accordion"
+              ]
+            },
+            {
+              "name": "cards",
+              "instances": [
+                ".container.cmp-container-full-width.no-bottom-margin .grid.cmp-grid-custom .cardpagestory"
+              ]
+            }
+          ],
+          "sections": [
+            {
+              "id": "section-1-hero",
+              "name": "Hero Section",
+              "selector": [
+                ".container.large-radius.cmp-container-full-width.height-default.no-bottom-margin",
+                ".container.overlap-predecessor.medium-radius.cmp-container-xx-large"
+              ],
+              "style": "navy-overlap",
+              "blocks": [
+                "hero"
+              ],
+              "defaultContent": []
+            },
+            {
+              "id": "section-2-main",
+              "name": "Main Content with Sidebar",
+              "selector": ".grid.cmp-grid-custom:first-of-type",
+              "style": null,
+              "blocks": [
+                "accordion"
+              ],
+              "defaultContent": [
+                ".grid-row__col-with-9 .cmp-title h2",
+                ".grid-row__col-with-9 .cmp-text",
+                ".grid-row__col-with-2 .cmp-title h2",
+                ".grid-row__col-with-2 .cmp-text",
+                ".grid-row__col-with-2 .cmp-image"
+              ]
+            },
+            {
+              "id": "section-3-cards",
+              "name": "Related Content Cards",
+              "selector": ".container.cmp-container-full-width.no-bottom-margin:has(.cardpagestory)",
+              "style": null,
+              "blocks": [
+                "cards"
+              ],
+              "defaultContent": []
+            }
+          ]
+        },
+        {
+          "name": "educational-grants",
+          "urls": [
+            "https://www.abbvie.com/science/independent-educational-grants.html"
+          ],
+          "description": "Independent Educational Grants page with hero, sidebar with topics, main content with CTA, image+goals section, grants list, accordion for therapeutic areas, and full-width apply CTA at bottom",
+          "blocks": [
+            {
+              "name": "hero",
+              "instances": [
+                ".container.large-radius.cmp-container-full-width.height-default.no-bottom-margin",
+                ".container.overlap-predecessor.medium-radius.cmp-container-xx-large"
+              ]
+            },
+            {
+              "name": "accordion",
+              "instances": [
+                ".cmp-accordion"
+              ]
+            }
+          ],
+          "sections": [
+            {
+              "id": "section-1-hero",
+              "name": "Hero Section",
+              "selector": [
+                ".container.large-radius.cmp-container-full-width.height-default.no-bottom-margin",
+                ".container.overlap-predecessor.medium-radius.cmp-container-xx-large"
+              ],
+              "style": "navy-overlap",
+              "blocks": [
+                "hero"
+              ],
+              "defaultContent": []
+            },
+            {
+              "id": "section-2-main",
+              "name": "Main Content with Sidebar",
+              "selector": ".grid.cmp-grid-custom",
+              "style": null,
+              "blocks": [
+                "accordion"
+              ],
+              "defaultContent": [
+                ".grid-row__col-with-9 .cmp-title h2",
+                ".grid-row__col-with-9 .cmp-text",
+                ".grid-row__col-with-2 .cmp-title h2",
+                ".grid-row__col-with-2 .cmp-text"
+              ]
+            },
+            {
+              "id": "section-2-publications",
+              "name": "Publications Main Content (flex-section col-7)",
+              "selector": "div:has(> .section-metadata.flxsection-col-7)",
+              "style": "align-left flxsection-col-7",
+              "sectionType": "flex-section",
+              "blocks": [
+                "tag-utility-nav"
+              ],
+              "defaultContent": [
+                "h2 (Contributing to the scientific community)",
+                "p (intro text)",
+                "h4 (Recent publication highlights)",
+                "p (post-doc disclaimer)",
+                "ul (publication list items with links, journal em, DOI, authors)"
+              ]
+            },
+            {
+              "id": "section-3-sidebar",
+              "name": "Related Content Sidebar (flex-section col-2)",
+              "selector": "div:has(> .section-metadata.flxsection-col-2)",
+              "style": "no-align flxsection-col-2",
+              "sectionType": "flex-section",
+              "blocks": [
+                "separator"
+              ],
+              "defaultContent": [
+                "h2 (Related content)",
+                "picture (card image)",
+                "p > em (eyebrow: Join Us)",
+                "p > strong (title: Postdoctoral Program)",
+                "p (description)",
+                "p > a (CTA: Learn More)",
+                "h2 (Topics)",
+                "ul (topic links: Areas of Focus, R&D Leaders, Careers)"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "corporate-leader-profile",
+      "urls": [
+        "https://www.abbvie.com/who-we-are/our-leaders/roopal-thakkar.html",
+        "https://www.abbvie.com/who-we-are/our-leaders/latif-akintade.html"
+      ],
+      "description": "Corporate leader profile page under Who We Are / Our Leaders section with hero (breadcrumb, name, title) and two-column bio (headshot + biography text)",
+      "blocks": [
+        {
+          "name": "columns",
+          "instances": [
+            ".container.overlap-predecessor .grid .grid-row"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "section-1-hero",
+          "name": "Hero Section (Profile)",
+          "selector": [
+            ".container.large-radius.cmp-container-full-width.height-short.no-bottom-margin",
+            ".container.overlap-predecessor.medium-radius.cmp-container-xx-large.align-center"
+          ],
+          "style": "navy-overlap",
+          "blocks": [],
+          "defaultContent": [
+            ".breadcrumb.abbvie-breadcrumb",
+            "#title-4dbb596b7d h1",
+            ".text.cmp-text-xx-large .body-unica-32-reg"
+          ]
+        },
+        {
+          "id": "section-2-bio",
+          "name": "Biography Section",
+          "selector": ".container.overlap-predecessor .grid.aem-GridColumn",
+          "style": null,
+          "blocks": [
+            "columns"
+          ],
+          "defaultContent": []
+        }
+      ]
+    }
+  ]
+}

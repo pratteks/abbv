@@ -3,7 +3,7 @@ import { loadFragment } from '../fragment/fragment.js';
 // eslint-disable-next-line import/no-named-as-default
 import IndexUtils from '../../scripts/index-utils.js';
 import { fetchDashboardCardData } from '../../scripts/cfUtil.js';
-import decorateExternalLinksUtility, { isExternalLink } from '../../scripts/utils.js';
+import decorateExternalLinksUtility, { isExternalLink, createIcon } from '../../scripts/utils.js';
 import { fetchPlaceholders } from '../../scripts/placeholders.js';
 
 // Constants for maintainability
@@ -637,8 +637,11 @@ function buildMenuItem(block, isNavigation = false) {
   const currentParentPage = segments[0];
   const li = createElement('li', { className: `menu-${slug}` });
   const button = createElement('button', {
-    attributes: { type: 'button', 'aria-haspopup': 'true', 'aria-expanded': 'false' },
+    attributes: {
+      type: 'button', 'aria-haspopup': 'true', 'aria-expanded': 'false', 'aria-label': slug,
+    },
   });
+  if (!label) button.setAttribute('aria-label', block.dataset.type);
   if (currentParentPage === slug) {
     button.classList.add('selected');
   }
@@ -810,7 +813,22 @@ export default async function decorate(block) {
   // Brand (Logo)
   const brandBlock = header.querySelector('.navigation-content[data-type="logo"]');
   if (brandBlock) {
-    const brandImg = brandBlock.querySelector('picture');
+    let brandImg = brandBlock.querySelector('picture');
+
+    if (!brandImg) {
+      const anchorTag = brandBlock.querySelector('a');
+
+      if (anchorTag?.href) {
+        brandImg = createIcon(anchorTag.href, 'image');
+
+        const imageElement = brandImg?.querySelector('img');
+
+        if (imageElement) {
+          imageElement.alt = anchorTag.title?.trim() || '';
+          imageElement.loading = 'lazy';
+        }
+      }
+    }
     const brand = createElement('div', { className: 'section nav-brand nav-item-level-0' });
     const wrapper = createElement('div', { className: 'default-content-wrapper' });
     const p = createElement('p');
@@ -898,6 +916,25 @@ export default async function decorate(block) {
   nav.setAttribute('aria-expanded', 'false');
   // prevent mobile nav behavior on window resize
   isDesktop.addEventListener('change', () => toggleMenu(nav, navSections, isDesktop.matches));
+
+  // Toggle mega-menu minimize based on viewport height (debounced on resize)
+  let resizeTimer;
+  const updateMegaMenuMinimize = () => {
+    if (!isDesktop.matches) return;
+    nav.querySelectorAll('[id^="submenu-"]').forEach((submenu) => {
+      if (isDesktopHeight.matches) {
+        submenu.classList.add('mega-menu-minimize');
+      } else {
+        submenu.classList.remove('mega-menu-minimize');
+      }
+    });
+  };
+  isDesktopHeight.addEventListener('change', updateMegaMenuMinimize);
+  // Debounced resize — fires once after resizing stops
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(updateMegaMenuMinimize, 300);
+  });
 
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';

@@ -20,8 +20,8 @@
               "ariaHidden": false,
               "iconPosition": "after",
               "classes": "default-cta",
-              "language": "lang:none",
-              "blockId": "id:"
+              "language": "none",
+              "blockId": ""
             }
           }
         }

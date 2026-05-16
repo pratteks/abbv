@@ -1,7 +1,7 @@
 import { applyCommonProps } from '../../scripts/utils.js';
 
 export default function decorate(block) {
-  applyCommonProps(block);
+  applyCommonProps(block, 0);
   [...block.children].forEach((row) => {
     const cells = Array.from(row.children);
 

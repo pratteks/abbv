@@ -23,16 +23,17 @@
               "posterType": "brightcove",
               "posterImage": "",
               "posterAlt": "",
-              "colorOverlay": "",
+              "colorOverlay": "none",
               "overlayButtonText": "Watch Video",
               "overlayButtonIconType": "icon-font",
               "overlayButtonFontIcon": "play",
               "overlayButtonImageIcon": "",
               "iconPosition": "left",
-              "videoContentLayout": "bottom",
-              "playlistLayout": "right",
+              "videoContentLayout": "none",
               "playlistType": "carousel",
               "enablePlaylistThumbnailMetadata": false,
+              "captionTitle": "",
+              "captionDescription": "",
               "enableAutoplay": false,
               "enableLoop": false,
               "enableCaptions": false,
@@ -54,7 +55,9 @@
               "transcriptLink": "",
               "transcriptLinkIconPosition": "after",
               "playButtonAriaLabel": "",
-              "videoCaption": ""
+              "videoCaption": "",
+              "language": "none",
+              "blockId": ""
             }
           }
         }
@@ -122,7 +125,7 @@
           "name": "posterImage",
           "label": "Poster Image",
           "description": "Image overlay shown before play",
-          "configUrl": "https://dm--dev-abbvie-corporate-us-en--abbvie.aem.live/tools/assets-selector/image.config.json",
+          "configUrl": "/content/dam/config/image/asset-selector.json",
           "multi": false,
           "condition": {
             "===": [
@@ -155,12 +158,12 @@
           }
         },
         {
-          "component": "text",
+          "component": "select",
           "valueType": "string",
           "name": "colorOverlay",
-          "value": "",
+          "value": "none",
           "label": "Color Overlay",
-          "description": "Solid background color overlay before play (e.g. #071d49)",
+          "description": "Solid background color overlay before play",
           "condition": {
             "===": [
               {
@@ -168,7 +171,17 @@
               },
               "color"
             ]
-          }
+          },
+          "options": [
+            {
+              "name": "None",
+              "value": "none"
+            },
+            {
+              "name": "Navy (solid dark blue)",
+              "value": "#071D49"
+            }
+          ]
         },
         {
           "component": "text",
@@ -390,7 +403,7 @@
           "component": "select",
           "valueType": "string",
           "name": "videoContentLayout",
-          "value": "bottom",
+          "value": "none",
           "label": "Video Content Layout",
           "description": "Layout for title/description relative to video",
           "options": [
@@ -413,44 +426,6 @@
           ]
         },
         {
-          "component": "select",
-          "valueType": "string",
-          "name": "playlistLayout",
-          "value": "right",
-          "label": "Playlist Layout",
-          "description": "Placement of playlist items relative to video",
-          "condition": {
-            "===": [
-              {
-                "var": "playerType"
-              },
-              "playlist"
-            ]
-          },
-          "options": [
-            {
-              "name": "None",
-              "value": "none"
-            },
-            {
-              "name": "Top",
-              "value": "top"
-            },
-            {
-              "name": "Left",
-              "value": "left"
-            },
-            {
-              "name": "Bottom",
-              "value": "bottom"
-            },
-            {
-              "name": "Right",
-              "value": "right"
-            }
-          ]
-        },
-        {
           "component": "boolean",
           "valueType": "boolean",
           "name": "enablePlaylistThumbnailMetadata",
@@ -465,6 +440,38 @@
               "playlist"
             ]
           }
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "captionTitle",
+          "value": "",
+          "label": "Caption Text",
+          "description": "Caption title required to display below video player."
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "captionDescription",
+          "value": "",
+          "label": "Caption Description",
+          "description": "Caption description required to display below video player."
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "playButtonAriaLabel",
+          "value": "",
+          "label": "Play Button ARIA Label",
+          "description": "Applies to the play button in overlay as aria-label"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "videoCaption",
+          "value": "",
+          "label": "Video Caption",
+          "description": "Caption Title for video used by screen readers."
         },
         {
           "component": "tab",
@@ -884,24 +891,20 @@
         },
         {
           "component": "tab",
-          "label": "Accessibility",
-          "name": "accessibility"
+          "label": "Styles",
+          "name": "styles"
         },
         {
-          "component": "text",
-          "valueType": "string",
-          "name": "playButtonAriaLabel",
+          "component": "ngaem:dynamic-picklist",
+          "name": "classes_customDynamicClass",
           "value": "",
-          "label": "Play Button ARIA Label",
-          "description": "Applies to the play button in overlay as aria-label"
+          "label": "Select Block Styles",
+          "valueType": "string",
+          "sourceAEMNodeName": "video-picklist-config",
+          "valueSeperator": ","
         },
         {
-          "component": "text",
-          "valueType": "string",
-          "name": "videoCaption",
-          "value": "",
-          "label": "Video Caption",
-          "description": "Caption for video"
+          "...": "../../models/_common-properties.json#/common-prop"
         }
       ]
     }

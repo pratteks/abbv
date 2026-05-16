@@ -16,12 +16,11 @@
  *   9: filterImageIcon (conditional)
  *   10: clearAllLabel
  *   11: applyLabel
- *   12: analyticsInteractionId
- *   13+: common properties (id, customClass, language — via applyCommonProps)
+ *   12+: common properties (id, language, analyticsId — via applyCommonProps)
  */
 
 import { resolveImageReference } from '../../scripts/scripts.js';
-import { applyCommonProps } from '../../scripts/utils.js';
+import { applyCommonProps, createIcon, extractIconSource } from '../../scripts/utils.js';
 
 const TAGS_STORAGE_KEY = 'pipeline-tags';
 
@@ -141,34 +140,29 @@ const ROW = {
   FILTER_IMAGE_ICON: 9,
   CLEAR_LABEL: 10,
   APPLY_LABEL: 11,
-  ANALYTICS_ID: 12,
 };
 
 function getCellText(row) {
   return row?.firstElementChild?.textContent?.trim() ?? '';
 }
 
-function getCellImage(row) {
-  if (!row) return null;
-  resolveImageReference(row.firstElementChild || row);
-  const img = row.querySelector('img');
-  return img ? img.getAttribute('src') : null;
+function getCellIconSource(row) {
+  if (!row) return '';
+  const cell = row.firstElementChild || row;
+  resolveImageReference(cell);
+  return extractIconSource(cell);
 }
 
 function buildIcon(type, fontName, imageSrc, cls) {
-  if ((type === 'search-image' || type === 'sort-image' || type === 'filter-image') && imageSrc) {
-    const img = document.createElement('img');
-    img.src = imageSrc;
-    img.alt = '';
-    img.setAttribute('aria-hidden', 'true');
-    img.className = cls;
-    return img;
-  }
   if ((type === 'search-icon-font' || type === 'sort-icon-font' || type === 'filter-icon-font') && fontName) {
-    const span = document.createElement('span');
-    span.className = `${'pipeline-nav-icon'} ${cls} ${fontName}`;
-    span.setAttribute('aria-hidden', 'true');
-    return span;
+    return createIcon(fontName, 'icon-font', {
+      additionalClasses: ['pipeline-nav-icon', cls],
+    });
+  }
+  if ((type === 'search-image' || type === 'sort-image' || type === 'filter-image') && imageSrc) {
+    return createIcon(imageSrc, 'image', {
+      additionalClasses: cls,
+    });
   }
   return null;
 }
@@ -492,7 +486,7 @@ function buildFilterPanel(config, cats) {
 
 export default async function decorate(block) {
   // Apply common properties (id, language) from _common-properties.json
-  applyCommonProps(block);
+  applyCommonProps(block, 12);
 
   const rows = [...block.children];
 
@@ -515,22 +509,19 @@ export default async function decorate(block) {
     pharmaceuticalPath: getCellText(rows[ROW.PHARMACEUTICAL_PATH]),
     devicesPath: getCellText(rows[ROW.DEVICES_PATH]),
     searchFontIcon: getCellText(rows[ROW.SEARCH_FONT_ICON]),
-    searchImageIcon: getCellImage(rows[ROW.SEARCH_IMAGE_ICON]),
+    searchImageIcon: getCellIconSource(rows[ROW.SEARCH_IMAGE_ICON]),
     sortFontIcon: getCellText(rows[ROW.SORT_FONT_ICON]),
-    sortImageIcon: getCellImage(rows[ROW.SORT_IMAGE_ICON]),
+    sortImageIcon: getCellIconSource(rows[ROW.SORT_IMAGE_ICON]),
     filterFontIcon: getCellText(rows[ROW.FILTER_FONT_ICON]),
-    filterImageIcon: getCellImage(rows[ROW.FILTER_IMAGE_ICON]),
+    filterImageIcon: getCellIconSource(rows[ROW.FILTER_IMAGE_ICON]),
     clearLabel: getCellText(rows[ROW.CLEAR_LABEL]),
     applyLabel: getCellText(rows[ROW.APPLY_LABEL]),
-    analyticsId: getCellText(rows[ROW.ANALYTICS_ID]),
     searchIconType,
     sortIconType,
     filterIconType,
   };
 
   block.textContent = '';
-
-  if (config.analyticsId) block.setAttribute('data-analytics-id', config.analyticsId);
 
   const nav = document.createElement('div');
   nav.className = 'pipeline-nav';
